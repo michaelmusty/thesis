@@ -43,6 +43,7 @@
 % Additional Packages (add as desired)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsmath,amssymb,amsthm}
+\usepackage{lipsum}
 
 %\usepackage{index} %Uncomment if you would like to have an index. Compiling with an index takes more work than compiling without one. You will have to look up how to use the index package.
 
@@ -61,6 +62,11 @@
 %  These commands have lowercase headings with chapter numbers. 
 %\renewcommand{\chaptermark}[1]{markboth{#1}{}}
 %\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}} 
+\newcommand{\PP}{\mathbb P}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\defi}[1]{\textsf{#1}}
 		
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theorem Declarations
@@ -128,10 +134,10 @@ Preface and Acknowledgments go here!
 \tableofcontents
 
 %Add a list of tables
-%\listoftables
+\listoftables
 
 %Add a list of figures
-%\listoffigures
+\listoffigures
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Main Portion of Thesis
@@ -144,27 +150,98 @@ Preface and Acknowledgments go here!
 
 % \include{chapter1}
 
-\chapter{First Chapter}{
-  Every good story begins with a twist.
-  Let's test it out and see how it goes.
-  Beginning to ending, just spin around!
-  \section[Shorter Title]{Section with an Unnecessarily Long Title}
-  Every good story begins with a twist.
-  Let's test it out and see how it goes.
-  \cite{serre}
-  Beginning to ending, just spin around!
-  \subsection{Example of a subsection}
-  Every good story begins with a twist.
-  Let's test it out and see how it goes.
-  Beginning to ending, just spin around!
-  \subsubsection{Subsubsections, the final formatted heading}
-  Every good story begins with a twist.
-  Let's test it out and see how it goes.
-  Beginning to ending, just spin around!
-  \section{A Second Section}
-  Every good story begins with a twist.
-  Let's test it out and see how it goes.
-  Beginning to ending, just spin around!
+\chapter{Introduction}{\label{chapter:intro}
+  \section{Belyi maps from a historical perspective}{
+    \lipsum[1]
+    \cite{serre}
+    \subsection[Inverse Galois theory]{Inverse Galois theory, Hurwitz families, and fields with few ramified primes}{
+      \lipsum[1]
+      \subsubsection{Inverse Galois theory}{
+        \lipsum[1]
+      }
+      \subsubsection{Hurwitz families}{
+        \lipsum[1]
+      }
+      \subsubsection{Number fields with few ramified primes}{
+        \lipsum[1]
+      }
+    }
+    \subsection[Dessins d'enfants]{Grothendieck's theory of dessins d'enfants}{
+      \lipsum[1]
+    }
+  }
+  \section{Belyi maps from a modern perspective}{
+    \lipsum[1]
+    \subsection{Anabelian geometry}{
+      \lipsum[1]
+    }
+  }
+}
+\chapter{Background}{\label{chapter:background}
+  \section{Belyi maps}{\label{sec:belyimaps}
+    \lipsum[1]
+    \subsection{Algebraic curves and their function fields}{
+      \lipsum[1]
+    }
+    \subsection{Riemann's existence theorem and covers of $\PP^1$}{
+      \lipsum[1]
+    }
+    \subsection{Belyi's theorem}{
+      \lipsum[1]
+    }
+    \subsection{Belyi maps and $G$-Belyi maps}{
+      \lipsum[1]
+    }
+  }
+  \section{Group theory}{
+    \lipsum[1]
+    \subsection{Central group extensions and $H^2(G,A)$}{
+      \lipsum[1]
+    }
+    \subsection{Holt's algorithm and \texttt{Magma} implementation}{
+      \lipsum[1]
+    }
+    \subsection{Results on $2$-groups}{
+      \lipsum[1]
+    }
+  }
+  \section{Jacobians of curves}{
+    \lipsum[1]
+    \subsection{Abel-Jacobi and the construction over $\CC$}{
+      \lipsum[1]
+    }
+    \subsection{Algebraic construction}{
+      \lipsum[1]
+    }
+    \subsection{Riemann-Roch}{
+      \lipsum[1]
+    }
+    \subsection{Torsion points and torsion fields}{
+      \lipsum[1]
+    }
+  }
+  \section{Galois representations}{
+    \lipsum[1]
+    \subsection{Representations of Galois groups of number fields}{
+      \lipsum[1]
+    }
+    \subsection{Representations coming from geometry}{
+      \lipsum[1]
+    }
+  }
+}
+\chapter{A database of $2$-group Belyi maps}{\label{chapter:database}
+  \section{$2$-group Belyi maps}{\label{sec:defs}
+    Recall the definition of a Belyi map in Section \ref{sec:belyimaps}.
+    In this section we define a narrow our focus to a more specific family of Belyi maps
+    which we now describe.
+    \begin{definition}
+      A degree $d$ Belyi map $\phi$ with monodromy group $G$
+      is said to be \defi{Galois} if $\#G = d$.
+    \end{definition}
+  }
+  \section{An algorithm to enumerate isomorphism classes of $2$-group Belyi maps}{
+  }
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
