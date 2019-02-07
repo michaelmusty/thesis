@@ -12,7 +12,7 @@
 %You can also use the copyright option to add a copyright.  Note:
 %final will enforce a bunch of different options, like oneside, 12pt
 %and doublespacing, as well as make the margins correct.   Draft, has
-%larger margins and is appropriate for twosided printing.   
+%larger margins and is appropriate for two sided printing.   
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -42,8 +42,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Additional Packages (add as desired)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage{amsmath,amssymb,amsthm}
+\usepackage{amsmath,amssymb,amsthm,amsxtra}
 \usepackage{lipsum}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{colonequals}
+\usetikzlibrary{arrows,calc,automata,shadows,backgrounds,positioning,intersections,fadings,decorations.pathreplacing,shapes,snakes, matrix}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/.cd, arrow style = tikz, diagrams = {>=latex}}
+\tikzset{>=latex}
 
 %\usepackage{index} %Uncomment if you would like to have an index. Compiling with an index takes more work than compiling without one. You will have to look up how to use the index package.
 
@@ -53,8 +60,8 @@
 %  Change or add to as desired. 
 %  These two commands make the first enumerations look like (a)
 %  And the second level like (i).  
-\renewcommand{\labelenumi}{(\alph{enumi})}
-\renewcommand{\labelenumii}{(\roman{enumii})}
+% \renewcommand{\labelenumi}{(\alph{enumi})}
+% \renewcommand{\labelenumii}{(\roman{enumii})}
 %  These commands make the section headings Boldface and not all
 %  caps. It also removes the chapter numbers  
 \renewcommand{\chaptermark}[1]{\markboth{{\sc #1}}{{\sc #1}}}
@@ -66,8 +73,15 @@
 \newcommand{\CC}{\mathbb C}
 \newcommand{\QQ}{\mathbb Q}
 \newcommand{\ZZ}{\mathbb Z}
+\renewcommand{\AA}{\mathbb A}
 \newcommand{\defi}[1]{\textsf{#1}}
-		
+\newcommand{\jv}[1]{{\color{red} \sf JV: [#1]}}
+\newcommand{\mm}[1]{{\color{blue} \sf MM: [#1]}}
+\newcommand{\wt}[1]{\widetilde{#1}}
+
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\ddiv}{div}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theorem Declarations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -78,15 +92,16 @@
 \newtheorem{corr}[prop]{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}[prop]{Definition}
+\newtheorem{alg}[prop]{Algorithm}
 \theoremstyle{remark}
 \newtheorem{remark}[prop]{Remark}
 \newtheorem{example}[prop]{Example}
 \newtheorem*{claim}{Claim}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Indicies
+%Indices
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%This is for an index.  More work is neede for a notation index
+%This is for an index.  More work is needed for a notation index
 %\makeindex
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -103,7 +118,7 @@
 \date{\today}
 \field{Mathematics}
 \degree{Doctor of Philosophy}
-%As an optional arguement to \committee you can specify the dean of graduate studies.
+%As an optional argument to \committee you can specify the dean of graduate studies.
 \committee{John Voight}{Thomas Shemanske}{David Roberts}{Carl Pomerance}
 
 \begin{document}
@@ -231,16 +246,128 @@ Preface and Acknowledgments go here!
   }
 }
 \chapter{A database of $2$-group Belyi maps}{\label{chapter:database}
+  In this chapter we describe an algorithm \mm{method?}
+  to generate all $2$-group Belyi maps up to a given degree.
+  We begin by defining this particular family of Belyi maps in Section \ref{sec:defs}.
+  The algorithm is inductive in the degree.
+  The base case in degree $2$ is discussed in Section \ref{sec:degree2}.
+  We then move on to describe the inductive step of the algorithm
+  which we describe in two parts.
+  First we discuss the algorithm to enumerate the isomorphism classes
+  using permutation triples in Section \ref{sec:isoclasses}.
+  For a discussion on the relationship between permutation triples and Belyi maps
+  see Chapter \ref{chapter:belyimaps}.
+  Next we discuss the inductive step to produce Belyi curves and maps in Section \ref{sec:curvesandmaps}.
+  In Section \ref{sec:runtime} we give a detailed description of the running time of the algorithm.
+  Lastly,
+  in Section \ref{sec:computations},
+  we discuss the implementation and computations that we have carried out explicitly.
   \section{$2$-group Belyi maps}{\label{sec:defs}
     Recall the definition of a Belyi map in Section \ref{sec:belyimaps}.
     In this section we define a narrow our focus to a more specific family of Belyi maps
     which we now describe.
-    \begin{definition}
+    \begin{definition}\label{def:galois}
       A degree $d$ Belyi map $\phi$ with monodromy group $G$
       is said to be \defi{Galois} if $\#G = d$.
     \end{definition}
+    \begin{definition}\label{def:2groupbelyi}
+      A \defi{$2$-group Belyi map} is a Galois Belyi map
+      with monodromy group a $2$-group.
+    \end{definition}
+    \mm{some exposition}
   }
-  \section{An algorithm to enumerate isomorphism classes of $2$-group Belyi maps}{
+  \section{Degree $2$ Belyi maps}{\label{sec:degree2}
+    \lipsum[1]
+  }
+  \section{An algorithm to enumerate isomorphism classes of $2$-group Belyi maps}{\label{sec:isoclasses}
+    \begin{alg}\label{alg:triples}
+    \end{alg}
+  }
+  \pagebreak
+  \section{An algorithm to compute $2$-group Belyi curves and maps}{\label{sec:curvesandmaps}
+    The algorithm we describe here is inductive.
+    The base case is discussed in Section \ref{sec:degree2}.
+    We now set up some notation for the inductive step.
+    First we assume
+    we have computed a $2$-group Belyi map $\phi:X\to\PP^1_k$ of degree
+    $d=2^n$ with monodromy group $G\colonequals\langle\sigma\rangle$
+    where $\sigma$ is a permutation triple corresponding to $\phi$
+    and $k$ is a number field.
+    We will assume $X$ is a projective curve sitting inside $\PP^n_k$
+    with coordinates $x=[x_0:\dots:x_n]$ and
+    cut out by the equations $\{h_i(x)=0\}$ with $h_i\in k[x_0,\dots,x_n]$.
+    We also assume that the Belyi map $\phi$ is given by
+    \[
+      [x_0:\dots:x_n]\mapsto [x_0:x_n].
+    \]
+    We will use $Y\subset\AA^n_k$ to denote an affine patch of $X$ with coordinates
+    $y=(y_1,\dots,y_n)$ cut out by the equations $\{g_i(y)=0\}_{i=1}^k$ with
+    $g_i\in k[y_1,\dots,y_n]$.
+    In the affine patch we assume the Belyi map is given by
+    \[
+      (y_1,\dots,y_n)\mapsto y_1.
+    \]
+    \mm{notation for residue fields?}
+    Moreover, we assume
+    that we are given a permutation triple $\wt{\sigma}$ arising as the output
+    of Algorithm \ref{alg:triples} applied to the input $\sigma$.
+    Algorithm \ref{alg:lift} describes how to lift the degree $d$ Belyi map $\phi$
+    to a degree $2d$ Belyi map $\wt{\phi}$ with ramification prescribed by $\wt{\sigma}$
+    (see Figure \ref{fig:lift}).
+    \begin{figure}[ht]
+      \label{fig:lift}
+      \[
+        \begin{tikzcd}[ampersand replacement=\&]
+          \widetilde{X}\arrow{dd}[swap]{\widetilde{\phi}}\arrow{dr}{\psi}\\
+          % \widetilde{X}\arrow{dd}[swap]{\widetilde{\phi}}\arrow{dr}{\text{degree 2}}\\
+          \&X\arrow{dl}{\phi}\\
+          \PP^1
+        \end{tikzcd}
+      \]
+      \caption{
+        In Algorithm \ref{alg:lift} we construct $\wt{\phi}$
+        from a given $2$-group Belyi map $\phi$.
+      }
+    \end{figure}
+    We are now ready to describe the algorithm.
+    \begin{alg}\label{alg:lift}
+      Let the notation be as above.
+      \newline
+      \textbf{Input}: $\phi:X\to\PP^1_k$, $\wt{\sigma}$
+      \begin{enumerate}
+        \item
+          Compare permutation triples $\sigma$ and $\wt{\sigma}$
+          to determine the ramification values of $\psi$.
+          Denote these points on $X$ by $\{Q_i\}$.
+        \item
+          Let $D = \sum_{P}n_PP$ be a degree $0$ divisor in
+          $\Div(X)$ with every $n_{Q_i}$ odd.
+          \mm{class group and base field}
+        \item
+          Compute $f\in k(X)$ corresponding to a generator
+          of the $1$-dimensional Riemann-Roch space $L(D)$.
+        \item
+          Write $f=a/b$ with $a,b\in k[y_1,\dots,y_n]$ and construct the ideal
+          \[
+            \wt{I}\colonequals\langle g_1,\dots,g_k, by_{n+1}^2-a\rangle
+          \]
+          in $k[y_1,\dots,y_n,y_{n+1}]$.
+        \item
+          Saturate $\wt{I}$ at $\langle b\rangle$ and denote this ideal by $\wt{J}$.
+        \item
+          Let $\wt{X}$ be the curve corresponding to $\wt{J}$ and
+          $\wt{\phi}$ the map $(y_1,\dots,y_{n+1})\mapsto y_1$.
+      \end{enumerate}
+      \textbf{Output}: $\wt{\phi}:\wt{X}\to\PP^1_k$
+    \end{alg}
+    \begin{proof}[Proof of correctness]
+    \end{proof}
+    \begin{example}
+    \end{example}
+  }
+  \section{Running time analysis}{\label{sec:runtime}
+  }
+  \section{Explicit computations}{\label{sec:computations}
   }
 }
 
