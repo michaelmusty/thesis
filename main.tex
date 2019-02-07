@@ -86,17 +86,23 @@
 % Theorem Declarations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % A basic set of theorem declarations.  Add or remove as desired. 
-\newtheorem{prop}{Proposition}[chapter]
+% \newtheorem{prop}{Proposition}[chapter]
+\newtheorem{prop}{Proposition}[section]
 \newtheorem{theorem}[prop]{Theorem}
 \newtheorem{lemma}[prop]{Lemma}
 \newtheorem{corr}[prop]{Corollary}
 \theoremstyle{definition}
 \newtheorem{definition}[prop]{Definition}
 \newtheorem{alg}[prop]{Algorithm}
+\newtheorem{notation}[prop]{Notation}
 \theoremstyle{remark}
 \newtheorem{remark}[prop]{Remark}
 \newtheorem{example}[prop]{Example}
 \newtheorem*{claim}{Claim}
+% numberwithin section for equations and figures
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+% \renewcommand{\thefigure}{\arabic{figure}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Indices
@@ -250,7 +256,7 @@ Preface and Acknowledgments go here!
   to generate all $2$-group Belyi maps up to a given degree.
   We begin by defining this particular family of Belyi maps in Section \ref{sec:defs}.
   The algorithm is inductive in the degree.
-  The base case in degree $2$ is discussed in Section \ref{sec:degree2}.
+  The base case in degree $1$ is discussed in Section \ref{sec:degree1}.
   We then move on to describe the inductive step of the algorithm
   which we describe in two parts.
   First we discuss the algorithm to enumerate the isomorphism classes
@@ -276,44 +282,45 @@ Preface and Acknowledgments go here!
     \end{definition}
     \mm{some exposition}
   }
-  \section{Degree $2$ Belyi maps}{\label{sec:degree2}
-    \lipsum[1]
+  \section{Degree $1$ Belyi maps}{\label{sec:degree1}
   }
   \section{An algorithm to enumerate isomorphism classes of $2$-group Belyi maps}{\label{sec:isoclasses}
     \begin{alg}\label{alg:triples}
     \end{alg}
   }
-  \pagebreak
   \section{An algorithm to compute $2$-group Belyi curves and maps}{\label{sec:curvesandmaps}
-    The algorithm we describe here is inductive.
-    The base case is discussed in Section \ref{sec:degree2}.
-    We now set up some notation for the inductive step.
-    First we assume
-    we have computed a $2$-group Belyi map $\phi:X\to\PP^1_k$ of degree
-    $d=2^n$ with monodromy group $G\colonequals\langle\sigma\rangle$
-    where $\sigma$ is a permutation triple corresponding to $\phi$
-    and $k$ is a number field.
-    We will assume $X$ is a projective curve sitting inside $\PP^n_k$
-    with coordinates $x=[x_0:\dots:x_n]$ and
-    cut out by the equations $\{h_i(x)=0\}$ with $h_i\in k[x_0,\dots,x_n]$.
-    We also assume that the Belyi map $\phi$ is given by
-    \[
-      [x_0:\dots:x_n]\mapsto [x_0:x_n].
-    \]
-    We will use $Y\subset\AA^n_k$ to denote an affine patch of $X$ with coordinates
-    $y=(y_1,\dots,y_n)$ cut out by the equations $\{g_i(y)=0\}_{i=1}^k$ with
-    $g_i\in k[y_1,\dots,y_n]$.
-    In the affine patch we assume the Belyi map is given by
-    \[
-      (y_1,\dots,y_n)\mapsto y_1.
-    \]
-    \mm{notation for residue fields?}
-    Moreover, we assume
-    that we are given a permutation triple $\wt{\sigma}$ arising as the output
-    of Algorithm \ref{alg:triples} applied to the input $\sigma$.
-    Algorithm \ref{alg:lift} describes how to lift the degree $d$ Belyi map $\phi$
-    to a degree $2d$ Belyi map $\wt{\phi}$ with ramification prescribed by $\wt{\sigma}$
-    (see Figure \ref{fig:lift}).
+    The algorithm we describe here is iterative.
+    The degree $1$ case is discussed in Section \ref{sec:degree1}.
+    We now set up some notation for the iteration.
+    \begin{notation}\label{not:maps}
+      First we suppose
+      we are given the following data:
+      \begin{itemize}
+        \item
+          $X\subset\PP^n_K$ defined over a number field $K$
+          with coordinates $x_0,\dots,x_n$
+          cut out by the equations $\{h_i=0\}_i$ with $h_i\in K[x_0,\dots,x_n]$
+        \item
+          $\phi:X\to\PP^1$ a $2$-group Belyi map of degree $d=2^n$
+          given by $\phi([x_0:\dots:x_n])=[x_0:x_1]$
+          with monodromy group $G = \langle\sigma\rangle$
+          (necessarily a $2$-group)
+          with $\sigma$ a permutation triple corresponding to $\phi$
+        \item
+          $Y\subset\AA^n_K$ the affine patch of $X$ with $x_0\neq 0$
+          with coordinates $(y_1,\dots,y_n)$ where $y_i = x_i/x_0$
+          cut out by the equations $\{g_i=0\}_i$ with $g_i\in K[y_1,\dots,y_n]$
+          so that $\phi:Y\to\AA^1$ is given by $\phi(y_1,\dots,y_n) = y_1$
+        \item
+          $\wt{\sigma}$ as in the output of Algorithm \ref{alg:triples}
+          applied to the input $\sigma$
+      \end{itemize}
+      Algorithm \ref{alg:lift} below
+      describes how to lift the degree $d$ Belyi map $\phi$
+      to a degree $2d$ Belyi map $\wt{\phi}$ with ramification prescribed by $\wt{\sigma}$
+      (see Figure \ref{fig:lift})
+      as follows
+    \end{notation}
     \begin{figure}[ht]
       \label{fig:lift}
       \[
@@ -329,11 +336,11 @@ Preface and Acknowledgments go here!
         from a given $2$-group Belyi map $\phi$.
       }
     \end{figure}
-    We are now ready to describe the algorithm.
     \begin{alg}\label{alg:lift}
-      Let the notation be as above.
+      Let the notation be as described above in \ref{not:maps}.
       \newline
       \textbf{Input}: $\phi:X\to\PP^1_k$, $\wt{\sigma}$
+      \textbf{Output}: $\wt{\phi}:\wt{X}\to\PP^1_k$
       \begin{enumerate}
         \item
           Compare permutation triples $\sigma$ and $\wt{\sigma}$
@@ -358,7 +365,6 @@ Preface and Acknowledgments go here!
           Let $\wt{X}$ be the curve corresponding to $\wt{J}$ and
           $\wt{\phi}$ the map $(y_1,\dots,y_{n+1})\mapsto y_1$.
       \end{enumerate}
-      \textbf{Output}: $\wt{\phi}:\wt{X}\to\PP^1_k$
     \end{alg}
     \begin{proof}[Proof of correctness]
     \end{proof}
