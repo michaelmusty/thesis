@@ -279,8 +279,8 @@ Preface and Acknowledgments go here!
   }
 }
 \chapter{A database of $2$-group Belyi maps}{\label{chapter:database}
-  In this chapter we describe an algorithm \mm{method?}
-  to generate all $2$-group Belyi maps up to a given degree.
+  In this chapter we describe an algorithm
+  to generate $2$-group Belyi maps of a given degree.
   We begin by defining this particular family of Belyi maps in Section \ref{sec:defs}.
   The algorithm is inductive in the degree.
   The base case in degree $1$ is discussed in Section \ref{sec:degree1}.
@@ -513,10 +513,150 @@ Preface and Acknowledgments go here!
       as we range over all possible extensions in Step 1,
       and by the discussion for Step 2 yields the desired output.
     \end{proof}
-    We
+    We now illustrate Algorithm \ref{alg:triples}
+    with the following example.
     \begin{example}\label{exm:lift}
-      \mm{copypaste}
+      In this example we carry out Algorithm \ref{alg:triples} for
+      the degree $2$ permutation triple
+      $\sigma = ((1\,2),(1)(2),(1\,2))$.
+      Here $G = \langle\sigma\rangle\cong\ZZ/2\ZZ$.
+      In Step 1,
+      we obtain two group extensions
+      $\wt{G}_1\cong\ZZ/2\ZZ\times\ZZ/2\ZZ$
+      and
+      $\wt{G}_2\cong\ZZ/4\ZZ$:
+      \begin{figure}[ht]
+        \[
+          \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+            1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota_1}\&\wt{G}_1\arrow{r}{\pi_1}\&G\arrow{r}\&1
+          \end{tikzcd}
+        \]
+        \[
+          \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+            1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota_2}\&\wt{G}_2\arrow{r}{\pi_2}\&G\arrow{r}\&1
+          \end{tikzcd}
+        \]
+        \caption{Two extensions of $G$ in Example \ref{exm:lift}}
+        \label{fig:liftexampleextensions}
+      \end{figure}
+      We will consider the two extensions separately:
+      \begin{itemize}
+        \item
+          For $\wt{G}_1$, we have
+          \begin{align*}
+            \Lifts(\sigma) =
+            &\Big\{
+              ((1\,2)(3\,4), (1)(2)(3)(4), (1\,2)(3\,4)),
+              ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,3)),\\
+            &((1\,4)(2\,3), (1)(2)(3)(4), (1\,4)(2\,3)),
+              ((1\,4)(2\,3), (1\,3)(2\,4), (1\,2)(3\,4))
+            \Big\}
+          \end{align*}
+          Before we continue with the algorithm,
+          let us take a moment to explain this more closely in the following remark.
+          \begin{remark}\label{rem:actiononblocks}
+            First, note that the image of $\iota_1$ is an order $2$ subgroup of
+            $\wt{G}_1$.
+            Let $\tau\in\wt{G}_1$ denote the generator of this image.
+            From the perspective of branched covers,
+            $\tau$ is identifying $4$ sheets in a degree $4$ cover down to $2$ sheets
+            in a degree $2$ cover.
+            Elements $\wt{\sigma}$ of $\Lifts(\sigma)$ must induce a well-defined action on the
+            identified sheets and this action must be compatible with $\sigma$.
+            In this example $\tau = (1\,3)(2\,4)$ meaning that $\tau$
+            identifies the sheets labeled $1$ and $3$ into a single sheet
+            and $\tau$ identifies the sheets labeled $2$ and $4$ into a single sheet.
+            Another way of saying that $\wt{\sigma}$ induces a well-defined
+            action is that $\wt{\sigma}$ acts on the blocks
+            $\left\{\boxed{1\,3},\boxed{2\,4}\right\}$.
+            Saying that this action is compatible with $\sigma$ means that for each
+            $s\in\{0,1,\infty\}$ the induced action of $\wt{\sigma}_s$ on blocks
+            is the same as $\sigma_s$.
+            For
+            \[
+              \wt{\sigma} = ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,4))
+            \]
+            we have
+            $\wt{\sigma}_0\boxed{1\,3} = \boxed{2\,4}$
+            and
+            $\wt{\sigma}_0\boxed{2\,4} = \boxed{1\,3}$
+            so that the induced permutation of blocks is
+            \[
+              \left(\boxed{1\,3},\boxed{2\,4}\right)
+            \]
+            which is the same as the permutation $\sigma_0 = (1\,2)$
+            (as long as we identity $\boxed{1\,3}$ with $1$ and $\boxed{2\,4}$ with $2$).
+          \end{remark}
+          To finish Step 2(a)
+          we only take triples in $\Lifts(\sigma)$ that generate $\wt{G}_1$,
+          so at the end of Step 2(a) for this extension we have
+          \begin{align*}
+            \Lifts(\sigma) =
+            \Big\{
+              ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,3)),
+              ((1\,4)(2\,3), (1\,3)(2\,4), (1\,2)(3\,4))
+            \Big\}.
+          \end{align*}
+          In Step 2(b) we sort $\Lifts(\sigma)$ into passports as determined by orders of elements.
+          Here, all $\wt{\sigma}\in\Lifts(\sigma)$ have the same orders
+          (and hence belong to the same passport).
+          Thus we get a single set $\Lifts(\sigma,(2,2,2)) = \Lifts(\sigma)$.
+          Lastly,
+          in Step 2(c) we see that that the two triples in
+          $\Lifts(\sigma, (2,2,2))$ are simultaneously conjugate
+          (by the permutation $(2\,4)$)
+          and hence we remove one of the triples from $\Lifts(\sigma, (2,2,2))$.
+        \item
+          For $\wt{G}_2$, we have
+          \begin{align*}
+            \Lifts(\sigma) =
+            &\Big\{
+              ((1\,4\,3\,2), (1)(2)(3)(4), (1\,2\,3\,4)),
+              ((1\,2\,3\,4), (1\,3)(2\,4), (1\,2\,3\,4)),\\
+            &((1\,2\,3\,4),  (1)(2)(3)(4), (1\,4\,3\,2)),
+              ((1\,4\,3\,2), (1\,3)(2\,4), (1\,4\,3\,2))
+            \Big\}
+          \end{align*}
+          All $4$ of the above triples in $\Lifts(\sigma)$
+          generate $\wt{G}_2$, so we continue to Step 2(b) with
+          $\#\Lifts(\sigma) = 4$.
+          In Step 2(b),
+          we sort $\Lifts(\sigma)$ into two sets
+          $\Lifts(\sigma, (4,1,4))$ and $\Lifts(\sigma,(4,2,4))$
+          each containing $2$ triples.
+          In Step 2(c),
+          we find that the $2$ triples in $\Lifts(\sigma, (4,1,4))$
+          are simultaneously conjugate
+          (by the permutation $(2\,4)$)
+          and the $2$ triples in $\Lifts(\sigma, (4,2,4))$
+          are simultaneously conjugate
+          (also by the permutation $(2\,4)$),
+          so we remove one permutation triple from each of these sets
+          so that $\Lifts(\sigma, (4,1,4))$
+          and
+          $\Lifts(\sigma, (4,2,4))$ both have cardinality $1$.
+      \end{itemize}
+      In Step 3,
+      we return
+      \[
+        \Lifts(\sigma, (2,2,2))\cup\Lifts(\sigma, (4,1,4))\cup\Lifts(\sigma, (4,2,4))
+      \]
+      which is a set of $3$ permutation triples
+      each corresponding to an isomorphism class of $2$-group Belyi map
+      as in Figure \ref{fig:liftbelyimap}.
     \end{example}
+    Now that we have an algorithm to find all lifts of a single
+    permutation triple,
+    the next step is to describe how to use this
+    to organize all isomorpism classes of $2$-group Belyi maps
+    of a given degree.
+    \begin{alg}\label{alg:alltriples}
+      Let the notation be as described above in \ref{not:triples}.
+      \newline
+      \textbf{Input}: $d = 2^m$ for some positive integer $m$
+      \newline
+      \textbf{Output}: a bipartite graph
+    \end{alg}
   }
   \section{An algorithm to compute $2$-group Belyi curves and maps}{\label{sec:curvesandmaps}
     The algorithm we describe here is iterative.
