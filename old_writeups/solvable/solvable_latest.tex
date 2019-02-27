@@ -1,0 +1,803 @@
+\documentclass[oneside, reqno, 12pt]{amsart}
+  \usepackage{amssymb}
+  \usepackage{amsthm}
+  \usepackage{amsmath}
+  \usepackage{amsxtra}
+  \usepackage{mathrsfs}
+  \usepackage{comment}
+  \usepackage{graphicx}
+  %\usepackage[all]{xy}
+  \usepackage{placeins}
+  \usepackage{multicol}
+  \usepackage{bbm}
+  \usepackage{stmaryrd}
+  \usepackage{enumerate}
+  \usepackage{mathdots}
+  \usepackage{cancel}
+  \usepackage{empheq}
+  \usepackage{hyperref}
+  \usepackage[most]{tcolorbox}
+  \usepackage{epsdice}
+  \usepackage{booktabs}
+
+  \usepackage{calc}
+  \usepackage{tikz}
+  \usetikzlibrary{arrows,calc,automata,shadows,backgrounds,positioning,intersections,fadings,decorations,shapes,matrix}
+  \usepackage{tikz-cd}
+
+  %\usepackage{fullpage}
+
+  \setlength{\hfuzz}{4pt}
+
+  \newtheorem{thm}{Theorem}[subsection]
+  \newtheorem{lem}[thm]{Lemma}
+  \newtheorem{cor}[thm]{Corollary}
+  \newtheorem{conj}[thm]{Conjecture}
+  \newtheorem{prop}[thm]{Proposition}
+  \newtheorem{alg}[thm]{Algorithm}
+  \theoremstyle{definition}
+  \newtheorem{defn} [thm] {Definition}
+  \newtheorem{claim}[thm]{Claim}
+  \newtheorem{example} [thm] {Example}
+  \newtheorem{rem} [thm] {Remark}
+
+  \newenvironment{problab}[1]
+  {\noindent\textbf{Problem #1}.}
+  {\vskip 6pt}
+
+  \newenvironment{exolab}[1]
+  {\noindent\textbf{Exercise #1}.}
+  {\vskip 6pt}
+
+  \theoremstyle{remark}
+  \newtheorem*{soln}{Solution}
+
+  \newenvironment{enumalph}
+  {\begin{enumerate}\renewcommand{\labelenumi}{\textnormal{(\alph{enumi})}}}
+  {\end{enumerate}}
+
+  \newenvironment{enumroman}
+  {\begin{enumerate}\renewcommand{\labelenumi}{\textnormal{(\roman{enumi})}}}
+  {\end{enumerate}}
+
+  \newcommand{\C}{\mathbb C}
+  \newcommand{\D}{\mathbb D}
+  \newcommand{\F}{\mathbb F}
+  \newcommand{\Q}{\mathbb Q}
+  \newcommand{\R}{\mathbb R}
+  \newcommand{\Z}{\mathbb Z}
+  \renewcommand{\S}{\mathbb S}
+  \newcommand{\T}{\mathbb T}
+  \renewcommand{\P}{\mathcal P}
+  \renewcommand{\O}{\mathcal O}
+  \newcommand{\M}{\rm M}
+  \newcommand{\A}{\mathbb A}
+  \newcommand{\V}{\mathbb V}
+  \newcommand{\I}{\mathbb I}
+  \newcommand{\m}{\mathfrak m}
+  \newcommand{\wt}{\widetilde}
+
+  \newcommand{\PP}{\mathbb P}
+
+
+  \newcommand{\gl}{\mathfrak gl}
+  \renewcommand{\sl}{\mathfrak sl}
+  \newcommand{\s}{\mathfrak s}
+
+  \newcommand{\Cov}{\text{Cov}}
+  \newcommand{\charac}{\text{char}}
+
+  \DeclareMathOperator{\Div}{Div}
+  \DeclareMathOperator{\ddiv}{div}
+  \DeclareMathOperator{\Pic}{Pic}
+  \DeclareMathOperator{\res}{res}
+  \DeclareMathOperator{\lcm}{lcm}
+  \DeclareMathOperator{\img}{img}
+  \DeclareMathOperator{\ann}{ann}
+  \DeclareMathOperator{\Tor}{Tor}
+  \DeclareMathOperator{\tr}{tr}
+  \DeclareMathOperator{\Hom}{Hom}
+  \DeclareMathOperator{\End}{End}
+  \DeclareMathOperator{\Aut}{Aut}
+  \DeclareMathOperator{\Gal}{Gal}
+  \DeclareMathOperator{\Spl}{Spl}
+  \DeclareMathOperator{\sgn}{sgn}
+  \DeclareMathOperator{\ord}{ord}
+  \DeclareMathOperator{\ad}{ad}
+  \DeclareMathOperator{\GL}{GL}
+  \DeclareMathOperator{\SL}{SL}
+  \DeclareMathOperator{\Sp}{Sp}
+  \DeclareMathOperator{\Ob}{Ob}
+  \DeclareMathOperator{\nul}{Nul}
+  \DeclareMathOperator{\col}{Col}
+  \DeclareMathOperator{\row}{Row}
+
+  \DeclareMathOperator{\id}{id}
+  \DeclareMathOperator{\Frac}{Frac}
+
+  \newcommand{\Cs}{\mathscr C}
+  \newcommand{\Ds}{\mathscr D}
+  \newcommand{\Fs}{\mathscr F}
+  \newcommand{\Gs}{\mathscr G}
+  \newcommand{\Hs}{\mathscr H}
+  \renewcommand{\I}{\mathbb I}
+  \newcommand{\mm}[1]{{\color{blue} \sf MM: [#1]}}
+  \newcommand{\todo}[1]{{\color{red} \sf TODO: [#1]}}
+  \newcommand{\Belyi}{Bely\u{\i} }
+  \renewcommand{\thesection}{\Roman{section}}
+
+  \tikzset{commutative diagrams/.cd, arrow style = tikz, diagrams = {>=latex}}
+  \tikzset{>=latex}
+
+  \everymath{\displaystyle}
+  \newcommand{\defi}[1]{\textbf{#1}}
+  \setcounter{secnumdepth}{3}
+\title{Solvable Notes}
+\author{Michael Musty}
+\begin{document}
+  \newtcolorbox{details}{breakable, title=Details, colframe=red}
+  \newtcolorbox{notes}{breakable, title=Notes, colframe=gray}
+\maketitle
+\tableofcontents
+\section{\Belyi Maps}{
+  \todo{transitive permutation triples}
+  \todo{function fields}
+  \todo{the solvable story and the analogy with number fields}
+  \todo{iterated quadratic extensions of function fields}
+  \todo{naming convention so we can refer to specific examples}
+}
+\section{Galois Groups and Coverings}{
+  \todo{describe how the iterative procedure leads us to a group theory question}
+  \todo{covering spaces via Rotman}
+}
+\section{An Algorithm to Produce Permutation Triples}{
+  \subsection{Intro}{
+    Let $\sigma$ be a transitive permutation triple \todo{link to previous section where this is defined}.
+    Recall that this means
+    \begin{align*}
+      \sigma = \left(\sigma_0, \sigma_1, \sigma_\infty\right)\in S_d^3,
+      \quad
+      \sigma_\infty\sigma_1\sigma_0 = 1,
+    \end{align*}
+    and $\sigma$ generates a transitive subgroup of $S_d$.
+    As is described in \todo{link},
+    $\sigma$ corresponds to a \Belyi map $\phi: X\to\PP^1$ of degree $d$.
+    Given $\sigma$,
+    we would like to describe all (Galois) \Belyi maps
+    $(\widetilde{X},\widetilde{\phi})$ that are degree $m$ covers
+    of the given \Belyi map $(X,\phi)$.
+    We will only be concerned with the particular case $m=2$,
+    but for now we remain in the more general setting.
+    Put another way, $(\widetilde{X},\widetilde{\phi})$ makes the diagrams
+    \begin{center}
+      \begin{tikzcd}
+        \widetilde{X}\arrow{dd}[swap]{\widetilde{\phi}}\arrow{dr}{\psi}\\
+        &X\arrow{dl}{\phi}\\
+        \PP^1
+      \end{tikzcd}
+      \quad
+      \quad
+      \quad
+      \begin{tikzcd}
+        K(\widetilde{X})\arrow[-]{dd}[swap]{}\arrow[-]{dr}{m}\\
+        &K(X)\arrow[-]{dl}{d}\\
+        K(\PP^1)
+      \end{tikzcd}
+    \end{center}
+    commute.
+    According to Galois theory we have the following
+    (upside down)
+    diagram.
+    \begin{center}
+      \begin{tikzcd}
+        \Gal(K(\widetilde{X})/K(\widetilde{X}))\arrow[-]{dd}[swap]{}\arrow[-]{dr}{m}\\
+        &\Gal(K(\widetilde{X})/K(X))\arrow[-]{dl}{d}\\
+        \Gal(K(\widetilde{X})/K(\PP^1))
+      \end{tikzcd}
+    \end{center}
+    Let $G,\widetilde{G}, H$ denote the Galois groups
+    \begin{align*}
+      G &= \Gal(K(X)/K(\PP^1))\\
+      \widetilde{G} &= \Gal(K(\widetilde{X})/K(\PP^1))\\
+      H &= \Gal(K(\widetilde{X})/K(X)).
+    \end{align*}
+    The above situation can be organized into an exact sequence of groups
+    \begin{center}
+      \begin{tikzcd}
+        1\arrow{r}&H\arrow{r}{\iota}&\widetilde{G}\arrow{r}{f}&G\arrow{r}&1.
+      \end{tikzcd}
+    \end{center}
+    Now recall from section \todo{link}
+    that the groups $\widetilde{G}$ and $G$ are
+    the monodromy groups for $\widetilde{X}$ and $X$ respectively.
+    Thus,
+    there is an action of $\widetilde{G}$
+    on the $md$ sheets of the covering $\widetilde{X}\to\PP^1$
+    and there is an action of $G$ on the $d$ sheets of the covering $X\to\PP^1$.
+    Identifying $H$ with its image $\iota(H)$ in $\widetilde{G}$,
+    we also have an action of $H$ on the $md$ sheets of the covering $\widetilde{X}\to\PP^1$.
+    To summarize,
+    we can view $H\trianglelefteq\widetilde{G}\leq S_{md}$ and $G\leq S_d$.
+    The groups $\widetilde{G}$ and $G$ are transitive since
+    we only consider connected covers.
+    \par
+    Moreover, the action of $\widetilde{G}$ on the $md$ sheets is required to
+    factor through the diagram
+    \begin{center}
+      \begin{tikzcd}
+        \widetilde{X}\arrow{dd}[swap]{\widetilde{\phi}}\arrow{dr}{\psi}\\
+        &X\arrow{dl}{\phi}\\
+        \PP^1
+      \end{tikzcd}.
+    \end{center}
+    To explain,
+    the map $\psi:\widetilde{X}\to X$ is a $m$-sheeted cover
+    and identifies the $md$ sheets of $\widetilde{X}$ into $d$ blocks.
+    From the exact sequence above,
+    we have the diagram
+    \begin{center}
+      \begin{tikzcd}
+        \wt{G}\arrow{rr}{f}\arrow{dr}[swap]{\pi}&&G\\
+        &G/H\arrow{ur}[swap]{\hat{f}}
+      \end{tikzcd}
+    \end{center}
+    with $\hat{f}$ an isomorphism.
+    Let $\wt{g}\in f^{-1}(g)$ for some $g\in G$.
+    According to the above diagrams,
+    $\wt{G}$ must have a well-defined
+    action on the $d$ blocks
+    realizing the element $\wt{g}$
+    as a permutation in $S_d$.
+    \mm{more explanation?}
+    Moreover,
+    the action of $\wt{g}$ on blocks
+    must agree with the action of $g$
+    on $\{1,2,\dots,d\}$.
+    That is,
+    we must have
+    \begin{align*}
+      \hat{f}(\pi(\wt{g})) = f(\wt{g}) = g.
+    \end{align*}
+    \mm{
+      do we need to prove anything here?
+      $G$-equivariant bijection?
+    }
+  }
+  \subsection{Degree $4$}{
+    \begin{example}
+      \todo{$m=2$, $d=4$, the Galois story}
+      Up to isomorphism,
+      there is only one degree $2$
+      \Belyi map $\phi:X\to\PP^1$ corresponding to the
+      permutation triple
+      \begin{align*}
+        \sigma = \left( (1\,2),(1\,2),(1)(2) \right).
+      \end{align*}
+      From $\sigma$ (and the above discussion)
+      we would like to find all $\wt{\sigma}$
+      corresponding to degree $m=2$ covers of $X$
+      that are Galois \Belyi maps.
+      \begin{notes}
+        that is,
+        $\wt{X}\to\PP^1$
+        is degree 4 with monodromy
+        $\wt{G}$ having order 4.
+      \end{notes}
+      That is,
+      $\wt{\sigma}$ correspond to \Belyi maps $(\wt{X},\wt{\phi})$
+      and monodromy groups $\wt{G}$ making the diagrams
+      \begin{center}
+        \begin{tikzcd}
+          \widetilde{X}\arrow{dd}[swap]{\widetilde{\phi}}\arrow{dr}{\psi}\\
+          &X\arrow{dl}{\phi}\\
+          \PP^1
+        \end{tikzcd}
+        \quad
+        \quad
+        \quad
+        \begin{tikzcd}
+          1\arrow[-]{dd}[swap]{4}\arrow[-]{dr}{2}\\
+          &H\arrow[-]{dl}{2}\\
+          \wt{G}
+        \end{tikzcd}
+      \end{center}
+      commute.
+      Since $m=2$,
+      $H$ is an order 2 subgroup of $S_4$
+      that identifies 4 sheets to 2 sheets.
+      Thus $H = \langle\tau\rangle$ with
+      $\tau = (1\,2)(3\,4)$, $\tau = (1\,3)(2\,4)$, or $\tau = (1\,4)(2\,3)$.
+      We choose $\tau = (1\,3)(2\,4)$ so that the identification
+      of sheets corresponds to reducing the sheets modulo $2$
+      (labeling them $1,2,3,4$).
+      This identifies the $4$ sheets into $2$ blocks
+      $\left\{\boxed{1\,3},\boxed{2\,4}\right\}$.
+      \par
+      Moreover, by assuming $\wt{X}$ Galois,
+      we get
+      $H\trianglelefteq\wt{G}$.
+      Also, $G = \langle \sigma \rangle = S_2\cong\Z/2\Z$.
+      Thus, we are looking for all permutation triples
+      $\wt{\sigma}\in S_4^3$ that generate a (transitive) order $4$ monodromy group
+      $\wt{G}\leq S_4$ sitting in the exact sequence
+      \begin{center}
+        \begin{tikzcd}
+          1\arrow{r}&\langle\tau\rangle\arrow{r}{\iota}&\wt{G}\arrow[swap]{d}{\pi}\arrow{r}{f}&\langle\sigma\rangle\arrow{r}&1\\
+          &&\wt{G}/\langle\tau\rangle\arrow[swap]{ur}{\hat{f}}
+        \end{tikzcd}.
+      \end{center}
+      \par
+      Now we have the combinatorial task of pulling back
+      $\sigma$
+      under the map $f$.
+      \begin{notes}
+        One thing that makes me nervous is
+        that we do not know the group $\wt{G}$ a priori.
+        If we have $\wt{G}$ in hand
+        (from a transitive group database or by some other means)
+        with $\langle\tau\rangle\trianglelefteq\wt{G}$,
+        then pulling back $\sigma$ under $f$
+        is nothing more than finding all $\wt{\sigma}$
+        that map to $\sigma$ in the quotient
+        (once this quotient is identified with
+        $\langle\sigma\rangle$).
+        \mm{
+          When we don't have $\wt{G}$,
+          how do we prove that
+          identifying sheets via $\tau$
+          yields all possible $\wt{\sigma}$?
+        }
+      \end{notes}
+      The first requirement for any element in a preimage of $f$
+      is that it has a well-defined action on the set of blocks
+      $\left\{\boxed{1\,3},\boxed{2\,4}\right\}$
+      obtained from $\tau$.
+      For instance,
+      $(1\,2\,3\,4)$
+      does not have a well-defined
+      action on these blocks.
+      The only other requirement
+      is that the action on blocks agrees
+      with the permutation we are pulling back.
+      \mm{more explanation?}
+      \par
+      In our example, $\sigma_\infty = (1)(2)$.
+      Then $f^{-1}(\sigma_\infty)$
+      is precisely the $\wt{\sigma_\infty}\in S_4$
+      with a well-defined action on
+      $B = \left\{\boxed{1\,3},\boxed{2\,4}\right\}$
+      such that the action of $\wt{\sigma_\infty}$
+      on $B$ agrees with the action
+      of $\sigma_\infty$ on $\{1,2\}$.
+      Thus
+      \begin{align*}
+        f^{-1}(\sigma_\infty) = \{(1)(3)(2)(4),(1\,3)(2\,4)\}
+        = \{(1)(2)(3)(4),(1\,3)(2\,4)\}.
+      \end{align*}
+      For each $\wt{\sigma_\infty}\in f^{-1}(\sigma_\infty)$
+      we can indeed check that the action
+      of $\wt{\sigma_\infty}$
+      on blocks is given by
+      $\left(\boxed{1\,3}\right)\left(\boxed{2\,4}\right)$
+      (i.e. $\wt{\sigma_\infty}$ fixes each block).
+      Similarly,
+      for $\sigma_0 = \sigma_1 = (1\,2)$ we have that
+      \begin{align*}
+        f^{-1}(\sigma_0) = f^{-1}(\sigma_1) &=
+        \{(1\,2\,3\,4), (1\,2)(3\,4), (1\,4\,2\,3), (1\,4)(2\,3)\}.
+      \end{align*}
+      That is,
+      each $\wt{\sigma_i}\in f^{-1}(\sigma_i)$ for $i\in\{0,1\}$
+      acts on blocks by
+      $\left(\boxed{1\,3}\,\boxed{2\,4}\right)$.
+      \par
+      Thus we have the following possibilities for the
+      preimages of
+      $\sigma_0=\sigma_1=(1\,2)$ and $\sigma_\infty = (1)(2)$
+      under $f$:
+      \begin{align*}
+        \begin{matrix}
+          (1\,2\,3\,4), (1\,2)(3\,4),\\
+          (1\,4\,2\,3), (1\,4)(2\,3)
+        \end{matrix}
+        &\mapsto
+        (1\,2)\\
+        \begin{matrix}
+          (1\,3)(2\,4), (1)(2)(3)(4)
+        \end{matrix}
+        &\mapsto
+        (1)(2)
+      \end{align*}
+      and we can sort through these possibilities to
+      see which ones correspond to degree $4$ (Galois) \Belyi maps
+      according to \todo{link}.
+      If $\wt{\sigma_\infty} = (1)(2)(3)(4)$,
+      then the condition that
+      \begin{align*}
+        \wt{\sigma_\infty}\wt{\sigma_1}\wt{\sigma_0} = (1)(2)(3)(4)
+      \end{align*}
+      allows for only
+      the single possibility
+      $\wt{\sigma_0} = (1\,2\,3\,4)$
+      and $\wt{\sigma_1} = (1\,4\,2\,3)$
+      (up to simultaneous conjugation).
+      \mm{
+        should we prove that simultaneous conjugation
+        does not mess up our convention of identifying
+        sheets mod 2?
+      }
+      In this case $\wt{G}\cong\Z/4\Z$.
+      If $\wt{\sigma_\infty} = \tau$,
+      then there are two possibilities up to simultaneous conjugation.
+      One possibility is
+      \begin{align*}
+        \wt{\sigma} = \left( (1\,2\,3\,4), (1\,2\,3\,4), (1\,3)(2\,4) \right)
+      \end{align*}
+      with $\wt{G}\cong\Z/4\Z$.
+      The other possibility is
+      \begin{align*}
+        \wt{\sigma} = \left( (1\,2)(3\,4), (1\,4)(3\,2), (1\,3)(2\,4) \right)
+      \end{align*}
+      with $\wt{G}\cong\Z/2\Z\times\Z/2\Z$.
+      \par
+      In summary,
+      there are $3$ permutation triples $\wt{\sigma}$
+      (up to isomorphism) corresponding to degree $4$
+      Galois \Belyi maps that factor through the degree $2$
+      \Belyi map corresponding to $\sigma$.
+      They are as follows:
+      \todo{make a table?}
+      \begin{align*}
+        \Big( (1\,2\,3\,4), (1\,4\,2\,3), (1)(2)(3)(4) \Big),
+        \Big( (1\,2\,3\,4), (1\,2\,3\,4), (1\,3)(2\,4) \Big),
+        \Big( (1\,2)(3\,4), (1\,4)(3\,2), (1\,3)(2\,4) \Big).
+      \end{align*}
+    \end{example}
+  }
+  \subsection{Degree $8$ Galois}{
+    \begin{example}
+      \todo{Galois degree 2 covers of 4T1-441}
+      Let
+      \begin{align*}
+        \sigma = (\sigma_0,\sigma_1,\sigma_\infty)
+        = \Big( (1\,2\,3\,4), (1\,4\,2\,3), (1)(2)(3)(4) \Big).
+      \end{align*}
+      We organize $f^{-1}(\sigma)$ in the following table.
+      \begin{center}
+        \begin{tabular}{ccc}
+          \toprule
+          $f^{-1}\Big( (1\,2\,3\,4)\Big)$
+          & $f^{-1}\Big( (1\,4\,2\,3) \Big)$
+          & $f^{-1}\Big( (1)(2)(3)(4)\Big)$\\
+          \midrule
+          $(1\,2\,3\,4)(5\,6\,7\,8)$
+          & $(1\,8\,3\,2)(4\,7\,6\,5)$
+          & $(1)(2)(3)(4)(5)(6)(7)(8)$ \\
+          $(1\,6\,7\,4)(2\,3\,8\,5)$
+          & $(1\,4\,3\,6)(2\,5\,8\,7)$
+          & $(1\,5)(2\,6)(3\,7)(4\,8)$\\
+          $(1\,6\,3\,4)(2\,7\,8\,5)$
+          & $(1\,4\,7\,2)(3\,6\,5\,8)$ &\\
+          $(1\,6\,7\,8)(2\,3\,4\,5)$
+          & $(1\,4\,7\,6)(2\,5\,8\,3)$ &\\
+          $(1\,2\,7\,4)(3\,8\,5\,6)$
+          & $(1\,8\,3\,6)(2\,5\,4\,7)$ &\\
+          $(1\,2\,3\,8)(4\,5\,6\,7)$
+          & $(1\,4\,3\,2)(5\,8\,7\,6)$ &\\
+          $(1\,2\,7\,8)(3\,4\,5\,6)$
+          & $(1\,8\,7\,2)(3\,6\,5\,4)$ &\\
+          $(1\,6\,3\,8)(2\,7\,4\,5)$
+          & $(1\,8\,7\,6)(2\,5\,4\,3)$ &\\
+          $(1\,6\,7\,8\,5\,2\,3\,4)$
+          & $(1\,8\,7\,2\,5\,4\,3\,6)$ &\\
+          $(1\,2\,3\,8\,5\,6\,7\,4)$
+          & $(1\,4\,7\,6\,5\,8\,3\,2)$ &\\
+          $(1\,2\,7\,8\,5\,6\,3\,4)$
+          & $(1\,8\,3\,6\,5\,4\,7\,2)$ &\\
+          $(1\,6\,3\,8\,5\,2\,7\,4)$
+          & $(1\,8\,3\,2\,5\,4\,7\,6)$ &\\
+          $(1\,2\,3\,4\,5\,6\,7\,8)$
+          & $(1\,4\,7\,2\,5\,8\,3\,6)$ &\\
+          $(1\,6\,7\,4\,5\,2\,3\,8)$
+          & $(1\,8\,7\,6\,5\,4\,3\,2)$ &\\
+          $(1\,6\,3\,4\,5\,2\,7\,8)$
+          & $(1\,4\,3\,6\,5\,8\,7\,2)$ &\\
+          $(1\,2\,7\,4\,5\,6\,3\,8)$
+          & $(1\,4\,3\,2\,5\,8\,7\,6)$ &\\
+          \bottomrule
+        \end{tabular}
+      \end{center}
+      These possibilities combine to yield $512=16^2\cdot 2$
+      possible $\wt{\sigma}$.
+      Of these $512$ possibilities,
+      only $32$ have $\wt{\sigma_\infty}\wt{\sigma_1}\wt{\sigma_0} = \id_{S_8}$.
+      Of these $32$,
+      only $24$ generate a transitive order $8$
+      subgroup of $S_8$.
+      \mm{include some of these lists?}
+      Finally,
+      if we identify triples that are simultaneously conjugate
+      or in the same orbit under the $S_3$ action on triples,
+      we get the following list of $3$ possibilities for $\wt{\sigma}$
+      organized by $\wt{G}$:
+      \begin{center}
+        \begin{tabular}{c}
+          \toprule
+          $\wt{G}\cong\Z/8\Z$ \\
+          \midrule
+          $\Big( (1\,6\,7\,8\,5\,2\,3\,4), (1\,4\,3\,2\,5\,8\,7\,6), \id_{S_8}\Big)$\\
+          $\Big( (1\,6\,7\,8\,5\,2\,3\,4), (1\,8\,3\,6\,5\,4\,7\,2), (1\,5)(2\,6)(3\,7)(4\,8)\Big)$\\
+          \toprule
+          $\wt{G}\cong\Z/4\Z\times\Z/2\Z$\\
+          \midrule
+          $\Big( (1\,2\,3\,4)(5\,6\,7\,8), (1\,8\,3\,6)(2\,5\,4\,7), (1\,5)(2\,6)(3\,7)(4\,8)\Big)$\\
+          \bottomrule
+        \end{tabular}.
+      \end{center}
+    \end{example}
+    \begin{example}
+      \todo{Galois degree 2 covers of 4T1-442}
+      Let
+      \begin{align*}
+        \sigma = (\sigma_0,\sigma_1,\sigma_\infty)
+        = \Big( (1\,2\,3\,4), (1\,2\,3\,4), (1\,3)(2\,4) \Big).
+      \end{align*}
+      We organize $f^{-1}(\sigma)$ in the following table.
+      \begin{center}
+        \begin{tabular}{ccc}
+          \toprule
+          $f^{-1}(\sigma_0)$ & $f^{-1}(\sigma_1)$ & $f^{-1}(\sigma_\infty)$\\
+          \midrule
+          $(1, 2, 3, 4)(5, 6, 7, 8)$ & $(1, 2, 3, 4)(5, 6, 7, 8)$ & $(1, 3)(2, 4)(5, 7)(6, 8)$\\
+          $(1, 6, 7, 4)(2, 3, 8, 5)$ & $(1, 6, 7, 4)(2, 3, 8, 5)$ & $(1, 3)(2, 8)(4, 6)(5, 7)$\\
+          $(1, 6, 3, 4)(2, 7, 8, 5)$ & $(1, 6, 3, 4)(2, 7, 8, 5)$ & $(1, 7)(2, 4)(3, 5)(6, 8)$\\
+          $(1, 6, 7, 8)(2, 3, 4, 5)$ & $(1, 6, 7, 8)(2, 3, 4, 5)$ & $(1, 7)(2, 8)(3, 5)(4, 6)$\\
+          $(1, 2, 7, 4)(3, 8, 5, 6)$ & $(1, 2, 7, 4)(3, 8, 5, 6)$ & $(1, 3, 5, 7)(2, 4, 6, 8)$\\
+          $(1, 2, 3, 8)(4, 5, 6, 7)$ & $(1, 2, 3, 8)(4, 5, 6, 7)$ & $(1, 3, 5, 7)(2, 8, 6, 4)$\\
+          $(1, 2, 7, 8)(3, 4, 5, 6)$ & $(1, 2, 7, 8)(3, 4, 5, 6)$ & $(1, 7, 5, 3)(2, 4, 6, 8)$\\
+          $(1, 6, 3, 8)(2, 7, 4, 5)$ & $(1, 6, 3, 8)(2, 7, 4, 5)$ & $(1, 7, 5, 3)(2, 8, 6, 4)$\\
+          $(1, 6, 7, 8, 5, 2, 3, 4)$ & $(1, 6, 7, 8, 5, 2, 3, 4)$ &\\
+          $(1, 2, 3, 8, 5, 6, 7, 4)$ & $(1, 2, 3, 8, 5, 6, 7, 4)$ &\\
+          $(1, 2, 7, 8, 5, 6, 3, 4)$ & $(1, 2, 7, 8, 5, 6, 3, 4)$ &\\
+          $(1, 6, 3, 8, 5, 2, 7, 4)$ & $(1, 6, 3, 8, 5, 2, 7, 4)$ &\\
+          $(1, 2, 3, 4, 5, 6, 7, 8)$ & $(1, 2, 3, 4, 5, 6, 7, 8)$ &\\
+          $(1, 6, 7, 4, 5, 2, 3, 8)$ & $(1, 6, 7, 4, 5, 2, 3, 8)$ &\\
+          $(1, 6, 3, 4, 5, 2, 7, 8)$ & $(1, 6, 3, 4, 5, 2, 7, 8)$ &\\
+          $(1, 2, 7, 4, 5, 6, 3, 8)$ & $(1, 2, 7, 4, 5, 6, 3, 8)$ &\\
+          \bottomrule
+        \end{tabular}
+      \end{center}
+      These possibilities combine to yield $2048$ possible $\wt{\sigma}$.
+      Of these, $128$ have
+      $\wt{\sigma_\infty}\wt{\sigma_1}\wt{\sigma_0} = \id_{S_8}$.
+      Of these, $120$ generate a transitive subgroup of $S_8$.
+      Of these $120$ transitive groups, $24$ have order equal to $8$.
+      Finally,
+      after identifying triples up to simultaneous conjugation in $S_8$
+      and the $S_3$ action on triples, we get the following
+      list of $3$ possibilities for $\wt{\sigma}$ organized by $\wt{G}$:
+      \begin{center}
+        \begin{tabular}{c}
+          \toprule
+          $\wt{G}\cong\Z/8\Z$\\
+          \midrule
+          $\Big( (1\,6\,7\,8\,5\,2\,3\,4), (1\,6\,7\,8\,5\,2\,3\,4), (1\,3\,5\,7)(2\,8\,6\,4)\Big)$\\
+          $\Big( (1\,6\,7\,8\,5\,2\,3\,4), (1\,2\,7\,4\,5\,6\,3\,8), (1\,7\,5\,3)(2\,4\,6\,8)\Big)$\\
+          \toprule
+          $\wt{G}\cong\Z/4\Z\times\Z/2\Z$\\
+          \midrule
+          $\Big( (1\,2\,3\,4)(5\,6\,7\,8), (1\,6\,3\,8)(2\,7\,4\,5), (1\,7)(2\,8)(3\,5)(4\,6)\Big)$\\
+          \bottomrule
+        \end{tabular}.
+      \end{center}
+      \mm{
+        3 things to mention here\dots
+        \begin{itemize}
+          \item
+            4T1-442 to 8T2-442 unramified.
+          \item
+            Notice that
+            8T1-882 does not factor through
+            4T1-442 even though it seems like it should be possible at first.
+          \item
+            We have identified a size 2 passport\dots
+            should probably prove something about
+            these always showing up and make sure
+            attempts to optimize algorithm don't eliminate these\dots
+        \end{itemize}
+      }
+    \end{example}
+    \begin{example}
+      \todo{Galois degree 2 covers of 4T2-222}
+      Let
+      \begin{align*}
+        \sigma = (\sigma_0,\sigma_1,\sigma_\infty)
+        = \Big( (1\,2\,3\,4), (1\,2\,3\,4), (1\,3)(2\,4) \Big).
+      \end{align*}
+      We organize $f^{-1}(\sigma)$ in the following table.
+      \begin{center}
+        \begin{tabular}{ccc}
+          \toprule
+          $f^{-1}(\sigma_0)$ & $f^{-1}(\sigma_1)$ & $f^{-1}(\sigma_\infty)$ \\
+          \midrule
+          $(1, 2)(3, 4)(5, 6)(7, 8)$ & $(1, 4)(2, 3)(5, 8)(6, 7)$ & $(1, 3)(2, 4)(5, 7)(6, 8)$ \\
+          $(1, 2)(3, 8)(4, 7)(5, 6)$ & $(1, 4)(2, 7)(3, 6)(5, 8)$ & $(1, 3)(2, 8)(4, 6)(5, 7)$ \\
+          $(1, 6)(2, 5)(3, 4)(7, 8)$ & $(1, 8)(2, 3)(4, 5)(6, 7)$ & $(1, 7)(2, 4)(3, 5)(6, 8)$ \\
+          $(1, 6)(2, 5)(3, 8)(4, 7)$ & $(1, 8)(2, 7)(3, 6)(4, 5)$ & $(1, 7)(2, 8)(3, 5)(4, 6)$ \\
+          $(1, 2, 5, 6)(3, 4, 7, 8)$ & $(1, 4, 5, 8)(2, 3, 6, 7)$ & $(1, 3, 5, 7)(2, 4, 6, 8)$ \\
+          $(1, 2, 5, 6)(3, 8, 7, 4)$ & $(1, 4, 5, 8)(2, 7, 6, 3)$ & $(1, 3, 5, 7)(2, 8, 6, 4)$ \\
+          $(1, 6, 5, 2)(3, 4, 7, 8)$ & $(1, 8, 5, 4)(2, 3, 6, 7)$ & $(1, 7, 5, 3)(2, 4, 6, 8)$ \\
+          $(1, 6, 5, 2)(3, 8, 7, 4)$ & $(1, 8, 5, 4)(2, 7, 6, 3)$ & $(1, 7, 5, 3)(2, 8, 6, 4)$ \\
+          \bottomrule
+        \end{tabular}
+      \end{center}
+      These possibilities combine to yield $512$ possible $\wt{\sigma}$.
+      Of these, $64$ have
+      $\wt{\sigma_\infty}\wt{\sigma_1}\wt{\sigma_0} = \id_{S_8}$.
+      Of these, $56$ generate a transitive subgroup of $S_8$
+      and all $56$ have order $8$.
+      Finally,
+      after identifying triples up to simultaneous conjugation in
+      $S_8$ and the $S_3$ action on triples, we get the following
+      list of $3$ possibilities for $\wt{\sigma}$ organized by $\wt{G}$:
+      \begin{center}
+        \begin{tabular}{c}
+          \toprule
+          $\wt{G}\cong\Z/4\Z\times\Z/2\Z$\\
+          \midrule
+          $\Big( (1\,2)(3\,4)(5\,6)(7\,8), (1\,4\,5\,8)(2\,3\,6\,7), (1\,7\,5\,3)(2\,8\,6\,4)\Big)$\\
+          \toprule
+          $\wt{G}\cong D_8$\\
+          \midrule
+          $\Big( (1\,2)(3\,4)(5\,6)(7\,8), (1\,4)(2\,7)(3\,6)(5\,8), (1\,7\,5\,3)(2\,4\,6\,8)\Big)$\\
+          \toprule
+          $\wt{G}\cong Q_8$\\
+          \midrule
+          $\Big( (1\,2\,5\,6)(3\,4\,7\,8), (1\,4\,5\,8)(2\,3\,6\,7), (1\,3\,5\,7)(2\,8\,6\,4)\Big)$\\
+          \bottomrule
+        \end{tabular}
+      \end{center}
+    \end{example}
+  }
+  \subsection{The Non-Galois Story}{
+    \begin{example}
+      \todo{$m=2$, $d=4$, the non-Galois story}
+      \mm{maybe do non-Galois in a different section\dots}
+    \end{example}
+    \begin{example}
+      \todo{$m=3$\dots}
+    \end{example}
+  }
+  \subsection{The Algorithm}{
+    We now formally describe
+    an algorithm to compute all
+    Galois degree $2$ covers
+    of a given \Belyi map.
+    \begin{alg}[Brute Force]
+    \end{alg}
+    \begin{proof}
+    \end{proof}
+  }
+  \subsection{Graph of Examples}{
+    \begin{example}
+      \todo{graph of examples}
+    \end{example}
+  }
+}
+\section{Orders in Function Fields}{
+  \subsection{Intro}{
+    Following \cite{dino},
+    we will start with the general setting
+    with data $(A,K,L)$
+    where $A$ is a commutative domain,
+    $K = \Frac(A)$,
+    and $L$ a finite extension of $K$.
+    Given such a triple $(A,K,L)$,
+    we associate a subring $B\subset L$
+    such that $L = \Frac(B)$.
+    \todo{define order}
+    \todo{define maximal order}
+    \todo{define ring of integers}
+  }
+  \subsection{Example}{
+  }
+}
+\section{Computing \Belyi\ Maps}{
+  \subsection{Intro}{
+    We begin by explaining a bit about the task
+    of computing \Belyi\ maps in general.
+    \todo{
+      reference the various methods for computing maps in general
+      and in specific cases too....
+    }
+    For a (much) more detailed account see \cite{SV}.
+    \par
+    \todo{Explain the special setting we are in}
+  }
+  \subsection{Explicit Example}{
+    We now explain an explicit example.
+    Let $K = \overline{\Q}$.
+    Let $X_0 = \PP^1$ over $K$.
+    Up to isomorphism,
+    there is a unique degree $2$
+    \Belyi map $\varphi:X_1\to X_0$.
+    Let $K(X_0)$ be the function field of $X_0$
+    which is $K(x_0)$ (the rational function field).
+    To write down an equation for $X_1$,
+    we must specify the ramification values
+    (branch points)
+    on $X_0$.
+    We can do this by recording
+    the ramification values in a divisor
+    $D^0\in\Div(X_0)$.
+    For the degree $2$ \Belyi map,
+    we get to choose $2$ branch points on $X_0$,
+    say $0$ and $\infty$
+    so that $D^0 = 0 - \infty$.
+    \par
+    \mm{mention how this comes to us from previous section}
+    \par
+    Next,
+    we find $f_0\in K(X_0)$
+    such that the quadratic function field extension
+    \begin{align*}
+      K(X_1) := \frac{K(X_0)[x_1]}{(x_1^2-f_0)}
+    \end{align*}
+    corresponds to $\varphi$.
+    \par
+    \mm{write down explicitly the correspondence?}
+    \par
+    \mm{
+      explain choices involved in choosing $f$...
+      i.e. up to square
+      and such that $\ddiv(f)$ has property...
+    }
+    \par
+    We get that $f_0 = x_0$
+    and $X_1$ is the projective closure of the
+    affine curve defined by the equation
+    $x_1^2-x_0$.
+    On the function field side,
+    we have the following diagram.
+    \begin{center}
+      \begin{tikzcd}
+        &K(X_1) = \frac{K(x_0)[x_1]}{(x_1^2 - x_0)}\arrow[dash]{dl}\arrow[dash]{dd}\\
+        R_1 = \frac{K[x_0,x_1]}{(x_1^2-x_0)}\arrow[dash]{dd}[swap]{}\\
+        &K(X_0) = K(x_0)\arrow[dash]{dl}{}\\
+        R_0 = K[x_0]
+      \end{tikzcd}
+    \end{center}
+    Let $\frak{p}_0 = (x_0, x_1)$.
+    We can see that we have the right ramification
+    since
+    \begin{align*}
+      (x_0) &= \mathfrak{p}_0^2\\
+      (1/x_0) &= \mathfrak{p}_0^{-2}
+    \end{align*}
+    and the discriminant of $R_1$ is $4x_0$.
+    What are the primes above $(x_0-1)$?
+    Well, $(x_0-1) = \frak{p}_1\frak{p}_2$
+    where
+    \begin{align*}
+      \frak{p}_1 &= (x_0-1, x_1-1)\\
+      \frak{p}_2 &= (x_0-1, x_1+1).
+    \end{align*}
+    Now...
+    \par
+    \mm{In summary,}
+    \begin{center}
+      \begin{tikzcd}
+        &K(X_2) = \frac{K(X_1)[x_2]}{(x_2^2-f)}\arrow[dash]{dd}\arrow[dash]{dl}\\
+        R_2\arrow[dash]{dd}\\
+        &K(X_1) = \frac{K(x_0)[x_1]}{(x_1^2 - x_0)}\arrow[dash]{dl}\arrow[dash]{dd}\\
+        R_1 = \frac{K[x_0,x_1]}{(x_1^2-x_0)}\arrow[dash]{dd}[swap]{}\\
+        &K(X_0) = K(x_0)\arrow[dash]{dl}{}\\
+        R_0 = K[x_0]
+      \end{tikzcd}
+    \end{center}
+  }
+}
+\nocite{*}
+\bibliographystyle{amsplain}
+\bibliography{solvable}
+\end{document}

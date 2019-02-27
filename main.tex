@@ -1,7 +1,6 @@
 % arara: xelatex
 % arara: bibtex
 % arara: xelatex
-% arara: xelatex
 
 \documentclass{dcthesis}
 
@@ -43,6 +42,7 @@
 % Additional Packages (add as desired)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsmath,amssymb,amsthm,amsxtra}
+\usepackage{mathrsfs} 
 \usepackage{lipsum}
 \usepackage{xcolor}
 \usepackage{tikz}
@@ -78,9 +78,20 @@
 \newcommand{\jv}[1]{{\color{red} \sf JV: [#1]}}
 \newcommand{\mm}[1]{{\color{blue} \sf MM: [#1]}}
 \newcommand{\wt}[1]{\widetilde{#1}}
+\newcommand{\QQal}{{\mathbb Q}^{\textup{al}}}
+\newcommand{\QQab}{{\mathbb Q}^{\textup{ab}}}
+\newcommand{\QQbar}{{\mathbb Q}^{\textup{al}}}
+\newcommand{\kbar}{\overline{k}}
+\newcommand{\Kbar}{\overline{K}}
+\newcommand{\LL}{\mathscr L}
 
 \DeclareMathOperator{\Div}{Div}
 \DeclareMathOperator{\ddiv}{div}
+\DeclareMathOperator{\sat}{sat}
+\DeclareMathOperator{\ddeg}{deg}
+\DeclareMathOperator{\ddim}{dim}
+\DeclareMathOperator{\Lifts}{Lifts}
+\DeclareMathOperator{\order}{order}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theorem Declarations
@@ -173,81 +184,97 @@ Preface and Acknowledgments go here!
 
 \chapter{Introduction}{\label{chapter:intro}
   \section{Belyi maps from a historical perspective}{
-    \lipsum[1]
-    \cite{serre}
+    In \cite{belyi}, G.V. Belyi proved that a Riemann surface
+    $X$
+    can be defined over a number field
+    (when viewed as an algebraic curve over $\CC$)
+    if and only if there exists a non-constant
+    meromorphic function $\phi:X\to\PP^1_\CC$ unramified outside the set $\{0,1,\infty\}$.
+    This result came to be known as Belyi's Theorem
+    and the maps $\phi$ came to be known as Belyi maps (or Belyi functions).
+    Although Belyi's Theorem has an elementary proof,
+    it was a starting point for a great deal of modern research in the area.
+    This work was largely spurred on by Grothendieck's
+    \emph{Esquisse d'un programme}
+    \cite{grothendieck}
+    where he was impressed enough to write
+    \begin{quote}
+      \emph{jamais sans doute un r\'{e}sultat profond et d\'{e}routant ne fut
+      d\'{e}montr\'{e} en si peu de lignes!}
+      \newline
+      never, without a doubt, was such a deep and disconcerting result proved in so few lines!
+    \end{quote}
+    An intriguing aspect of the theory of Belyi maps that arose from Grothendieck's
+    work in the 1980s is the reformulation of these objects
+    in a purely topological way.
+    The preimage $\phi^{-1}([0,1])$ is a graph embedded on $X$,
+    and Grothendieck developed axioms for embedded graphs in such a way
+    that they coincided exactly with the category of Belyi maps.
+    He called these graphs
+    \emph{dessins d'enfants} or children's drawings.
+    \par
+    Even as a standalone theorem, Belyi's Theorem
+    is a remarkable result in the mysterious way that it allows us to distinguish between
+    algebraic and transcendental objects.
+    However, the main interest in Belyi maps arises from Galois theory.
+    The absolute Galois group of $\QQ$ acts on the set of Belyi maps
+    via the defining equations.
+    The induced action on the set of dessins
     \subsection[Inverse Galois theory]{Inverse Galois theory, Hurwitz families, and fields with few ramified primes}{
-      \lipsum[1]
       \subsubsection{Inverse Galois theory}{
-        \lipsum[1]
       }
       \subsubsection{Hurwitz families}{
-        \lipsum[1]
       }
       \subsubsection{Number fields with few ramified primes}{
-        \lipsum[1]
       }
     }
     \subsection[Dessins d'enfants]{Grothendieck's theory of dessins d'enfants}{
-      \lipsum[1]
-    }
-  }
-  \section{Belyi maps from a modern perspective}{
-    \lipsum[1]
-    \subsection{Anabelian geometry}{
-      \lipsum[1]
     }
   }
 }
 \chapter{Background}{\label{chapter:background}
   \section{Belyi maps}{\label{sec:belyimaps}
-    \lipsum[1]
     \subsection{Algebraic curves and their function fields}{
-      \lipsum[1]
     }
     \subsection{Riemann's existence theorem and covers of $\PP^1$}{
-      \lipsum[1]
     }
     \subsection{Belyi's theorem}{
-      \lipsum[1]
     }
     \subsection{Belyi maps and $G$-Belyi maps}{
-      \lipsum[1]
+      \label{subsec:belyimaps}
+      \begin{prop}\label{prop:galoiscorrespondence}
+        Galois correspondence of Belyi maps
+      \end{prop}
+      \begin{proof}
+      \end{proof}
     }
   }
   \section{Group theory}{
-    \lipsum[1]
     \subsection{Central group extensions and $H^2(G,A)$}{
-      \lipsum[1]
+      \begin{definition}
+        \label{def:isoextentions}
+      \end{definition}
     }
     \subsection{Holt's algorithm and \texttt{Magma} implementation}{
-      \lipsum[1]
+      \label{subsec:holtsalgorithm}
     }
     \subsection{Results on $2$-groups}{
-      \lipsum[1]
     }
   }
   \section{Jacobians of curves}{
-    \lipsum[1]
     \subsection{Abel-Jacobi and the construction over $\CC$}{
-      \lipsum[1]
     }
     \subsection{Algebraic construction}{
-      \lipsum[1]
     }
     \subsection{Riemann-Roch}{
-      \lipsum[1]
     }
     \subsection{Torsion points and torsion fields}{
-      \lipsum[1]
     }
   }
   \section{Galois representations}{
-    \lipsum[1]
     \subsection{Representations of Galois groups of number fields}{
-      \lipsum[1]
     }
     \subsection{Representations coming from geometry}{
-      \lipsum[1]
     }
   }
 }
@@ -284,9 +311,212 @@ Preface and Acknowledgments go here!
   }
   \section{Degree $1$ Belyi maps}{\label{sec:degree1}
   }
+  \pagebreak
   \section{An algorithm to enumerate isomorphism classes of $2$-group Belyi maps}{\label{sec:isoclasses}
+    The algorithm we describe here is iterative.
+    The degree $1$ case is discussed in Section \ref{sec:degree1}.
+    We now set up some notation for the iteration.
+    \begin{notation}\label{not:triples}
+      First we suppose that we are given
+      $\sigma$ a permutation triple corresponding
+      to a $2$-group Belyi map $\phi:X\to\PP^1$.
+      \begin{definition}
+        \label{def:lift}
+        We say that a permutation triple $\wt{\sigma}$
+        is a \defi{degree $2$ lift} (or simply a \defi{lift})
+        of a permutation triple $\sigma$ if
+        there exists a short exact sequence of groups
+        as in Figure \ref{fig:lifttriple}
+        with $\iota(\ZZ/2\ZZ)$ contained in the center of
+        $\langle\wt{\sigma}\rangle$.
+      \end{definition}
+      \begin{figure}[ht]\label{fig:lifttriple}
+        \[
+          \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+            1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota}\&\langle\widetilde{\sigma}\rangle\arrow{r}{\pi}\&\langle\sigma\rangle\arrow{r}\&1
+          \end{tikzcd}
+        \]
+        \caption{$\wt{\sigma}$ a lift of $\sigma$}
+      \end{figure}
+      In Algorithm \ref{alg:triples} below
+      we describe how to determine all lifts $\wt{\sigma}$ (up to isomorphism)
+      of a given permutation triple $\sigma$.
+      \begin{lemma}
+        \label{lem:central}
+        Let $\sigma$ be a permutation triple corresponding to a $2$-group Belyi map
+        $\phi:X\to\PP^1$ and $\wt{\sigma}$ a lift of $\sigma$
+        corresponding to a $2$-group Belyi map $\wt{\phi}:\wt{X}\to\PP^1$.
+        Then there exists a permutation triple $\wt{\sigma}'$
+        that is simultaneously conjugate to $\wt{\sigma}$ with
+        $\iota(\langle\wt{\sigma}'\rangle)$ contained in the center of
+        $\langle\sigma\rangle$.
+      \end{lemma}
+      \begin{proof}
+      \end{proof}
+      \begin{remark}
+        \label{rmk:central}
+        In light of Lemma \ref{lem:central},
+        we can restrict our attention to central extensions of
+        $\langle\sigma\rangle$
+        in Definition \ref{def:lift}.
+      \end{remark}
+    \end{notation}
     \begin{alg}\label{alg:triples}
+      Let the notation be as described above in \ref{not:triples}.
+      \newline
+      \textbf{Input}: $\sigma=(\sigma_0,\sigma_1,\sigma_\infty)\in S_d^3$ a permutation triple
+      corresponding to a $2$-group Belyi map
+      \newline
+      \textbf{Output}: all lifts $\wt{\sigma}$
+      of $\sigma$ up to simultaneous conjugation in $S_{2d}$
+      sorted by passport
+      \begin{enumerate}
+        \item
+          Let $G = \langle\sigma\rangle$
+          and compute all central extensions $\wt{G}$
+          sitting in the exact sequence in Figure \ref{fig:centralext}
+          up to isomorphism (see Definition \ref{def:isoextentions}).
+          For more information about the algorithms to do this
+          see Section \ref{subsec:holtsalgorithm}.
+          \begin{figure}[ht]
+            \[
+              \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+                1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota}\&\wt{G}\arrow{r}{\pi}\&G\arrow{r}\&1
+              \end{tikzcd}
+            \]
+            \caption{$\wt{G}$ a (central) extension of $G$}
+            \label{fig:centralext}
+          \end{figure}
+        \item
+          For each extension $\wt{G}$ as in Figure \ref{fig:centralext}
+          from the previous step
+          we perform the following:
+          \begin{enumerate}
+            \item
+              % For $s\in\{0,1,\infty\}$,
+              % $\sigma_s$ has $2$ preimages under the map $\pi$
+              % which yields $8$ triples $\wt{\sigma} = (\wt{\sigma}_0,\wt{\sigma}_1,\wt{\sigma}_\infty)$
+              % with the property that $\pi(\wt{\sigma}_s) = \sigma_s$ for each $s$.
+              Consider the set of triples
+              \begin{equation}
+                \label{eqn:lifts}
+                \{
+                  \wt{\sigma}\colonequals(\wt{\sigma}_0, \wt{\sigma}_1, \wt{\sigma}_\infty) :
+                  \wt{\sigma}_s\in\pi^{-1}(\sigma_s)\text{ for }
+                  s\in\{0,1,\infty\}
+                \}
+              \end{equation}
+              and let $\Lifts(\sigma)$ denote the set of such $\wt{\sigma}$
+              with the property that $\wt{\sigma}_\infty\wt{\sigma}_1\wt{\sigma}_0 = 1$
+              and $\langle\wt{\sigma}\rangle = \wt{G}$.
+            \item
+              For each $\wt{\sigma}\in\Lifts(\sigma)$ compute
+              $\order(\wt{\sigma})\colonequals(\order(\wt{\sigma}_0), \order(\wt{\sigma}_1), \order(\wt{\sigma}_\infty))\in\ZZ^3$
+              and sort $\Lifts(\sigma)$ according to $\order(\wt{\sigma})$.
+              Let
+              \begin{equation}
+                \label{eqn:liftsorders}
+                \Lifts(\sigma,(a,b,c))\colonequals
+                \{
+                  \wt{\sigma}\in\Lifts(\sigma) :
+                  \order(\wt{\sigma}) = (a,b,c)
+                \}.
+              \end{equation}
+            \item
+              For each set of triples $\Lifts(\sigma,(a,b,c))$
+              remove simultaneously conjugate triples so that
+              $\Lifts(\sigma,(a,b,c))$ has exactly one representative
+              from each simultaneous conjugacy class.
+              \mm{TODO: reword}
+          \end{enumerate}
+        \item
+          Return the union of the sets $\Lifts(\sigma,(a,b,c))$
+          ranging over all extensions as in Figure
+          \ref{fig:centralext}
+          and for each extension ranging over all orders
+          $(a,b,c)$.
+      \end{enumerate}
     \end{alg}
+    \begin{proof}[Proof of correctness]
+      The algorithms in Step 1 are addressed in Section \ref{subsec:holtsalgorithm}.
+      Let $\phi:X\to\PP^1$ be the $2$-group Belyi map corresponding to $\sigma$.
+      By Proposition \ref{prop:galoiscorrespondence},
+      the groups obtained from Step 1 are precisely the
+      groups that can occur as monodromy groups of degree $2$ covers of $X$.
+      \mm{
+        lemma in section about extensions to prove
+        that two isomorphic extensions cannot produce
+        nonisomorphic Belyi maps
+        and that two nonisomorphic extensions cannot produce
+        isomorphic Belyi maps
+      }
+      In Step 2 we restrict our attention to a single extension of $G$
+      as in Figure \ref{fig:centralext}.
+      When we pullback a triple $\sigma$ under the map $\pi$,
+      there are $2^3=8$ preimages $\wt{\sigma}$.
+      Of these $8$ preimages, exactly $4$ have the property that
+      $\wt{\sigma}_\infty\wt{\sigma}_1\wt{\sigma}_0=1$.
+      Of these $4$ triples, we only take those that generate $\wt{G}$
+      and this makes up the set $\Lifts(\sigma)$.
+      In Step 2(b),
+      we are sorting $\Lifts(\sigma)$ by passport.
+      Since $2$-group Belyi maps are Galois,
+      the cycle structure of each $\wt{\sigma}_s\in\wt{\sigma}$
+      is determined by the order of $\wt{\sigma}_s$
+      so that sorting by order is the same as sorting by cycle structure.
+      \begin{remark}\label{rmk:twouniquepassports}
+        In fact,
+        even though we do not need this for the algorithm,
+        there are at most $2$ different passports that can occur
+        in $\Lifts(\sigma)$.
+        $2$ different passports occur when one of $\sigma_s\in\sigma$
+        is the identity.
+        If $\sigma$ does not contain an identity element,
+        then all triples in $\Lifts(\sigma)$ have the same passport.
+      \end{remark}
+      At this point,
+      we have constructed the sets $\Lifts(\sigma,(a,b,c))$.
+      In light of Remark \ref{rmk:twouniquepassports},
+      there are only $2$ possibilities:
+      \begin{itemize}
+        \item
+          There is only one such set $\Lifts(\sigma, (a,b,c))$
+          consisting of at most $4$ triples.
+        \item
+          There are $2$ sets $\Lifts(\sigma, (a,b,c))$ and $\Lifts(\sigma, (a',b',c'))$
+          each consisting of at most $2$ triples.
+      \end{itemize}
+      Step 2(c) is to eliminate simultaneous conjugation in each
+      set $\Lifts(\sigma, (a,b,c))$.
+      After Step 2(c) is complete,
+      the sets $\Lifts(\sigma, (a,b,c))$ contain exactly one permutation triple
+      for each isomorphism class of $2$-group Belyi map with passport determined by
+      $(a,b,c)$ and monodromy group $\wt{G}$ such that the diagram in
+      Figure \ref{fig:liftbelyimap} commutes.
+      \begin{figure}[ht]
+        \[
+          \begin{tikzcd}[ampersand replacement=\&]
+            \widetilde{X}\arrow{dd}[swap]{\widetilde{\phi}}\arrow{dr}{2}\\
+            \&X\arrow{dl}{\phi}\\
+            \PP^1
+          \end{tikzcd}
+        \]
+        \caption{
+          The permutation triples $\wt{\sigma}$ constructed in
+          Algorithm \ref{alg:triples}
+          correspond to Belyi maps $\wt{\phi}:\wt{X}\to\PP^1$
+          in the above diagram.
+        }
+        \label{fig:liftbelyimap}
+      \end{figure}
+      In Step 3 we collect together all sets $\Lifts(\sigma, (a,b,c))$
+      as we range over all possible extensions in Step 1,
+      and by the discussion for Step 2 yields the desired output.
+    \end{proof}
+    We
+    \begin{example}\label{exm:lift}
+      \mm{copypaste}
+    \end{example}
   }
   \section{An algorithm to compute $2$-group Belyi curves and maps}{\label{sec:curvesandmaps}
     The algorithm we describe here is iterative.
@@ -307,6 +537,10 @@ Preface and Acknowledgments go here!
           (necessarily a $2$-group)
           with $\sigma$ a permutation triple corresponding to $\phi$
         \item
+          For $s\in\{0,1,\infty\}$ and $\tau$ a cycle of $\sigma_s\in\sigma$,
+          denote the ramification point above $s$ corresponding to
+          $\tau$ by $Q_{s,\tau}$
+        \item
           $Y\subset\AA^n_K$ the affine patch of $X$ with $x_0\neq 0$
           with coordinates $(y_1,\dots,y_n)$ where $y_i = x_i/x_0$
           cut out by the equations $\{g_i=0\}_i$ with $g_i\in K[y_1,\dots,y_n]$
@@ -318,8 +552,7 @@ Preface and Acknowledgments go here!
       Algorithm \ref{alg:lift} below
       describes how to lift the degree $d$ Belyi map $\phi$
       to a degree $2d$ Belyi map $\wt{\phi}$ with ramification prescribed by $\wt{\sigma}$
-      (see Figure \ref{fig:lift})
-      as follows
+      (also see Figure \ref{fig:lift}).
     \end{notation}
     \begin{figure}[ht]
       \label{fig:lift}
@@ -332,41 +565,90 @@ Preface and Acknowledgments go here!
         \end{tikzcd}
       \]
       \caption{
-        In Algorithm \ref{alg:lift} we construct $\wt{\phi}$
+      Algorithm \ref{alg:lift} describes how to construct $\wt{\phi}$
+        corresponding to a permutation triple $\wt{\sigma}$
         from a given $2$-group Belyi map $\phi$.
+        % In Algorithm \ref{alg:lift} we construct $\wt{\phi}$
+        % from a given $2$-group Belyi map $\phi$.
       }
     \end{figure}
+    \begin{lemma}\label{lem:1dim}
+      Let $D$ be a degree $0$ divisor on $X$.
+      Then $\ddim\LL(D) \leq 1$.
+    \end{lemma}
+    \begin{proof}
+      Suppose $\ddeg D = 0$, and
+      Let $f,g\in\LL(D)\setminus\{0\}$.
+      Write $D=D_0-D_\infty$ with $D_0,D_\infty\geq 0$.
+      Since $f,g\in\LL(D)$, we have
+      $\ddiv f,\ddiv g\geq D_0-D_\infty$.
+      In particular,
+      $f/g\in K^\times$.
+    \end{proof}
     \begin{alg}\label{alg:lift}
       Let the notation be as described above in \ref{not:maps}.
       \newline
-      \textbf{Input}: $\phi:X\to\PP^1_k$, $\wt{\sigma}$
-      \textbf{Output}: $\wt{\phi}:\wt{X}\to\PP^1_k$
+      \textbf{Input}: A $2$-group Belyi map $\phi:X\to\PP^1_K$
+      and a permutation triple $\wt{\sigma}$
+      \newline
+      \textbf{Output}: A model (over $\QQal$) for the Belyi map
+      $\wt{\phi}:\wt{X}\to\PP^1_K$
+      with monodromy $\wt{\sigma}$
       \begin{enumerate}
         \item
-          Compare permutation triples $\sigma$ and $\wt{\sigma}$
-          to determine the ramification values of $\psi$.
-          Denote these points on $X$ by $\{Q_i\}$.
+          Let $R$ be the empty set of points on $X$.
+          For each $s\in\{0,1,\infty\}$,
+          If the order of $\sigma_s$ is strictly less than the order of $\wt{\sigma}_s$,
+          then append the ramification points
+          $\{Q_{s,\tau}\}_{\tau\in\sigma_s}$
+          (the ramification points on $X$ above $s$ corresponding to the cycles of $\sigma_s$)
+          to $R$.
         \item
-          Let $D = \sum_{P}n_PP$ be a degree $0$ divisor in
-          $\Div(X)$ with every $n_{Q_i}$ odd.
+          Let $D = \sum_{P}n_PP$ be a degree $0$ divisor on $X$ 
+          with $n_P$ odd for every $P\in R$
+          and $n_P = 0$ for $P\not\in R$.
           \mm{class group and base field}
         \item
-          Compute $f\in k(X)$ corresponding to a generator
-          of the $1$-dimensional Riemann-Roch space $L(D)$.
+          Compute $f\in \Kbar(X)^\times$ corresponding to a generator
+          of the Riemann-Roch space $\LL(D)$.
         \item
-          Write $f=a/b$ with $a,b\in k[y_1,\dots,y_n]$ and construct the ideal
+          Write $f=a/b$ with $a,b\in \Kbar[y_1,\dots,y_n]$ and construct the ideal
           \[
             \wt{I}\colonequals\langle g_1,\dots,g_k, by_{n+1}^2-a\rangle
           \]
-          in $k[y_1,\dots,y_n,y_{n+1}]$.
+          in $\Kbar[y_1,\dots,y_n,y_{n+1}]$.
         \item
-          Saturate $\wt{I}$ at $\langle b\rangle$ and denote this ideal by $\wt{J}$.
+          Saturate $\wt{I}$ at $\langle b\rangle$ and denote this ideal by $\sat(\wt{I})$.
         \item
-          Let $\wt{X}$ be the curve corresponding to $\wt{J}$ and
+          Let $\wt{X}$ be the curve corresponding to $\sat(\wt{I})$ and
           $\wt{\phi}$ the map $(y_1,\dots,y_{n+1})\mapsto y_1$.
       \end{enumerate}
     \end{alg}
     \begin{proof}[Proof of correctness]
+      By Algorithm \ref{alg:triples},
+      there exists a $2$-group Belyi map $\wt{\phi}:\wt{X}\to\PP^1$
+      with ramification according to $\wt{\sigma}$.
+      Since $\wt{\phi}$ is Galois,
+      the ramification behavior above each $s\in\{0,1,\infty\}$
+      is constant
+      (i.e. for a fixed $s$, all $Q_{s,\tau}$ are either unramified or
+      ramified to order $2$).
+      This ensures that the set $R$ constructed in Step $1$
+      is precisely the set of ramification values of $\psi$
+      (in Figure \ref{fig:lift}).
+      Now that we have the ramification values,
+      we can construct the new Belyi map and curve.
+      We do this by extracting a square root in the function field.
+      More precisely,
+      again by Algorithm \ref{alg:triples},
+      there exists $\wt{X}$
+      with $\Kbar(\wt{X}) = \Kbar(X,\sqrt{f})$
+      where $f\in\Kbar(X)^\times/\Kbar(X)^{\times 2}$
+      and
+      \begin{equation}\label{eqn:classgroup}
+        \ddiv f= \sum_{Q_{s,\tau}\in R} Q_{s,\tau}+2D_\epsilon
+        \in\frac{\Div^0(X)}{2\Div^0(X)}
+      \end{equation}
     \end{proof}
     \begin{example}
     \end{example}
