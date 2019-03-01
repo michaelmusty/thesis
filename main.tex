@@ -1,6 +1,8 @@
-% arara: xelatex
+% arara: pdflatex
 % arara: bibtex
-% arara: xelatex
+% arara: bibtex
+% arara: pdflatex
+% arara: pdflatex
 
 \documentclass{dcthesis}
 
@@ -45,6 +47,7 @@
 \usepackage{mathrsfs} 
 \usepackage{lipsum}
 \usepackage{xcolor}
+\usepackage{hyperref}
 \usepackage{tikz}
 \usepackage{colonequals}
 \usetikzlibrary{arrows,calc,automata,shadows,backgrounds,positioning,intersections,fadings,decorations.pathreplacing,shapes,snakes, matrix}
@@ -92,6 +95,9 @@
 \DeclareMathOperator{\ddim}{dim}
 \DeclareMathOperator{\Lifts}{Lifts}
 \DeclareMathOperator{\order}{order}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\PGL}{PGL}
+\DeclareMathOperator{\Mon}{Mon}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theorem Declarations
@@ -100,6 +106,7 @@
 % \newtheorem{prop}{Proposition}[chapter]
 \newtheorem{prop}{Proposition}[section]
 \newtheorem{theorem}[prop]{Theorem}
+\newtheorem{conj}[prop]{Conjecture}
 \newtheorem{lemma}[prop]{Lemma}
 \newtheorem{corr}[prop]{Corollary}
 \theoremstyle{definition}
@@ -239,14 +246,31 @@ Preface and Acknowledgments go here!
     \subsection{Riemann's existence theorem and covers of $\PP^1$}{
     }
     \subsection{Belyi's theorem}{
+      \begin{prop}\label{prop:galoisaction}
+        \mm{Galois action on Belyi maps}
+      \end{prop}
     }
-    \subsection{Belyi maps and $G$-Belyi maps}{
-      \label{subsec:belyimaps}
+    \subsection{Belyi maps and $G$-Belyi maps}{\label{subsec:belyimaps}
+      \begin{definition}\label{def:geometrytype}
+        The \defi{geometry type} of a Belyi map
+        \mm{todo}
+        \begin{enumerate}
+          \item[(degenerate)]
+          \item[(spherical)]
+          \item[(Euclidean)]
+          \item[(hyperbolic)]
+        \end{enumerate}
+      \end{definition}
       \begin{prop}\label{prop:galoiscorrespondence}
         Galois correspondence of Belyi maps
       \end{prop}
       \begin{proof}
       \end{proof}
+    }
+    \subsection{Permutation triples and passports}{\label{subsec:passports}
+      \begin{definition}\label{def:passport}
+        \mm{passports and such}
+      \end{definition}
     }
   }
   \section{Group theory}{
@@ -259,6 +283,9 @@ Preface and Acknowledgments go here!
       \label{subsec:holtsalgorithm}
     }
     \subsection{Results on $2$-groups}{
+      \begin{lemma}\label{lem:2groupfiltration}
+        \mm{todo}
+      \end{lemma}
     }
   }
   \section{Jacobians of curves}{
@@ -289,7 +316,7 @@ Preface and Acknowledgments go here!
   First we discuss the algorithm to enumerate the isomorphism classes
   using permutation triples in Section \ref{sec:isoclasses}.
   For a discussion on the relationship between permutation triples and Belyi maps
-  see Chapter \ref{chapter:belyimaps}.
+  see Section \ref{sec:belyimaps}.
   Next we discuss the inductive step to produce Belyi curves and maps in Section \ref{sec:curvesandmaps}.
   In Section \ref{sec:runtime} we give a detailed description of the running time of the algorithm.
   Lastly,
@@ -311,7 +338,6 @@ Preface and Acknowledgments go here!
   }
   \section{Degree $1$ Belyi maps}{\label{sec:degree1}
   }
-  \pagebreak
   \section{An algorithm to enumerate isomorphism classes of $2$-group Belyi maps}{\label{sec:isoclasses}
     The algorithm we describe here is iterative.
     The degree $1$ case is discussed in Section \ref{sec:degree1}.
@@ -444,7 +470,9 @@ Preface and Acknowledgments go here!
       the groups obtained from Step 1 are precisely the
       groups that can occur as monodromy groups of degree $2$ covers of $X$.
       \mm{
-        lemma in section about extensions to prove
+        lemma in section about extensions
+        (or in background about Belyi maps)
+        to prove
         that two isomorphic extensions cannot produce
         nonisomorphic Belyi maps
         and that two nonisomorphic extensions cannot produce
@@ -655,8 +683,229 @@ Preface and Acknowledgments go here!
       \newline
       \textbf{Input}: $d = 2^m$ for some positive integer $m$
       \newline
-      \textbf{Output}: a bipartite graph
+      \textbf{Output}: a sequence of bipartite graphs
+      $\mathscr{G}_2, \mathscr{G}_4,\dots,\mathscr{G}_{2^m}$
+      where the two sets of nodes of $\mathscr{G}_{2^i}$
+      are
+      \begin{itemize}
+        \item
+          $\mathscr{G}_{2^i}^\text{above}$ :
+          the set of isomorphism classes of $2$-group Belyi maps
+          of degree $2^i$ indexed by permutation triples $\wt{\sigma}$
+        \item
+          $\mathscr{G}_{2^i}^\text{below}$ :
+          the set of isomorphism classes of $2$-group Belyi maps
+          of degree $2^{i-1}$ indexed by permutation triples $\sigma$
+      \end{itemize}
+      and there is an edge between $\wt{\sigma}$ and $\sigma$
+      if and only if $\wt{\sigma}$ is a lift
+      (as in Definition \ref{def:lift})
+      of $\sigma$.
+      % Moreover,
+      % for each $i$,
+      % we have
+      % $\mathscr{G}_{2^{i-1}}^\text{above} = \mathscr{G}_{2^i}^\text{below}$.
+      This algorithm is iterative.
+      For each $i=1,\dots,m$,
+      we use $\mathscr{G}_{2^i}^\text{below}$ to
+      compute $\mathscr{G}_{2^i}^\text{above}$
+      and then we define
+      \[
+        \mathscr{G}_{2^{i+1}}^\text{below}\colonequals\mathscr{G}_{2^i}^\text{above}
+      \]
+      and continue the process.
+      \begin{enumerate}
+        \item
+          To begin the iteration we
+          let $\mathscr{G}_2^\text{below}$ = $\{\sigma\}$
+          where $\sigma = ((1),(1),(1))\in S_1^3$
+          corresponds to the degree $1$ Belyi map.
+        \item
+          Now suppose we have computed $\mathscr{G}_{2^i}^\text{below}$.
+          We compute $\mathscr{G}_{2^i}^\text{above}$ as follows:
+          \begin{enumerate}
+            \item
+              Apply Algorithm \ref{alg:triples} to every
+              $\sigma\in\mathscr{G}_{2^i}^\text{below}$
+              to obtain
+              $\#\mathscr{G}_{2^i}^\text{below}$
+              sets
+              $\Lifts(\sigma)$.
+              As a word of caution,
+              the notation $\Lifts(\sigma)$ has
+              a different meaning here than in
+              Algorithm \ref{alg:triples}.
+              Here $\Lifts(\sigma)$ is the set of
+              lifts of $\sigma$ up to simultaneous
+              conjugation.
+              Let
+              \[
+                \mathscr{G}_{2^i}^\text{above}
+                \colonequals
+                \bigcup_{\sigma\in\mathscr{G}_{2^i}^\text{below}}
+                \Lifts(\sigma)
+              \]
+              and place an edge 
+              of $\mathscr{G}_{2^i}$
+              between
+              $\wt{\sigma}\in\mathscr{G}_{2^i}^\text{above}$
+              and
+              $\sigma\in\mathscr{G}_{2^i}^\text{below}$
+              if and only if $\wt{\sigma}\in\Lifts(\sigma)$.
+            \item
+              Consider all pairs $(\wt{\sigma},\wt{\sigma}')\in\mathscr{G}_{2^i}^\text{above}$
+              and for each pair
+              test if $\wt{\sigma}$ is simultaneously conjugate to
+              $\wt{\sigma}'$ in $S_{2^i}$.
+              If the pair is simultaneously conjugate,
+              then combine the nodes $\wt{\sigma}$ and $\wt{\sigma}'$
+              into a single node (take either triple)
+              and combine the edge sets of $\wt{\sigma}$
+              and $\wt{\sigma}'$ to be the edge set of the new node.
+            \item
+              Return the resulting bipartite graph as
+              $\mathscr{G}_{2^i}$.
+            \item
+              If $i<m$, then let
+              $\mathscr{G}_{2^{i+1}}^\text{below}\colonequals\mathscr{G}_{2^i}^\text{above}$
+              and repeat Step 2 with $i+1$.
+              If $i=m$,
+              then return the sequence of bipartite graphs
+              $\mathscr{G}_2,\mathscr{G}_4,\dots,\mathscr{G}_{2^m}$.
+          \end{enumerate}
+      \end{enumerate}
     \end{alg}
+    \begin{proof}[Proof of correctness]
+      % first use 2-groups and Galois correspondence to see we get all iso classes
+      We first address the claim that
+      every $2$-group Belyi map $\phi:X\to\PP^1$ of degree $2^i$
+      is represented by a permutation triple in
+      $\mathcal{G}_{2^i}^\text{above}$.
+      Let $G$ be the monodromy group of $\phi$.
+      Since $\#G=2^i$,
+      by Lemma \ref{lem:2groupfiltration},
+      there exists a normal tower of groups
+      \begin{equation}\label{eqn:2groupfiltration}
+        G_0\trianglelefteq G_1\trianglelefteq\dots
+        \trianglelefteq G_i
+      \end{equation}
+      where $G_0 = \{1\}$, $G_i = G$,
+      and each consecutive quotient is isomorphic
+      to $\ZZ/2\ZZ$.
+      By the Galois correspondence,
+      Proposition \ref{prop:galoiscorrespondence},
+      this normal tower of groups corresponds to
+      the diagram in Figure \ref{fig:2groupfiltration}.
+      \begin{figure}[ht]
+        \begin{center}
+          \begin{tikzpicture}[scale=0.3]
+            \node at (0,0) (X0) {$X_0 = \PP^1$};
+            \node [above left=of X0] (X1) {$X_1$};
+            \node [above =of X1] (X2) {$X_2$};
+            \node [above =of X2] (dots) {$\vdots$};
+            \node [above =of dots] (Xr) {$X_i=X$};
+            %\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
+            \draw[->] (X1) to node [below] {$2$} node [right] {$\phi_1$} (X0);
+            \draw[->] (X2) to node [left] {$2$} node {} (X1);
+            \draw[->, bend left] (X2) to node [below, right] {$\phi_2$} node {} (X0);
+            \draw[->] (dots) to node [left] {$2$} node {} (X2);
+            \draw[->] (Xr) to node [left] {$2$} node {} (dots);
+            \draw[->, bend left] (Xr) to node [below, right] {$\phi_i=\phi$} node {} (X0);
+            %\node at (8,0) (KX0) {$K(X_1) = K(\PP^1)$};
+            %\node [above left=of KX0] (KX1) {$K(X_2)$};
+            %\node [above =of KX1] (KX2) {$K(X_3)$};
+            %\node [above =of KX2] (dots) {$\vdots$};
+            %\node [above =of dots] (KXr) {$K(X_r)$};
+            %%\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
+            %\draw[-] (KX1) to node [below] {$2$} node {} (KX0);
+            %\draw[-] (KX2) to node [left] {$2$} node {} (KX1);
+            %\draw[-, bend left] (KX2) to node [below, left] {} node {} (KX0);
+            %\draw[-] (dots) to node [left] {$2$} node {} (KX2);
+            %\draw[-] (KXr) to node [left] {$2$} node {} (dots);
+            %\draw[-, bend left] (KXr) to node [below, left] {} node {} (KX0);
+          \end{tikzpicture}
+        \end{center}
+        \caption{
+          A $2$-group Belyi map $\phi$
+          as a sequence of degree $2$ covers.
+          For $j\in\{1,\dots,i\}$,
+          $\phi$ factors through
+          a degree $2^j$ Belyi map denoted $\phi_j$.
+        }
+        \label{fig:2groupfiltration}
+      \end{figure}
+      Let $\sigma_j$ be the permutation triple corresponding to
+      $\phi_j$ in Figure \ref{fig:2groupfiltration}.
+      Applying Algorithm \ref{alg:triples} to $\sigma_j$
+      we obtain $\sigma_{j+1}$ as a lift of $\sigma_j$
+      so that the permutation triple corresponding to $\phi$
+      appears in $\mathscr{G}_{2^i}^\text{above}$.
+      This shows that every $2$-group Belyi map
+      of degree $2^i$ is represented by at least one node in
+      $\mathscr{G}_{2^i}$.
+      We now claim that every $2$-group Belyi map of degree $2^i$
+      is represented by exactly one node in $\mathscr{G}_{2^i}$.
+      % then show why only one in each iso class
+      Since we are applying Algorithm \ref{alg:triples}
+      to every permutation triple in $\mathscr{G}_{2^i}^\text{below}$,
+      it is possible that in Step 2(a),
+      the set of permutation triples in $\mathscr{G}_{2^i}^\text{above}$
+      has simultaneously conjugate triples
+      which arise when a degree $2^i$ Belyi map
+      is a degree $2$ cover of more than one
+      nonisomorphic Belyi map of degree $2^{i-1}$.
+      In Step 2(b),
+      we combine permutation triples in $\mathscr{G}_{2^i}^\text{above}$
+      that are simultaneously conjugate by taking a single
+      permutation triple to represent this isomorphism class
+      of $2$-group Belyi map.
+      Note that in Step 2(b)
+      we never remove any edges in the graph
+      $\mathscr{G}_{2^i}$.
+      It follows from Step 2(b)
+      that $\mathscr{G}_{2^i}^\text{above}$ has at most
+      one node for each
+      $2$-group Belyi map
+      isomorphism class of degree $2^i$.
+    \end{proof}
+    \begin{theorem}\label{thm:isoclasses}
+      The following table lists the number of isomorphism classes of
+      $2$-group Belyi maps of degree $d$ for $d$ up to $256$.
+      \[
+        \begin{tabular}{|c||c|c|c|c|c|c|c|c|}
+          \hline
+          $d$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
+          \hline
+          \# & $$ & $$ & $$ & $$ & $$ & $$ & $$ & $$\\
+          \hline
+        \end{tabular}
+      \]
+    \end{theorem}
+    \begin{proof}
+      Apply Algorithm \ref{alg:alltriples}.
+    \end{proof}
+    \begin{alg}\label{alg:allpassports}
+      We use Algorithm \ref{alg:alltriples}
+      to count the number of Passports of $2$-group Belyi maps
+      of a given degree.
+      \mm{todo}
+    \end{alg}
+    \begin{theorem}\label{thm:passports}
+      The following table lists the number of passports of
+      $2$-group Belyi maps of degree $d$ for $d$ up to $256$.
+      \[
+        \begin{tabular}{|c||c|c|c|c|c|c|c|c|}
+          \hline
+          $d$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
+          \hline
+          \# passports & $3$ & $7$ & $16$ & $41$ & $96$ & $267$ & $834$ & $2893$\\
+          \hline
+        \end{tabular}
+      \]
+    \end{theorem}
+    \begin{proof}
+      Apply Algorithm \ref{alg:allpassports}.
+    \end{proof}
   }
   \section{An algorithm to compute $2$-group Belyi curves and maps}{\label{sec:curvesandmaps}
     The algorithm we describe here is iterative.
@@ -796,6 +1045,199 @@ Preface and Acknowledgments go here!
   \section{Running time analysis}{\label{sec:runtime}
   }
   \section{Explicit computations}{\label{sec:computations}
+  }
+}
+\chapter{Results on $2$-group Belyi maps}{\label{chapter:results}
+  In this chapter we discuss some results on $2$-group Belyi maps
+  obtained, in part, from the data in
+  Chapter \ref{chapter:database}.
+  Section \ref{sec:classification} details which types of Belyi maps
+  can occur as $2$-group Belyi maps.
+  Section \ref{sec:fieldsofdefinition} describes the possible
+  fields of definition
+  and fields of moduli for $2$-group Belyi maps.
+  \section{Classifying $2$-group Belyi maps}{\label{sec:classification}
+    The conditions that need to be satisfied for a general Belyi map
+    to be a $2$-group Belyi map are quite stringent.
+    For example,
+    the ramification indices can be encoded as a triple of integers
+    $(a,b,c)\in\{1,2,4,\dots\}^3$.
+    We start Section \ref{sec:classification} by giving a complete description of the geometry type
+    (see Definition \ref{def:geometrytype}) of a
+    $2$-group Belyi map in Proposition \ref{prop:geometrytype}
+    and finish Section \ref{sec:classification}
+    with a classification of hyperelliptic
+    $2$-group Belyi maps in Theorem \ref{thm:hyperelliptic}.
+    \begin{prop}\label{prop:geometrytype}
+      Let $\phi:X\to\PP^1$ be a $2$-group Belyi map
+      corresponding to a permutation triple $\sigma$
+      with $(a,b,c)$ the triple of orders of permutations in $\sigma$.
+      Then the geometry type of $\phi$ is determined by $(a,b,c)$
+      and is one of the following:
+      \begin{enumerate}
+        \item[(degenerate)]
+          $\phi$ is degenerate if $1\in(a,b,c)$.
+        \item[(spherical)]
+          $\phi$ is spherical if $(a,b,c)$ is of the form
+          $(2,2,c)$, $(2,b,2)$, or $(a,2,2)$.
+        \item[(Euclidean)]
+          $\phi$ is Euclidean if $(a,b,c)$ is of the form
+          $(2,4,4)$, $(4,2,4)$, or $(4,4,2)$.
+        \item[(hyperbolic)]
+          $\phi$ is hyperbolic (with genus at least $2$) in all other cases.
+      \end{enumerate}
+    \end{prop}
+    \begin{proof}
+    \end{proof}
+    Before classifying the hyperelliptic $2$-group Belyi maps,
+    we prove the following Lemma.
+    \begin{lemma}\label{lem:hyperellipticinvolution}
+      Let $\phi:X\to\PP^1$ be a hyperelliptic $2$-group Belyi map
+      with monodromy group $G$.
+      Let $\iota$ denote the hyperelliptic involution in $\Aut(X)$.
+      Then
+      $G\leq\Aut(X)$ and $\iota$ is central in $G$.
+    \end{lemma}
+    \begin{proof}
+    \end{proof}
+    \begin{theorem}\label{thm:hyperelliptic}
+      Let $\phi:X\to\PP^1$ be a hyperelliptic $2$-group Belyi map
+      with monodromy group $G$.
+      Let $\iota$ denote the hyperelliptic involution in $\Aut(X)$.
+      Then $\overline{G}\colonequals G/\langle\iota\rangle$
+      is a subgroup of $\Aut(\PP^1)\cong\PGL_2(\CC)$.
+      (see Figure \ref{fig:hyperelliptic}).
+      In particular,
+      $\overline{G}$ is either cyclic, dihedral, or exceptional.
+      \begin{figure}[ht]
+        \[
+          \begin{tikzcd}[ampersand replacement=\&]
+            X\arrow{dd}[swap]{G}\arrow{dr}{\langle\iota\rangle}\\
+            \&\PP^1\arrow{dl}{G/\langle\iota\rangle}\\
+            \PP^1
+          \end{tikzcd}
+        \]
+        \caption{
+          A hyperelliptic $2$-group Belyi map
+          with monodromy group $G$
+          factors through a degree $2$ map to $\PP^1$
+          and an automorphism of $\PP^1$.
+        }
+        \label{fig:hyperelliptic}
+      \end{figure}
+    \end{theorem}
+    \begin{proof}
+    \end{proof}
+  }
+  \section{Fields of definition of $2$-group Belyi maps}{\label{sec:fieldsofdefinition}
+    In Section \ref{sec:fieldsofdefinition} we use the data
+    from Chapter \ref{chapter:database} to 
+    formulate a conjecture about the possible fields of definition of
+    $2$-group Belyi maps.
+    Recall the action of $G_\QQ$ on the set of Belyi maps
+    described in Proposition \ref{prop:galoisaction}.
+    For a fixed Belyi map,
+    we can simplify matters as described in the following definition.
+    \begin{definition}\label{def:fieldofmoduli}
+      The \defi{field of moduli} of a Belyi map
+      $\phi:X\to\PP^1$ is the fixed field
+      \[
+        \{\tau\in G_\QQ : \phi^\tau\cong\phi\}.
+      \]
+    \end{definition}
+    Definition \ref{def:fieldofmoduli} allows us to study
+    a more manageable finite extension.
+    Moreover, passports (recall Definition \ref{def:passport})
+    allow us to bound the degree of the field of moduli.
+    \begin{theorem}\label{thm:fieldofmoduli}
+      Let $\phi:X\to\PP^1$ be a Belyi map
+      with passport $\mathcal{P}$.
+      Then the degree of the field of moduli of $\phi$
+      is bounded by the size of $\mathcal{P}$.
+    \end{theorem}
+    \begin{proof}
+      % proof in JVSijsling
+    \end{proof}
+    \begin{definition}\label{def:refined}
+      A \defi{refined passport} $\mathcal{P}$ consists of the data
+      $(g,G,C)$
+      where $g\geq 0$ is an integer,
+      $G\leq S_d$ is a transitive subgroup,
+      and $C = (C_0,C_1,C_\infty)$
+      is a triple of conjugacy classes of $G$.
+    \end{definition}
+    \mm{some exposition about refined passports}
+    For a refined passport $\mathcal{P}$ consider the set
+    \[
+      \Sigma_\mathcal{P} =
+      \{(\sigma_0,\sigma_1,\sigma_\infty)\in C_0\times C_1\times C_\infty : \sigma_\infty\sigma_1\sigma_0=1,\text{ and } \langle\sigma\rangle=G\}/\sim
+    \]
+    where $(\sigma_0,\sigma_1,\sigma_\infty)\sim(\sigma_0', \sigma_1', \sigma_\infty')$
+    if and only if there exists $\alpha\in\Aut(G)$ with
+    $\alpha(\sigma_s) = \sigma_s'$ for $s\in\{0,1,\infty\}$.
+    \begin{conj}
+      Let $\mathcal{P} = (g,G,C)$
+      be a refined passport with
+      $G=\Mon(\phi)$ for some $2$-group Belyi map $\phi$.
+      Then $\#\Sigma_\mathcal{P} = 0\text{ or }1$.
+    \end{conj}
+    \begin{proof}
+    \end{proof}
+    \begin{corr}
+      Every $2$-group Belyi map is defined over a cyclotomic field
+      $\QQ(\zeta_{2^m})$ for some $m$.
+    \end{corr}
+    \begin{proof}
+    \end{proof}
+  }
+}
+\chapter{Gross's conjecture for $p=2$}{\label{chapter:grossconjecture}
+  We begin this chapter with Theorem \ref{thm:beckmann} which provides
+  the arithmetic motivation to study $2$-group Belyi maps.
+  We then detail past results on Gross's conjecture in Section
+  \ref{sec:grossconjecturepast}
+  and finish with some discussion on $2$-group Belyi maps
+  in relation to the $p=2$ case of Gross's conjecture.
+  \section{Beckmann's theorem}{\label{sec:beckmann}
+    In this Section we state Beckmann's theorem
+    for Belyi maps over $\CC$
+    from
+    $1989$ which can be found in \cite{beckmann}.
+    We then adapt Theorem \ref{thm:beckmann}
+    to our particular situation in
+    Corollary \ref{cor:beckmann}.
+    \begin{theorem}\label{thm:beckmann}
+      Let $\phi:X\to\PP^1$ be a Belyi map with
+      monodromy group $G$
+      and suppose $p$ does not divide $\# G$.
+      Then there exists a number field $M$
+      with the following properties:
+      \begin{itemize}
+        \item
+          $p$ is unramified in $M$
+        \item
+          the Belyi map $\phi$ is defined over $M$
+        \item
+          the Belyi curve $X$ is defined over $M$
+        \item
+          $X$ has good reduction at all primes $\mathfrak{p}$
+          of $M$ above $p$
+      \end{itemize}
+    \end{theorem}
+    \begin{proof}
+      \cite{beckmann}
+    \end{proof}
+    \begin{corr}\label{cor:beckmann}
+      Let $\phi:X\to\PP^1$ be a $2$-group Belyi map.
+      Then there exists a smooth projective model for $X$
+      with good reduction away from $p=2$.
+    \end{corr}
+    \begin{proof}
+    \end{proof}
+  }
+  \section{Past results on Gross's conjecture}{\label{sec:grossconjecturepast}
+  }
+  \section{A nonsolvable Galois number field ramified only at $2$}{\label{sec:numberfieldramifiedat2}
   }
 }
 
