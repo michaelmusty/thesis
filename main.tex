@@ -1131,109 +1131,111 @@ Preface and Acknowledgments go here!
   \section{Explicit computations}{\label{sec:computations}
   }
 } 
-\chapter{Results on $2$-group Belyi maps}{\label{chapter:results}
+\chapter{Classifying $2$-group Belyi maps}{\label{chapter:classify}
   In this chapter we discuss some results on $2$-group Belyi maps
   obtained, in part, from the data in
   Chapter \ref{chapter:database}.
-  Section \ref{sec:classification} details which types of Belyi maps
-  can occur as $2$-group Belyi maps.
-  Section \ref{sec:fieldsofdefinition} describes the possible
-  fields of definition
-  and fields of moduli for $2$-group Belyi maps.
-  \section{Classifying $2$-group Belyi maps}{\label{sec:classification}
-    The conditions that need to be satisfied for a general Belyi map
-    to be a $2$-group Belyi map are quite stringent.
-    For example,
-    the ramification indices can be encoded as a triple of integers
-    $(a,b,c)\in\{1,2,4,\dots\}^3$.
-    We start Section \ref{sec:classification} by giving a complete description of the geometry type
-    (see Definition \ref{def:geometrytype}) of a
-    $2$-group Belyi map in Proposition \ref{prop:geometrytype}
-    and finish Section \ref{sec:classification}
-    with a classification of hyperelliptic
-    $2$-group Belyi maps in Theorem \ref{thm:hyperelliptic}.
-    \begin{prop}\label{prop:geometrytype}
-      Let $\phi:X\to\PP^1$ be a $2$-group Belyi map
-      corresponding to a permutation triple $\sigma$
-      with $(a,b,c)$ the triple of orders of permutations in $\sigma$.
-      Then the geometry type of $\phi$ is determined by $(a,b,c)$
-      and is one of the following:
-      \begin{enumerate}
-        \item[(degenerate)]
-          $\phi$ is degenerate if $1\in(a,b,c)$.
-        \item[(spherical)]
-          $\phi$ is spherical if $(a,b,c)$ is of the form
-          $(2,2,c)$, $(2,b,2)$, or $(a,2,2)$.
-        \item[(Euclidean)]
-          $\phi$ is Euclidean if $(a,b,c)$ is of the form
-          $(2,4,4)$, $(4,2,4)$, or $(4,4,2)$.
-        \item[(hyperbolic)]
-          $\phi$ is hyperbolic (with genus at least $2$) in all other cases.
-      \end{enumerate}
-    \end{prop}
-    \begin{proof}
-    \end{proof}
-    \subsection{Classifying spherical $2$-group Belyi maps}{\label{subsec:elliptic}}{
-    }
-    \subsection{Classifying genus $1$ $2$-group Belyi maps}{\label{subsec:elliptic}}{
-    }
-    \subsection{Classifying hyperelliptic $2$-group Belyi maps}{\label{subsec:hyperelliptic}}{
-      \begin{definition}
-        Let $K$ be a number field with algebraic closure $\overline{K}$.
-        Let $X$ be an irreducible smooth projective curve over $K$.
-        $X$ is \defi{hyperelliptic} if there exists a degree $2$ morphism
-        $\iota:X\to\PP^1$ (defined over $\overline{K}$).
-        The degree $2$ morphism $\iota$ is called the
-        \defi{hyperelliptic involution}.
-      \end{definition}
-      \begin{definition}
-        A \defi{hyperelliptic Belyi map} is a Belyi map $\phi:X\to\PP^1$
-        where $X$ is a hyperelliptic curve.
-      \end{definition}
-      \begin{lemma}\label{lem:hyperellipticinvolution}
-        Let $\phi:X\to\PP^1$ be a hyperelliptic $2$-group Belyi map
-        with monodromy group $G$.
-        Let $\iota$ denote the hyperelliptic involution in $\Aut(X)$.
-        Then
-        $G\leq\Aut(X)$ and $\iota$ is central in $G$.
-      \end{lemma}
-      \begin{proof}
-      \end{proof}
-      \begin{theorem}\label{thm:hyperelliptic}
-        Let $\phi:X\to\PP^1$ be a hyperelliptic $2$-group Belyi map
-        with monodromy group $G$.
-        Let $\iota$ denote the hyperelliptic involution in $\Aut(X)$.
-        Then $\overline{G}\colonequals G/\langle\iota\rangle$
-        is a subgroup of $\Aut(\PP^1)\cong\PGL_2(\CC)$.
-        (see Figure \ref{fig:hyperelliptic}).
-        In particular,
-        $\overline{G}$ is either cyclic, dihedral, or exceptional.
-        \begin{figure}[ht]
-          \[
-            \begin{tikzcd}[ampersand replacement=\&]
-              X\arrow{dd}[swap]{G}\arrow{dr}{\langle\iota\rangle}\\
-              \&\PP^1\arrow{dl}{G/\langle\iota\rangle}\\
-              \PP^1
-            \end{tikzcd}
-          \]
-          \caption{
-            A hyperelliptic $2$-group Belyi map
-            with monodromy group $G$
-            factors through a degree $2$ map to $\PP^1$
-            and an automorphism of $\PP^1$.
-          }
-          \label{fig:hyperelliptic}
-        \end{figure}
-      \end{theorem}
-      \begin{proof}
-      \end{proof}
-    }
+  The conditions that need to be satisfied for a general Belyi map
+  to be a $2$-group Belyi map are quite stringent.
+  This allows us to give a clear picture of the story in the low genus cases.
+  \section{Genus $0$}{\label{sec:genuszero}}{
   }
-  \section{Fields of definition of $2$-group Belyi maps}{\label{sec:fieldsofdefinition}
-    In Section \ref{sec:fieldsofdefinition} we use the data
-    from Chapter \ref{chapter:database} to 
-    formulate a conjecture about the possible fields of definition of
-    $2$-group Belyi maps.
+  \section{Genus $1$}{\label{sec:genusone}}{
+  }
+  \section{Genus $2$}{\label{sec:genustwo}}{
+  }
+  \section{Genus $3$}{\label{sec:genusthree}}{
+  }
+  \section{Hyperelliptic}{\label{sec:hyperelliptic}}{
+  }
+    % We start Section \ref{sec:classification} by giving a complete description of the geometry type
+    % (see Definition \ref{def:geometrytype}) of a
+    % $2$-group Belyi map in Proposition \ref{prop:geometrytype}
+    % and finish Section \ref{sec:classification}
+    % with a classification of hyperelliptic
+    % $2$-group Belyi maps in Theorem \ref{thm:hyperelliptic}.
+    % \begin{prop}\label{prop:geometrytype}
+    %   Let $\phi:X\to\PP^1$ be a $2$-group Belyi map
+    %   corresponding to a permutation triple $\sigma$
+    %   with $(a,b,c)$ the triple of orders of permutations in $\sigma$.
+    %   Then the geometry type of $\phi$ is determined by $(a,b,c)$
+    %   and is one of the following:
+    %   \begin{enumerate}
+    %     \item[(degenerate)]
+    %       $\phi$ is degenerate if $1\in(a,b,c)$.
+    %     \item[(spherical)]
+    %       $\phi$ is spherical if $(a,b,c)$ is of the form
+    %       $(2,2,c)$, $(2,b,2)$, or $(a,2,2)$.
+    %     \item[(Euclidean)]
+    %       $\phi$ is Euclidean if $(a,b,c)$ is of the form
+    %       $(2,4,4)$, $(4,2,4)$, or $(4,4,2)$.
+    %     \item[(hyperbolic)]
+    %       $\phi$ is hyperbolic (with genus at least $2$) in all other cases.
+    %   \end{enumerate}
+    % \end{prop}
+    % \begin{proof}
+    % \end{proof}
+    % \subsection{Classifying spherical $2$-group Belyi maps}{\label{subsec:elliptic}}{
+    % }
+    % \subsection{Classifying genus $1$ $2$-group Belyi maps}{\label{subsec:elliptic}}{
+    % }
+    % \subsection{Classifying hyperelliptic $2$-group Belyi maps}{\label{subsec:hyperelliptic}}{
+    %   \begin{definition}
+    %     Let $K$ be a number field with algebraic closure $\overline{K}$.
+    %     Let $X$ be an irreducible smooth projective curve over $K$.
+    %     $X$ is \defi{hyperelliptic} if there exists a degree $2$ map
+    %     $\iota:X\to\PP^1$ (defined over $\overline{K}$).
+    %     The degree $2$ map $\iota$ is called the
+    %     \defi{hyperelliptic involution}.
+    %   \end{definition}
+    %   \begin{definition}
+    %     A \defi{hyperelliptic Belyi map} is a Belyi map $\phi:X\to\PP^1$
+    %     where $X$ is a hyperelliptic curve.
+    %   \end{definition}
+    %   \begin{lemma}\label{lem:hypinvolutioncentral}
+    %     Let $\phi:X\to\PP^1$ be a hyperelliptic $2$-group Belyi map
+    %     with monodromy group $G$.
+    %     Let $\iota$ denote the hyperelliptic involution in $\Aut(X)$.
+    %     Then
+    %     $G\leq\Aut(X)$ and $\iota$ is central in $G$.
+    %   \end{lemma}
+    %   \begin{proof}
+    %   \end{proof}
+    %   \begin{theorem}\label{thm:hyperelliptic}
+    %     Let $\phi:X\to\PP^1$ be a hyperelliptic $2$-group Belyi map
+    %     with monodromy group $G$.
+    %     Let $\iota$ denote the hyperelliptic involution in $\Aut(X)$.
+    %     Then $\overline{G}\colonequals G/\langle\iota\rangle$
+    %     is a subgroup of $\Aut(\PP^1)\cong\PGL_2(\CC)$.
+    %     (see Figure \ref{fig:hyperelliptic}).
+    %     In particular,
+    %     $\overline{G}$ is either cyclic, dihedral, or exceptional.
+    %     \begin{figure}[ht]
+    %       \[
+    %         \begin{tikzcd}[ampersand replacement=\&]
+    %           X\arrow{dd}[swap]{G}\arrow{dr}{\langle\iota\rangle}\\
+    %           \&\PP^1\arrow{dl}{G/\langle\iota\rangle}\\
+    %           \PP^1
+    %         \end{tikzcd}
+    %       \]
+    %       \caption{
+    %         A hyperelliptic $2$-group Belyi map
+    %         with monodromy group $G$
+    %         factors through a degree $2$ map to $\PP^1$
+    %         and an automorphism of $\PP^1$.
+    %       }
+    %       \label{fig:hyperelliptic}
+    %     \end{figure}
+    %   \end{theorem}
+    %   \begin{proof}
+    %   \end{proof}
+    % }
+}
+\chapter{Fields of definition of $2$-group Belyi maps}{\label{chapter:fieldsofdefinition}
+  Using data from Chapter \ref{chapter:database},
+  we formulate a conjecture about the possible fields of definition of
+  $2$-group Belyi maps.
+  \section{Fields of moduli}{\label{sec:fieldsofmoduli}}{
     Recall the action of $G_\QQ$ on the set of Belyi maps
     described in Proposition \ref{prop:galoisaction}.
     For a fixed Belyi map,
@@ -1258,6 +1260,8 @@ Preface and Acknowledgments go here!
     \begin{proof}
       % proof in JVSijsling
     \end{proof}
+  }
+  \section{Refined passports}{\label{sec:refined}}{
     \begin{definition}\label{def:refined}
       A \defi{refined passport} $\mathcal{P}$ consists of the data
       $(g,G,C)$
@@ -1275,6 +1279,8 @@ Preface and Acknowledgments go here!
     where $(\sigma_0,\sigma_1,\sigma_\infty)\sim(\sigma_0', \sigma_1', \sigma_\infty')$
     if and only if there exists $\alpha\in\Aut(G)$ with
     $\alpha(\sigma_s) = \sigma_s'$ for $s\in\{0,1,\infty\}$.
+  }
+  \section{A refined conjecture}{\label{sec:conjecture}}{
     \begin{conj}
       Let $\mathcal{P} = (g,G,C)$
       be a refined passport with
