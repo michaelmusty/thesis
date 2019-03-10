@@ -1,7 +1,5 @@
 % arara: pdflatex
 % arara: bibtex
-% arara: bibtex
-% arara: pdflatex
 % arara: pdflatex
 
 \documentclass{dcthesis}
@@ -1131,22 +1129,145 @@ Preface and Acknowledgments go here!
   \section{Explicit computations}{\label{sec:computations}
   }
 } 
-\chapter{Classifying $2$-group Belyi maps}{\label{chapter:classify}
-  In this chapter we discuss some results on $2$-group Belyi maps
-  obtained, in part, from the data in
-  Chapter \ref{chapter:database}.
+\chapter{Classifying low genus $2$-group Belyi maps}{\label{chapter:classify}
+  In this chapter we organize some results on $2$-group Belyi maps
+  with low genus.
   The conditions that need to be satisfied for a general Belyi map
   to be a $2$-group Belyi map are quite stringent.
   This allows us to give a clear picture of the story in the low genus cases.
-  \section{Genus $0$}{\label{sec:genuszero}}{
+  \section{Galois Belyi maps}{\label{sec:galoisbelyimaps}
+    We summarize some of the results on Galois Belyi maps
+    that we use for $2$-group Belyi maps.
+    A great deal is known about Galois Belyi maps (regular dessins) in general
+    (see \mm{TODO: sources}).
+    \begin{lemma}\label{lem:regular}
+      Let $\sigma$ be a degree $d$ permutation triple corresponding to
+      $\phi\colon X\to\PP^1$ a Galois Belyi map with monodromy group $G$
+      and
+      $m_s$ be the order of $\sigma_s$ for $s\in\{0,1,\infty\}$.
+      Then $\sigma_s$ consists of $d/m_s$ many $m_s$-cycles.
+      In particular,
+      for a $2$-group Belyi map,
+      $m_s$ and $\#G$ are powers of $2$.
+    \end{lemma}
+    \begin{proof}
+    \end{proof}
+    In light of Lemma \ref{lem:regular},
+    we get a refined version of Riemann-Hurwitz for Galois Belyi maps.
+    \begin{prop}\label{prop:riemannhurwitzgalois}
+      Let $\sigma$ be a degree $d$ permutation triple corresponding to
+      $\phi\colon X\to\PP^1$ a Galois Belyi map with monodromy group $G$.
+      Let $a,b,c$ be the orders of $\sigma_0,\sigma_1,\sigma_\infty$
+      respectively.
+      Then
+      \begin{equation}\label{eqn:riemannhurwitzgalois}
+        g(X) = 1+\frac{\#G}{2}\left(1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}\right).
+      \end{equation}
+    \end{prop}
+    \begin{proof}
+    \end{proof}
   }
-  \section{Genus $1$}{\label{sec:genusone}}{
+  \section{Genus $0$}{\label{sec:genuszero}
+    Let $\phi:X\to\PP^1$ be a $2$-group Belyi map where $X$ has genus $0$.
+    Proposition \ref{prop:riemannhurwitzgalois} immediately restricts the
+    possibilities for ramification indices.
+    \begin{prop}\label{prop:genuszeroramification}
+      A $2$-group Belyi map of genus $0$ with monodromy group $G$
+      has the following possibilities for ramification indices:
+      \begin{itemize}
+        \item $(1,\#G, \#G)$, $(\#G, 1, \#G)$, $(\#G, \#G, 1)$
+        \item
+          $\left(\frac{\#G}{2}, 2, 2\right)$,
+          $\left(2, \frac{\#G}{2}, 2\right)$,
+          $\left(2, 2, \frac{\#G}{2}\right)$
+      \end{itemize}
+    \end{prop}
+    \begin{proof}
+      Let $a,b,c$ be the ramification indices of the Belyi map.
+      Then by Lemma \ref{lem:regular},
+      $a,b,c,\#G$ are all positive powers of $2$.
+      Without loss of generality we may assume $a\le b\le c$.
+      The proof is by cases.
+      For $g(X)=0$, Proposition \ref{prop:riemannhurwitzgalois}
+      yields
+      \begin{equation}\label{eqn:riemannhurwitzgenuszero}
+        \frac{\#G}{2}\left(1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}\right) = -1.
+      \end{equation}
+      \begin{itemize}
+        \item[\underline{$a=1$}:]
+          If $a=1$, then
+          Equation \ref{eqn:riemannhurwitzgenuszero} becomes
+          $\frac{1}{b}+\frac{1}{c}=\frac{2}{\#G}$.
+          \begin{itemize}
+            \item[\underline{$b=1$}:]
+              If $a=b=1$, then
+              Equation \ref{eqn:riemannhurwitzgenuszero}
+              implies $a=b=c=\#G=1$.
+            \item[\underline{$b\ge 2$}:]
+              If $a=1$ and $b\geq 2$,
+              then we can let $b=2^m$ and $c=2^n$ with $m\le n$.
+              In this case
+              Equation \ref{eqn:riemannhurwitzgenuszero} becomes
+              \[
+                \frac{1}{2^m}+\frac{1}{2^n} = \frac{2}{\#G}
+                \implies
+                \#G\left(2^{n-m}+1\right) = 2^{n+1}.
+              \]
+              Since $\#G$ is a power of $2$, we must have
+              $2^{n-m}+1\in\{0,1\}$ which only occurs when $m=n$.
+              Therefore $m=n$ which implies $b=c=\#G$.
+          \end{itemize}
+        \item[\underline{$a=2$}:]
+          If $a=2$, then
+          Equation \ref{eqn:riemannhurwitzgenuszero} becomes
+          \[
+            \frac{2}{\#G} = \frac{1}{b}+\frac{1}{c}-\frac{1}{2}.
+          \]
+          \begin{itemize}
+            \item[\underline{$b=2$}:]
+              If $a=2$ and $b=2$, then
+              Equation \ref{eqn:riemannhurwitzgenuszero} implies
+              $c=\frac{\#G}{2}$.
+            \item[\underline{$b\ge 4$}:]
+              If $a=2$ and $b,c\geq 4$, then
+              Equation \ref{eqn:riemannhurwitzgenuszero} implies
+              \[
+                \frac{2}{\#G} = \frac{1}{b}+\frac{1}{c}-\frac{1}{2}
+                \implies
+                \frac{2}{\#G}\le 0
+              \]
+              which cannot occur.
+          \end{itemize}
+        \item[\underline{$a\geq 4$}:]
+          If $a,b,c\geq 4$, then
+          Equation \ref{eqn:riemannhurwitzgenuszero} becomes
+          \[
+            \frac{2}{\#G} = \frac{1}{b}+\frac{1}{c} - \left(1-\frac{1}{a}\right).
+          \]
+          But
+          $\left(1-\frac{1}{a}\right)\ge\frac{3}{4}$
+          and
+          $\frac{1}{b}+\frac{1}{c}\le\frac{1}{2}$
+          imply that
+          $\frac{2}{\#G}<0$
+          which cannot occur.
+      \end{itemize}
+      In summary there are $2$ possibilities:
+      \begin{itemize}
+        \item $a=1$ and $b=c=\#G$
+        \item $a=2$, $b=2$, and $c=\frac{\#G}{2}$
+      \end{itemize}
+      By reordering the ramification indices
+      we obtain the possibilities in Proposition \ref{prop:genuszeroramification}.
+    \end{proof}
   }
-  \section{Genus $2$}{\label{sec:genustwo}}{
+  \section{Genus $1$}{\label{sec:genusone}
   }
-  \section{Genus $3$}{\label{sec:genusthree}}{
+  \section{Genus $2$}{\label{sec:genustwo}
   }
-  \section{Hyperelliptic}{\label{sec:hyperelliptic}}{
+  \section{Genus $3$}{\label{sec:genusthree}
+  }
+  \section{Hyperelliptic}{\label{sec:hyperelliptic}
   }
     % We start Section \ref{sec:classification} by giving a complete description of the geometry type
     % (see Definition \ref{def:geometrytype}) of a
