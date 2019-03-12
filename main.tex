@@ -1,5 +1,7 @@
 % arara: pdflatex
 % arara: bibtex
+% arara: bibtex
+% arara: pdflatex
 % arara: pdflatex
 
 \documentclass{dcthesis}
@@ -1175,8 +1177,9 @@ Preface and Acknowledgments go here!
       A $2$-group Belyi map of genus $0$ with monodromy group $G$
       has the following possibilities for ramification indices:
       \begin{itemize}
-        \item $(1,\#G, \#G)$, $(\#G, 1, \#G)$, $(\#G, \#G, 1)$
+        \item degenerate: $(1,\#G, \#G)$, $(\#G, 1, \#G)$, $(\#G, \#G, 1)$
         \item
+          dihedral:
           $\left(\frac{\#G}{2}, 2, 2\right)$,
           $\left(2, \frac{\#G}{2}, 2\right)$,
           $\left(2, 2, \frac{\#G}{2}\right)$
@@ -1214,7 +1217,7 @@ Preface and Acknowledgments go here!
                 \#G\left(2^{n-m}+1\right) = 2^{n+1}.
               \]
               Since $\#G$ is a power of $2$, we must have
-              $2^{n-m}+1\in\{0,1\}$ which only occurs when $m=n$.
+              $2^{n-m}+1\in\{1,2\}$ which only occurs when $m=n$.
               Therefore $m=n$ which implies $b=c=\#G$.
           \end{itemize}
         \item[\underline{$a=2$}:]
@@ -1259,6 +1262,107 @@ Preface and Acknowledgments go here!
       \end{itemize}
       By reordering the ramification indices
       we obtain the possibilities in Proposition \ref{prop:genuszeroramification}.
+    \end{proof}
+    In particular,
+    from
+    Proposition \ref{prop:genuszeroramification}
+    we see that all genus $0$ $2$-group Belyi maps
+    are degenerate or spherical dihedral.
+    The explicit maps in these cases are well understood
+    \mm{TODO: cite}\cite{turkishbelyithesis}.
+    We summarize with Proposition \ref{prop:turkishbelyithesis}.
+    \begin{prop}\label{prop:turkishbelyithesis}
+      Every possible ramification type in
+      Proposition \ref{prop:genuszeroramification}
+      corresponds to exactly one Belyi map up to isomorphism.
+      Moreover, the equations for these maps have simple formulas
+      given below.
+      In the formulas below,
+      we use the notation from Proposition \ref{prop:genuszeroramification}
+      for ramification types and write a Belyi map
+      $\phi:\PP^1\to\PP^1$ with monodromy $G$
+      as a rational function in the coordinate $x$
+      on an affine patch of the domain of $\phi$.
+      \begin{itemize}
+        \item
+          $(1,1,1)$
+          \[
+            \phi(x) = x
+          \]
+        \item
+          $(1,\#G, \#G)$, $\#G\ge 2$
+          \[
+            \phi(x) = 1-x^{\#G}
+          \]
+        \item
+          $(\#G, 1, \#G)$, $\#G\ge 2$
+          \[
+            \phi(x) = x^{\#G}
+          \]
+        \item
+          $(\#G, \#G, 1)$, $\#G\ge 2$
+          \[
+            \phi(x) = \frac{x^{\#G}}{x^{\#G}-1}
+          \]
+        \item
+          $(2, 2, 2)$, $\#G = 2$
+          \[
+            \phi(x) = -\left(\frac{x(x-1)}{x-\frac{1}{2}}\right)^2
+          \]
+        \item
+          $(2, 2, \frac{\#G}{2})$, $\#G\ge 4$
+          \[
+            \phi(x) = -\frac{1}{4}\left(x^{\#G/2}+\frac{1}{x^{\#G/2}}\right)
+            +\frac{1}{2}
+          \]
+        \item
+          $(2, \frac{\#G}{2}, 2)$, $\#G\ge 4$
+          \[
+            \phi(x) = 1-\frac{1}{1-\left(-\frac{1}{4}\left(x^{\#G/2}+\frac{1}{x^{\#G/2}}\right)
+            +\frac{1}{2}\right)}
+          \]
+        \item
+          $(\frac{\#G}{2}, 2, 2)$, $\#G\ge 4$
+          \[
+            \phi(x) = \frac{1}{-\frac{1}{4}\left(x^{\#G/2}+\frac{1}{x^{\#G/2}}\right)
+            +\frac{1}{2}}
+          \]
+      \end{itemize}
+    \end{prop}
+    \begin{proof}
+      We first address the correctness of the equations.
+      For the ramification triples containing $1$,
+      the equations are all lax isomorphic to one of the form
+      \begin{equation}\label{eqn:squaringmap}
+        \phi(x) = x^{\#G}
+      \end{equation}
+      for the ramification triple
+      $(\#G, 1, \#G)$.
+      The rational function $\phi$ in Equation \ref{eqn:squaringmap}
+      has a root of multiplicity $\#G$ at $0$,
+      a pole of multiplicity $\#G$ at $\infty$,
+      and $\#G$ unique preimages above $1$.
+      The Belyi maps for ramification triples
+      $(1,\#G, \#G)$ and $(\#G, \#G, 1)$
+      are lax isomorphic to $\phi$ in Equation \ref{eqn:squaringmap}
+      and similarly have the correct ramification of this
+      degenerate Belyi map.
+      \par
+      For the other ramification triples, we focus on
+      the triple $(2,2,\frac{\#G}{2})$.
+      The equation for this map is a modification
+      (pointed out to me by Sam Schiavone)
+      of the dihedral Belyi map
+      \begin{equation}\label{eqn:dihedral}
+        \phi(x) = x^d+\frac{1}{x^d}
+      \end{equation}
+      in \cite[Example 5.1.2]{turkishbelyithesis}.
+      The other dihedral maps are then lax isomorphic to
+      (the modification of) the map in Equation \ref{eqn:dihedral}.
+      \par
+      To show that there is at most one Belyi map in each of the above cases,
+      we refer to Algorithm \ref{alg:triples}.
+      \mm{todo}
     \end{proof}
   }
   \section{Genus $1$}{\label{sec:genusone}
