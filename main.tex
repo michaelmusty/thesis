@@ -246,13 +246,16 @@ Preface and Acknowledgments go here!
     \subsection{Algebraic curves and their function fields}{
     }
     \subsection{Riemann's existence theorem and covers of $\PP^1$}{
+      \begin{theorem}\label{thm:riemannexistence}
+      \end{theorem}
     }
     \subsection{Belyi's theorem}{
-      \begin{prop}\label{prop:galoisaction}
-        \mm{Galois action on Belyi maps}
-      \end{prop}
     }
     \subsection{Belyi maps and $G$-Belyi maps}{\label{subsec:belyimaps}
+      We now define the main mathematical objects of interest in this work.
+      Throughout Section \ref{subsec:belyimaps}
+      let $K\subseteq\CC$ be a field.
+      % the rest of this subsection is stuff we need later
       \begin{definition}\label{def:geometrytype}
         The \defi{geometry type} of a Belyi map
         \mm{todo}
@@ -268,6 +271,9 @@ Preface and Acknowledgments go here!
       \end{prop}
       \begin{proof}
       \end{proof}
+      \begin{prop}\label{prop:galoisaction}
+        \mm{Galois action on Belyi maps}
+      \end{prop}
     }
     \subsection{Permutation triples and passports}{\label{subsec:passports}
       \begin{definition}\label{def:passport}
@@ -1137,7 +1143,7 @@ Preface and Acknowledgments go here!
   The conditions that need to be satisfied for a general Belyi map
   to be a $2$-group Belyi map are quite stringent.
   This allows us to give a clear picture of the story in the low genus cases.
-  \section{Galois Belyi maps}{\label{sec:galoisbelyimaps}
+  \section{Remarks on Galois Belyi maps}{\label{sec:galoisbelyimaps}
     We summarize some of the results on Galois Belyi maps
     that we use for $2$-group Belyi maps.
     A great deal is known about Galois Belyi maps (regular dessins) in general
@@ -1366,6 +1372,71 @@ Preface and Acknowledgments go here!
     \end{proof}
   }
   \section{Genus $1$}{\label{sec:genusone}
+    Let $\phi\colon X\to\PP^1$ be a $2$-group Belyi map
+    where $X$ has genus $1$.
+    Let $(a,b,c)$ be the ramification indices of $\phi$
+    with $a\leq b\leq c$.
+    From Proposition \ref{prop:riemannhurwitzgalois},
+    we have that
+    \begin{equation}\label{eqn:genusoneramification}
+      % \frac{\#G}{2}\left(1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}\right) = 0
+      % \implies
+      % \left(1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}\right) = 0.
+      \frac{1}{a}+\frac{1}{b}+\frac{1}{c} = 0.
+    \end{equation}
+    Since $a,b,c$ are powers of $2$,
+    the only solution to
+    Equation \ref{eqn:genusoneramification}
+    is $a=2$ and $b=c=4$.
+    We summarize this discussion in
+    Proposition \ref{prop:genusoneramification}.
+    \begin{prop}\label{prop:genusoneramification}
+      The only possible ramification indices for
+      a $2$-group Belyi map of genus $1$ with monodromy group $G$
+      are $(2,4,4)$, $(4,2,4)$, or $(4,4,2)$.
+    \end{prop}
+    As was the case in genus $0$,
+    all ramification triples in
+    Proposition \ref{prop:genusoneramification}
+    have corresponding Belyi maps.
+    However, as we see in
+    Proposition \ref{prop:genusonemaps},
+    these genus $1$ Belyi maps occur in infinite families.
+    \begin{prop}\label{prop:genusonemaps}
+      Let $(a,b,c)$ be a ramification triple in
+      Proposition \ref{prop:genusoneramification}
+      and let $d = 2^m$ for $m\in\ZZ_{\geq 2}$.
+      Then there exists exactly one
+      degree $d$ $2$-group Belyi map up to isomorpism
+      with ramification $(a,b,c)$.
+      Moreover, the equations for these maps have simple formulas
+      which are described below.
+      In these equations let $E$ be the elliptic curve
+      with $j$-invariant $1728$ given by the Weierstrass equation
+      \[
+        E\colon y^2 = x^3+x.
+      \]
+      Every degree $4$ Belyi map below is of the form
+      $\phi\colon E\to\PP^1$.
+      Every degree $d$ Belyi map
+      for $d\geq 8$ is of the form
+      \[
+        E\stackrel{\psi}{\to}E\stackrel{\phi}{\to}\PP^1
+      \]
+      where $\phi$ is a degree $4$ genus $1$ Belyi map
+      and $\psi$ is degree $d/4$ isogeny of $E$.
+      \begin{itemize}
+        \item (degree $4$)
+          \begin{itemize}
+            \item $(2,4,4)$
+            \item $(4,2,4)$
+            \item $(4,4,2)$
+          \end{itemize}
+        \item (degree $8$)
+      \end{itemize}
+    \end{prop}
+    \begin{proof}
+    \end{proof}
   }
   \section{Genus $2$}{\label{sec:genustwo}
   }
