@@ -242,19 +242,154 @@ Preface and Acknowledgments go here!
   }
 }
 \chapter{Background}{\label{chapter:background}
-  \section{Belyi maps}{\label{sec:belyimaps}
-    \subsection{Algebraic curves and their function fields}{
+  \section{What is a Belyi map?}{\label{sec:belyimaps}
+    \subsection{Complex manifolds and Riemann surfaces}{\label{subsec:complexmans}
+      \mm{enough to define Riemann surfaces}
+      \begin{definition}
+        A \defi{branched cover of Riemann surfaces} is a nonconstant holomorphic map
+        $\phi\colon X\to\PP^1$ where $X$ is a compact connected Riemann surface.
+      \end{definition}
     }
-    \subsection{Riemann's existence theorem and covers of $\PP^1$}{
-      \begin{theorem}\label{thm:riemannexistence}
+    \subsection{Algebraic curves}{\label{subsec:algebraiccurves}
+      \mm{enough to define good curves and function fields}
+      \begin{theorem}\label{thm:curvesandfunctionfields}
+        \mm{correspondence curves and function fields}
       \end{theorem}
+      \begin{definition}
+        Let $K\subseteq\CC$ be a field.
+        A \defi{branched cover of algebraic curves over $K$}
+        is a finite map of curves
+        $\phi\colon X\to\PP^1$ defined over $K$.
+      \end{definition}
     }
-    \subsection{Belyi's theorem}{
+    \subsection{Riemann's existence theorem}{\label{subsec:riemannsexistence}
+      Riemann surfaces are defined in Section \ref{subsec:complexmans}.
+      Algebraic curves are defined in Section \ref{subsec:algebraiccurves}.
+      Here in Section \ref{subsec:riemannsexistence}
+      we establish the connection between these objects over the complex numbers.
+      \par
+      Let $X$ be an algebraic curve over $\CC$.
+      Let $\CC(t)$ denote the function field of $\PP^1$.
+      By Theorem \ref{thm:curvesandfunctionfields},
+      $X$ corresponds to a finite extension $L\colonequals\CC(X)$
+      over $\CC(t)$.
+      Let $\alpha$ be a primitive element of $L/\CC(t)$.
+      Then there exists a polynomial
+      \begin{equation}
+        \label{eqn:minpoly}
+        f(x,t) = a_0(t)+a_1(t)x+a_2(t)x^2+\cdots+a_n(t)x^n\in\CC(t)[x]
+      \end{equation}
+      where $f(\alpha,t) = 0$ and (after possibly clearing denominators)
+      $a_i(t) \in\CC[t]$.
+      The polynomial $f$ in Equation \ref{eqn:minpoly}
+      defines a Riemann surface $X'$
+      as a branched cover of $\PP^1$
+      with branch points
+      \[
+        S \colonequals\left\{t_0\in\CC : f(x,t_0) \text{ has repeated roots }\right\}.
+      \]
+      Here $x$ can be viewed as a meromorphic function on $X'$
+      and we can identify the field of meromorphic functions on $X'$
+      with $L$.
+      This explains how we obtain a Riemann surface from an algebraic curve.
+      \par
+      Suppose instead we start with a compact Riemann surface $X$.
+      Can we reverse the above process to construct an algebraic curve?
+      The crucial part of this process is proving that
+      there exists a meromorphic function on $X$ that realizes $X$
+      as a branched cover of $\PP^1$
+      (see Theorem \ref{thm:riemannsexistence} below).
+      Given the existence of such a function,
+      the field of meromorphic functions on $X$ is then realized
+      as a finite extension of the meromorphic functions on $\PP^1$.
+      Finally,
+      by Theorem \ref{thm:curvesandfunctionfields},
+      this corresponds to an algebraic curve.
+      The existence of such a function
+      is given by
+      Theorem \ref{thm:riemannsexistence}
+      (Riemann's existence theorem).
+      \begin{theorem}\label{thm:riemannsexistence}
+        Let $X$ be a compact Riemann surface.
+        Then there exists a meromorphic function on $X$
+        that separates points.
+        That is, for any set of distinct points
+        $\{x_1,\dots,x_n\}\subset X$
+        and any set of distinct points
+        $\{t_1,\dots,t_n\}\subset\PP^1$
+        there exists a meromorphic function $f$
+        on $X$ such that $f(x_i) = t_i$ for all $i$.
+      \end{theorem}
+      \mm{todo: more details...other formulations}
     }
-    \subsection{Belyi maps and $G$-Belyi maps}{\label{subsec:belyimaps}
-      We now define the main mathematical objects of interest in this work.
-      Throughout Section \ref{subsec:belyimaps}
-      let $K\subseteq\CC$ be a field.
+    \subsection{Belyi's theorem}{\label{subsec:belyistheorem}
+      In Sections
+      \ref{subsec:complexmans}, \ref{subsec:algebraiccurves},
+      and \ref{subsec:riemannsexistence}
+      we established the equivalence between
+      compact Riemann surfaces and algebraic curves over $\CC$.
+      This was done, in part,
+      using branched covers.
+      It turns out that branched covers are the key
+      to descending from the transcendental world to
+      the number-theoretic world in the following sense.
+      \begin{theorem}[Belyi's theorem \cite{belyi}]\label{thm:belyistheorem}
+        An algebraic curve $X$ over $\CC$ can be defined over a number field
+        if and only if there exists a branched cover
+        $\phi\colon X\to\PP^1$ unramified outside
+        $\{0,1,\infty\}$.
+      \end{theorem}
+      These remarkable covers are the main focus of this work.
+    }
+    \subsection{Belyi maps and Galois Belyi maps}{\label{subsec:belyimaps}
+      We now set up the framework to discuss
+      the main mathematical objects of interest in this work.
+      \begin{definition}\label{def:belyimap}
+        A \defi{Belyi map}
+        is a branched cover
+        of algebraic curves over $\CC$
+        (equivalently of Riemann surfaces)
+        $\phi\colon X \to \PP^1$
+        that is
+        unramified outside
+        $\{0,1,\infty\}$.
+      \end{definition}
+      \begin{definition}\label{def:belyiiso}
+        Two Belyi maps
+        $\phi\colon X\to\PP^1$ and
+        $\phi'\colon X'\to\PP^1$
+        are \defi{isomorphic}
+        if there exists an isomorphism
+        between $X$ and $X'$
+        such that the diagram in Figure
+        \ref{fig:belyiiso}
+        commutes.
+        If instead we only insist that the isomorphism
+        makes the diagram in Figure
+        \ref{fig:belyilax} commute,
+        then we say that $\phi$ and $\phi'$
+        are \defi{lax isomorphic}
+        \begin{figure}[ht]
+          \begin{center}
+            \begin{tikzcd}
+              X\arrow{rr}{\sim}\arrow{dr}[swap]{\phi}&&X'\arrow{dl}{\phi'}\\
+                                                     &\PP^1
+            \end{tikzcd}
+          \end{center}
+          \caption{Belyi map isomorphism}
+          \label{fig:belyiiso}
+        \end{figure}
+        \begin{figure}[ht]
+          \begin{center}
+            \begin{tikzcd}
+              X\arrow{r}{\sim}\arrow{d}[swap]{\phi}&X'\arrow{d}{\phi'}\\
+              \PP^1\arrow{r}{\sim}&\PP^1
+            \end{tikzcd}
+          \end{center}
+          \caption{Belyi map lax isomorphism}
+          \label{fig:belyilax}
+        \end{figure}
+      \end{definition}
       % the rest of this subsection is stuff we need later
       \begin{definition}\label{def:geometrytype}
         The \defi{geometry type} of a Belyi map
@@ -279,15 +414,10 @@ Preface and Acknowledgments go here!
       \begin{definition}\label{def:passport}
         \mm{passports and such}
       \end{definition}
-      We begin by explaining the combinatorial (or topological)
-      description of Belyi maps and exhibit
-      an efficient method for their enumeration.
-      For general background reading,
-      see \cite[\S 1]{SV} and the references therein.
-      % preliminaries from passport section of database paper
-      Throughout, let $K \subseteq \CC$ be a field.  A \defi{(nice) curve} over $K$ is
+      A \defi{(nice) curve} over $K$ is
       a smooth, projective, geometrically connected (irreducible) scheme of finite
-      type over $K$ that is pure of dimension $1$. After extension to $\CC$, a curve
+      type over $K$ that is pure of dimension $1$.
+      After extension to $\CC$, a curve
       may be thought of as a compact, connected Riemann surface.  A \defi{Belyi map}
       over $K$ is a finite morphism $\phi\colon X \to \PP^1$ over $K$ that is
       unramified outside $\{0,1,\infty\}$; we will sometimes write $(X,\phi)$ when we
