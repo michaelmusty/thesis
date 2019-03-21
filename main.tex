@@ -628,7 +628,7 @@ Preface and Acknowledgments go here!
   \section{$2$-group Belyi maps}{\label{sec:defs}
     Recall the definition of a $G$-Galois Belyi map in Section \ref{sec:belyimaps}.
     In this section we narrow our focus
-    to $G$-Galoi Belyi maps with $\#G$ a power of $2$.
+    to $G$-Galois Belyi maps with $\#G$ a power of $2$.
     \begin{definition}\label{def:2groupbelyi}
       A \defi{$2$-group Belyi map} is a $G$-Galois Belyi map
       with monodromy group a $2$-group.
@@ -1712,13 +1712,10 @@ Preface and Acknowledgments go here!
       is the quotient group
       $G_{\rred}\colonequals G/\langle\iota\rangle$.
     \end{definition}
-    \begin{lemma}\label{lem:normalsubgroup}
-      $H\trianglelefteq\Aut(X)$.
-    \end{lemma}
-    \begin{proof}
-    \end{proof}
-    From Lemma \ref{lem:hypinvolutioncentral},
-    Lemma \ref{lem:normalsubgroup},
+    % \begin{lemma}\label{lem:normalsubgroup}
+    %   $H\trianglelefteq\Aut(X)$.
+    % \end{lemma}
+    From Lemma \ref{lem:hypinvolutioncentral}
     and the Galois condition on $\phi$,
     we obtain the diagram in Figure \ref{fig:hyperellipticbelyi}.
     \begin{figure}[ht]
@@ -1726,7 +1723,7 @@ Preface and Acknowledgments go here!
         \begin{tikzcd}
           &X\arrow[swap, Rightarrow]{dl}{\phi}\arrow[Rightarrow]{dr}{\langle\iota\rangle}
           \arrow[Rightarrow]{dd}{\psi}\\
-          \PP^1\simeq X/H\arrow{dr}&&\PP^1\simeq G/\langle\iota\rangle\arrow[Rightarrow]{dl}{G/\langle\iota\rangle}\\
+          \PP^1\simeq X/H\arrow{dr}&&\PP^1\simeq X/\langle\iota\rangle\arrow[Rightarrow]{dl}{G/\langle\iota\rangle}\\
                          &\PP^1\simeq X/G
         \end{tikzcd}
       \]
@@ -1740,12 +1737,80 @@ Preface and Acknowledgments go here!
       then $\psi$ is a Belyi map.
     \end{prop}
     \begin{proof}
-      \mm{
-        Use \cite[Proposition 1]{singerman}
-        and Theorem \ref{thm:bigbijection}
-      }
+      By Theorem \ref{thm:bigbijection},
+      $\phi$ corresponds to
+      a normal inclusion of triangle groups
+      $
+        \Delta_1\trianglelefteq\Delta_H
+      $
+      and the map $X / H \to X / G$
+      corresponds to an inclusion of Fuchsian groups
+      \begin{equation}\label{eqn:fuchsianinclusion}
+        \Delta_H\leq\Gamma.
+      \end{equation}
+      By a result in \cite[Page 36]{singerman},
+      the inclusion of a triangle group $\Delta_H$ in
+      a Fuchsian group $\Gamma$
+      as in Equation \ref{eqn:fuchsianinclusion}
+      implies that $\Gamma$ is a triangle group
+      which we denote $\Delta_G$.
+      Now we have the
+      (normal by Lemma \ref{lem:hypinvolutioncentral})
+      inclusion
+      $\Delta_1\trianglelefteq\Delta_G$
+      which (again by Theorem \ref{thm:bigbijection})
+      implies that $\psi$ is a Belyi map.
     \end{proof}
-    \cite{dolgachev}
+    Proposition \ref{prop:liftbelyi}
+    reduces the classification of these hyperelliptic $2$-group Belyi maps
+    to the situation on the right side of the diagram in
+    Figure \ref{fig:hyperellipticbelyi}.
+    The possibilities for $G_{\rred}$
+    in this setting are known
+    (see \cite[\S 1.1]{dolgachev}).
+    Moreover, since $G$ is a
+    $2$-group (\mm{$G$ only contains a $2$-group\ldots}),
+    the only possibilities for $G_{\rred}$
+    are cyclic or dihedral of order $\#G / 2$.
+    $G$ is then an extension of $G_{\rred}$
+    by $\iota$
+    (an element of order $2$ generating a normal subgroup of $G$).
+    Such groups are classified in
+    \cite{hyperelliptic} which we summarize in the
+    following theorem.
+    \begin{theorem}
+      \label{thm:hyperelliptic}
+      Let $G$ be the full automorphism group of a
+      $2$-group Belyi curve.
+      Let $\#G_{\rred} = 2^n$.
+      Then $G$ is isomorphic to one of the following groups:
+      \begin{itemize}
+        \item
+          $\ZZ/2^{n+1}\ZZ$
+        \item
+          $\ZZ / 2^n\ZZ\times\ZZ / 2\ZZ$
+        \item
+          $D_{2^{n+1}}$
+        \item
+          $D_{2^n}\times\ZZ / 2\ZZ$
+      \end{itemize}
+      where $D_m$ denotes the dihedral group of order $m$.
+    \end{theorem}
+    \begin{proof}
+      \cite[Theorem 2.1]{hyperelliptic}.
+    \end{proof}
+    \mm{
+      you get a genus zero phi0 : Belyi map
+      PP1 $\to$ PP1 and the degree 2 map on top must be ramified,
+      corresponding to the hyperelliptic involution, can only be ramified
+      along the preimages of ramification points of phi0, and in a
+      group-invariant way, so that should really give you the equations as
+      well.
+    }
+    \newline
+    \mm{
+      maybe write down explicit maps for g=2,3
+    }
       %   \begin{theorem}\label{thm:hyperelliptic}
       %     Let $\phi:X\to\PP^1$ be a hyperelliptic $2$-group Belyi map
       %     with monodromy group $G$.
@@ -1972,6 +2037,7 @@ Preface and Acknowledgments go here!
   }
 }
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Backend of thesis (references and the like)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1983,6 +2049,7 @@ Preface and Acknowledgments go here!
 \bibliography{references}
 
 %Uncomment if you want an index
+
 %\printindex
 
 \end{document}
