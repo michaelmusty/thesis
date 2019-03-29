@@ -250,18 +250,63 @@ B
 }
 \chapter{Background}{\label{chapter:background}
   \section{What is a Belyi map?}{\label{sec:belyimaps}
-    \subsection{Complex manifolds and Riemann surfaces}{\label{subsec:complexmans}
-      \mm{enough to define Riemann surfaces}
+    \subsection{Complex manifolds, Riemann surfaces, and branched covers}{\label{subsec:riemannsurfaces}
+      In Section \ref{subsec:riemannsurfaces} we outline
+      basic results needed to define a ($2$-group) Belyi map
+      as a holomorphic map of Riemann surfaces.
+      For a more detailed discussion
+      see \cite{miranda, farkas}.
+      \begin{definition}
+        \label{def:chart}
+        A \defi{chart} on a topological space $X$
+        is a homeomorphism
+        $\phi\colon U\to V$
+        where $U$ is an open subset of $X$
+        and $V$ an open subset of $\CC$.
+        We say the chart is \defi{centered}
+        at $p\in U$
+        if $\phi(p) = 0$.
+        We say that $z = \phi(x)$ for $x\in U$
+        is a \defi{local coordinate on $X$}.
+      \end{definition}
+      \begin{definition}
+        \label{def:compatible}
+        Let $\phi_1\colon U_1\to V_1$
+        and $\phi_2\colon U_2\to V_2$
+        be charts.
+        $\phi_1$ and $\phi_2$ are
+        \defi{compatible}
+        if they are disjoint or
+        the \defi{transition map}
+        \[
+          \phi_2\circ\phi_1^{-1}\colon
+          \phi_1(U_1\cap U_2)\to
+          \phi_2(U_1\cap U_2)
+        \]
+        is holomorphic.
+      \end{definition}
+      \begin{defintion}
+        \label{def:atlas}
+        A \defi{complex atlas}
+        on $X$ is a collection of compatible
+        charts that cover $X$.
+      \end{defintion}
+      \begin{definition}
+        \label{def:equivatlas}
+      \end{definition}
+      %
       \begin{definition}
         A \defi{branched cover of Riemann surfaces} is a nonconstant holomorphic map
         $\phi\colon X\to\PP^1$ where $X$ is a compact connected Riemann surface.
       \end{definition}
-    }
-    \subsection{Branched covering spaces}{\label{subsec:branchedcovers}
-      \mm{monodromy, ramification, Galois cover, etc}
       \begin{definition}\label{def:galoiscover}
       \end{definition}
     }
+    % \subsection{Branched covering spaces}{\label{subsec:branchedcovers}
+    %   \mm{monodromy, ramification, Galois cover, etc}
+    %   \begin{definition}\label{def:galoiscover}
+    %   \end{definition}
+    % }
     \subsection{Algebraic curves}{\label{subsec:algebraiccurves}
       \mm{enough to define good curves and function fields}
       \begin{theorem}\label{thm:curvesandfunctionfields}
@@ -275,7 +320,7 @@ B
       \end{definition}
     }
     \subsection{Riemann's existence theorem}{\label{subsec:riemannsexistence}
-      Riemann surfaces are defined in Section \ref{subsec:complexmans}.
+      Riemann surfaces are defined in Section \ref{subsec:riemannsurfaces}.
       Algebraic curves are defined in Section \ref{subsec:algebraiccurves}.
       Here in Section \ref{subsec:riemannsexistence}
       we establish the connection between these objects over the complex numbers.
@@ -336,7 +381,7 @@ B
     }
     \subsection{Belyi's theorem}{\label{subsec:belyistheorem}
       In Sections
-      \ref{subsec:complexmans}, \ref{subsec:algebraiccurves},
+      \ref{subsec:riemannsufraces}, \ref{subsec:algebraiccurves},
       and \ref{subsec:riemannsexistence}
       we established the equivalence between
       compact Riemann surfaces and algebraic curves over $\CC$.
