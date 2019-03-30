@@ -88,6 +88,7 @@
 \newcommand{\kbar}{\overline{k}}
 \newcommand{\Kbar}{\overline{K}}
 \newcommand{\LL}{\mathscr L}
+\newcommand{\sm}{\setminus}
 
 \DeclareMathOperator{\Div}{Div}
 \DeclareMathOperator{\Pic}{Pic}
@@ -104,6 +105,8 @@
 \DeclareMathOperator{\Mon}{Mon}
 \DeclareMathOperator{\Gal}{Gal}
 \DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\mult}{mult}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theorem Declarations
@@ -285,19 +288,458 @@ B
         \]
         is holomorphic.
       \end{definition}
-      \begin{defintion}
+      \begin{definition}
         \label{def:atlas}
         A \defi{complex atlas}
         on $X$ is a collection of compatible
         charts that cover $X$.
-      \end{defintion}
+      \end{definition}
       \begin{definition}
         \label{def:equivatlas}
+        Two atlases $\mathscr{A}_1$ and $\mathscr{A}_2$
+        are \defi{equivalent}
+        if every pair of charts
+        $\phi_1, \phi_2$
+        with
+        $\phi_1\in\mathscr{A}_1$
+        and
+        $\phi_2\in\mathscr{A}_2$
+        are compatible.
       \end{definition}
-      %
       \begin{definition}
+        \label{def:complexstructure}
+        A \defi{complex structure}
+        on a topological space $X$
+        is an equivalence class of atlases.
+        % maximal atlas
+      \end{definition}
+      \begin{definition}
+        \label{def:riemannsurface}
+        A \defi{Riemann surface}
+        is a second countable, connected,
+        Hausdorff topological space $X$
+        equipped with a complex structure.
+      \end{definition}
+      \begin{example}
+        \label{exm:PP1}
+        Let $\PP^1_\CC$ (or simply $\PP^1$)
+        denote the set of $1$-dimensional subspaces of $\CC^2$
+        which we can write as
+        \[
+          \{[z:w] : z,w\in\CC\text{ and }zw\ne 0\}
+        \]
+        where $[z:w]$ denotes the $\CC$-span of $(z,w)\in\CC^2$.
+        Let $U_0 = \{[z:w]\in\PP^1 : z\neq 0\}$,
+        $U_1 = \{[z:w]\in\PP^1 : w\neq 0\}$,
+        define $\phi_0\colon U_0\to\CC$
+        by $[z:w]\mapsto \frac{w}{z}$,
+        and
+        define $\phi_1\colon U_1\to\CC$
+        by $[z:w]\mapsto \frac{z}{w}$.
+        On $V\colonequals \phi_i(U_0\cap U_1) = \CC^\times$
+        we have the holomorphic transition function
+        $\phi_1\circ\phi_0^{-1}\colon V\to\CC$
+        defined by $z\mapsto \frac{1}{z}$.
+        The atlas consisting of these two charts $\phi_0,\phi_1$
+        define a complex structure on $\PP^1$
+        giving it the structure of a Riemann surface.
+      \end{example}
+      \begin{example}
+        \label{exm:planecurves}
+        \mm{plane curves and local complete intersections in $\PP^n$}
+      \end{example}
+      \begin{definition}
+        \label{def:singularities}
+        A function $f\colon X\to\CC$ is
+        \defi{holomorphic
+          (respectively has a removable singularity,
+          has a pole, has an essential singularity)
+        }
+        at $p\in X$ if there exists a chart
+        $\phi\colon U\to V$ such that
+        $f\circ\phi^{-1}$ is
+        holomorphic (respectively has a removable singularity, has a pole,
+        has an essential singularity)
+        at $\phi(p)$.
+        $f$ is \defi{holomorphic on an open set $W\subseteq X$} if
+        $f$ is holomorphic at all $p\in W$.
+        $f$ is \defi{meromorphic} at $p\in X$
+        if $f$ is holomorphic, has a removable singularity,
+        or has a pole at $p$.
+        $f$ is \defi{meromorphic on an open set $W\subseteq X$}
+        if
+        $f$ is meromorphic at all $p\in W$.
+      \end{definition}
+      % O_X(W) = {f holo on W}
+      \begin{definition}
+        \label{def:laurentseries}
+        Let $W$ be an open subset of $X$ and denote the set of
+        meromorphic functions on $W$ by
+        \[
+          \mathcal{M}_X(W)
+          =
+          \{f\colon W\to\CC : f\text{ is meromorphic on $W$ }\}.
+        \]
+        Let $p\in W$ and
+        let $f\in\mathcal{M}_X(W)$.
+        Then there exists a chart $\phi$ on $W$
+        with local coordinate $z$
+        and
+        $\phi(p) = z_0$
+        such that $f\circ\phi^{-1}$ is meromorphic at $z_0$.
+        Thus,
+        we can write a \defi{Laurent series expansion
+        for $f\circ\phi^{-1}$}
+        in a neighborhood of $z_0$
+        in the local coordinate $z$
+        as
+        \[
+          (f\circ\phi^{-1})(z) = \sum_{n}c_n(z-z_0)^n.
+        \]
+      \end{definition}
+      \begin{definition}
+        \label{def:ord}
+        The minimum $n$ such that $c_n\neq 0$
+        in Definition \ref{def:laurentseries}
+        is the \defi{order of $f$ at $p$}
+        and denoted
+        $\ord_p(f)$.
+      \end{definition}
+      \begin{definition}
+        \label{ref:holomorphicmapofRS}
+        $F\colon X\to Y$ is
+        \defi{holomorphic}
+        at $p\in X$
+        if there exists
+        charts
+        $\phi_1\colon U_1\to\CC$
+        $\phi_2\colon U_2\to\CC$
+        with $p\in U_1$ and $F(p)\in U_2$
+        such that
+        $\phi_2\circ F\circ\phi_1^{-1}$
+        is holomorphic at $\phi_1(p)$.
+        Similarly,
+        $F$ is \defi{holomorphic on an open set $W\subseteq X$}
+        if it is holomorphic at every $p\in W$.
+      \end{definition}
+      \begin{definition}
+        \label{def:RSautoiso}
+        An \defi{isomorphism} of Riemann surfaces is
+        a bijective holomorphic map $F\colon X\to Y$
+        where $F^{-1}$ is holomorphic.
+        An isomorphism from $X$ to $X$ is
+        an \defi{automorphism}.
+      \end{definition}
+      \begin{example}
+        \label{exm:PP1isoCCoo}
+        $\PP^1$ defined in Example
+        \ref{exm:PP1}
+        is isomorphic to $\CC\cup \{\infty\}$
+        the compactification of the complex plane
+        via stereographic projection.
+      \end{example}
+      \begin{theorem}
+        \label{thm:compactonto}
+        Let $X$ be a compact Riemann surface
+        and $F\colon X\to Y$
+        a nonconstant holomorphic map.
+        Then $Y$ is compact an $F$ is onto.
+      \end{theorem}
+      \begin{prop}
+        \label{prop:discretefibers}
+        Let $F\colon X\to Y$ be a nonconstant
+        holomorphic map of Riemann surfaces.
+        Then for every $y\in Y$,
+        the fiber $F^{-1}(y)$ is a discrete subset of $X$.
+      \end{prop}
+      % meromorphic functions on X correspond to holomorphic maps to PP1 not identically oo
+      \begin{theorem}
+        \label{thm:localnormalform}
+        Let $F\colon X\to Y$ be a nonconstant holomorphic map.
+        Let $p\in X$.
+        Then there exists a positive integer $m$ such that
+        for all charts
+        $\phi_2$ centered at $F(p)$
+        there exists a chart $\phi_1$ centered at $p$
+        (let $z$ be the local coordinate)
+        with $(\phi_2\circ F\circ\phi_1^{-1})(z) = z^m$.
+      \end{theorem}
+      \begin{definition}
+        \label{def:multiplicity}
+        Let $F\colon X\to Y$ be a holomorphic map
+        of Riemann surfaces.
+        The \defi{multiplicity}
+        of $F$ at $p\in X$ is denoted
+        $\mult_p(F)$ and is defined to be the unique
+        integer $m$ from Theorem \ref{thm:localnormalform}
+        such that there exist local coordinates about $p$
+        and $F(p)$ so that
+        $F$ can be written as $z\mapsto z^m$.
+      \end{definition}
+      \begin{definition}
+        \label{def:ramificationRS}
+        Let $F\colon X\to Y$ be a nonconstant holomorphic
+        map of Riemann surfaces.
+        $p\in X$ is a \defi{ramification point}
+        of $F$
+        if $\mult_p(F)\geq 2$.
+        $y\in X$ is a \defi{branch point} of $F$
+        if $F^{-1}(y)$ contains a ramification point.
+      \end{definition}
+      \begin{example}
+        \label{exm:planecurve}
+        \mm{plane curves, p.46, hyperelliptic curves, \ldots}
+      \end{example}
+      \begin{definition}
+        \label{def:degreemapofRS}
+        The \defi{degree}
+        of a nonconstant holomorphic map
+        $F\colon X\to Y$
+        is
+        \[
+          \deg(F) \colonequals
+          \sum_{p\in F^{-1}(y)}\mult_p(F)
+        \]
+        for any $y\in Y$.
+      \end{definition}
+      % sum_p ord_p(f) = 0
+      \begin{theorem}[Riemann-Hurwitz]
+        \label{thm:riemannhurwitzforriemannsurfaces}
+        Let $F\colon X\to Y$
+        be a nonconstant holomorphic map of
+        compact Riemann surfaces.
+        Let $g(X), g(Y)$ be the topological genus
+        of $X, Y$ respectively.
+        Then
+        \begin{equation}
+          \label{eqn:riemannhurwitzforriemannsurfaces}
+          2g(X)-2=
+          \deg(F)(2g(Y)-2)+
+          \sum_{p\in X}(\mult_p(F)-1).
+        \end{equation}
+      \end{theorem}
+      % groups acting on Riemann surfaces
+      \begin{definition}
+        \label{def:coveringspace}
+        A \defi{covering space}
+        of a real or complex manifold $V$
+        is a continuous map
+        $F\colon U\to V$ such that
+        the following conditions hold:
+        \begin{itemize}
+          \item
+            $F$ is surjective
+          \item
+            For all $v\in V$
+            there exists a neighborhood
+            $W$ of $v\in V$ such that
+            $F^{-1}(W)$ consists of a disjoint
+            union of open sets of $U$
+            $\{U_\alpha\}_{\alpha\in I}$
+            with $F|_{U_\alpha}\colon U_\alpha\to W$
+            a homeomorphism.
+        \end{itemize}
+        The cardinality of $I$ is the \defi{degree}
+        of the cover.
+      \end{definition}
+      \begin{definition}
+        \label{def:coveringspaceiso}
+        Two covering spaces $U_1\to V$
+        and $U_2\to V$ are
+        \defi{isomorphic}
+        if there exists a homeomorphism
+        $U_1\to U_2$
+        making the diagram
+        \begin{equation}
+          \label{eqn:coveringspaceiso}
+          \begin{tikzcd}
+            U_1\arrow{dr}\arrow{rr}{}&&U_2\arrow{dl}\\
+                           &V
+          \end{tikzcd}
+        \end{equation}
+        commute.
+      \end{definition}
+      \begin{prop}
+        \label{prop:universalcoveringspace}
+        Given a real or complex manifold $V$,
+        there exists a covering space
+        $F_0\colon U_0\to V$
+        such that $U_0$ is simply connected.
+        $F_0$ is unique up to isomorphism
+        and is universal in the following sense:
+        If $F\colon U\to V$ is another cover of $V$,
+        then there exists
+        $G\colon U_0\to V$
+        such that $F_0 = F\circ G$.
+      \end{prop}
+      Pick a basepoint $q\in V$
+      and let $\pi_1(V,q)$ denote
+      the \defi{fundamental group} of $V$
+      with loops based at $q$.
+      Then $\pi_1(V,q)$ acts on the cover
+      $F_0\colon U_0\to V$
+      via path lifting.
+      % iso classes of connected covers F:U->V correspond to conj classes of subgroups of pi_1(V,q)
+      We now restrict to the case of finite degree covers.
+      Let $F\colon U\to V$ be a degree $d$ cover
+      and consider the fiber of $q$,
+      $F^{-1}(q) = \{x_1,\dots,x_n\}$.
+      To a loop $\gamma$ on $V$ based at $q$,
+      we can lift $\gamma$ to $d$ paths
+      $\wt{\gamma}_1,\dots,\wt{\gamma}_d$
+      in $U$ where $\wt{\gamma}_i$
+      starts at $x_i$
+      and ends at $x_j$ for some $j$.
+      For each $i\in \{1,\ldots,d\}$ denote the terminal
+      point of $\wt{\gamma}_i$ by $x_{\sigma(i)}\in F^{-1}(q)$.
+      $\sigma$ defines
+      a \defi{monodromy representation}
+      \begin{equation}
+        \label{eqn:monodromyrep}
+        \rho\colon
+        \pi_1(V,q)\to S_d.
+      \end{equation}
+      \begin{lemma}
+        \label{lem:transitive}
+        Let $\rho\colon\pi_1(V,q)\to S_d$
+        be the monodromy representation
+        of a
+        finite degree cover $F\colon U\to V$
+        with $U$ connected.
+        Then the image of $\rho$
+        is a transitive subgroup of $S_d$.
+      \end{lemma}
+      \begin{definition}
+        \label{def:monodromyrepofholomorphicmap}
+        Let $F\colon X\to Y$ be a nonconstant holomorphic
+        map of Riemann surfaces.
+        Let
+        \begin{align*}
+          V &\colonequals Y\sm \{\text{branch points of $F$}\}\\
+          U &\colonequals X\sm \{\text{preimages of branch points of $F$}\}.
+        \end{align*}
+        Then $F|_U\colon U\to V$ is a covering space
+        and induces a monodromy representation
+        which we refer to as the
+        \defi{monodromy representation of $F$}.
+      \end{definition}
+      \begin{definition}
+        \label{def:branchedcoverofriemannsurface}
         A \defi{branched cover of Riemann surfaces} is a nonconstant holomorphic map
-        $\phi\colon X\to\PP^1$ where $X$ is a compact connected Riemann surface.
+        of Riemann surfaces
+        $\phi\colon X\to Y$ where $X$ is a compact connected Riemann surface.
+      \end{definition}
+      Let $Y$ be a compact connected Riemann surface,
+      let $B\subseteq Y$ be a finite set,
+      let $V\colonequals Y\sm B$,
+      and let $F\colon U\to V$ be a finite degree cover.
+      Then there is a unique complex structure on $U$
+      making $F$ holomorphic.
+      Let $b\in B$
+      and consider a neighborhood $W$ of $b$
+      small enough so that $W\sm \{b\}$ is homeomorphic to a punctured disk.
+      Then $F^{-1}(W\sm \{b\})$ is a finite disjoint union
+      of punctured disks $\{\wt{U}_j\}_j$.
+      Moreover,
+      by Theorem \ref{thm:localnormalform}
+      there are integers $m_j$ for each $j$ such that
+      \[
+        F|_{\wt{U}_j}\colon\wt{U}_j\to W\sm \{b\}
+      \]
+      can be written as $z\mapsto z^{m_j}$ in local coordinates.
+      Extending this holomorphic map to the unpunctured disks
+      for every $b\in B$ yields the following correspondence.
+      \begin{prop}
+        \label{prop:branchedcoverofriemannsurfaces}
+        Let $Y$ be a compact Riemann surface,
+        $B\subseteq Y$ a finite set,
+        and $q\in Y\sm B$ a basepoint.
+        Then there is a bijection of sets
+        \begin{center}
+          \begin{tikzpicture}[scale=1]
+            \node at (-4,0) (maps)
+            {
+              $
+                \left\{
+                  \begin{minipage}{30ex}
+                    isomorphism classes of
+                    degree $d$
+                    holomorphic maps
+                    $F\colon X\to Y$
+                    with branch points
+                    contained in $B$
+                  \end{minipage}
+                \right\}
+              $
+            };
+            \node at (4,0) (perms)
+            {
+              $
+                \left\{
+                  \begin{minipage}{30ex}
+                    group homomorphisms
+                    $\rho\colon\pi_1(Y\sm B, q)\to S_d$
+                    with image a transitive subgroup
+                    up to conjugation in $S_d$
+                  \end{minipage}
+                \right\}
+              $
+            };
+            % \draw[<->] (maps) to node [above,rotate=-35] {$\sim$} node {} (perms);
+            \draw[<->] (maps) to node [above] {$\sim$} node {} (perms);
+          \end{tikzpicture}
+        \end{center}
+      \end{prop}
+      If we let $Y = \PP^1$ in Proposition \ref{prop:branchedcoverofriemannsurfaces}
+      and $B = \{b_1,\ldots,b_n\}\subseteq\PP^1$ we obtain
+      the following correspondence:
+      \begin{center}
+        \begin{tikzpicture}[scale=1]
+        \label{branchedcoverscorrespondtopermutations}
+          \node at (-4,0) (maps)
+          {
+            $
+              \left\{
+                \begin{minipage}{30ex}
+                  isomorphism classes of
+                  degree $d$
+                  holomorphic maps
+                  $F\colon X\to \PP^1$
+                  with branch points
+                  contained in $B$
+                \end{minipage}
+              \right\}
+            $
+          };
+          \node at (4,0) (perms)
+          {
+            $
+              \left\{
+                \begin{minipage}{37ex}
+                  $n$-tuples of permutations
+                  $(\sigma_1,\ldots,\sigma_n)\in S_d^n$
+                  generating a transitive subgroup
+                  with $\sigma_1\cdots\sigma_n=1$
+                  up to simultaneous conjugation in $S_d$
+                \end{minipage}
+              \right\}
+            $
+          };
+          % \draw[<->] (maps) to node [above,rotate=-35] {$\sim$} node {} (perms);
+          \draw[<->] (maps) to node [above] {$\sim$} node {} (perms);
+        \end{tikzpicture}
+      \end{center}
+      Moreover,
+      if $\sigma_i$ has cycle structure $(m_1,\dots,m_k)$,
+      then there are $k$ preimages
+      $u_1,\dots,u_k$ of $b_i$
+      in the cover $F\colon X\to\PP^1$
+      with $\mult_{u_j}(F) = m_j$ for all $j$.
+      \begin{definition}
+        \label{def:belyimapriemannsurface}
+        A \defi{Belyi map} is a nonconstant holomorphic map of
+        compact connected Riemann surfaces
+        $F\colon X\to\PP^1$ with no more than $3$ branch points.
       \end{definition}
       \begin{definition}\label{def:galoiscover}
       \end{definition}
