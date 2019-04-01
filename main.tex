@@ -85,6 +85,8 @@
 \newcommand{\QQal}{{\mathbb Q}^{\textup{al}}}
 \newcommand{\QQab}{{\mathbb Q}^{\textup{ab}}}
 \newcommand{\QQbar}{{\mathbb Q}^{\textup{al}}}
+\newcommand{\Kal}{{{K}^{\textup{al}}}}
+\newcommand{\Kab}{{K}^{\textup{ab}}}
 \newcommand{\kbar}{\overline{k}}
 \newcommand{\Kbar}{\overline{K}}
 \newcommand{\LL}{\mathscr L}
@@ -152,7 +154,7 @@
 \field{Mathematics}
 \degree{Doctor of Philosophy}
 %As an optional argument to \committee you can specify the dean of graduate studies.
-\committee{John Voight}{Thomas Shemanske}{David Roberts}{Carl Pomerance}
+\committee{John Voight}{Thomas Shemanske}{Carl Pomerance}{David P. Roberts}
 
 \begin{document}
 
@@ -200,6 +202,7 @@ B
 % \include{chapter1}
 
 \chapter{Introduction}{\label{chapter:intro}
+  % all main results motivated and stated
   % RETppr exposition about inverse Galois
   \section{Belyi maps from a historical perspective}{
     In \cite{belyi}, G.V. Belyi proved that a Riemann surface
@@ -251,451 +254,411 @@ B
   }
   % abc in JonesWolfart
 }
-\chapter{Background}{\label{chapter:background}
-  \section{What is a Belyi map?}{\label{sec:belyimaps}
-    \subsection{Complex manifolds, Riemann surfaces, and branched covers}{\label{subsec:riemannsurfaces}
-      In Section \ref{subsec:riemannsurfaces} we outline
-      basic results needed to define a ($2$-group) Belyi map
-      as a holomorphic map of Riemann surfaces.
-      For a more detailed discussion
-      see \cite{miranda, farkas}.
-      \begin{definition}
-        \label{def:chart}
-        A \defi{chart} on a topological space $X$
-        is a homeomorphism
-        $\phi\colon U\to V$
-        where $U$ is an open subset of $X$
-        and $V$ an open subset of $\CC$.
-        We say the chart is \defi{centered}
-        at $p\in U$
-        if $\phi(p) = 0$.
-        We say that $z = \phi(x)$ for $x\in U$
-        is a \defi{local coordinate on $X$}.
-      \end{definition}
-      \begin{definition}
-        \label{def:compatible}
-        Let $\phi_1\colon U_1\to V_1$
-        and $\phi_2\colon U_2\to V_2$
-        be charts.
-        $\phi_1$ and $\phi_2$ are
-        \defi{compatible}
-        if they are disjoint or
-        the \defi{transition map}
-        \[
-          \phi_2\circ\phi_1^{-1}\colon
-          \phi_1(U_1\cap U_2)\to
-          \phi_2(U_1\cap U_2)
-        \]
-        is holomorphic.
-      \end{definition}
-      \begin{definition}
-        \label{def:atlas}
-        A \defi{complex atlas}
-        on $X$ is a collection of compatible
-        charts that cover $X$.
-      \end{definition}
-      \begin{definition}
-        \label{def:equivatlas}
-        Two atlases $\mathscr{A}_1$ and $\mathscr{A}_2$
-        are \defi{equivalent}
-        if every pair of charts
-        $\phi_1, \phi_2$
-        with
-        $\phi_1\in\mathscr{A}_1$
-        and
-        $\phi_2\in\mathscr{A}_2$
-        are compatible.
-      \end{definition}
-      \begin{definition}
-        \label{def:complexstructure}
-        A \defi{complex structure}
-        on a topological space $X$
-        is an equivalence class of atlases.
-        % maximal atlas
-      \end{definition}
-      \begin{definition}
-        \label{def:riemannsurface}
-        A \defi{Riemann surface}
-        is a second countable, connected,
-        Hausdorff topological space $X$
-        equipped with a complex structure.
-      \end{definition}
-      \begin{example}
-        \label{exm:PP1}
-        Let $\PP^1_\CC$ (or simply $\PP^1$)
-        denote the set of $1$-dimensional subspaces of $\CC^2$
-        which we can write as
-        \[
-          \{[z:w] : z,w\in\CC\text{ and }zw\ne 0\}
-        \]
-        where $[z:w]$ denotes the $\CC$-span of $(z,w)\in\CC^2$.
-        Let $U_0 = \{[z:w]\in\PP^1 : z\neq 0\}$,
-        $U_1 = \{[z:w]\in\PP^1 : w\neq 0\}$,
-        define $\phi_0\colon U_0\to\CC$
-        by $[z:w]\mapsto \frac{w}{z}$,
-        and
-        define $\phi_1\colon U_1\to\CC$
-        by $[z:w]\mapsto \frac{z}{w}$.
-        On $V\colonequals \phi_i(U_0\cap U_1) = \CC^\times$
-        we have the holomorphic transition function
-        $\phi_1\circ\phi_0^{-1}\colon V\to\CC$
-        defined by $z\mapsto \frac{1}{z}$.
-        The atlas consisting of these two charts $\phi_0,\phi_1$
-        define a complex structure on $\PP^1$
-        giving it the structure of a Riemann surface.
-      \end{example}
-      \begin{example}
-        \label{exm:planecurves}
-        \mm{plane curves and local complete intersections in $\PP^n$}
-      \end{example}
-      \begin{definition}
-        \label{def:singularities}
-        A function $f\colon X\to\CC$ is
-        \defi{holomorphic
-          (respectively has a removable singularity,
-          has a pole, has an essential singularity)
-        }
-        at $p\in X$ if there exists a chart
-        $\phi\colon U\to V$ such that
-        $f\circ\phi^{-1}$ is
-        holomorphic (respectively has a removable singularity, has a pole,
-        has an essential singularity)
-        at $\phi(p)$.
-        $f$ is \defi{holomorphic on an open set $W\subseteq X$} if
-        $f$ is holomorphic at all $p\in W$.
-        $f$ is \defi{meromorphic} at $p\in X$
-        if $f$ is holomorphic, has a removable singularity,
-        or has a pole at $p$.
-        $f$ is \defi{meromorphic on an open set $W\subseteq X$}
-        if
-        $f$ is meromorphic at all $p\in W$.
-      \end{definition}
-      % O_X(W) = {f holo on W}
-      \begin{definition}
-        \label{def:laurentseries}
-        Let $W$ be an open subset of $X$ and denote the set of
-        meromorphic functions on $W$ by
-        \[
-          \mathcal{M}_X(W)
-          =
-          \{f\colon W\to\CC : f\text{ is meromorphic on $W$ }\}.
-        \]
-        Let $p\in W$ and
-        let $f\in\mathcal{M}_X(W)$.
-        Then there exists a chart $\phi$ on $W$
-        with local coordinate $z$
-        and
-        $\phi(p) = z_0$
-        such that $f\circ\phi^{-1}$ is meromorphic at $z_0$.
-        Thus,
-        we can write a \defi{Laurent series expansion
-        for $f\circ\phi^{-1}$}
-        in a neighborhood of $z_0$
-        in the local coordinate $z$
-        as
-        \[
-          (f\circ\phi^{-1})(z) = \sum_{n}c_n(z-z_0)^n.
-        \]
-      \end{definition}
-      \begin{definition}
-        \label{def:ord}
-        The minimum $n$ such that $c_n\neq 0$
-        in Definition \ref{def:laurentseries}
-        is the \defi{order of $f$ at $p$}
-        and denoted
-        $\ord_p(f)$.
-      \end{definition}
-      \begin{definition}
-        \label{ref:holomorphicmapofRS}
-        $F\colon X\to Y$ is
-        \defi{holomorphic}
-        at $p\in X$
-        if there exists
-        charts
-        $\phi_1\colon U_1\to\CC$
-        $\phi_2\colon U_2\to\CC$
-        with $p\in U_1$ and $F(p)\in U_2$
-        such that
-        $\phi_2\circ F\circ\phi_1^{-1}$
-        is holomorphic at $\phi_1(p)$.
-        Similarly,
-        $F$ is \defi{holomorphic on an open set $W\subseteq X$}
-        if it is holomorphic at every $p\in W$.
-      \end{definition}
-      \begin{definition}
-        \label{def:RSautoiso}
-        An \defi{isomorphism} of Riemann surfaces is
-        a bijective holomorphic map $F\colon X\to Y$
-        where $F^{-1}$ is holomorphic.
-        An isomorphism from $X$ to $X$ is
-        an \defi{automorphism}.
-      \end{definition}
-      \begin{example}
-        \label{exm:PP1isoCCoo}
-        $\PP^1$ defined in Example
-        \ref{exm:PP1}
-        is isomorphic to $\CC\cup \{\infty\}$
-        the compactification of the complex plane
-        via stereographic projection.
-      \end{example}
-      \begin{theorem}
-        \label{thm:compactonto}
-        Let $X$ be a compact Riemann surface
-        and $F\colon X\to Y$
-        a nonconstant holomorphic map.
-        Then $Y$ is compact an $F$ is onto.
-      \end{theorem}
-      \begin{prop}
-        \label{prop:discretefibers}
-        Let $F\colon X\to Y$ be a nonconstant
-        holomorphic map of Riemann surfaces.
-        Then for every $y\in Y$,
-        the fiber $F^{-1}(y)$ is a discrete subset of $X$.
-      \end{prop}
-      % meromorphic functions on X correspond to holomorphic maps to PP1 not identically oo
-      \begin{theorem}
-        \label{thm:localnormalform}
-        Let $F\colon X\to Y$ be a nonconstant holomorphic map.
-        Let $p\in X$.
-        Then there exists a positive integer $m$ such that
-        for all charts
-        $\phi_2$ centered at $F(p)$
-        there exists a chart $\phi_1$ centered at $p$
-        (let $z$ be the local coordinate)
-        with $(\phi_2\circ F\circ\phi_1^{-1})(z) = z^m$.
-      \end{theorem}
-      \begin{definition}
-        \label{def:multiplicity}
-        Let $F\colon X\to Y$ be a holomorphic map
-        of Riemann surfaces.
-        The \defi{multiplicity}
-        of $F$ at $p\in X$ is denoted
-        $\mult_p(F)$ and is defined to be the unique
-        integer $m$ from Theorem \ref{thm:localnormalform}
-        such that there exist local coordinates about $p$
-        and $F(p)$ so that
-        $F$ can be written as $z\mapsto z^m$.
-      \end{definition}
-      \begin{definition}
-        \label{def:ramificationRS}
-        Let $F\colon X\to Y$ be a nonconstant holomorphic
-        map of Riemann surfaces.
-        $p\in X$ is a \defi{ramification point}
-        of $F$
-        if $\mult_p(F)\geq 2$.
-        $y\in X$ is a \defi{branch point} of $F$
-        if $F^{-1}(y)$ contains a ramification point.
-      \end{definition}
-      \begin{example}
-        \label{exm:planecurve}
-        \mm{plane curves, p.46, hyperelliptic curves, \ldots}
-      \end{example}
-      \begin{definition}
-        \label{def:degreemapofRS}
-        The \defi{degree}
-        of a nonconstant holomorphic map
-        $F\colon X\to Y$
-        is
-        \[
-          \deg(F) \colonequals
-          \sum_{p\in F^{-1}(y)}\mult_p(F)
-        \]
-        for any $y\in Y$.
-      \end{definition}
-      % sum_p ord_p(f) = 0
-      \begin{theorem}[Riemann-Hurwitz]
-        \label{thm:riemannhurwitzforriemannsurfaces}
-        Let $F\colon X\to Y$
-        be a nonconstant holomorphic map of
-        compact Riemann surfaces.
-        Let $g(X), g(Y)$ be the topological genus
-        of $X, Y$ respectively.
-        Then
-        \begin{equation}
-          \label{eqn:riemannhurwitzforriemannsurfaces}
-          2g(X)-2=
-          \deg(F)(2g(Y)-2)+
-          \sum_{p\in X}(\mult_p(F)-1).
-        \end{equation}
-      \end{theorem}
-      % groups acting on Riemann surfaces
-      \begin{definition}
-        \label{def:coveringspace}
-        A \defi{covering space}
-        of a real or complex manifold $V$
-        is a continuous map
-        $F\colon U\to V$ such that
-        the following conditions hold:
-        \begin{itemize}
-          \item
-            $F$ is surjective
-          \item
-            For all $v\in V$
-            there exists a neighborhood
-            $W$ of $v\in V$ such that
-            $F^{-1}(W)$ consists of a disjoint
-            union of open sets of $U$
-            $\{U_\alpha\}_{\alpha\in I}$
-            with $F|_{U_\alpha}\colon U_\alpha\to W$
-            a homeomorphism.
-        \end{itemize}
-        The cardinality of $I$ is the \defi{degree}
-        of the cover.
-      \end{definition}
-      \begin{definition}
-        \label{def:coveringspaceiso}
-        Two covering spaces $U_1\to V$
-        and $U_2\to V$ are
-        \defi{isomorphic}
-        if there exists a homeomorphism
-        $U_1\to U_2$
-        making the diagram
-        \begin{equation}
-          \label{eqn:coveringspaceiso}
-          \begin{tikzcd}
-            U_1\arrow{dr}\arrow{rr}{}&&U_2\arrow{dl}\\
-                           &V
-          \end{tikzcd}
-        \end{equation}
-        commute.
-      \end{definition}
-      \begin{prop}
-        \label{prop:universalcoveringspace}
-        Given a real or complex manifold $V$,
-        there exists a covering space
-        $F_0\colon U_0\to V$
-        such that $U_0$ is simply connected.
-        $F_0$ is unique up to isomorphism
-        and is universal in the following sense:
-        If $F\colon U\to V$ is another cover of $V$,
-        then there exists
-        $G\colon U_0\to V$
-        such that $F_0 = F\circ G$.
-      \end{prop}
-      Pick a basepoint $q\in V$
-      and let $\pi_1(V,q)$ denote
-      the \defi{fundamental group} of $V$
-      with loops based at $q$.
-      Then $\pi_1(V,q)$ acts on the cover
-      $F_0\colon U_0\to V$
-      via path lifting.
-      % iso classes of connected covers F:U->V correspond to conj classes of subgroups of pi_1(V,q)
-      We now restrict to the case of finite degree covers.
-      Let $F\colon U\to V$ be a degree $d$ cover
-      and consider the fiber of $q$,
-      $F^{-1}(q) = \{x_1,\dots,x_n\}$.
-      To a loop $\gamma$ on $V$ based at $q$,
-      we can lift $\gamma$ to $d$ paths
-      $\wt{\gamma}_1,\dots,\wt{\gamma}_d$
-      in $U$ where $\wt{\gamma}_i$
-      starts at $x_i$
-      and ends at $x_j$ for some $j$.
-      For each $i\in \{1,\ldots,d\}$ denote the terminal
-      point of $\wt{\gamma}_i$ by $x_{\sigma(i)}\in F^{-1}(q)$.
-      $\sigma$ defines
-      a \defi{monodromy representation}
-      \begin{equation}
-        \label{eqn:monodromyrep}
-        \rho\colon
-        \pi_1(V,q)\to S_d.
-      \end{equation}
-      \begin{lemma}
-        \label{lem:transitive}
-        Let $\rho\colon\pi_1(V,q)\to S_d$
-        be the monodromy representation
-        of a
-        finite degree cover $F\colon U\to V$
-        with $U$ connected.
-        Then the image of $\rho$
-        is a transitive subgroup of $S_d$.
-      \end{lemma}
-      \begin{definition}
-        \label{def:monodromyrepofholomorphicmap}
-        Let $F\colon X\to Y$ be a nonconstant holomorphic
-        map of Riemann surfaces.
-        Let
-        \begin{align*}
-          V &\colonequals Y\sm \{\text{branch points of $F$}\}\\
-          U &\colonequals X\sm \{\text{preimages of branch points of $F$}\}.
-        \end{align*}
-        Then $F|_U\colon U\to V$ is a covering space
-        and induces a monodromy representation
-        which we refer to as the
-        \defi{monodromy representation of $F$}.
-      \end{definition}
-      \begin{definition}
-        \label{def:branchedcoverofriemannsurface}
-        A \defi{branched cover of Riemann surfaces} is a nonconstant holomorphic map
-        of Riemann surfaces
-        $\phi\colon X\to Y$ where $X$ is a compact connected Riemann surface.
-      \end{definition}
-      Let $Y$ be a compact connected Riemann surface,
-      let $B\subseteq Y$ be a finite set,
-      let $V\colonequals Y\sm B$,
-      and let $F\colon U\to V$ be a finite degree cover.
-      Then there is a unique complex structure on $U$
-      making $F$ holomorphic.
-      Let $b\in B$
-      and consider a neighborhood $W$ of $b$
-      small enough so that $W\sm \{b\}$ is homeomorphic to a punctured disk.
-      Then $F^{-1}(W\sm \{b\})$ is a finite disjoint union
-      of punctured disks $\{\wt{U}_j\}_j$.
-      Moreover,
-      by Theorem \ref{thm:localnormalform}
-      there are integers $m_j$ for each $j$ such that
+\chapter{Background on Belyi maps}{\label{chapter:backgroundbelyimaps}
+  \section{Complex manifolds, Riemann surfaces, and branched covers}{\label{sec:riemannsurfaces}
+    In this section we outline
+    basic results needed to define a ($2$-group) Belyi map
+    as a holomorphic map of Riemann surfaces.
+    For a more detailed discussion
+    see \cite{miranda, farkas}.
+    \begin{definition}
+      \label{def:chart}
+      A \defi{chart} on a topological space $X$
+      is a homeomorphism
+      $\phi\colon U\to V$
+      where $U$ is an open subset of $X$
+      and $V$ an open subset of $\CC$.
+      We say the chart is \defi{centered}
+      at $p\in U$
+      if $\phi(p) = 0$.
+      We say that $z = \phi(x)$ for $x\in U$
+      is a \defi{local coordinate on $X$}.
+    \end{definition}
+    \begin{definition}
+      \label{def:compatible}
+      Let $\phi_1\colon U_1\to V_1$
+      and $\phi_2\colon U_2\to V_2$
+      be charts.
+      $\phi_1$ and $\phi_2$ are
+      \defi{compatible}
+      if they are disjoint or
+      the \defi{transition map}
       \[
-        F|_{\wt{U}_j}\colon\wt{U}_j\to W\sm \{b\}
+        \phi_2\circ\phi_1^{-1}\colon
+        \phi_1(U_1\cap U_2)\to
+        \phi_2(U_1\cap U_2)
       \]
-      can be written as $z\mapsto z^{m_j}$ in local coordinates.
-      Extending this holomorphic map to the unpunctured disks
-      for every $b\in B$ yields the following correspondence.
-      \begin{prop}
-        \label{prop:branchedcoverofriemannsurfaces}
-        Let $Y$ be a compact Riemann surface,
-        $B\subseteq Y$ a finite set,
-        and $q\in Y\sm B$ a basepoint.
-        Then there is a bijection of sets
-        \begin{center}
-          \begin{tikzpicture}[scale=1]
-            \node at (-4,0) (maps)
-            {
-              $
-                \left\{
-                  \begin{minipage}{30ex}
-                    isomorphism classes of
-                    degree $d$
-                    holomorphic maps
-                    $F\colon X\to Y$
-                    with branch points
-                    contained in $B$
-                  \end{minipage}
-                \right\}
-              $
-            };
-            \node at (4,0) (perms)
-            {
-              $
-                \left\{
-                  \begin{minipage}{30ex}
-                    group homomorphisms
-                    $\rho\colon\pi_1(Y\sm B, q)\to S_d$
-                    with image a transitive subgroup
-                    up to conjugation in $S_d$
-                  \end{minipage}
-                \right\}
-              $
-            };
-            % \draw[<->] (maps) to node [above,rotate=-35] {$\sim$} node {} (perms);
-            \draw[<->] (maps) to node [above] {$\sim$} node {} (perms);
-          \end{tikzpicture}
-        \end{center}
-      \end{prop}
-      If we let $Y = \PP^1$ in Proposition \ref{prop:branchedcoverofriemannsurfaces}
-      and $B = \{b_1,\ldots,b_n\}\subseteq\PP^1$ we obtain
-      the following correspondence:
+      is holomorphic.
+    \end{definition}
+    \begin{definition}
+      \label{def:atlas}
+      A \defi{complex atlas}
+      on $X$ is a collection of compatible
+      charts that cover $X$.
+    \end{definition}
+    \begin{definition}
+      \label{def:equivatlas}
+      Two atlases $\mathscr{A}_1$ and $\mathscr{A}_2$
+      are \defi{equivalent}
+      if every pair of charts
+      $\phi_1, \phi_2$
+      with
+      $\phi_1\in\mathscr{A}_1$
+      and
+      $\phi_2\in\mathscr{A}_2$
+      are compatible.
+    \end{definition}
+    \begin{definition}
+      \label{def:complexstructure}
+      A \defi{complex structure}
+      on a topological space $X$
+      is an equivalence class of atlases.
+      % maximal atlas
+    \end{definition}
+    \begin{definition}
+      \label{def:riemannsurface}
+      A \defi{Riemann surface}
+      is a second countable, connected,
+      Hausdorff topological space $X$
+      equipped with a complex structure.
+    \end{definition}
+    \begin{example}
+      \label{exm:PP1}
+      Let $\PP^1_\CC$ (or simply $\PP^1$)
+      denote the set of $1$-dimensional subspaces of $\CC^2$
+      which we can write as
+      \[
+        \{[z:w] : z,w\in\CC\text{ and }zw\ne 0\}
+      \]
+      where $[z:w]$ denotes the $\CC$-span of $(z,w)\in\CC^2$.
+      Let $U_0 = \{[z:w]\in\PP^1 : z\neq 0\}$,
+      $U_1 = \{[z:w]\in\PP^1 : w\neq 0\}$,
+      define $\phi_0\colon U_0\to\CC$
+      by $[z:w]\mapsto \frac{w}{z}$,
+      and
+      define $\phi_1\colon U_1\to\CC$
+      by $[z:w]\mapsto \frac{z}{w}$.
+      On $V\colonequals \phi_i(U_0\cap U_1) = \CC^\times$
+      we have the holomorphic transition function
+      $\phi_1\circ\phi_0^{-1}\colon V\to\CC$
+      defined by $z\mapsto \frac{1}{z}$.
+      The atlas consisting of these two charts $\phi_0,\phi_1$
+      define a complex structure on $\PP^1$
+      giving it the structure of a Riemann surface.
+    \end{example}
+    \begin{example}
+      \label{exm:planecurves}
+      \mm{plane curves and local complete intersections in $\PP^n$}
+    \end{example}
+    \begin{definition}
+      \label{def:singularities}
+      A function $f\colon X\to\CC$ is
+      \defi{holomorphic
+        (respectively has a removable singularity,
+        has a pole, has an essential singularity)
+      }
+      at $p\in X$ if there exists a chart
+      $\phi\colon U\to V$ such that
+      $f\circ\phi^{-1}$ is
+      holomorphic (respectively has a removable singularity, has a pole,
+      has an essential singularity)
+      at $\phi(p)$.
+      $f$ is \defi{holomorphic on an open set $W\subseteq X$} if
+      $f$ is holomorphic at all $p\in W$.
+      $f$ is \defi{meromorphic} at $p\in X$
+      if $f$ is holomorphic, has a removable singularity,
+      or has a pole at $p$.
+      $f$ is \defi{meromorphic on an open set $W\subseteq X$}
+      if
+      $f$ is meromorphic at all $p\in W$.
+    \end{definition}
+    % O_X(W) = {f holo on W}
+    \begin{definition}
+      \label{def:laurentseries}
+      Let $W$ be an open subset of $X$ and denote the set of
+      meromorphic functions on $W$ by
+      \[
+        \mathcal{M}_X(W)
+        =
+        \{f\colon W\to\CC : f\text{ is meromorphic on $W$ }\}.
+      \]
+      Let $p\in W$ and
+      let $f\in\mathcal{M}_X(W)$.
+      Then there exists a chart $\phi$ on $W$
+      with local coordinate $z$
+      and
+      $\phi(p) = z_0$
+      such that $f\circ\phi^{-1}$ is meromorphic at $z_0$.
+      Thus,
+      we can write a \defi{Laurent series expansion
+      for $f\circ\phi^{-1}$}
+      in a neighborhood of $z_0$
+      in the local coordinate $z$
+      as
+      \[
+        (f\circ\phi^{-1})(z) = \sum_{n}c_n(z-z_0)^n.
+      \]
+    \end{definition}
+    \begin{definition}
+      \label{def:ord}
+      The minimum $n$ such that $c_n\neq 0$
+      in Definition \ref{def:laurentseries}
+      is the \defi{order of $f$ at $p$}
+      and denoted
+      $\ord_p(f)$.
+    \end{definition}
+    \begin{definition}
+      \label{ref:holomorphicmapofRS}
+      $F\colon X\to Y$ is
+      \defi{holomorphic}
+      at $p\in X$
+      if there exists
+      charts
+      $\phi_1\colon U_1\to\CC$
+      $\phi_2\colon U_2\to\CC$
+      with $p\in U_1$ and $F(p)\in U_2$
+      such that
+      $\phi_2\circ F\circ\phi_1^{-1}$
+      is holomorphic at $\phi_1(p)$.
+      Similarly,
+      $F$ is \defi{holomorphic on an open set $W\subseteq X$}
+      if it is holomorphic at every $p\in W$.
+    \end{definition}
+    \begin{definition}
+      \label{def:RSautoiso}
+      An \defi{isomorphism} of Riemann surfaces is
+      a bijective holomorphic map $F\colon X\to Y$
+      where $F^{-1}$ is holomorphic.
+      An isomorphism from $X$ to $X$ is
+      an \defi{automorphism}.
+    \end{definition}
+    \begin{example}
+      \label{exm:PP1isoCCoo}
+      $\PP^1$ defined in Example
+      \ref{exm:PP1}
+      is isomorphic to $\CC\cup \{\infty\}$
+      the compactification of the complex plane
+      via stereographic projection.
+    \end{example}
+    \begin{theorem}
+      \label{thm:compactonto}
+      Let $X$ be a compact Riemann surface
+      and $F\colon X\to Y$
+      a nonconstant holomorphic map.
+      Then $Y$ is compact an $F$ is onto.
+    \end{theorem}
+    \begin{prop}
+      \label{prop:discretefibers}
+      Let $F\colon X\to Y$ be a nonconstant
+      holomorphic map of Riemann surfaces.
+      Then for every $y\in Y$,
+      the fiber $F^{-1}(y)$ is a discrete subset of $X$.
+    \end{prop}
+    % meromorphic functions on X correspond to holomorphic maps to PP1 not identically oo
+    \begin{theorem}
+      \label{thm:localnormalform}
+      Let $F\colon X\to Y$ be a nonconstant holomorphic map.
+      Let $p\in X$.
+      Then there exists a positive integer $m$ such that
+      for all charts
+      $\phi_2$ centered at $F(p)$
+      there exists a chart $\phi_1$ centered at $p$
+      (let $z$ be the local coordinate)
+      with $(\phi_2\circ F\circ\phi_1^{-1})(z) = z^m$.
+    \end{theorem}
+    \begin{definition}
+      \label{def:multiplicity}
+      Let $F\colon X\to Y$ be a holomorphic map
+      of Riemann surfaces.
+      The \defi{multiplicity}
+      of $F$ at $p\in X$ is denoted
+      $\mult_p(F)$ and is defined to be the unique
+      integer $m$ from Theorem \ref{thm:localnormalform}
+      such that there exist local coordinates about $p$
+      and $F(p)$ so that
+      $F$ can be written as $z\mapsto z^m$.
+    \end{definition}
+    \begin{definition}
+      \label{def:ramificationRS}
+      Let $F\colon X\to Y$ be a nonconstant holomorphic
+      map of Riemann surfaces.
+      $p\in X$ is a \defi{ramification point}
+      of $F$
+      if $\mult_p(F)\geq 2$.
+      $y\in X$ is a \defi{branch point} of $F$
+      if $F^{-1}(y)$ contains a ramification point.
+    \end{definition}
+    \begin{example}
+      \label{exm:planecurve}
+      \mm{plane curves, p.46, hyperelliptic curves, \ldots}
+    \end{example}
+    \begin{definition}
+      \label{def:degreemapofRS}
+      The \defi{degree}
+      of a nonconstant holomorphic map
+      $F\colon X\to Y$
+      is
+      \[
+        \deg(F) \colonequals
+        \sum_{p\in F^{-1}(y)}\mult_p(F)
+      \]
+      for any $y\in Y$.
+    \end{definition}
+    % sum_p ord_p(f) = 0
+    \begin{theorem}[Riemann-Hurwitz]
+      \label{thm:riemannhurwitzforriemannsurfaces}
+      Let $F\colon X\to Y$
+      be a nonconstant holomorphic map of
+      compact Riemann surfaces.
+      Let $g(X), g(Y)$ be the topological genus
+      of $X, Y$ respectively.
+      Then
+      \begin{equation}
+        \label{eqn:riemannhurwitzforriemannsurfaces}
+        2g(X)-2=
+        \deg(F)(2g(Y)-2)+
+        \sum_{p\in X}(\mult_p(F)-1).
+      \end{equation}
+    \end{theorem}
+    % groups acting on Riemann surfaces
+    \begin{definition}
+      \label{def:coveringspace}
+      A \defi{covering space}
+      of a real or complex manifold $V$
+      is a continuous map
+      $F\colon U\to V$ such that
+      the following conditions hold:
+      \begin{itemize}
+        \item
+          $F$ is surjective
+        \item
+          For all $v\in V$
+          there exists a neighborhood
+          $W$ of $v\in V$ such that
+          $F^{-1}(W)$ consists of a disjoint
+          union of open sets of $U$
+          $\{U_\alpha\}_{\alpha\in I}$
+          with $F|_{U_\alpha}\colon U_\alpha\to W$
+          a homeomorphism.
+      \end{itemize}
+      The cardinality of $I$ is the \defi{degree}
+      of the cover.
+    \end{definition}
+    \begin{definition}
+      \label{def:coveringspaceiso}
+      Two covering spaces $U_1\to V$
+      and $U_2\to V$ are
+      \defi{isomorphic}
+      if there exists a homeomorphism
+      $U_1\to U_2$
+      making the diagram
+      \begin{equation}
+        \label{eqn:coveringspaceiso}
+        \begin{tikzcd}
+          U_1\arrow{dr}\arrow{rr}{}&&U_2\arrow{dl}\\
+                         &V
+        \end{tikzcd}
+      \end{equation}
+      commute.
+    \end{definition}
+    \begin{prop}
+      \label{prop:universalcoveringspace}
+      Given a real or complex manifold $V$,
+      there exists a covering space
+      $F_0\colon U_0\to V$
+      such that $U_0$ is simply connected.
+      $F_0$ is unique up to isomorphism
+      and is universal in the following sense:
+      If $F\colon U\to V$ is another cover of $V$,
+      then there exists
+      $G\colon U_0\to V$
+      such that $F_0 = F\circ G$.
+    \end{prop}
+    Pick a basepoint $q\in V$
+    and let $\pi_1(V,q)$ denote
+    the \defi{fundamental group} of $V$
+    with loops based at $q$.
+    Then $\pi_1(V,q)$ acts on the cover
+    $F_0\colon U_0\to V$
+    via path lifting.
+    % iso classes of connected covers F:U->V correspond to conj classes of subgroups of pi_1(V,q)
+    We now restrict to the case of finite degree covers.
+    Let $F\colon U\to V$ be a degree $d$ cover
+    and consider the fiber of $q$,
+    $F^{-1}(q) = \{x_1,\dots,x_n\}$.
+    To a loop $\gamma$ on $V$ based at $q$,
+    we can lift $\gamma$ to $d$ paths
+    $\wt{\gamma}_1,\dots,\wt{\gamma}_d$
+    in $U$ where $\wt{\gamma}_i$
+    starts at $x_i$
+    and ends at $x_j$ for some $j$.
+    For each $i\in \{1,\ldots,d\}$ denote the terminal
+    point of $\wt{\gamma}_i$ by $x_{\sigma(i)}\in F^{-1}(q)$.
+    $\sigma$ defines
+    a \defi{monodromy representation}
+    \begin{equation}
+      \label{eqn:monodromyrep}
+      \rho\colon
+      \pi_1(V,q)\to S_d.
+    \end{equation}
+    \begin{lemma}
+      \label{lem:transitive}
+      Let $\rho\colon\pi_1(V,q)\to S_d$
+      be the monodromy representation
+      of a
+      finite degree cover $F\colon U\to V$
+      with $U$ connected.
+      Then the image of $\rho$
+      is a transitive subgroup of $S_d$.
+    \end{lemma}
+    \begin{definition}
+      \label{def:monodromyrepofholomorphicmap}
+      Let $F\colon X\to Y$ be a nonconstant holomorphic
+      map of Riemann surfaces.
+      Let
+      \begin{align*}
+        V &\colonequals Y\sm \{\text{branch points of $F$}\}\\
+        U &\colonequals X\sm \{\text{preimages of branch points of $F$}\}.
+      \end{align*}
+      Then $F|_U\colon U\to V$ is a covering space
+      and induces a monodromy representation
+      which we refer to as the
+      \defi{monodromy representation of $F$}.
+    \end{definition}
+    \begin{definition}
+      \label{def:branchedcoverofriemannsurface}
+      A \defi{branched cover of Riemann surfaces} is a nonconstant holomorphic map
+      of Riemann surfaces
+      $\phi\colon X\to Y$ where $X$ is a compact connected Riemann surface.
+    \end{definition}
+    Let $Y$ be a compact connected Riemann surface,
+    let $B\subseteq Y$ be a finite set,
+    let $V\colonequals Y\sm B$,
+    and let $F\colon U\to V$ be a finite degree cover.
+    Then there is a unique complex structure on $U$
+    making $F$ holomorphic.
+    Let $b\in B$
+    and consider a neighborhood $W$ of $b$
+    small enough so that $W\sm \{b\}$ is homeomorphic to a punctured disk.
+    Then $F^{-1}(W\sm \{b\})$ is a finite disjoint union
+    of punctured disks $\{\wt{U}_j\}_j$.
+    Moreover,
+    by Theorem \ref{thm:localnormalform}
+    there are integers $m_j$ for each $j$ such that
+    \[
+      F|_{\wt{U}_j}\colon\wt{U}_j\to W\sm \{b\}
+    \]
+    can be written as $z\mapsto z^{m_j}$ in local coordinates.
+    Extending this holomorphic map to the unpunctured disks
+    for every $b\in B$ yields the following correspondence.
+    \begin{prop}
+      \label{prop:branchedcoverofriemannsurfaces}
+      Let $Y$ be a compact Riemann surface,
+      $B\subseteq Y$ a finite set,
+      and $q\in Y\sm B$ a basepoint.
+      Then there is a bijection of sets
       \begin{center}
         \begin{tikzpicture}[scale=1]
-        \label{branchedcoverscorrespondtopermutations}
           \node at (-4,0) (maps)
           {
             $
@@ -704,7 +667,7 @@ B
                   isomorphism classes of
                   degree $d$
                   holomorphic maps
-                  $F\colon X\to \PP^1$
+                  $F\colon X\to Y$
                   with branch points
                   contained in $B$
                 \end{minipage}
@@ -715,12 +678,11 @@ B
           {
             $
               \left\{
-                \begin{minipage}{37ex}
-                  $n$-tuples of permutations
-                  $(\sigma_1,\ldots,\sigma_n)\in S_d^n$
-                  generating a transitive subgroup
-                  with $\sigma_1\cdots\sigma_n=1$
-                  up to simultaneous conjugation in $S_d$
+                \begin{minipage}{30ex}
+                  group homomorphisms
+                  $\rho\colon\pi_1(Y\sm B, q)\to S_d$
+                  with image a transitive subgroup
+                  up to conjugation in $S_d$
                 \end{minipage}
               \right\}
             $
@@ -729,540 +691,2077 @@ B
           \draw[<->] (maps) to node [above] {$\sim$} node {} (perms);
         \end{tikzpicture}
       \end{center}
-      Moreover,
-      if $\sigma_i$ has cycle structure $(m_1,\dots,m_k)$,
-      then there are $k$ preimages
-      $u_1,\dots,u_k$ of $b_i$
-      in the cover $F\colon X\to\PP^1$
-      with $\mult_{u_j}(F) = m_j$ for all $j$.
-      \begin{definition}
-        \label{def:belyimapriemannsurface}
-        A \defi{Belyi map} is a nonconstant holomorphic map of
-        compact connected Riemann surfaces
-        $F\colon X\to\PP^1$ with no more than $3$ branch points.
-      \end{definition}
-      \begin{definition}\label{def:galoiscover}
-      \end{definition}
-    }
-    % \subsection{Branched covering spaces}{\label{subsec:branchedcovers}
-    %   \mm{monodromy, ramification, Galois cover, etc}
-    %   \begin{definition}\label{def:galoiscover}
-    %   \end{definition}
-    % }
-    \subsection{Algebraic curves}{\label{subsec:algebraiccurves}
-      \mm{enough to define good curves and function fields}
-      \begin{theorem}\label{thm:curvesandfunctionfields}
-        \mm{correspondence curves and function fields}
-      \end{theorem}
-      \begin{definition}
-        Let $K\subseteq\CC$ be a field.
-        A \defi{branched cover of algebraic curves over $K$}
-        is a finite map of curves
-        $\phi\colon X\to\PP^1$ defined over $K$.
-      \end{definition}
-    }
-    \subsection{Riemann's existence theorem}{\label{subsec:riemannsexistence}
-      Riemann surfaces are defined in Section \ref{subsec:riemannsurfaces}.
-      Algebraic curves are defined in Section \ref{subsec:algebraiccurves}.
-      Here in Section \ref{subsec:riemannsexistence}
-      we establish the connection between these objects over the complex numbers.
-      \par
-      Let $X$ be an algebraic curve over $\CC$.
-      Let $\CC(t)$ denote the function field of $\PP^1$.
-      By Theorem \ref{thm:curvesandfunctionfields},
-      $X$ corresponds to a finite extension $L\colonequals\CC(X)$
-      over $\CC(t)$.
-      Let $\alpha$ be a primitive element of $L/\CC(t)$.
-      Then there exists a polynomial
-      \begin{equation}
-        \label{eqn:minpoly}
-        f(x,t) = a_0(t)+a_1(t)x+a_2(t)x^2+\cdots+a_n(t)x^n\in\CC(t)[x]
-      \end{equation}
-      where $f(\alpha,t) = 0$ and (after possibly clearing denominators)
-      $a_i(t) \in\CC[t]$.
-      The polynomial $f$ in Equation \ref{eqn:minpoly}
-      defines a Riemann surface $X'$
-      as a branched cover of $\PP^1$
-      with branch points
+    \end{prop}
+    If we let $Y = \PP^1$ in Proposition \ref{prop:branchedcoverofriemannsurfaces}
+    and $B = \{b_1,\ldots,b_n\}\subseteq\PP^1$ we obtain
+    the following correspondence:
+    \begin{center}
+      \begin{tikzpicture}[scale=1]
+      \label{branchedcoverscorrespondtopermutations}
+        \node at (-4,0) (maps)
+        {
+          $
+            \left\{
+              \begin{minipage}{30ex}
+                isomorphism classes of
+                degree $d$
+                holomorphic maps
+                $F\colon X\to \PP^1$
+                with branch points
+                contained in $B$
+              \end{minipage}
+            \right\}
+          $
+        };
+        \node at (4,0) (perms)
+        {
+          $
+            \left\{
+              \begin{minipage}{37ex}
+                $n$-tuples of permutations
+                $(\sigma_1,\ldots,\sigma_n)\in S_d^n$
+                generating a transitive subgroup
+                with $\sigma_1\cdots\sigma_n=1$
+                up to simultaneous conjugation in $S_d$
+              \end{minipage}
+            \right\}
+          $
+        };
+        % \draw[<->] (maps) to node [above,rotate=-35] {$\sim$} node {} (perms);
+        \draw[<->] (maps) to node [above] {$\sim$} node {} (perms);
+      \end{tikzpicture}
+    \end{center}
+    Moreover,
+    if $\sigma_i$ has cycle structure $(m_1,\dots,m_k)$,
+    then there are $k$ preimages
+    $u_1,\dots,u_k$ of $b_i$
+    in the cover $F\colon X\to\PP^1$
+    with $\mult_{u_j}(F) = m_j$ for all $j$.
+    \begin{definition}
+      \label{def:belyimapriemannsurface}
+      A \defi{Belyi map} is a nonconstant holomorphic map of
+      compact connected Riemann surfaces
+      $F\colon X\to\PP^1$ with no more than $3$ branch points.
+    \end{definition}
+    \begin{definition}\label{def:galoiscover}
+    \end{definition}
+  }
+  \section{Algebraic curves}{\label{sec:algebraiccurves}
+    Let $K$ be a field isomorphic to the complex numbers,
+    the real numbers, a number field, or a finite field.
+    Let $\Kal$ denote an algebraic closure of $K$.
+    For a detailed treatment see
+    \cite[Chapters 1-2]{silverman}.
+    %%%%%%%%%%%%AFFINE VARIETIES
+    \begin{definition}
+      \label{def:affinespace}
+      \defi{Affine $n$-space} over $K$ is the
+      set of $n$-tuples of elements in $\Kal$
+      and denoted $\AA^n(\Kal)$ or $\AA^n$.
+      % set of K-rational points of AA^n
+    \end{definition}
+    We will denote \defi{points} in $\AA^n$ by $P$.
+    % Galois action on AA^n
+    Let $\Kal[x_1,\dots,x_n]$ be the $n$-variable
+    polynomial ring over $\Kal$.
+    To each ideal $I\trianglelefteq\Kal[x_1,\dots,x_n]$
+    we associate the following subset of $\AA^n$.
+    \begin{equation}
+      \label{eqn:algebraicset}
+      V(I)\colonequals
+      \{P\in\AA^n : f(P) = 0 \text{ for all } f\in I\}
+    \end{equation}
+    \begin{definition}
+      \label{def:algebraicset}
+      Subsets of $\AA^n$
+      of the form $V(I)$ for some ideal $I$
+      as in Equation \ref{eqn:algebraicset}
+      are called
+      \defi{affine algebraic sets}.
+    \end{definition}
+    Let $V$ be an affine algebraic set.
+    To such a set we can associate
+    the following ideal of $\Kal[x_1,\dots,x_n]$.
+    \begin{equation}
+      \label{eqn:idealofalgebraicset}
+      I(V)\colonequals
+      \{f\in\Kal[x_1,\dots,x_n]: f(P)=0 \text{ for all }f\in I\}.
+    \end{equation}
+    \begin{definition}
+      \label{def:definedoverK}
+      Let $\AA^n(K)$ denote the set of
+      \defi{$K$-rational points} of $\AA^n$ defined by
       \[
-        S \colonequals\left\{t_0\in\CC : f(x,t_0) \text{ has repeated roots }\right\}.
+        \AA^n(K)\colonequals
+        \{(x_1,\dots,x_n)\in\AA^n : x_i\in K\}.
       \]
-      Here $x$ can be viewed as a meromorphic function on $X'$
-      and we can identify the field of meromorphic functions on $X'$
-      with $L$.
-      This explains how we obtain a Riemann surface from an algebraic curve.
-      \par
-      Suppose instead we start with a compact Riemann surface $X$.
-      Can we reverse the above process to construct an algebraic curve?
-      The crucial part of this process is proving that
-      there exists a meromorphic function on $X$ that realizes $X$
-      as a branched cover of $\PP^1$
-      (see Theorem \ref{thm:riemannsexistence} below).
-      Given the existence of such a function,
-      the field of meromorphic functions on $X$ is then realized
-      as a finite extension of the meromorphic functions on $\PP^1$.
-      Finally,
-      by Theorem \ref{thm:curvesandfunctionfields},
-      this corresponds to an algebraic curve.
-      The existence of such a function
-      is given by
-      Theorem \ref{thm:riemannsexistence}
-      (Riemann's existence theorem).
-      \begin{theorem}\label{thm:riemannsexistence}
-        Let $X$ be a compact Riemann surface.
-        Then there exists a meromorphic function on $X$
-        that separates points.
-        That is, for any set of distinct points
-        $\{x_1,\dots,x_n\}\subset X$
-        and any set of distinct points
-        $\{t_1,\dots,t_n\}\subset\PP^1$
-        there exists a meromorphic function $f$
-        on $X$ such that $f(x_i) = t_i$ for all $i$.
-      \end{theorem}
-      \mm{todo: more details...other formulations}
-    }
-    \subsection{Belyi's theorem}{\label{subsec:belyistheorem}
-      In Sections
-      \ref{subsec:riemannsufraces}, \ref{subsec:algebraiccurves},
-      and \ref{subsec:riemannsexistence}
-      we established the equivalence between
-      compact Riemann surfaces and algebraic curves over $\CC$.
-      This was done, in part,
-      using branched covers.
-      It turns out that branched covers are the key
-      to descending from the transcendental world to
-      the number-theoretic world in the following sense.
-      \begin{theorem}[Belyi's theorem \cite{belyi}]\label{thm:belyistheorem}
-        An algebraic curve $X$ over $\CC$ can be defined over a number field
-        if and only if there exists a branched cover
-        $\phi\colon X\to\PP^1$ unramified outside
-        $\{0,1,\infty\}$.
-      \end{theorem}
-      These remarkable covers are the main focus of this work.
-    }
-    \subsection{Belyi maps and Galois Belyi maps}{\label{subsec:belyimaps}
-      We now set up the framework to discuss
-      the main mathematical objects of interest in this work.
-      \begin{definition}\label{def:belyimap}
-        A \defi{Belyi map}
-        is a branched cover
-        of algebraic curves over $\CC$
-        (equivalently of Riemann surfaces)
-        $\phi\colon X \to \PP^1$
-        that is
-        unramified outside
-        $\{0,1,\infty\}$.
-      \end{definition}
-      \begin{definition}\label{def:belyiiso}
-        Two Belyi maps
-        $\phi\colon X\to\PP^1$ and
-        $\phi'\colon X'\to\PP^1$
-        are \defi{isomorphic}
-        if there exists an isomorphism
-        between $X$ and $X'$
-        such that the diagram in Figure
-        \ref{fig:belyiiso}
-        commutes.
-        If instead we only insist that the isomorphism
-        makes the diagram in Figure
-        \ref{fig:belyilax} commute,
-        then we say that $\phi$ and $\phi'$
-        are \defi{lax isomorphic}.
-        \begin{figure}[ht]
-          \begin{center}
-            \begin{tikzcd}
-              X\arrow{rr}{\sim}\arrow{dr}[swap]{\phi}&&X'\arrow{dl}{\phi'}\\
-                                                     &\PP^1
-            \end{tikzcd}
-          \end{center}
-          \caption{Belyi map isomorphism}
-          \label{fig:belyiiso}
-        \end{figure}
-        \begin{figure}[ht]
-          \begin{center}
-            \begin{tikzcd}
-              X\arrow{r}{\sim}\arrow{d}[swap]{\phi}&X'\arrow{d}{\phi'}\\
-              \PP^1\arrow{r}{\sim}&\PP^1
-            \end{tikzcd}
-          \end{center}
-          \caption{Belyi map lax isomorphism}
-          \label{fig:belyilax}
-        \end{figure}
-      \end{definition}
-      \begin{definition}\label{def:galoisbelyi}
-        A Belyi map $\phi\colon X\to\PP^1$
-        is \defi{Galois}
-        if it is Galois as a cover
-        (see Definition \ref{def:galoiscover}).
-        A curve $X$ that admits a Galois Belyi map
-        is called a \defi{Galois Belyi curve}.
-      \end{definition}
-      \begin{prop}\label{prop:galoiscover}
-        Let $\phi\colon X\to\PP^1$ be a Galois Belyi map
-        and let $\CC(X)$ be the function field of $X$.
-        Then the field extension
-        $\CC(X)/\CC(\PP^1)$ is Galois.
+      Let $V$ be an algebraic set.
+      We say $V$ is
+      \defi{defined over $K$}
+      if $I(V)$ can be generated by
+      polynomials in $K[x_1,\dots,x_n]$.
+      For such $V$ we can define the
+      \defi{$K$-rational points of $V$} by
+      \[
+        V(K)\colonequals
+        V\cap\AA^n(K).
+      \]
+    \end{definition}
+    Let $G_K = \Gal(\Kal/K)$.
+    Another way to characterize $V(K)$ is
+    the points fixed under the action of $G_K$:
+    \begin{equation}
+      \label{eqn:galoisactiononV}
+      V(K) =
+      \{P\in V : P^\sigma = P\text{ for all }\sigma\in G_K\}
+    \end{equation}
+    \begin{definition}
+      \label{def:affinevariety}
+      An affine algebraic set $V$ is called
+      an \defi{affine variety}
+      if $I(V)\trianglelefteq\Kal[x_1,\dots,x_n]$ is a prime ideal.
+    \end{definition}
+    If an affine algebraic set $V$ is defined over $K$,
+    then $V$ is an affine variety if
+    $I(V)\trianglelefteq K[x_1,\dots,x_n]$
+    is a prime ideal.
+    \begin{definition}
+      \label{def:coordinateringfunctionfield}
+      Let $V$ be an affine variety defined over $K$.
+      We define the
+      \defi{affine coordinate ring}
+      by
+      \[
+        K[V]
+        \colonequals
+        \frac{
+          K[x_1,\dots,x_n]
+        }{
+        I(V)
+        }
+      \]
+      and the
+      \defi{function field of $V$}
+      by the field of fractions of $K[V]$
+      denoted $K(V)$.
+      We can similarly define this construction
+      for $\Kal[V]$ and $\Kal(V)$.
+    \end{definition}
+    \begin{definition}
+      \label{def:dimension}
+      The \defi{dimension}
+      of an affine variety $V$
+      is the transcendence degree of the field extension
+      $\Kal(V)$ over $\Kal$.
+    \end{definition}
+    % \begin{definition}
+    %   \label{def:nonsingular}
+    %   Let $V$ be an affine variety of dimension $d$,
+    %   let $P\in V$,
+    %   and $I(V)$ generated by
+    %   $\{f_1,\dots,f_m\}$.
+    %   We say $V$ is \defi{nonsingular at $P$}
+    %   if the $m\times n$ matrix of partial
+    %   derivatives
+    %   whose $(i,j)$-entry is
+    %   \[
+    %     \frac{\partial f_i}{\partial x_j}
+    %   \]
+    %   has rank $n-d$.
+    % \end{definition}
+    \begin{definition}
+      \label{def:nonsingular}
+      Let $V$ be a variety of dimension $d$
+      and $P\in V$.
+      Consider the maximal ideal
+      \[
+        M_P\colonequals
+        \{f\in\Kal[x_1,\dots,x_n]:f(P)=0\}.
+      \]
+      The quotient $M_P/M_P^2$ is a finite dimensional
+      vector space over $\Kal$.
+      We say $P$ is \defi{nonsingular}
+      if the dimension of $M_P/M_P^2$ as
+      a vector space over $\Kal$
+      is equal to $d$.
+    \end{definition}
+    \begin{definition}
+      \label{def:localringatP}
+      Let $V$ be an affine variety
+      and $P\in V$.
+      The \defi{ring of regular functions on $V$ at $P$}
+      is defined to be the localization
+      of $\Kal[V]$ at the maximal ideal $M_P$
+      (denoted $\Kal[V]_P$).
+      More explicitly we have
+      \[
+        \Kal[V]_P
+        \colonequals
+        \Kal[V]_{M_P}
+        =
+        \{f/g\in\Kal[V]:g(P)\neq 0\}
+      \]
+      so that
+      the elements of
+      $\Kal[V]_P$
+      are well-defined
+      as functions on $V$.
+    \end{definition}
+    %%%%%%%%%%%%PROJECTIVE VARIETIES
+    \begin{definition}
+      \label{def:projectivespace}
+      \defi{Projective $n$-space}
+      over $K$ is denoted by $\PP^n(\Kal)$
+      or $\PP^n$
+      and is defined to be
+      \[
+        \PP^n\colonequals
+        \{(x_0,\dots,x_{n})\in\AA^{n+1}:\text{ not all $x_i=0$ }\}/\sim
+      \]
+      where
+      $(x_0,\dots,x_n)\sim(x_0',\dots,x_n')$
+      if there exists $\lambda\in(\Kal)^\times$ with
+      $x_i=\lambda y_i$ for all $i\in \{0,\dots,n\}$.
+      The equivalence class of $(x_0,\dots,x_n)\in\AA^{n+1}$
+      with respect to $\sim$ is denoted by
+      $[x_0,\dots,x_n]$ or $[x_0:\cdots:x_n]$.
+      We call these $x_i$
+      \defi{homogeneous coordinates}
+      of the point in $\PP^n$.
+      As in the affine case,
+      we define the
+      \defi{$K$-rational points} of $\PP^n$
+      to be
+      \[
+        \PP^n(K)\colonequals
+        \{[x_0,\dots,x_n]\in\PP^n:x_i\in K \text{ for all } i\}.
+      \]
+    \end{definition}
+    \begin{definition}
+      \label{def:minimalfieldofdefinitionPPn}
+      Let $P\in\PP^n$ with homogeneous coordinates
+      $[x_0,\dots,x_n]$.
+      The \defi{minimal field of definition of $P$ over $K$}
+      is
+      \[
+        K(P)\colonequals
+        K(x_0/x_i,\dots,x_n/x_i)
+      \]
+      for any $i\in \{0,\dots,n\}$.
+    \end{definition}
+    $\PP^n(K)$ is the set of $P\in\PP^n$
+    fixed by the action of $G_K$.
+    On the other hand,
+    $K(P)$ is the fixed field of the
+    subgroup
+    $\{\sigma\in G_K: P = P^\sigma\}$.
+    \begin{definition}
+      \label{def:homogeneousideal}
+      An ideal $I\trianglelefteq\Kal[x_0,\dots,x_n]$
+      is \defi{homogeneous}
+      if it can be generated by homogeneous polynomials.
+      To a homogeneous ideal $I$ we can associate a subset of
+      $\PP^n$ as follows.
+      \[
+        V(I)\colonequals
+        \{P\in\PP^n : f(P)=0\text{ for all homogeneous $f\in\Kal[x_0,\dots,x_n]$ }\}
+      \]
+      A \defi{projective algebraic set}
+      is a subset of $\PP^n$ which is $V(I)$
+      for some homogeneous ideal $I$.
+    \end{definition}
+    To any projective algebraic set $V$,
+    we can associate a homogeneous ideal $I(V)$ defined by
+    \begin{equation}
+      \label{eqn:projectivealgebraicsetideal}
+      I(V)
+      \colonequals
+      \{f\in\Kal[x_0,\dots,x_n]:f \text{ is homogeneous and }f(P) = 0\text{ for all $P\in V$ }\}
+    \end{equation}
+    % \begin{theorem}\label{thm:curvesandfunctionfields}
+    %   \mm{correspondence curves and function fields}
+    % \end{theorem}
+    % \begin{definition}
+    %   Let $K\subseteq\CC$ be a field.
+    %   A \defi{branched cover of algebraic curves over $K$}
+    %   is a finite map of curves
+    %   $\phi\colon X\to\PP^1$ defined over $K$.
+    % \end{definition}
+    % \mm{enough to define good curves and function fields}
+  }
+  \section{Riemann's existence theorem}{\label{sec:riemannsexistence}
+    Riemann surfaces are defined in Section \ref{sec:riemannsurfaces}.
+    Algebraic curves are defined in Section \ref{sec:algebraiccurves}.
+    Here in Section \ref{sec:riemannsexistence}
+    we establish the connection between these objects over the complex numbers.
+    \par
+    Let $X$ be an algebraic curve over $\CC$.
+    Let $\CC(t)$ denote the function field of $\PP^1$.
+    By Theorem \ref{thm:curvesandfunctionfields},
+    $X$ corresponds to a finite extension $L\colonequals\CC(X)$
+    over $\CC(t)$.
+    Let $\alpha$ be a primitive element of $L/\CC(t)$.
+    Then there exists a polynomial
+    \begin{equation}
+      \label{eqn:minpoly}
+      f(x,t) = a_0(t)+a_1(t)x+a_2(t)x^2+\cdots+a_n(t)x^n\in\CC(t)[x]
+    \end{equation}
+    where $f(\alpha,t) = 0$ and (after possibly clearing denominators)
+    $a_i(t) \in\CC[t]$.
+    The polynomial $f$ in Equation \ref{eqn:minpoly}
+    defines a Riemann surface $X'$
+    as a branched cover of $\PP^1$
+    with branch points
+    \[
+      S \colonequals\left\{t_0\in\CC : f(x,t_0) \text{ has repeated roots }\right\}.
+    \]
+    Here $x$ can be viewed as a meromorphic function on $X'$
+    and we can identify the field of meromorphic functions on $X'$
+    with $L$.
+    This explains how we obtain a Riemann surface from an algebraic curve.
+    \par
+    Suppose instead we start with a compact Riemann surface $X$.
+    Can we reverse the above process to construct an algebraic curve?
+    The crucial part of this process is proving that
+    there exists a meromorphic function on $X$ that realizes $X$
+    as a branched cover of $\PP^1$
+    (see Theorem \ref{thm:riemannsexistence} below).
+    Given the existence of such a function,
+    the field of meromorphic functions on $X$ is then realized
+    as a finite extension of the meromorphic functions on $\PP^1$.
+    Finally,
+    by Theorem \ref{thm:curvesandfunctionfields},
+    this corresponds to an algebraic curve.
+    The existence of such a function
+    is given by
+    Theorem \ref{thm:riemannsexistence}
+    (Riemann's existence theorem).
+    \begin{theorem}\label{thm:riemannsexistence}
+      Let $X$ be a compact Riemann surface.
+      Then there exists a meromorphic function on $X$
+      that separates points.
+      That is, for any set of distinct points
+      $\{x_1,\dots,x_n\}\subset X$
+      and any set of distinct points
+      $\{t_1,\dots,t_n\}\subset\PP^1$
+      there exists a meromorphic function $f$
+      on $X$ such that $f(x_i) = t_i$ for all $i$.
+    \end{theorem}
+    \mm{todo: more details...other formulations}
+  }
+  \section{Belyi's theorem}{\label{sec:belyistheorem}
+    In Sections
+    \ref{sec:riemannsufraces}, \ref{sec:algebraiccurves},
+    and \ref{sec:riemannsexistence}
+    we established the equivalence between
+    compact Riemann surfaces and algebraic curves over $\CC$.
+    This was done, in part,
+    using branched covers.
+    It turns out that branched covers are the key
+    to descending from the transcendental world to
+    the number-theoretic world in the following sense.
+    \begin{theorem}[Belyi's theorem \cite{belyi}]\label{thm:belyistheorem}
+      An algebraic curve $X$ over $\CC$ can be defined over a number field
+      if and only if there exists a branched cover
+      $\phi\colon X\to\PP^1$ unramified outside
+      $\{0,1,\infty\}$.
+    \end{theorem}
+    These remarkable covers are the main focus of this work.
+  }
+  \section{Belyi maps and Galois Belyi maps}{\label{sec:belyimaps}
+    We now set up the framework to discuss
+    the main mathematical objects of interest in this work.
+    \begin{definition}\label{def:belyimap}
+      A \defi{Belyi map}
+      is a branched cover
+      of algebraic curves over $\CC$
+      (equivalently of Riemann surfaces)
+      $\phi\colon X \to \PP^1$
+      that is
+      unramified outside
+      $\{0,1,\infty\}$.
+    \end{definition}
+    \begin{definition}\label{def:belyiiso}
+      Two Belyi maps
+      $\phi\colon X\to\PP^1$ and
+      $\phi'\colon X'\to\PP^1$
+      are \defi{isomorphic}
+      if there exists an isomorphism
+      between $X$ and $X'$
+      such that the diagram in Figure
+      \ref{fig:belyiiso}
+      commutes.
+      If instead we only insist that the isomorphism
+      makes the diagram in Figure
+      \ref{fig:belyilax} commute,
+      then we say that $\phi$ and $\phi'$
+      are \defi{lax isomorphic}.
+      \begin{figure}[ht]
+        \begin{center}
+          \begin{tikzcd}
+            X\arrow{rr}{\sim}\arrow{dr}[swap]{\phi}&&X'\arrow{dl}{\phi'}\\
+                                                   &\PP^1
+          \end{tikzcd}
+        \end{center}
+        \caption{Belyi map isomorphism}
+        \label{fig:belyiiso}
+      \end{figure}
+      \begin{figure}[ht]
+        \begin{center}
+          \begin{tikzcd}
+            X\arrow{r}{\sim}\arrow{d}[swap]{\phi}&X'\arrow{d}{\phi'}\\
+            \PP^1\arrow{r}{\sim}&\PP^1
+          \end{tikzcd}
+        \end{center}
+        \caption{Belyi map lax isomorphism}
+        \label{fig:belyilax}
+      \end{figure}
+    \end{definition}
+    \begin{definition}\label{def:galoisbelyi}
+      A Belyi map $\phi\colon X\to\PP^1$
+      is \defi{Galois}
+      if it is Galois as a cover
+      (see Definition \ref{def:galoiscover}).
+      A curve $X$ that admits a Galois Belyi map
+      is called a \defi{Galois Belyi curve}.
+    \end{definition}
+    \begin{prop}\label{prop:galoiscover}
+      Let $\phi\colon X\to\PP^1$ be a Galois Belyi map
+      and let $\CC(X)$ be the function field of $X$.
+      Then the field extension
+      $\CC(X)/\CC(\PP^1)$ is Galois.
+    \end{prop}
+    \begin{proof}
+    \end{proof}
+    \begin{definition}\label{def:ramificationtype}
+      The ramification
+      of a degree $d$ Belyi map $\phi$
+      can be encoded with $3$ partitions of $d$
+      denoted $(\lambda_0,\lambda_1,\lambda_\infty)$.
+      We call this triple of partitions
+      the \defi{ramification type} of $\phi$.
+      When $\phi$ is Galois,
+      according to Lemma \ref{lem:regular},
+      the ramification type of $\phi$ can more simply be encoded by
+      a triple of integers $(a,b,c)\in\ZZ_{\geq 1}^3$.
+    \end{definition}
+    Let $\phi\colon X\to\PP^1$ be a Belyi map of degree $d$.
+    Once we label the sheets of the cover
+    and pick a basepoint $\star\not\in\{0,1,\infty\}$,
+    we obtain a homomorphism
+    \begin{equation}\label{eqn:monodromy}
+      h\colon\pi_1(\PP^1\setminus\{0,1,\infty\},\star)\to S_d
+    \end{equation}
+    by lifting paths around the branch points of $\phi$.
+    \begin{definition}\label{def:monodromy}
+      The image of $h$ in Equation \ref{eqn:monodromy}
+      is the \defi{monodromy group} of $\phi$
+      denoted $\Mon(\phi)$.
+      When $\phi$ is a Galois Belyi map,
+      we can identify $\Mon(\phi)$
+      as the Galois group
+      $\Gal(\CC(X)/\CC(\PP^1))$.
+      For this reason,
+      we may also write $\Gal(\phi)$
+      to denote $\Mon(\phi)$ when $\phi$
+      is Galois.
+    \end{definition}
+    \mm{todo: any propositions about monodromy groups can go here}
+    \begin{definition}\label{def:Gbelyi}
+      A \defi{$G$-Galois Belyi map}
+      is a Galois Belyi map
+      $\phi\colon X\to\PP^1$
+      with monodromy group $G$
+      equipped with an isomorphism
+      \[
+        i\colon G\stackrel{\sim}{\to}\Mon(\phi)\leq\Aut(X).
+      \]
+      An \defi{isomorphism of $G$-Galois Belyi maps}
+      $(\phi\colon X\to\PP^1, i\colon G\to\Mon(\phi))$
+      and
+      $(\phi'\colon X'\to\PP^1, i'\colon G\to\Mon(\phi)$
+      is an isomorphism $h\colon X\stackrel{\sim}{\to} X'$ such that
+      for all $g\in G$
+      the diagram in
+      Figure \ref{fig:Gbelyiiso} commutes.
+      \begin{figure}[ht]
+        \begin{center}
+          \begin{tikzcd}
+            X\arrow{rr}{h}\arrow{d}[swap]{i(g)}&&X'\arrow{d}{i'(g)}\\
+            X\arrow{rr}{h}\arrow{dr}[swap]{\phi}&&X'\arrow{dl}{\phi'}\\
+                                                   &\PP^1
+          \end{tikzcd}
+        \end{center}
+        \caption{$G$-Galois Belyi map isomorphism}
+        \label{fig:Gbelyiiso}
+      \end{figure}
+      \begin{prop}\label{prop:Gauts}
+        \mm{\cite[Prop. 3.6 ish]{triangles}}
       \end{prop}
-      \begin{proof}
-      \end{proof}
-      \begin{definition}\label{def:ramificationtype}
-        The ramification
-        of a degree $d$ Belyi map $\phi$
-        can be encoded with $3$ partitions of $d$
-        denoted $(\lambda_0,\lambda_1,\lambda_\infty)$.
-        We call this triple of partitions
-        the \defi{ramification type} of $\phi$.
-        When $\phi$ is Galois,
-        according to Lemma \ref{lem:regular},
-        the ramification type of $\phi$ can more simply be encoded by
-        a triple of integers $(a,b,c)\in\ZZ_{\geq 1}^3$.
-      \end{definition}
-      Let $\phi\colon X\to\PP^1$ be a Belyi map of degree $d$.
-      Once we label the sheets of the cover
-      and pick a basepoint $\star\not\in\{0,1,\infty\}$,
-      we obtain a homomorphism
-      \begin{equation}\label{eqn:monodromy}
-        h\colon\pi_1(\PP^1\setminus\{0,1,\infty\},\star)\to S_d
+    \end{definition}
+  }
+  \section{Permutation triples and passports}{\label{sec:passports}
+    % A \defi{(nice) curve} over $K$ is
+    % a smooth, projective, geometrically connected (irreducible) scheme of finite
+    % type over $K$ that is pure of dimension $1$.
+    % After extension to $\CC$, a curve
+    % may be thought of as a compact, connected Riemann surface.  A \defi{Belyi map}
+    % over $K$ is a finite morphism $\phi\colon X \to \PP^1$ over $K$ that is
+    % unramified outside $\{0,1,\infty\}$; we will sometimes write $(X,\phi)$ when we
+    % want to pay special attention to the source curve $X$.  Two Belyi maps
+    % $\phi,\phi'$ are \defi{isomorphic} if there is an isomorphism $\iota\colon X
+    % \xrightarrow{\sim} X'$ of curves such that $\phi'\iota=\phi$.
+    % Let $\phi\colon X\to\PP^1$ be a Belyi map over $\overline{\QQ}$ of degree
+    % $d \in \ZZ_{\geq 1}$.
+    % The \defi{monodromy group} of $\phi$ is the Galois group
+    % $\Mon(\phi) \colonequals \Gal(\CC(X)\,|\,\CC(\PP^1)) \leq S_d$ of the
+    % corresponding extension of function fields (understood as the action of the
+    % automorphism group of the normal closure); the group $\Mon(\phi)$ may also be
+    % obtained by lifting paths around $0,1,\infty$ to $X$.
+    \begin{definition}
+      \label{def:permutationtriple}
+      A \defi{permutation triple} of degree $d \in \ZZ_{\geq 1}$ is a tuple $\sigma =
+      (\sigma_0,\sigma_1,\sigma_\infty)\in S_d^3$ such that $\sigma_\infty \sigma_1
+      \sigma_0 = 1$.
+      A permutation triple is \defi{transitive} if the subgroup
+      $\langle \sigma \rangle \leq S_d$ generated by $\sigma$ is transitive.
+      We say
+      that two permutation triples $\sigma,\sigma'$ are \defi{simultaneously
+      conjugate} if there exists $\tau\in S_d$ such that
+      \begin{equation}\label{eqn:simconj}
+        \sigma^\tau \colonequals
+        (\tau^{-1}\sigma_0\tau, \tau^{-1}\sigma_1\tau, \tau^{-1}\sigma_\infty\tau)
+        = \left(\sigma'_0,\sigma'_1,\sigma'_\infty\right)
+        = \sigma'.
       \end{equation}
-      by lifting paths around the branch points of $\phi$.
-      \begin{definition}\label{def:monodromy}
-        The image of $h$ in Equation \ref{eqn:monodromy}
-        is the \defi{monodromy group} of $\phi$
-        denoted $\Mon(\phi)$.
-        When $\phi$ is a Galois Belyi map,
-        we can identify $\Mon(\phi)$
-        as the Galois group
-        $\Gal(\CC(X)/\CC(\PP^1))$.
-        For this reason,
-        we may also write $\Gal(\phi)$
-        to denote $\Mon(\phi)$ when $\phi$
-        is Galois.
-      \end{definition}
-      \mm{todo: any propositions about monodromy groups can go here}
-      \begin{definition}\label{def:Gbelyi}
-        A \defi{$G$-Galois Belyi map}
-        is a Galois Belyi map
-        $\phi\colon X\to\PP^1$
-        with monodromy group $G$
-        equipped with an isomorphism
-        \[
-          i\colon G\stackrel{\sim}{\to}\Mon(\phi)\leq\Aut(X).
-        \]
-        An \defi{isomorphism of $G$-Galois Belyi maps}
-        $(\phi\colon X\to\PP^1, i\colon G\to\Mon(\phi))$
-        and
-        $(\phi'\colon X'\to\PP^1, i'\colon G\to\Mon(\phi)$
-        is an isomorphism $h\colon X\stackrel{\sim}{\to} X'$ such that
-        for all $g\in G$
-        the diagram in
-        Figure \ref{fig:Gbelyiiso} commutes.
-        \begin{figure}[ht]
-          \begin{center}
-            \begin{tikzcd}
-              X\arrow{rr}{h}\arrow{d}[swap]{i(g)}&&X'\arrow{d}{i'(g)}\\
-              X\arrow{rr}{h}\arrow{dr}[swap]{\phi}&&X'\arrow{dl}{\phi'}\\
-                                                     &\PP^1
-            \end{tikzcd}
-          \end{center}
-          \caption{$G$-Galois Belyi map isomorphism}
-          \label{fig:Gbelyiiso}
-        \end{figure}
-        \begin{prop}\label{prop:Gauts}
-          \mm{\cite[Prop. 3.6 ish]{triangles}}
-        \end{prop}
-      \end{definition}
-    }
-    \subsection{Permutation triples and passports}{\label{subsec:passports}
-      % A \defi{(nice) curve} over $K$ is
-      % a smooth, projective, geometrically connected (irreducible) scheme of finite
-      % type over $K$ that is pure of dimension $1$.
-      % After extension to $\CC$, a curve
-      % may be thought of as a compact, connected Riemann surface.  A \defi{Belyi map}
-      % over $K$ is a finite morphism $\phi\colon X \to \PP^1$ over $K$ that is
-      % unramified outside $\{0,1,\infty\}$; we will sometimes write $(X,\phi)$ when we
-      % want to pay special attention to the source curve $X$.  Two Belyi maps
-      % $\phi,\phi'$ are \defi{isomorphic} if there is an isomorphism $\iota\colon X
-      % \xrightarrow{\sim} X'$ of curves such that $\phi'\iota=\phi$.
-      % Let $\phi\colon X\to\PP^1$ be a Belyi map over $\overline{\QQ}$ of degree
-      % $d \in \ZZ_{\geq 1}$.
-      % The \defi{monodromy group} of $\phi$ is the Galois group
-      % $\Mon(\phi) \colonequals \Gal(\CC(X)\,|\,\CC(\PP^1)) \leq S_d$ of the
-      % corresponding extension of function fields (understood as the action of the
-      % automorphism group of the normal closure); the group $\Mon(\phi)$ may also be
-      % obtained by lifting paths around $0,1,\infty$ to $X$.
-      \begin{definition}
-        \label{def:permutationtriple}
-        A \defi{permutation triple} of degree $d \in \ZZ_{\geq 1}$ is a tuple $\sigma =
-        (\sigma_0,\sigma_1,\sigma_\infty)\in S_d^3$ such that $\sigma_\infty \sigma_1
-        \sigma_0 = 1$.
-        A permutation triple is \defi{transitive} if the subgroup
-        $\langle \sigma \rangle \leq S_d$ generated by $\sigma$ is transitive.
-        We say
-        that two permutation triples $\sigma,\sigma'$ are \defi{simultaneously
-        conjugate} if there exists $\tau\in S_d$ such that
-        \begin{equation}\label{eqn:simconj}
-          \sigma^\tau \colonequals
-          (\tau^{-1}\sigma_0\tau, \tau^{-1}\sigma_1\tau, \tau^{-1}\sigma_\infty\tau)
-          = \left(\sigma'_0,\sigma'_1,\sigma'_\infty\right)
-          = \sigma'.
-        \end{equation}
-        An \defi{automorphism} of a permutation triple $\sigma$ is an element of $S_d$ that
-        simultaneously conjugates $\sigma$ to itself, i.e.,
-        $\Aut(\sigma)=Z_{S_d}(\langle \sigma \rangle)$, the centralizer inside $S_d$.
-      \end{definition}
-      \begin{lemma}
-        \label{lem:simulisom}
-        The set of transitive permutation triples of degree $d$ up to simultaneous
-        conjugation is in bijection with the set of Belyi maps of degree $d$ up to
-        isomorphism.
-      \end{lemma}
-      \begin{proof}
-        The correspondence is via monodromy \cite[Lemma 1.1]{KMSV}; in particular,
-        the monodromy group of a Belyi map is (conjugate in $S_d$ to) the group
-        generated by~$\sigma$.
-      \end{proof}
-      The group $G_\QQ\colonequals\Gal(\QQal/ \QQ)$ acts on Belyi maps by acting on the
-      coefficients of a set of defining equations; under the bijection of Lemma
-      \ref{lem:simulisom}, it thereby acts on the set of transitive permutation
-      triples, but this action is rather mysterious.
-      We can cut this action down to size by identifying some basic invariants, as
-      follows.
-      \begin{definition}
-        \label{def:passport}
-        A \defi{passport} consists of the data $\mathcal{P}=(g,G,\lambda)$
-        where $g \geq 0$ is an integer, $G \leq S_d$ is a transitive subgroup, and
-        $\lambda=(\lambda_0,\lambda_1,\lambda_\infty)$ is a tuple of partitions
-        $\lambda_s$ of $d$ for $s=0,1,\infty$.
-        These partitions will be also be
-        thought of as a tuple of conjugacy classes $C=(C_0,C_1,C_\infty)$ by cycle
-        type, so we will also write passports as $(g,G,C)$.
-      \end{definition}
-      \begin{definition}
-        \label{def:passportofbelyimap}
-        The \defi{passport} of a
-        Belyi map $\phi\colon X \to \PP^1$ is $(g(X),\Mon(\phi),
-        (\lambda_0,\lambda_1,\lambda_\infty))$,
-        where $g(X)$ is the genus of $X$ and
-        $\lambda_s$ is the partition of $d$ obtained by the ramification degrees above
-        $s=0,1,\infty$, respectively.
-      \end{definition}
-      \begin{definition}
-        \label{def:passportofpermutationtriple}
-        The \defi{passport} of a transitive
-        permutation triple $\sigma$ is
-        $(g(\sigma),\langle \sigma \rangle, \lambda(\sigma))$,
-        where (by Riemann--Hurwitz)
-        \begin{equation}\label{eqn:riemannhurwitzfortriples}
-          g(\sigma) \colonequals 1-d+(e(\sigma_0)+e(\sigma_1)+e(\sigma_\infty))/2
-        \end{equation}
-        and $e$ is the index of a permutation ($d$ minus the number of orbits), and
-        $\lambda(\sigma)$ is the cycle type of $\sigma_s$ for $s=0,1,\infty$.
-      \end{definition}
-      \begin{definition}
-        \label{def:passportsize}
-        The
-        \defi{size} of a passport $\mathcal{P}$ is the number of simultaneous conjugacy
-        classes (as in \ref{eqn:simconj}) of (necessarily transitive) permutation
-        triples $\sigma$ with passport $\mathcal{P}$.
-      \end{definition}
-      The action of $G_\QQ$ on Belyi maps preserves passports.
-      Therefore, after computing equations for all Belyi maps with a given
-      passport, we can try to identify the Galois orbits of this action.
-      \begin{definition}
-        \label{def:reduciblepassport}
-        We say a passport is \defi{irreducible} if it has one
-        $G_\QQ$-orbit and
-        \defi{reducible} otherwise.
-      \end{definition}
-    }
-    \subsection{Triangle groups}{\label{subsec:trianglegroups}
-      \begin{definition}
-        \label{def:geometrytype}
-        Let $(a,b,c)\in\ZZ_{\geq 1}^3$.
-        If $1\in(a,b,c)$, then we say the triple is \defi{degenerate}.
-        Otherwise, we call the triple
-        \defi{spherical},
-        \defi{Euclidean},
-        or \defi{hyperbolic}
-        according to whether the value of
-        \begin{equation}
-          \label{eqn:eulerchar}
-          \chi(a,b,c) = 1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}
-        \end{equation}
-        is negative, zero, or positive.
-        We call this the \defi{geometry type}
-        of the triple.
-        We associate the \defi{geometry}
-        \begin{equation}
-          \label{eqn:geometrytype}
-          H=
-          \begin{cases}
-            \PP^1&\chi(a,b,c)<0\\
-            \CC&\chi(a,b,c)=0\\
-            \mathfrak{H}&\chi(a,b,c)<0
-          \end{cases}
-        \end{equation}
-        where $\mathfrak{H}$ denotes the complex upper half-plane.
-      \end{definition}
-      \begin{definition}
-        \label{def:trianglegroup}
-        For each triple $(a,b,c)$ in Definition \ref{def:geometrytype}
-        we define the \defi{triangle group}
-        \begin{equation}
-          \label{eqn:trianglegroup}
-          \Delta(a,b,c)
-          =
-          \langle
-          \delta_a, \delta_b, \delta_c |
-          \delta_a^a=\delta_b^b=\delta_c^c=\delta_c\delta_b\delta_a=1
-          \rangle
-        \end{equation}
-        The \defi{geometry type}
-        of a triangle group $\Delta(a,b,c)$
-        is the geometry type of the triple $(a,b,c)$.
-      \end{definition}
-      \begin{definition}\label{def:geometrytypeofbelyimap}
-        The \defi{geometry type} of a Galois Belyi map
-        with ramification type $(a,b,c)$
-        is the geometry type of $(a,b,c)$.
-      \end{definition}
-      \begin{definition}\label{def:geometrytypeofpermutationtriple}
-        Let $\sigma=(\sigma_0,\sigma_1,\sigma_\infty)$ be a transitive permutation triple.
-        Let $a,b,c$ be the orders of
-        $\sigma_0,\sigma_1,\sigma_\infty$ respectively.
-        The \defi{geometry type} of $\sigma$
-        is the geometry type of $(a,b,c)$.
-      \end{definition}
-      The connection between Belyi maps and triangle groups
-      of various geometry types is explained by Lemma
-      \ref{lem:belyimapsandtrianglegroups}.
-      \begin{lemma}
-        \label{lem:belyimapsandtrianglegroups}
-        The set of isomorphism classes of of degree $d$
-        Belyi maps with ramification type $(a,b,c)$
-        is in bijection with the set of
-        index $d$ subgroups
-        $\Gamma\leq\Delta(a,b,c)$
-        up to isomorphism.
-      \end{lemma}
-      \begin{proof}
-        See \cite{KMSV} for a detailed discussion.
-      \end{proof}
-    }
-    \subsection{Background results on Belyi maps}{\label{subsec:backgroundresults}
-      \begin{theorem}\label{thm:bigbijection}
-        \mm{big bijection}
-      \end{theorem}
-      \begin{prop}\label{prop:galoisaction}
-        \mm{Galois action on Belyi maps}
-      \end{prop}
-      \begin{prop}\label{prop:galoiscorrespondence}
-        Galois correspondence of Belyi maps
-      \end{prop}
-      \begin{proof}
-      \end{proof}
-      \mm{\cite[1.6, 1.7]{SV}}
-    }
-    \subsection{Fields of moduli and fields of definition}{\label{subsec:fieldsofmodulifieldsofdefinition}
-      Let $\Aut(\CC)$ denote the field automorphisms of $\CC$.
-      \begin{definition}
-        \label{def:fieldofmoduli}
-        Let $X$ be an algebraic curve over $\CC$.
-        The \defi{field of moduli} of $X$ is the fixed field of the
-        field automorphisms
-        \[
-          \{\tau\in\Aut(\CC) : X^\tau\cong X\}
-        \]
-        where $\tau\in\Aut(\CC)$ acts on the defining equations of $X$.
-        Denote this field as $M(X)$.
-      \end{definition}
-      \begin{definition}
-        \label{def:fieldofmodulibelyimap}
-        Let $\phi\colon X\to\PP^1$ be a Belyi map.
-        The \defi{field of moduli} of $\phi$ is the fixed field of the
-        field automorphisms
-        \[
-          \{\tau\in\Aut(\CC) : \phi^\tau\cong \phi\}
-        \]
-        where $\tau\in\Aut(\CC)$ acts on the defining equations of $\phi$
-        and isomorphism is determined by
-        Definition \ref{def:belyiiso}.
-        Denote this field as $M(\phi)$.
-      \end{definition}
-      \begin{definition}
-        \label{def:fieldofmoduliGbelyimap}
-        Let $\phi\colon X\to\PP^1$ be a $G$-Galois Belyi map.
-        The \defi{field of moduli} of $\phi$ is the fixed field of the
-        field automorphisms
-        \[
-          \{\tau\in\Aut(\CC) : \phi^\tau\cong \phi\}
-        \]
-        where $\tau\in\Aut(\CC)$ acts on the defining equations of $\phi$
-        and isomorphism is determined by
-        Definition \ref{def:Gbelyi}.
-        Denote this field as $M(\phi)$.
-      \end{definition}
-      \begin{theorem}\label{thm:fieldofmoduli}
-        Let $\phi:X\to\PP^1$ be a Belyi map
-        with passport $\mathcal{P}$.
-        Then the degree of the field of moduli of $\phi$
-        is bounded by the size of $\mathcal{P}$.
-      \end{theorem}
-      \begin{proof}
-        \cite{SV}
-      \end{proof}
-      \begin{definition}
-        \label{def:fieldofdefinition}
-        Let $\phi\colon X\to\PP^1$ be a Belyi map.
-        A number field $K$ is a
-        \defi{field of definition} for $\phi$
-        if $\phi$ and $X$ can be defined
-        with equations over $K$.
-        If $K$ is a field of definition for $\phi$
-        we say $\phi$ is \defi{defined over} $K$.
-      \end{definition}
-      \begin{theorem}
-        \label{thm:galoisbelyimapoverfieldofmoduli}
-        A Galois Belyi map is defined over
-        its field of moduli.
-      \end{theorem}
-      \begin{proof}
-        \cite[Lemma 4.1]{triangles}
-      \end{proof}
-    }
+      An \defi{automorphism} of a permutation triple $\sigma$ is an element of $S_d$ that
+      simultaneously conjugates $\sigma$ to itself, i.e.,
+      $\Aut(\sigma)=Z_{S_d}(\langle \sigma \rangle)$, the centralizer inside $S_d$.
+    \end{definition}
+    \begin{lemma}
+      \label{lem:simulisom}
+      The set of transitive permutation triples of degree $d$ up to simultaneous
+      conjugation is in bijection with the set of Belyi maps of degree $d$ up to
+      isomorphism.
+    \end{lemma}
+    \begin{proof}
+      The correspondence is via monodromy \cite[Lemma 1.1]{KMSV}; in particular,
+      the monodromy group of a Belyi map is (conjugate in $S_d$ to) the group
+      generated by~$\sigma$.
+    \end{proof}
+    The group $G_\QQ\colonequals\Gal(\QQal/ \QQ)$ acts on Belyi maps by acting on the
+    coefficients of a set of defining equations; under the bijection of Lemma
+    \ref{lem:simulisom}, it thereby acts on the set of transitive permutation
+    triples, but this action is rather mysterious.
+    We can cut this action down to size by identifying some basic invariants, as
+    follows.
+    \begin{definition}
+      \label{def:passport}
+      A \defi{passport} consists of the data $\mathcal{P}=(g,G,\lambda)$
+      where $g \geq 0$ is an integer, $G \leq S_d$ is a transitive subgroup, and
+      $\lambda=(\lambda_0,\lambda_1,\lambda_\infty)$ is a tuple of partitions
+      $\lambda_s$ of $d$ for $s=0,1,\infty$.
+      These partitions will be also be
+      thought of as a tuple of conjugacy classes $C=(C_0,C_1,C_\infty)$ by cycle
+      type, so we will also write passports as $(g,G,C)$.
+    \end{definition}
+    \begin{definition}
+      \label{def:passportofbelyimap}
+      The \defi{passport} of a
+      Belyi map $\phi\colon X \to \PP^1$ is $(g(X),\Mon(\phi),
+      (\lambda_0,\lambda_1,\lambda_\infty))$,
+      where $g(X)$ is the genus of $X$ and
+      $\lambda_s$ is the partition of $d$ obtained by the ramification degrees above
+      $s=0,1,\infty$, respectively.
+    \end{definition}
+    \begin{definition}
+      \label{def:passportofpermutationtriple}
+      The \defi{passport} of a transitive
+      permutation triple $\sigma$ is
+      $(g(\sigma),\langle \sigma \rangle, \lambda(\sigma))$,
+      where (by Riemann--Hurwitz)
+      \begin{equation}\label{eqn:riemannhurwitzfortriples}
+        g(\sigma) \colonequals 1-d+(e(\sigma_0)+e(\sigma_1)+e(\sigma_\infty))/2
+      \end{equation}
+      and $e$ is the index of a permutation ($d$ minus the number of orbits), and
+      $\lambda(\sigma)$ is the cycle type of $\sigma_s$ for $s=0,1,\infty$.
+    \end{definition}
+    \begin{definition}
+      \label{def:passportsize}
+      The
+      \defi{size} of a passport $\mathcal{P}$ is the number of simultaneous conjugacy
+      classes (as in \ref{eqn:simconj}) of (necessarily transitive) permutation
+      triples $\sigma$ with passport $\mathcal{P}$.
+    \end{definition}
+    The action of $G_\QQ$ on Belyi maps preserves passports.
+    Therefore, after computing equations for all Belyi maps with a given
+    passport, we can try to identify the Galois orbits of this action.
+    \begin{definition}
+      \label{def:reduciblepassport}
+      We say a passport is \defi{irreducible} if it has one
+      $G_\QQ$-orbit and
+      \defi{reducible} otherwise.
+    \end{definition}
   }
-  \section{Group theory}{
-    \subsection{Central group extensions and $H^2(G,A)$}{
-      \begin{definition}
-        \label{def:isoextentions}
-      \end{definition}
-    }
-    \subsection{Holt's algorithm and \texttt{Magma} implementation}{
-      \label{subsec:holtsalgorithm}
-    }
-    \subsection{Results on $2$-groups}{
-      \begin{lemma}\label{lem:2groupfiltration}
-        \mm{todo}
-      \end{lemma}
-    }
+  \section{Triangle groups}{\label{sec:trianglegroups}
+    \begin{definition}
+      \label{def:geometrytype}
+      Let $(a,b,c)\in\ZZ_{\geq 1}^3$.
+      If $1\in(a,b,c)$, then we say the triple is \defi{degenerate}.
+      Otherwise, we call the triple
+      \defi{spherical},
+      \defi{Euclidean},
+      or \defi{hyperbolic}
+      according to whether the value of
+      \begin{equation}
+        \label{eqn:eulerchar}
+        \chi(a,b,c) = 1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}
+      \end{equation}
+      is negative, zero, or positive.
+      We call this the \defi{geometry type}
+      of the triple.
+      We associate the \defi{geometry}
+      \begin{equation}
+        \label{eqn:geometrytype}
+        H=
+        \begin{cases}
+          \PP^1&\chi(a,b,c)<0\\
+          \CC&\chi(a,b,c)=0\\
+          \mathfrak{H}&\chi(a,b,c)<0
+        \end{cases}
+      \end{equation}
+      where $\mathfrak{H}$ denotes the complex upper half-plane.
+    \end{definition}
+    \begin{definition}
+      \label{def:trianglegroup}
+      For each triple $(a,b,c)$ in Definition \ref{def:geometrytype}
+      we define the \defi{triangle group}
+      \begin{equation}
+        \label{eqn:trianglegroup}
+        \Delta(a,b,c)
+        =
+        \langle
+        \delta_a, \delta_b, \delta_c |
+        \delta_a^a=\delta_b^b=\delta_c^c=\delta_c\delta_b\delta_a=1
+        \rangle
+      \end{equation}
+      The \defi{geometry type}
+      of a triangle group $\Delta(a,b,c)$
+      is the geometry type of the triple $(a,b,c)$.
+    \end{definition}
+    \begin{definition}\label{def:geometrytypeofbelyimap}
+      The \defi{geometry type} of a Galois Belyi map
+      with ramification type $(a,b,c)$
+      is the geometry type of $(a,b,c)$.
+    \end{definition}
+    \begin{definition}\label{def:geometrytypeofpermutationtriple}
+      Let $\sigma=(\sigma_0,\sigma_1,\sigma_\infty)$ be a transitive permutation triple.
+      Let $a,b,c$ be the orders of
+      $\sigma_0,\sigma_1,\sigma_\infty$ respectively.
+      The \defi{geometry type} of $\sigma$
+      is the geometry type of $(a,b,c)$.
+    \end{definition}
+    The connection between Belyi maps and triangle groups
+    of various geometry types is explained by Lemma
+    \ref{lem:belyimapsandtrianglegroups}.
+    \begin{lemma}
+      \label{lem:belyimapsandtrianglegroups}
+      The set of isomorphism classes of of degree $d$
+      Belyi maps with ramification type $(a,b,c)$
+      is in bijection with the set of
+      index $d$ subgroups
+      $\Gamma\leq\Delta(a,b,c)$
+      up to isomorphism.
+    \end{lemma}
+    \begin{proof}
+      See \cite{KMSV} for a detailed discussion.
+    \end{proof}
   }
-  % \section{Jacobians of curves}{
-  %   \subsection{Abel-Jacobi and the construction over $\CC$}{
-  %   }
-  %   \subsection{Algebraic construction}{
-  %   }
-  %   \subsection{Riemann-Roch}{
-  %   }
-  %   \subsection{Torsion points and torsion fields}{
-  %   }
-  % }
-  % \section{Galois representations}{
-  %   \subsection{Representations of Galois groups of number fields}{
-  %   }
-  %   \subsection{Representations coming from geometry}{
-  %   }
+  \section{Background results on Belyi maps}{\label{sec:backgroundresults}
+    \begin{theorem}\label{thm:bigbijection}
+      \mm{big bijection}
+    \end{theorem}
+    \begin{prop}\label{prop:galoisaction}
+      \mm{Galois action on Belyi maps}
+    \end{prop}
+    \begin{prop}\label{prop:galoiscorrespondence}
+      Galois correspondence of Belyi maps
+    \end{prop}
+    \begin{proof}
+    \end{proof}
+    \mm{\cite[1.6, 1.7]{SV}}
+  }
+  \section{Fields of moduli and fields of definition}{\label{sec:fieldsofmodulifieldsofdefinition}
+    Let $\Aut(\CC)$ denote the field automorphisms of $\CC$.
+    \begin{definition}
+      \label{def:fieldofmoduli}
+      Let $X$ be an algebraic curve over $\CC$.
+      The \defi{field of moduli} of $X$ is the fixed field of the
+      field automorphisms
+      \[
+        \{\tau\in\Aut(\CC) : X^\tau\cong X\}
+      \]
+      where $\tau\in\Aut(\CC)$ acts on the defining equations of $X$.
+      Denote this field as $M(X)$.
+    \end{definition}
+    \begin{definition}
+      \label{def:fieldofmodulibelyimap}
+      Let $\phi\colon X\to\PP^1$ be a Belyi map.
+      The \defi{field of moduli} of $\phi$ is the fixed field of the
+      field automorphisms
+      \[
+        \{\tau\in\Aut(\CC) : \phi^\tau\cong \phi\}
+      \]
+      where $\tau\in\Aut(\CC)$ acts on the defining equations of $\phi$
+      and isomorphism is determined by
+      Definition \ref{def:belyiiso}.
+      Denote this field as $M(\phi)$.
+    \end{definition}
+    \begin{definition}
+      \label{def:fieldofmoduliGbelyimap}
+      Let $\phi\colon X\to\PP^1$ be a $G$-Galois Belyi map.
+      The \defi{field of moduli} of $\phi$ is the fixed field of the
+      field automorphisms
+      \[
+        \{\tau\in\Aut(\CC) : \phi^\tau\cong \phi\}
+      \]
+      where $\tau\in\Aut(\CC)$ acts on the defining equations of $\phi$
+      and isomorphism is determined by
+      Definition \ref{def:Gbelyi}.
+      Denote this field as $M(\phi)$.
+    \end{definition}
+    \begin{theorem}\label{thm:fieldofmoduli}
+      Let $\phi:X\to\PP^1$ be a Belyi map
+      with passport $\mathcal{P}$.
+      Then the degree of the field of moduli of $\phi$
+      is bounded by the size of $\mathcal{P}$.
+    \end{theorem}
+    \begin{proof}
+      \cite{SV}
+    \end{proof}
+    \begin{definition}
+      \label{def:fieldofdefinition}
+      Let $\phi\colon X\to\PP^1$ be a Belyi map.
+      A number field $K$ is a
+      \defi{field of definition} for $\phi$
+      if $\phi$ and $X$ can be defined
+      with equations over $K$.
+      If $K$ is a field of definition for $\phi$
+      we say $\phi$ is \defi{defined over} $K$.
+    \end{definition}
+    \begin{theorem}
+      \label{thm:galoisbelyimapoverfieldofmoduli}
+      A Galois Belyi map is defined over
+      its field of moduli.
+    \end{theorem}
+    \begin{proof}
+      \cite[Lemma 4.1]{triangles}
+    \end{proof}
+  }
+}
+\chapter{Group theory}{\label{chapter:grouptheory}
+  In this chapter we discuss results on the groups
+  that arise as monodromy groups
+  of the Belyi maps we are interested in.
+  \section{$2$-groups}{\label{sec:twogroups}
+    % def, center, exact sequence, group coho, cosets
+    % examples, families: gen dihedral, gen quats, etc
+    Let $G$ be a finite group.
+    \begin{definition}
+      \label{def:pgroup}
+      Let $p$ be a rational prime.
+      A finite group $G$ is a
+      \defi{$p$-group}
+      if the cardinality of $G$
+      is a power of $p$.
+    \end{definition}
+    \begin{lemma}
+      \label{lem:pgrouphasacenter}
+      The center of a nontrivial $p$-group is nontrivial.
+    \end{lemma}
+    \begin{proof}
+      Let $Z(G)$ denote the center of $G$.
+      Let $C_g$ denote the conjugacy class of $g\in G$.
+      Then
+      \[
+        Z(G) = \bigcap_{g\in G\text{ with }\# C_g}C_g
+      \]
+    \end{proof}
+  }
+  \section{Examples of $2$-groups}{\label{sec:twogroupexamples}
+    % examples, families: gen dihedral, gen quats, etc
+  }
+  \section{Iterative algorithm to produce generating triples}{\label{sec:triplesalgorithm}
+  }
+  \section{Description of computations}{\label{sec:grouptheorycomputations}
+    % how long did it take?
+    % some coarse data analysis
+    % what (a,b,c) did we get
+    % how many permutations, passports, (a,b,c) for each degree
+    % graph distribution of genera
+    % hyperbolic vs. nonhyperbolic
+    % anything else you can say using just the group theory
+    % Paulhus code. . .
+  }
+  % \section{Group theory}{
+  %  \subsection{Central group extensions and $H^2(G,A)$}{
+  %    \begin{definition}
+  %      \label{def:isoextentions}
+  %    \end{definition}
+  %  }
+  %  \subsection{Holt's algorithm and \texttt{Magma} implementation}{
+  %    \label{subsec:holtsalgorithm}
+  %  }
+  %  \subsection{Results on $2$-groups}{
+  %    \begin{lemma}\label{lem:2groupfiltration}
+  %      \mm{todo}
+  %    \end{lemma}
+  %  }
   % }
 }
+%\chapter{Background}{\label{chapter:background}
+  %  \section{What is a Belyi map?}{\label{sec:belyimaps}
+  %    % \subsection{Complex manifolds, Riemann surfaces, and branched covers}{\label{subsec:riemannsurfaces}
+  %    %   In Section \ref{subsec:riemannsurfaces} we outline
+  %    %   basic results needed to define a ($2$-group) Belyi map
+  %    %   as a holomorphic map of Riemann surfaces.
+  %    %   For a more detailed discussion
+  %    %   see \cite{miranda, farkas}.
+  %    %   \begin{definition}
+  %    %     \label{def:chart}
+  %    %     A \defi{chart} on a topological space $X$
+  %    %     is a homeomorphism
+  %    %     $\phi\colon U\to V$
+  %    %     where $U$ is an open subset of $X$
+  %    %     and $V$ an open subset of $\CC$.
+  %    %     We say the chart is \defi{centered}
+  %    %     at $p\in U$
+  %    %     if $\phi(p) = 0$.
+  %    %     We say that $z = \phi(x)$ for $x\in U$
+  %    %     is a \defi{local coordinate on $X$}.
+  %    %   \end{definition}
+  %    %   \begin{definition}
+  %    %     \label{def:compatible}
+  %    %     Let $\phi_1\colon U_1\to V_1$
+  %    %     and $\phi_2\colon U_2\to V_2$
+  %    %     be charts.
+  %    %     $\phi_1$ and $\phi_2$ are
+  %    %     \defi{compatible}
+  %    %     if they are disjoint or
+  %    %     the \defi{transition map}
+  %    %     \[
+  %    %       \phi_2\circ\phi_1^{-1}\colon
+  %    %       \phi_1(U_1\cap U_2)\to
+  %    %       \phi_2(U_1\cap U_2)
+  %    %     \]
+  %    %     is holomorphic.
+  %    %   \end{definition}
+  %    %   \begin{definition}
+  %    %     \label{def:atlas}
+  %    %     A \defi{complex atlas}
+  %    %     on $X$ is a collection of compatible
+  %    %     charts that cover $X$.
+  %    %   \end{definition}
+  %    %   \begin{definition}
+  %    %     \label{def:equivatlas}
+  %    %     Two atlases $\mathscr{A}_1$ and $\mathscr{A}_2$
+  %    %     are \defi{equivalent}
+  %    %     if every pair of charts
+  %    %     $\phi_1, \phi_2$
+  %    %     with
+  %    %     $\phi_1\in\mathscr{A}_1$
+  %    %     and
+  %    %     $\phi_2\in\mathscr{A}_2$
+  %    %     are compatible.
+  %    %   \end{definition}
+  %    %   \begin{definition}
+  %    %     \label{def:complexstructure}
+  %    %     A \defi{complex structure}
+  %    %     on a topological space $X$
+  %    %     is an equivalence class of atlases.
+  %    %     % maximal atlas
+  %    %   \end{definition}
+  %    %   \begin{definition}
+  %    %     \label{def:riemannsurface}
+  %    %     A \defi{Riemann surface}
+  %    %     is a second countable, connected,
+  %    %     Hausdorff topological space $X$
+  %    %     equipped with a complex structure.
+  %    %   \end{definition}
+  %    %   \begin{example}
+  %    %     \label{exm:PP1}
+  %    %     Let $\PP^1_\CC$ (or simply $\PP^1$)
+  %    %     denote the set of $1$-dimensional subspaces of $\CC^2$
+  %    %     which we can write as
+  %    %     \[
+  %    %       \{[z:w] : z,w\in\CC\text{ and }zw\ne 0\}
+  %    %     \]
+  %    %     where $[z:w]$ denotes the $\CC$-span of $(z,w)\in\CC^2$.
+  %    %     Let $U_0 = \{[z:w]\in\PP^1 : z\neq 0\}$,
+  %    %     $U_1 = \{[z:w]\in\PP^1 : w\neq 0\}$,
+  %    %     define $\phi_0\colon U_0\to\CC$
+  %    %     by $[z:w]\mapsto \frac{w}{z}$,
+  %    %     and
+  %    %     define $\phi_1\colon U_1\to\CC$
+  %    %     by $[z:w]\mapsto \frac{z}{w}$.
+  %    %     On $V\colonequals \phi_i(U_0\cap U_1) = \CC^\times$
+  %    %     we have the holomorphic transition function
+  %    %     $\phi_1\circ\phi_0^{-1}\colon V\to\CC$
+  %    %     defined by $z\mapsto \frac{1}{z}$.
+  %    %     The atlas consisting of these two charts $\phi_0,\phi_1$
+  %    %     define a complex structure on $\PP^1$
+  %    %     giving it the structure of a Riemann surface.
+  %    %   \end{example}
+  %    %   \begin{example}
+  %    %     \label{exm:planecurves}
+  %    %     \mm{plane curves and local complete intersections in $\PP^n$}
+  %    %   \end{example}
+  %    %   \begin{definition}
+  %    %     \label{def:singularities}
+  %    %     A function $f\colon X\to\CC$ is
+  %    %     \defi{holomorphic
+  %    %       (respectively has a removable singularity,
+  %    %       has a pole, has an essential singularity)
+  %    %     }
+  %    %     at $p\in X$ if there exists a chart
+  %    %     $\phi\colon U\to V$ such that
+  %    %     $f\circ\phi^{-1}$ is
+  %    %     holomorphic (respectively has a removable singularity, has a pole,
+  %    %     has an essential singularity)
+  %    %     at $\phi(p)$.
+  %    %     $f$ is \defi{holomorphic on an open set $W\subseteq X$} if
+  %    %     $f$ is holomorphic at all $p\in W$.
+  %    %     $f$ is \defi{meromorphic} at $p\in X$
+  %    %     if $f$ is holomorphic, has a removable singularity,
+  %    %     or has a pole at $p$.
+  %    %     $f$ is \defi{meromorphic on an open set $W\subseteq X$}
+  %    %     if
+  %    %     $f$ is meromorphic at all $p\in W$.
+  %    %   \end{definition}
+  %    %   % O_X(W) = {f holo on W}
+  %    %   \begin{definition}
+  %    %     \label{def:laurentseries}
+  %    %     Let $W$ be an open subset of $X$ and denote the set of
+  %    %     meromorphic functions on $W$ by
+  %    %     \[
+  %    %       \mathcal{M}_X(W)
+  %    %       =
+  %    %       \{f\colon W\to\CC : f\text{ is meromorphic on $W$ }\}.
+  %    %     \]
+  %    %     Let $p\in W$ and
+  %    %     let $f\in\mathcal{M}_X(W)$.
+  %    %     Then there exists a chart $\phi$ on $W$
+  %    %     with local coordinate $z$
+  %    %     and
+  %    %     $\phi(p) = z_0$
+  %    %     such that $f\circ\phi^{-1}$ is meromorphic at $z_0$.
+  %    %     Thus,
+  %    %     we can write a \defi{Laurent series expansion
+  %    %     for $f\circ\phi^{-1}$}
+  %    %     in a neighborhood of $z_0$
+  %    %     in the local coordinate $z$
+  %    %     as
+  %    %     \[
+  %    %       (f\circ\phi^{-1})(z) = \sum_{n}c_n(z-z_0)^n.
+  %    %     \]
+  %    %   \end{definition}
+  %    %   \begin{definition}
+  %    %     \label{def:ord}
+  %    %     The minimum $n$ such that $c_n\neq 0$
+  %    %     in Definition \ref{def:laurentseries}
+  %    %     is the \defi{order of $f$ at $p$}
+  %    %     and denoted
+  %    %     $\ord_p(f)$.
+  %    %   \end{definition}
+  %    %   \begin{definition}
+  %    %     \label{ref:holomorphicmapofRS}
+  %    %     $F\colon X\to Y$ is
+  %    %     \defi{holomorphic}
+  %    %     at $p\in X$
+  %    %     if there exists
+  %    %     charts
+  %    %     $\phi_1\colon U_1\to\CC$
+  %    %     $\phi_2\colon U_2\to\CC$
+  %    %     with $p\in U_1$ and $F(p)\in U_2$
+  %    %     such that
+  %    %     $\phi_2\circ F\circ\phi_1^{-1}$
+  %    %     is holomorphic at $\phi_1(p)$.
+  %    %     Similarly,
+  %    %     $F$ is \defi{holomorphic on an open set $W\subseteq X$}
+  %    %     if it is holomorphic at every $p\in W$.
+  %    %   \end{definition}
+  %    %   \begin{definition}
+  %    %     \label{def:RSautoiso}
+  %    %     An \defi{isomorphism} of Riemann surfaces is
+  %    %     a bijective holomorphic map $F\colon X\to Y$
+  %    %     where $F^{-1}$ is holomorphic.
+  %    %     An isomorphism from $X$ to $X$ is
+  %    %     an \defi{automorphism}.
+  %    %   \end{definition}
+  %    %   \begin{example}
+  %    %     \label{exm:PP1isoCCoo}
+  %    %     $\PP^1$ defined in Example
+  %    %     \ref{exm:PP1}
+  %    %     is isomorphic to $\CC\cup \{\infty\}$
+  %    %     the compactification of the complex plane
+  %    %     via stereographic projection.
+  %    %   \end{example}
+  %    %   \begin{theorem}
+  %    %     \label{thm:compactonto}
+  %    %     Let $X$ be a compact Riemann surface
+  %    %     and $F\colon X\to Y$
+  %    %     a nonconstant holomorphic map.
+  %    %     Then $Y$ is compact an $F$ is onto.
+  %    %   \end{theorem}
+  %    %   \begin{prop}
+  %    %     \label{prop:discretefibers}
+  %    %     Let $F\colon X\to Y$ be a nonconstant
+  %    %     holomorphic map of Riemann surfaces.
+  %    %     Then for every $y\in Y$,
+  %    %     the fiber $F^{-1}(y)$ is a discrete subset of $X$.
+  %    %   \end{prop}
+  %    %   % meromorphic functions on X correspond to holomorphic maps to PP1 not identically oo
+  %    %   \begin{theorem}
+  %    %     \label{thm:localnormalform}
+  %    %     Let $F\colon X\to Y$ be a nonconstant holomorphic map.
+  %    %     Let $p\in X$.
+  %    %     Then there exists a positive integer $m$ such that
+  %    %     for all charts
+  %    %     $\phi_2$ centered at $F(p)$
+  %    %     there exists a chart $\phi_1$ centered at $p$
+  %    %     (let $z$ be the local coordinate)
+  %    %     with $(\phi_2\circ F\circ\phi_1^{-1})(z) = z^m$.
+  %    %   \end{theorem}
+  %    %   \begin{definition}
+  %    %     \label{def:multiplicity}
+  %    %     Let $F\colon X\to Y$ be a holomorphic map
+  %    %     of Riemann surfaces.
+  %    %     The \defi{multiplicity}
+  %    %     of $F$ at $p\in X$ is denoted
+  %    %     $\mult_p(F)$ and is defined to be the unique
+  %    %     integer $m$ from Theorem \ref{thm:localnormalform}
+  %    %     such that there exist local coordinates about $p$
+  %    %     and $F(p)$ so that
+  %    %     $F$ can be written as $z\mapsto z^m$.
+  %    %   \end{definition}
+  %    %   \begin{definition}
+  %    %     \label{def:ramificationRS}
+  %    %     Let $F\colon X\to Y$ be a nonconstant holomorphic
+  %    %     map of Riemann surfaces.
+  %    %     $p\in X$ is a \defi{ramification point}
+  %    %     of $F$
+  %    %     if $\mult_p(F)\geq 2$.
+  %    %     $y\in X$ is a \defi{branch point} of $F$
+  %    %     if $F^{-1}(y)$ contains a ramification point.
+  %    %   \end{definition}
+  %    %   \begin{example}
+  %    %     \label{exm:planecurve}
+  %    %     \mm{plane curves, p.46, hyperelliptic curves, \ldots}
+  %    %   \end{example}
+  %    %   \begin{definition}
+  %    %     \label{def:degreemapofRS}
+  %    %     The \defi{degree}
+  %    %     of a nonconstant holomorphic map
+  %    %     $F\colon X\to Y$
+  %    %     is
+  %    %     \[
+  %    %       \deg(F) \colonequals
+  %    %       \sum_{p\in F^{-1}(y)}\mult_p(F)
+  %    %     \]
+  %    %     for any $y\in Y$.
+  %    %   \end{definition}
+  %    %   % sum_p ord_p(f) = 0
+  %    %   \begin{theorem}[Riemann-Hurwitz]
+  %    %     \label{thm:riemannhurwitzforriemannsurfaces}
+  %    %     Let $F\colon X\to Y$
+  %    %     be a nonconstant holomorphic map of
+  %    %     compact Riemann surfaces.
+  %    %     Let $g(X), g(Y)$ be the topological genus
+  %    %     of $X, Y$ respectively.
+  %    %     Then
+  %    %     \begin{equation}
+  %    %       \label{eqn:riemannhurwitzforriemannsurfaces}
+  %    %       2g(X)-2=
+  %    %       \deg(F)(2g(Y)-2)+
+  %    %       \sum_{p\in X}(\mult_p(F)-1).
+  %    %     \end{equation}
+  %    %   \end{theorem}
+  %    %   % groups acting on Riemann surfaces
+  %    %   \begin{definition}
+  %    %     \label{def:coveringspace}
+  %    %     A \defi{covering space}
+  %    %     of a real or complex manifold $V$
+  %    %     is a continuous map
+  %    %     $F\colon U\to V$ such that
+  %    %     the following conditions hold:
+  %    %     \begin{itemize}
+  %    %       \item
+  %    %         $F$ is surjective
+  %    %       \item
+  %    %         For all $v\in V$
+  %    %         there exists a neighborhood
+  %    %         $W$ of $v\in V$ such that
+  %    %         $F^{-1}(W)$ consists of a disjoint
+  %    %         union of open sets of $U$
+  %    %         $\{U_\alpha\}_{\alpha\in I}$
+  %    %         with $F|_{U_\alpha}\colon U_\alpha\to W$
+  %    %         a homeomorphism.
+  %    %     \end{itemize}
+  %    %     The cardinality of $I$ is the \defi{degree}
+  %    %     of the cover.
+  %    %   \end{definition}
+  %    %   \begin{definition}
+  %    %     \label{def:coveringspaceiso}
+  %    %     Two covering spaces $U_1\to V$
+  %    %     and $U_2\to V$ are
+  %    %     \defi{isomorphic}
+  %    %     if there exists a homeomorphism
+  %    %     $U_1\to U_2$
+  %    %     making the diagram
+  %    %     \begin{equation}
+  %    %       \label{eqn:coveringspaceiso}
+  %    %       \begin{tikzcd}
+  %    %         U_1\arrow{dr}\arrow{rr}{}&&U_2\arrow{dl}\\
+  %    %                        &V
+  %    %       \end{tikzcd}
+  %    %     \end{equation}
+  %    %     commute.
+  %    %   \end{definition}
+  %    %   \begin{prop}
+  %    %     \label{prop:universalcoveringspace}
+  %    %     Given a real or complex manifold $V$,
+  %    %     there exists a covering space
+  %    %     $F_0\colon U_0\to V$
+  %    %     such that $U_0$ is simply connected.
+  %    %     $F_0$ is unique up to isomorphism
+  %    %     and is universal in the following sense:
+  %    %     If $F\colon U\to V$ is another cover of $V$,
+  %    %     then there exists
+  %    %     $G\colon U_0\to V$
+  %    %     such that $F_0 = F\circ G$.
+  %    %   \end{prop}
+  %    %   Pick a basepoint $q\in V$
+  %    %   and let $\pi_1(V,q)$ denote
+  %    %   the \defi{fundamental group} of $V$
+  %    %   with loops based at $q$.
+  %    %   Then $\pi_1(V,q)$ acts on the cover
+  %    %   $F_0\colon U_0\to V$
+  %    %   via path lifting.
+  %    %   % iso classes of connected covers F:U->V correspond to conj classes of subgroups of pi_1(V,q)
+  %    %   We now restrict to the case of finite degree covers.
+  %    %   Let $F\colon U\to V$ be a degree $d$ cover
+  %    %   and consider the fiber of $q$,
+  %    %   $F^{-1}(q) = \{x_1,\dots,x_n\}$.
+  %    %   To a loop $\gamma$ on $V$ based at $q$,
+  %    %   we can lift $\gamma$ to $d$ paths
+  %    %   $\wt{\gamma}_1,\dots,\wt{\gamma}_d$
+  %    %   in $U$ where $\wt{\gamma}_i$
+  %    %   starts at $x_i$
+  %    %   and ends at $x_j$ for some $j$.
+  %    %   For each $i\in \{1,\ldots,d\}$ denote the terminal
+  %    %   point of $\wt{\gamma}_i$ by $x_{\sigma(i)}\in F^{-1}(q)$.
+  %    %   $\sigma$ defines
+  %    %   a \defi{monodromy representation}
+  %    %   \begin{equation}
+  %    %     \label{eqn:monodromyrep}
+  %    %     \rho\colon
+  %    %     \pi_1(V,q)\to S_d.
+  %    %   \end{equation}
+  %    %   \begin{lemma}
+  %    %     \label{lem:transitive}
+  %    %     Let $\rho\colon\pi_1(V,q)\to S_d$
+  %    %     be the monodromy representation
+  %    %     of a
+  %    %     finite degree cover $F\colon U\to V$
+  %    %     with $U$ connected.
+  %    %     Then the image of $\rho$
+  %    %     is a transitive subgroup of $S_d$.
+  %    %   \end{lemma}
+  %    %   \begin{definition}
+  %    %     \label{def:monodromyrepofholomorphicmap}
+  %    %     Let $F\colon X\to Y$ be a nonconstant holomorphic
+  %    %     map of Riemann surfaces.
+  %    %     Let
+  %    %     \begin{align*}
+  %    %       V &\colonequals Y\sm \{\text{branch points of $F$}\}\\
+  %    %       U &\colonequals X\sm \{\text{preimages of branch points of $F$}\}.
+  %    %     \end{align*}
+  %    %     Then $F|_U\colon U\to V$ is a covering space
+  %    %     and induces a monodromy representation
+  %    %     which we refer to as the
+  %    %     \defi{monodromy representation of $F$}.
+  %    %   \end{definition}
+  %    %   \begin{definition}
+  %    %     \label{def:branchedcoverofriemannsurface}
+  %    %     A \defi{branched cover of Riemann surfaces} is a nonconstant holomorphic map
+  %    %     of Riemann surfaces
+  %    %     $\phi\colon X\to Y$ where $X$ is a compact connected Riemann surface.
+  %    %   \end{definition}
+  %    %   Let $Y$ be a compact connected Riemann surface,
+  %    %   let $B\subseteq Y$ be a finite set,
+  %    %   let $V\colonequals Y\sm B$,
+  %    %   and let $F\colon U\to V$ be a finite degree cover.
+  %    %   Then there is a unique complex structure on $U$
+  %    %   making $F$ holomorphic.
+  %    %   Let $b\in B$
+  %    %   and consider a neighborhood $W$ of $b$
+  %    %   small enough so that $W\sm \{b\}$ is homeomorphic to a punctured disk.
+  %    %   Then $F^{-1}(W\sm \{b\})$ is a finite disjoint union
+  %    %   of punctured disks $\{\wt{U}_j\}_j$.
+  %    %   Moreover,
+  %    %   by Theorem \ref{thm:localnormalform}
+  %    %   there are integers $m_j$ for each $j$ such that
+  %    %   \[
+  %    %     F|_{\wt{U}_j}\colon\wt{U}_j\to W\sm \{b\}
+  %    %   \]
+  %    %   can be written as $z\mapsto z^{m_j}$ in local coordinates.
+  %    %   Extending this holomorphic map to the unpunctured disks
+  %    %   for every $b\in B$ yields the following correspondence.
+  %    %   \begin{prop}
+  %    %     \label{prop:branchedcoverofriemannsurfaces}
+  %    %     Let $Y$ be a compact Riemann surface,
+  %    %     $B\subseteq Y$ a finite set,
+  %    %     and $q\in Y\sm B$ a basepoint.
+  %    %     Then there is a bijection of sets
+  %    %     \begin{center}
+  %    %       \begin{tikzpicture}[scale=1]
+  %    %         \node at (-4,0) (maps)
+  %    %         {
+  %    %           $
+  %    %             \left\{
+  %    %               \begin{minipage}{30ex}
+  %    %                 isomorphism classes of
+  %    %                 degree $d$
+  %    %                 holomorphic maps
+  %    %                 $F\colon X\to Y$
+  %    %                 with branch points
+  %    %                 contained in $B$
+  %    %               \end{minipage}
+  %    %             \right\}
+  %    %           $
+  %    %         };
+  %    %         \node at (4,0) (perms)
+  %    %         {
+  %    %           $
+  %    %             \left\{
+  %    %               \begin{minipage}{30ex}
+  %    %                 group homomorphisms
+  %    %                 $\rho\colon\pi_1(Y\sm B, q)\to S_d$
+  %    %                 with image a transitive subgroup
+  %    %                 up to conjugation in $S_d$
+  %    %               \end{minipage}
+  %    %             \right\}
+  %    %           $
+  %    %         };
+  %    %         % \draw[<->] (maps) to node [above,rotate=-35] {$\sim$} node {} (perms);
+  %    %         \draw[<->] (maps) to node [above] {$\sim$} node {} (perms);
+  %    %       \end{tikzpicture}
+  %    %     \end{center}
+  %    %   \end{prop}
+  %    %   If we let $Y = \PP^1$ in Proposition \ref{prop:branchedcoverofriemannsurfaces}
+  %    %   and $B = \{b_1,\ldots,b_n\}\subseteq\PP^1$ we obtain
+  %    %   the following correspondence:
+  %    %   \begin{center}
+  %    %     \begin{tikzpicture}[scale=1]
+  %    %     \label{branchedcoverscorrespondtopermutations}
+  %    %       \node at (-4,0) (maps)
+  %    %       {
+  %    %         $
+  %    %           \left\{
+  %    %             \begin{minipage}{30ex}
+  %    %               isomorphism classes of
+  %    %               degree $d$
+  %    %               holomorphic maps
+  %    %               $F\colon X\to \PP^1$
+  %    %               with branch points
+  %    %               contained in $B$
+  %    %             \end{minipage}
+  %    %           \right\}
+  %    %         $
+  %    %       };
+  %    %       \node at (4,0) (perms)
+  %    %       {
+  %    %         $
+  %    %           \left\{
+  %    %             \begin{minipage}{37ex}
+  %    %               $n$-tuples of permutations
+  %    %               $(\sigma_1,\ldots,\sigma_n)\in S_d^n$
+  %    %               generating a transitive subgroup
+  %    %               with $\sigma_1\cdots\sigma_n=1$
+  %    %               up to simultaneous conjugation in $S_d$
+  %    %             \end{minipage}
+  %    %           \right\}
+  %    %         $
+  %    %       };
+  %    %       % \draw[<->] (maps) to node [above,rotate=-35] {$\sim$} node {} (perms);
+  %    %       \draw[<->] (maps) to node [above] {$\sim$} node {} (perms);
+  %    %     \end{tikzpicture}
+  %    %   \end{center}
+  %    %   Moreover,
+  %    %   if $\sigma_i$ has cycle structure $(m_1,\dots,m_k)$,
+  %    %   then there are $k$ preimages
+  %    %   $u_1,\dots,u_k$ of $b_i$
+  %    %   in the cover $F\colon X\to\PP^1$
+  %    %   with $\mult_{u_j}(F) = m_j$ for all $j$.
+  %    %   \begin{definition}
+  %    %     \label{def:belyimapriemannsurface}
+  %    %     A \defi{Belyi map} is a nonconstant holomorphic map of
+  %    %     compact connected Riemann surfaces
+  %    %     $F\colon X\to\PP^1$ with no more than $3$ branch points.
+  %    %   \end{definition}
+  %    %   \begin{definition}\label{def:galoiscover}
+  %    %   \end{definition}
+  %    % }
+  %    % \subsection{Branched covering spaces}{\label{subsec:branchedcovers}
+  %    %   \mm{monodromy, ramification, Galois cover, etc}
+  %    %   \begin{definition}\label{def:galoiscover}
+  %    %   \end{definition}
+  %    % }
+  %    \subsection{Algebraic curves}{\label{subsec:algebraiccurves}
+  %      Let $K$ be a field isomorphic to the complex numbers,
+  %      the real numbers, a number field, or a finite field.
+  %      Let $\Kal$ denote an algebraic closure of $K$.
+  %      For a detailed treatment see
+  %      \cite[Chapters 1-2]{silverman}.
+  %      %%%%%%%%%%%%AFFINE VARIETIES
+  %      \begin{definition}
+  %        \label{def:affinespace}
+  %        \defi{Affine $n$-space} over $K$ is the
+  %        set of $n$-tuples of elements in $\Kal$
+  %        and denoted $\AA^n(\Kal)$ or $\AA^n$.
+  %        % set of K-rational points of AA^n
+  %      \end{definition}
+  %      We will denote \defi{points} in $\AA^n$ by $P$.
+  %      % Galois action on AA^n
+  %      Let $\Kal[x_1,\dots,x_n]$ be the $n$-variable
+  %      polynomial ring over $\Kal$.
+  %      To each ideal $I\trianglelefteq\Kal[x_1,\dots,x_n]$
+  %      we associate the following subset of $\AA^n$.
+  %      \begin{equation}
+  %        \label{eqn:algebraicset}
+  %        V(I)\colonequals
+  %        \{P\in\AA^n : f(P) = 0 \text{ for all } f\in I\}
+  %      \end{equation}
+  %      \begin{definition}
+  %        \label{def:algebraicset}
+  %        Subsets of $\AA^n$
+  %        of the form $V(I)$ for some ideal $I$
+  %        as in Equation \ref{eqn:algebraicset}
+  %        are called
+  %        \defi{affine algebraic sets}.
+  %      \end{definition}
+  %      Let $V$ be an affine algebraic set.
+  %      To such a set we can associate
+  %      the following ideal of $\Kal[x_1,\dots,x_n]$.
+  %      \begin{equation}
+  %        \label{eqn:idealofalgebraicset}
+  %        I(V)\colonequals
+  %        \{f\in\Kal[x_1,\dots,x_n]: f(P)=0 \text{ for all }f\in I\}.
+  %      \end{equation}
+  %      \begin{definition}
+  %        \label{def:definedoverK}
+  %        Let $\AA^n(K)$ denote the set of
+  %        \defi{$K$-rational points} of $\AA^n$ defined by
+  %        \[
+  %          \AA^n(K)\colonequals
+  %          \{(x_1,\dots,x_n)\in\AA^n : x_i\in K\}.
+  %        \]
+  %        Let $V$ be an algebraic set.
+  %        We say $V$ is
+  %        \defi{defined over $K$}
+  %        if $I(V)$ can be generated by
+  %        polynomials in $K[x_1,\dots,x_n]$.
+  %        For such $V$ we can define the
+  %        \defi{$K$-rational points of $V$} by
+  %        \[
+  %          V(K)\colonequals
+  %          V\cap\AA^n(K).
+  %        \]
+  %      \end{definition}
+  %      Let $G_K = \Gal(\Kal/K)$.
+  %      Another way to characterize $V(K)$ is
+  %      the points fixed under the action of $G_K$:
+  %      \begin{equation}
+  %        \label{eqn:galoisactiononV}
+  %        V(K) =
+  %        \{P\in V : P^\sigma = P\text{ for all }\sigma\in G_K\}
+  %      \end{equation}
+  %      \begin{definition}
+  %        \label{def:affinevariety}
+  %        An affine algebraic set $V$ is called
+  %        an \defi{affine variety}
+  %        if $I(V)\trianglelefteq\Kal[x_1,\dots,x_n]$ is a prime ideal.
+  %      \end{definition}
+  %      If an affine algebraic set $V$ is defined over $K$,
+  %      then $V$ is an affine variety if
+  %      $I(V)\trianglelefteq K[x_1,\dots,x_n]$
+  %      is a prime ideal.
+  %      \begin{definition}
+  %        \label{def:coordinateringfunctionfield}
+  %        Let $V$ be an affine variety defined over $K$.
+  %        We define the
+  %        \defi{affine coordinate ring}
+  %        by
+  %        \[
+  %          K[V]
+  %          \colonequals
+  %          \frac{
+  %            K[x_1,\dots,x_n]
+  %          }{
+  %          I(V)
+  %          }
+  %        \]
+  %        and the
+  %        \defi{function field of $V$}
+  %        by the field of fractions of $K[V]$
+  %        denoted $K(V)$.
+  %        We can similarly define this construction
+  %        for $\Kal[V]$ and $\Kal(V)$.
+  %      \end{definition}
+  %      \begin{definition}
+  %        \label{def:dimension}
+  %        The \defi{dimension}
+  %        of an affine variety $V$
+  %        is the transcendence degree of the field extension
+  %        $\Kal(V)$ over $\Kal$.
+  %      \end{definition}
+  %      % \begin{definition}
+  %      %   \label{def:nonsingular}
+  %      %   Let $V$ be an affine variety of dimension $d$,
+  %      %   let $P\in V$,
+  %      %   and $I(V)$ generated by
+  %      %   $\{f_1,\dots,f_m\}$.
+  %      %   We say $V$ is \defi{nonsingular at $P$}
+  %      %   if the $m\times n$ matrix of partial
+  %      %   derivatives
+  %      %   whose $(i,j)$-entry is
+  %      %   \[
+  %      %     \frac{\partial f_i}{\partial x_j}
+  %      %   \]
+  %      %   has rank $n-d$.
+  %      % \end{definition}
+  %      \begin{definition}
+  %        \label{def:nonsingular}
+  %        Let $V$ be a variety of dimension $d$
+  %        and $P\in V$.
+  %        Consider the maximal ideal
+  %        \[
+  %          M_P\colonequals
+  %          \{f\in\Kal[x_1,\dots,x_n]:f(P)=0\}.
+  %        \]
+  %        The quotient $M_P/M_P^2$ is a finite dimensional
+  %        vector space over $\Kal$.
+  %        We say $P$ is \defi{nonsingular}
+  %        if the dimension of $M_P/M_P^2$ as
+  %        a vector space over $\Kal$
+  %        is equal to $d$.
+  %      \end{definition}
+  %      \begin{definition}
+  %        \label{def:localringatP}
+  %        Let $V$ be an affine variety
+  %        and $P\in V$.
+  %        The \defi{ring of regular functions on $V$ at $P$}
+  %        is defined to be the localization
+  %        of $\Kal[V]$ at the maximal ideal $M_P$
+  %        (denoted $\Kal[V]_P$).
+  %        More explicitly we have
+  %        \[
+  %          \Kal[V]_P
+  %          \colonequals
+  %          \Kal[V]_{M_P}
+  %          =
+  %          \{f/g\in\Kal[V]:g(P)\neq 0\}
+  %        \]
+  %        so that
+  %        the elements of
+  %        $\Kal[V]_P$
+  %        are well-defined
+  %        as functions on $V$.
+  %      \end{definition}
+  %      %%%%%%%%%%%%PROJECTIVE VARIETIES
+  %      \begin{definition}
+  %        \label{def:projectivespace}
+  %        \defi{Projective $n$-space}
+  %        over $K$ is denoted by $\PP^n(\Kal)$
+  %        or $\PP^n$
+  %        and is defined to be
+  %        \[
+  %          \PP^n\colonequals
+  %          \{(x_0,\dots,x_{n})\in\AA^{n+1}:\text{ not all $x_i=0$ }\}/\sim
+  %        \]
+  %        where
+  %        $(x_0,\dots,x_n)\sim(x_0',\dots,x_n')$
+  %        if there exists $\lambda\in(\Kal)^\times$ with
+  %        $x_i=\lambda y_i$ for all $i\in \{0,\dots,n\}$.
+  %        The equivalence class of $(x_0,\dots,x_n)\in\AA^{n+1}$
+  %        with respect to $\sim$ is denoted by
+  %        $[x_0,\dots,x_n]$ or $[x_0:\cdots:x_n]$.
+  %        We call these $x_i$
+  %        \defi{homogeneous coordinates}
+  %        of the point in $\PP^n$.
+  %        As in the affine case,
+  %        we define the
+  %        \defi{$K$-rational points} of $\PP^n$
+  %        to be
+  %        \[
+  %          \PP^n(K)\colonequals
+  %          \{[x_0,\dots,x_n]\in\PP^n:x_i\in K \text{ for all } i\}.
+  %        \]
+  %      \end{definition}
+  %      \begin{definition}
+  %        \label{def:minimalfieldofdefinitionPPn}
+  %        Let $P\in\PP^n$ with homogeneous coordinates
+  %        $[x_0,\dots,x_n]$.
+  %        The \defi{minimal field of definition of $P$ over $K$}
+  %        is
+  %        \[
+  %          K(P)\colonequals
+  %          K(x_0/x_i,\dots,x_n/x_i)
+  %        \]
+  %        for any $i\in \{0,\dots,n\}$.
+  %      \end{definition}
+  %      $\PP^n(K)$ is the set of $P\in\PP^n$
+  %      fixed by the action of $G_K$.
+  %      On the other hand,
+  %      $K(P)$ is the fixed field of the
+  %      subgroup
+  %      $\{\sigma\in G_K: P = P^\sigma\}$.
+  %      \begin{definition}
+  %        \label{def:homogeneousideal}
+  %        An ideal $I\trianglelefteq\Kal[x_0,\dots,x_n]$
+  %        is \defi{homogeneous}
+  %        if it can be generated by homogeneous polynomials.
+  %        To a homogeneous ideal $I$ we can associate a subset of
+  %        $\PP^n$ as follows.
+  %        \[
+  %          V(I)\colonequals
+  %          \{P\in\PP^n : f(P)=0\text{ for all homogeneous $f\in\Kal[x_0,\dots,x_n]$ }\}
+  %        \]
+  %        A \defi{projective algebraic set}
+  %        is a subset of $\PP^n$ which is $V(I)$
+  %        for some homogeneous ideal $I$.
+  %      \end{definition}
+  %      To any projective algebraic set $V$,
+  %      we can associate a homogeneous ideal $I(V)$ defined by
+  %      \begin{equation}
+  %        \label{eqn:projectivealgebraicsetideal}
+  %        I(V)
+  %        \colonequals
+  %        \{f\in\Kal[x_0,\dots,x_n]:f \text{ is homogeneous and }f(P) = 0\text{ for all $P\in V$ }\}
+  %      \end{equation}
+  %      % \begin{theorem}\label{thm:curvesandfunctionfields}
+  %      %   \mm{correspondence curves and function fields}
+  %      % \end{theorem}
+  %      % \begin{definition}
+  %      %   Let $K\subseteq\CC$ be a field.
+  %      %   A \defi{branched cover of algebraic curves over $K$}
+  %      %   is a finite map of curves
+  %      %   $\phi\colon X\to\PP^1$ defined over $K$.
+  %      % \end{definition}
+  %      % \mm{enough to define good curves and function fields}
+  %    }
+  %    \subsection{Riemann's existence theorem}{\label{subsec:riemannsexistence}
+  %      Riemann surfaces are defined in Section \ref{subsec:riemannsurfaces}.
+  %      Algebraic curves are defined in Section \ref{subsec:algebraiccurves}.
+  %      Here in Section \ref{subsec:riemannsexistence}
+  %      we establish the connection between these objects over the complex numbers.
+  %      \par
+  %      Let $X$ be an algebraic curve over $\CC$.
+  %      Let $\CC(t)$ denote the function field of $\PP^1$.
+  %      By Theorem \ref{thm:curvesandfunctionfields},
+  %      $X$ corresponds to a finite extension $L\colonequals\CC(X)$
+  %      over $\CC(t)$.
+  %      Let $\alpha$ be a primitive element of $L/\CC(t)$.
+  %      Then there exists a polynomial
+  %      \begin{equation}
+  %        \label{eqn:minpoly}
+  %        f(x,t) = a_0(t)+a_1(t)x+a_2(t)x^2+\cdots+a_n(t)x^n\in\CC(t)[x]
+  %      \end{equation}
+  %      where $f(\alpha,t) = 0$ and (after possibly clearing denominators)
+  %      $a_i(t) \in\CC[t]$.
+  %      The polynomial $f$ in Equation \ref{eqn:minpoly}
+  %      defines a Riemann surface $X'$
+  %      as a branched cover of $\PP^1$
+  %      with branch points
+  %      \[
+  %        S \colonequals\left\{t_0\in\CC : f(x,t_0) \text{ has repeated roots }\right\}.
+  %      \]
+  %      Here $x$ can be viewed as a meromorphic function on $X'$
+  %      and we can identify the field of meromorphic functions on $X'$
+  %      with $L$.
+  %      This explains how we obtain a Riemann surface from an algebraic curve.
+  %      \par
+  %      Suppose instead we start with a compact Riemann surface $X$.
+  %      Can we reverse the above process to construct an algebraic curve?
+  %      The crucial part of this process is proving that
+  %      there exists a meromorphic function on $X$ that realizes $X$
+  %      as a branched cover of $\PP^1$
+  %      (see Theorem \ref{thm:riemannsexistence} below).
+  %      Given the existence of such a function,
+  %      the field of meromorphic functions on $X$ is then realized
+  %      as a finite extension of the meromorphic functions on $\PP^1$.
+  %      Finally,
+  %      by Theorem \ref{thm:curvesandfunctionfields},
+  %      this corresponds to an algebraic curve.
+  %      The existence of such a function
+  %      is given by
+  %      Theorem \ref{thm:riemannsexistence}
+  %      (Riemann's existence theorem).
+  %      \begin{theorem}\label{thm:riemannsexistence}
+  %        Let $X$ be a compact Riemann surface.
+  %        Then there exists a meromorphic function on $X$
+  %        that separates points.
+  %        That is, for any set of distinct points
+  %        $\{x_1,\dots,x_n\}\subset X$
+  %        and any set of distinct points
+  %        $\{t_1,\dots,t_n\}\subset\PP^1$
+  %        there exists a meromorphic function $f$
+  %        on $X$ such that $f(x_i) = t_i$ for all $i$.
+  %      \end{theorem}
+  %      \mm{todo: more details...other formulations}
+  %    }
+  %    \subsection{Belyi's theorem}{\label{subsec:belyistheorem}
+  %      In Sections
+  %      \ref{subsec:riemannsufraces}, \ref{subsec:algebraiccurves},
+  %      and \ref{subsec:riemannsexistence}
+  %      we established the equivalence between
+  %      compact Riemann surfaces and algebraic curves over $\CC$.
+  %      This was done, in part,
+  %      using branched covers.
+  %      It turns out that branched covers are the key
+  %      to descending from the transcendental world to
+  %      the number-theoretic world in the following sense.
+  %      \begin{theorem}[Belyi's theorem \cite{belyi}]\label{thm:belyistheorem}
+  %        An algebraic curve $X$ over $\CC$ can be defined over a number field
+  %        if and only if there exists a branched cover
+  %        $\phi\colon X\to\PP^1$ unramified outside
+  %        $\{0,1,\infty\}$.
+  %      \end{theorem}
+  %      These remarkable covers are the main focus of this work.
+  %    }
+  %    \subsection{Belyi maps and Galois Belyi maps}{\label{subsec:belyimaps}
+  %      We now set up the framework to discuss
+  %      the main mathematical objects of interest in this work.
+  %      \begin{definition}\label{def:belyimap}
+  %        A \defi{Belyi map}
+  %        is a branched cover
+  %        of algebraic curves over $\CC$
+  %        (equivalently of Riemann surfaces)
+  %        $\phi\colon X \to \PP^1$
+  %        that is
+  %        unramified outside
+  %        $\{0,1,\infty\}$.
+  %      \end{definition}
+  %      \begin{definition}\label{def:belyiiso}
+  %        Two Belyi maps
+  %        $\phi\colon X\to\PP^1$ and
+  %        $\phi'\colon X'\to\PP^1$
+  %        are \defi{isomorphic}
+  %        if there exists an isomorphism
+  %        between $X$ and $X'$
+  %        such that the diagram in Figure
+  %        \ref{fig:belyiiso}
+  %        commutes.
+  %        If instead we only insist that the isomorphism
+  %        makes the diagram in Figure
+  %        \ref{fig:belyilax} commute,
+  %        then we say that $\phi$ and $\phi'$
+  %        are \defi{lax isomorphic}.
+  %        \begin{figure}[ht]
+  %          \begin{center}
+  %            \begin{tikzcd}
+  %              X\arrow{rr}{\sim}\arrow{dr}[swap]{\phi}&&X'\arrow{dl}{\phi'}\\
+  %                                                     &\PP^1
+  %            \end{tikzcd}
+  %          \end{center}
+  %          \caption{Belyi map isomorphism}
+  %          \label{fig:belyiiso}
+  %        \end{figure}
+  %        \begin{figure}[ht]
+  %          \begin{center}
+  %            \begin{tikzcd}
+  %              X\arrow{r}{\sim}\arrow{d}[swap]{\phi}&X'\arrow{d}{\phi'}\\
+  %              \PP^1\arrow{r}{\sim}&\PP^1
+  %            \end{tikzcd}
+  %          \end{center}
+  %          \caption{Belyi map lax isomorphism}
+  %          \label{fig:belyilax}
+  %        \end{figure}
+  %      \end{definition}
+  %      \begin{definition}\label{def:galoisbelyi}
+  %        A Belyi map $\phi\colon X\to\PP^1$
+  %        is \defi{Galois}
+  %        if it is Galois as a cover
+  %        (see Definition \ref{def:galoiscover}).
+  %        A curve $X$ that admits a Galois Belyi map
+  %        is called a \defi{Galois Belyi curve}.
+  %      \end{definition}
+  %      \begin{prop}\label{prop:galoiscover}
+  %        Let $\phi\colon X\to\PP^1$ be a Galois Belyi map
+  %        and let $\CC(X)$ be the function field of $X$.
+  %        Then the field extension
+  %        $\CC(X)/\CC(\PP^1)$ is Galois.
+  %      \end{prop}
+  %      \begin{proof}
+  %      \end{proof}
+  %      \begin{definition}\label{def:ramificationtype}
+  %        The ramification
+  %        of a degree $d$ Belyi map $\phi$
+  %        can be encoded with $3$ partitions of $d$
+  %        denoted $(\lambda_0,\lambda_1,\lambda_\infty)$.
+  %        We call this triple of partitions
+  %        the \defi{ramification type} of $\phi$.
+  %        When $\phi$ is Galois,
+  %        according to Lemma \ref{lem:regular},
+  %        the ramification type of $\phi$ can more simply be encoded by
+  %        a triple of integers $(a,b,c)\in\ZZ_{\geq 1}^3$.
+  %      \end{definition}
+  %      Let $\phi\colon X\to\PP^1$ be a Belyi map of degree $d$.
+  %      Once we label the sheets of the cover
+  %      and pick a basepoint $\star\not\in\{0,1,\infty\}$,
+  %      we obtain a homomorphism
+  %      \begin{equation}\label{eqn:monodromy}
+  %        h\colon\pi_1(\PP^1\setminus\{0,1,\infty\},\star)\to S_d
+  %      \end{equation}
+  %      by lifting paths around the branch points of $\phi$.
+  %      \begin{definition}\label{def:monodromy}
+  %        The image of $h$ in Equation \ref{eqn:monodromy}
+  %        is the \defi{monodromy group} of $\phi$
+  %        denoted $\Mon(\phi)$.
+  %        When $\phi$ is a Galois Belyi map,
+  %        we can identify $\Mon(\phi)$
+  %        as the Galois group
+  %        $\Gal(\CC(X)/\CC(\PP^1))$.
+  %        For this reason,
+  %        we may also write $\Gal(\phi)$
+  %        to denote $\Mon(\phi)$ when $\phi$
+  %        is Galois.
+  %      \end{definition}
+  %      \mm{todo: any propositions about monodromy groups can go here}
+  %      \begin{definition}\label{def:Gbelyi}
+  %        A \defi{$G$-Galois Belyi map}
+  %        is a Galois Belyi map
+  %        $\phi\colon X\to\PP^1$
+  %        with monodromy group $G$
+  %        equipped with an isomorphism
+  %        \[
+  %          i\colon G\stackrel{\sim}{\to}\Mon(\phi)\leq\Aut(X).
+  %        \]
+  %        An \defi{isomorphism of $G$-Galois Belyi maps}
+  %        $(\phi\colon X\to\PP^1, i\colon G\to\Mon(\phi))$
+  %        and
+  %        $(\phi'\colon X'\to\PP^1, i'\colon G\to\Mon(\phi)$
+  %        is an isomorphism $h\colon X\stackrel{\sim}{\to} X'$ such that
+  %        for all $g\in G$
+  %        the diagram in
+  %        Figure \ref{fig:Gbelyiiso} commutes.
+  %        \begin{figure}[ht]
+  %          \begin{center}
+  %            \begin{tikzcd}
+  %              X\arrow{rr}{h}\arrow{d}[swap]{i(g)}&&X'\arrow{d}{i'(g)}\\
+  %              X\arrow{rr}{h}\arrow{dr}[swap]{\phi}&&X'\arrow{dl}{\phi'}\\
+  %                                                     &\PP^1
+  %            \end{tikzcd}
+  %          \end{center}
+  %          \caption{$G$-Galois Belyi map isomorphism}
+  %          \label{fig:Gbelyiiso}
+  %        \end{figure}
+  %        \begin{prop}\label{prop:Gauts}
+  %          \mm{\cite[Prop. 3.6 ish]{triangles}}
+  %        \end{prop}
+  %      \end{definition}
+  %    }
+  %    \subsection{Permutation triples and passports}{\label{subsec:passports}
+  %      % A \defi{(nice) curve} over $K$ is
+  %      % a smooth, projective, geometrically connected (irreducible) scheme of finite
+  %      % type over $K$ that is pure of dimension $1$.
+  %      % After extension to $\CC$, a curve
+  %      % may be thought of as a compact, connected Riemann surface.  A \defi{Belyi map}
+  %      % over $K$ is a finite morphism $\phi\colon X \to \PP^1$ over $K$ that is
+  %      % unramified outside $\{0,1,\infty\}$; we will sometimes write $(X,\phi)$ when we
+  %      % want to pay special attention to the source curve $X$.  Two Belyi maps
+  %      % $\phi,\phi'$ are \defi{isomorphic} if there is an isomorphism $\iota\colon X
+  %      % \xrightarrow{\sim} X'$ of curves such that $\phi'\iota=\phi$.
+  %      % Let $\phi\colon X\to\PP^1$ be a Belyi map over $\overline{\QQ}$ of degree
+  %      % $d \in \ZZ_{\geq 1}$.
+  %      % The \defi{monodromy group} of $\phi$ is the Galois group
+  %      % $\Mon(\phi) \colonequals \Gal(\CC(X)\,|\,\CC(\PP^1)) \leq S_d$ of the
+  %      % corresponding extension of function fields (understood as the action of the
+  %      % automorphism group of the normal closure); the group $\Mon(\phi)$ may also be
+  %      % obtained by lifting paths around $0,1,\infty$ to $X$.
+  %      \begin{definition}
+  %        \label{def:permutationtriple}
+  %        A \defi{permutation triple} of degree $d \in \ZZ_{\geq 1}$ is a tuple $\sigma =
+  %        (\sigma_0,\sigma_1,\sigma_\infty)\in S_d^3$ such that $\sigma_\infty \sigma_1
+  %        \sigma_0 = 1$.
+  %        A permutation triple is \defi{transitive} if the subgroup
+  %        $\langle \sigma \rangle \leq S_d$ generated by $\sigma$ is transitive.
+  %        We say
+  %        that two permutation triples $\sigma,\sigma'$ are \defi{simultaneously
+  %        conjugate} if there exists $\tau\in S_d$ such that
+  %        \begin{equation}\label{eqn:simconj}
+  %          \sigma^\tau \colonequals
+  %          (\tau^{-1}\sigma_0\tau, \tau^{-1}\sigma_1\tau, \tau^{-1}\sigma_\infty\tau)
+  %          = \left(\sigma'_0,\sigma'_1,\sigma'_\infty\right)
+  %          = \sigma'.
+  %        \end{equation}
+  %        An \defi{automorphism} of a permutation triple $\sigma$ is an element of $S_d$ that
+  %        simultaneously conjugates $\sigma$ to itself, i.e.,
+  %        $\Aut(\sigma)=Z_{S_d}(\langle \sigma \rangle)$, the centralizer inside $S_d$.
+  %      \end{definition}
+  %      \begin{lemma}
+  %        \label{lem:simulisom}
+  %        The set of transitive permutation triples of degree $d$ up to simultaneous
+  %        conjugation is in bijection with the set of Belyi maps of degree $d$ up to
+  %        isomorphism.
+  %      \end{lemma}
+  %      \begin{proof}
+  %        The correspondence is via monodromy \cite[Lemma 1.1]{KMSV}; in particular,
+  %        the monodromy group of a Belyi map is (conjugate in $S_d$ to) the group
+  %        generated by~$\sigma$.
+  %      \end{proof}
+  %      The group $G_\QQ\colonequals\Gal(\QQal/ \QQ)$ acts on Belyi maps by acting on the
+  %      coefficients of a set of defining equations; under the bijection of Lemma
+  %      \ref{lem:simulisom}, it thereby acts on the set of transitive permutation
+  %      triples, but this action is rather mysterious.
+  %      We can cut this action down to size by identifying some basic invariants, as
+  %      follows.
+  %      \begin{definition}
+  %        \label{def:passport}
+  %        A \defi{passport} consists of the data $\mathcal{P}=(g,G,\lambda)$
+  %        where $g \geq 0$ is an integer, $G \leq S_d$ is a transitive subgroup, and
+  %        $\lambda=(\lambda_0,\lambda_1,\lambda_\infty)$ is a tuple of partitions
+  %        $\lambda_s$ of $d$ for $s=0,1,\infty$.
+  %        These partitions will be also be
+  %        thought of as a tuple of conjugacy classes $C=(C_0,C_1,C_\infty)$ by cycle
+  %        type, so we will also write passports as $(g,G,C)$.
+  %      \end{definition}
+  %      \begin{definition}
+  %        \label{def:passportofbelyimap}
+  %        The \defi{passport} of a
+  %        Belyi map $\phi\colon X \to \PP^1$ is $(g(X),\Mon(\phi),
+  %        (\lambda_0,\lambda_1,\lambda_\infty))$,
+  %        where $g(X)$ is the genus of $X$ and
+  %        $\lambda_s$ is the partition of $d$ obtained by the ramification degrees above
+  %        $s=0,1,\infty$, respectively.
+  %      \end{definition}
+  %      \begin{definition}
+  %        \label{def:passportofpermutationtriple}
+  %        The \defi{passport} of a transitive
+  %        permutation triple $\sigma$ is
+  %        $(g(\sigma),\langle \sigma \rangle, \lambda(\sigma))$,
+  %        where (by Riemann--Hurwitz)
+  %        \begin{equation}\label{eqn:riemannhurwitzfortriples}
+  %          g(\sigma) \colonequals 1-d+(e(\sigma_0)+e(\sigma_1)+e(\sigma_\infty))/2
+  %        \end{equation}
+  %        and $e$ is the index of a permutation ($d$ minus the number of orbits), and
+  %        $\lambda(\sigma)$ is the cycle type of $\sigma_s$ for $s=0,1,\infty$.
+  %      \end{definition}
+  %      \begin{definition}
+  %        \label{def:passportsize}
+  %        The
+  %        \defi{size} of a passport $\mathcal{P}$ is the number of simultaneous conjugacy
+  %        classes (as in \ref{eqn:simconj}) of (necessarily transitive) permutation
+  %        triples $\sigma$ with passport $\mathcal{P}$.
+  %      \end{definition}
+  %      The action of $G_\QQ$ on Belyi maps preserves passports.
+  %      Therefore, after computing equations for all Belyi maps with a given
+  %      passport, we can try to identify the Galois orbits of this action.
+  %      \begin{definition}
+  %        \label{def:reduciblepassport}
+  %        We say a passport is \defi{irreducible} if it has one
+  %        $G_\QQ$-orbit and
+  %        \defi{reducible} otherwise.
+  %      \end{definition}
+  %    }
+  %    \subsection{Triangle groups}{\label{subsec:trianglegroups}
+  %      \begin{definition}
+  %        \label{def:geometrytype}
+  %        Let $(a,b,c)\in\ZZ_{\geq 1}^3$.
+  %        If $1\in(a,b,c)$, then we say the triple is \defi{degenerate}.
+  %        Otherwise, we call the triple
+  %        \defi{spherical},
+  %        \defi{Euclidean},
+  %        or \defi{hyperbolic}
+  %        according to whether the value of
+  %        \begin{equation}
+  %          \label{eqn:eulerchar}
+  %          \chi(a,b,c) = 1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}
+  %        \end{equation}
+  %        is negative, zero, or positive.
+  %        We call this the \defi{geometry type}
+  %        of the triple.
+  %        We associate the \defi{geometry}
+  %        \begin{equation}
+  %          \label{eqn:geometrytype}
+  %          H=
+  %          \begin{cases}
+  %            \PP^1&\chi(a,b,c)<0\\
+  %            \CC&\chi(a,b,c)=0\\
+  %            \mathfrak{H}&\chi(a,b,c)<0
+  %          \end{cases}
+  %        \end{equation}
+  %        where $\mathfrak{H}$ denotes the complex upper half-plane.
+  %      \end{definition}
+  %      \begin{definition}
+  %        \label{def:trianglegroup}
+  %        For each triple $(a,b,c)$ in Definition \ref{def:geometrytype}
+  %        we define the \defi{triangle group}
+  %        \begin{equation}
+  %          \label{eqn:trianglegroup}
+  %          \Delta(a,b,c)
+  %          =
+  %          \langle
+  %          \delta_a, \delta_b, \delta_c |
+  %          \delta_a^a=\delta_b^b=\delta_c^c=\delta_c\delta_b\delta_a=1
+  %          \rangle
+  %        \end{equation}
+  %        The \defi{geometry type}
+  %        of a triangle group $\Delta(a,b,c)$
+  %        is the geometry type of the triple $(a,b,c)$.
+  %      \end{definition}
+  %      \begin{definition}\label{def:geometrytypeofbelyimap}
+  %        The \defi{geometry type} of a Galois Belyi map
+  %        with ramification type $(a,b,c)$
+  %        is the geometry type of $(a,b,c)$.
+  %      \end{definition}
+  %      \begin{definition}\label{def:geometrytypeofpermutationtriple}
+  %        Let $\sigma=(\sigma_0,\sigma_1,\sigma_\infty)$ be a transitive permutation triple.
+  %        Let $a,b,c$ be the orders of
+  %        $\sigma_0,\sigma_1,\sigma_\infty$ respectively.
+  %        The \defi{geometry type} of $\sigma$
+  %        is the geometry type of $(a,b,c)$.
+  %      \end{definition}
+  %      The connection between Belyi maps and triangle groups
+  %      of various geometry types is explained by Lemma
+  %      \ref{lem:belyimapsandtrianglegroups}.
+  %      \begin{lemma}
+  %        \label{lem:belyimapsandtrianglegroups}
+  %        The set of isomorphism classes of of degree $d$
+  %        Belyi maps with ramification type $(a,b,c)$
+  %        is in bijection with the set of
+  %        index $d$ subgroups
+  %        $\Gamma\leq\Delta(a,b,c)$
+  %        up to isomorphism.
+  %      \end{lemma}
+  %      \begin{proof}
+  %        See \cite{KMSV} for a detailed discussion.
+  %      \end{proof}
+  %    }
+  %    \subsection{Background results on Belyi maps}{\label{subsec:backgroundresults}
+  %      \begin{theorem}\label{thm:bigbijection}
+  %        \mm{big bijection}
+  %      \end{theorem}
+  %      \begin{prop}\label{prop:galoisaction}
+  %        \mm{Galois action on Belyi maps}
+  %      \end{prop}
+  %      \begin{prop}\label{prop:galoiscorrespondence}
+  %        Galois correspondence of Belyi maps
+  %      \end{prop}
+  %      \begin{proof}
+  %      \end{proof}
+  %      \mm{\cite[1.6, 1.7]{SV}}
+  %    }
+  %    \subsection{Fields of moduli and fields of definition}{\label{subsec:fieldsofmodulifieldsofdefinition}
+  %      Let $\Aut(\CC)$ denote the field automorphisms of $\CC$.
+  %      \begin{definition}
+  %        \label{def:fieldofmoduli}
+  %        Let $X$ be an algebraic curve over $\CC$.
+  %        The \defi{field of moduli} of $X$ is the fixed field of the
+  %        field automorphisms
+  %        \[
+  %          \{\tau\in\Aut(\CC) : X^\tau\cong X\}
+  %        \]
+  %        where $\tau\in\Aut(\CC)$ acts on the defining equations of $X$.
+  %        Denote this field as $M(X)$.
+  %      \end{definition}
+  %      \begin{definition}
+  %        \label{def:fieldofmodulibelyimap}
+  %        Let $\phi\colon X\to\PP^1$ be a Belyi map.
+  %        The \defi{field of moduli} of $\phi$ is the fixed field of the
+  %        field automorphisms
+  %        \[
+  %          \{\tau\in\Aut(\CC) : \phi^\tau\cong \phi\}
+  %        \]
+  %        where $\tau\in\Aut(\CC)$ acts on the defining equations of $\phi$
+  %        and isomorphism is determined by
+  %        Definition \ref{def:belyiiso}.
+  %        Denote this field as $M(\phi)$.
+  %      \end{definition}
+  %      \begin{definition}
+  %        \label{def:fieldofmoduliGbelyimap}
+  %        Let $\phi\colon X\to\PP^1$ be a $G$-Galois Belyi map.
+  %        The \defi{field of moduli} of $\phi$ is the fixed field of the
+  %        field automorphisms
+  %        \[
+  %          \{\tau\in\Aut(\CC) : \phi^\tau\cong \phi\}
+  %        \]
+  %        where $\tau\in\Aut(\CC)$ acts on the defining equations of $\phi$
+  %        and isomorphism is determined by
+  %        Definition \ref{def:Gbelyi}.
+  %        Denote this field as $M(\phi)$.
+  %      \end{definition}
+  %      \begin{theorem}\label{thm:fieldofmoduli}
+  %        Let $\phi:X\to\PP^1$ be a Belyi map
+  %        with passport $\mathcal{P}$.
+  %        Then the degree of the field of moduli of $\phi$
+  %        is bounded by the size of $\mathcal{P}$.
+  %      \end{theorem}
+  %      \begin{proof}
+  %        \cite{SV}
+  %      \end{proof}
+  %      \begin{definition}
+  %        \label{def:fieldofdefinition}
+  %        Let $\phi\colon X\to\PP^1$ be a Belyi map.
+  %        A number field $K$ is a
+  %        \defi{field of definition} for $\phi$
+  %        if $\phi$ and $X$ can be defined
+  %        with equations over $K$.
+  %        If $K$ is a field of definition for $\phi$
+  %        we say $\phi$ is \defi{defined over} $K$.
+  %      \end{definition}
+  %      \begin{theorem}
+  %        \label{thm:galoisbelyimapoverfieldofmoduli}
+  %        A Galois Belyi map is defined over
+  %        its field of moduli.
+  %      \end{theorem}
+  %      \begin{proof}
+  %        \cite[Lemma 4.1]{triangles}
+  %      \end{proof}
+  %    }
+  %  }
+  %  \section{Group theory}{
+  %    \subsection{Central group extensions and $H^2(G,A)$}{
+  %      \begin{definition}
+  %        \label{def:isoextentions}
+  %      \end{definition}
+  %    }
+  %    \subsection{Holt's algorithm and \texttt{Magma} implementation}{
+  %      \label{subsec:holtsalgorithm}
+  %    }
+  %    \subsection{Results on $2$-groups}{
+  %      \begin{lemma}\label{lem:2groupfiltration}
+  %        \mm{todo}
+  %      \end{lemma}
+  %    }
+  %  }
+  %  % \section{Jacobians of curves}{
+  %  %   \subsection{Abel-Jacobi and the construction over $\CC$}{
+  %  %   }
+  %  %   \subsection{Algebraic construction}{
+  %  %   }
+  %  %   \subsection{Riemann-Roch}{
+  %  %   }
+  %  %   \subsection{Torsion points and torsion fields}{
+  %  %   }
+  %  % }
+  %  % \section{Galois representations}{
+  %  %   \subsection{Representations of Galois groups of number fields}{
+  %  %   }
+  %  %   \subsection{Representations coming from geometry}{
+  %  %   }
+  %  % }
+%}
 \chapter{A database of $2$-group Belyi maps}{\label{chapter:database}
   In this chapter we describe an algorithm
   to generate $2$-group Belyi maps of a given degree.
