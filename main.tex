@@ -109,6 +109,8 @@
 \DeclareMathOperator{\supp}{supp}
 \DeclareMathOperator{\ord}{ord}
 \DeclareMathOperator{\mult}{mult}
+\DeclareMathOperator{\stab}{stab}
+\DeclareMathOperator{\orb}{orb}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theorem Declarations
@@ -1466,7 +1468,17 @@ B
   \section{$2$-groups}{\label{sec:twogroups}
     % def, center, exact sequence, group coho, cosets
     % examples, families: gen dihedral, gen quats, etc
+    \mm{references \cite{DF}\ldots}
     Let $G$ be a finite group.
+    Denote the \defi{centralizer} and
+    \defi{normalizer} of a subet $S\subseteq G$
+    by $C_G(S)$ and $N_G(S)$ respectively.
+    Let $G$ act on a set $X$.
+    For $x\in X$
+    denote the \defi{stabilizer of $x$} by
+    $\stab_x(G)$
+    and the \defi{orbit of $x$} by
+    $\orb_x(G)$.
     \begin{definition}
       \label{def:pgroup}
       Let $p$ be a rational prime.
@@ -1480,16 +1492,198 @@ B
       The center of a nontrivial $p$-group is nontrivial.
     \end{lemma}
     \begin{proof}
-      Let $Z(G)$ denote the center of $G$.
-      Let $C_g$ denote the conjugacy class of $g\in G$.
-      Then
-      \[
-        Z(G) = \bigcap_{g\in G\text{ with }\# C_g}C_g
-      \]
+      Let $G$ be a $p$-group acting on itself by conjugation.
+      Note that for $g\in G$ we have
+      $C_G(g)=\stab_g(G)=N_G(\{g\})$,
+      and
+      $Z(G)=\cap_g C_G(g)$.
+      Let
+      $C_g\colonequals\orb_g(G)$
+      denote the conjugacy class of $g\in G$.
+      Then $\#C_g = [G:C_G(g)]$ for every $g$.
+      Partitioning $G$ into conjugacy classes we obtain
+      \begin{equation}\label{eqn:classequation}
+        \#G =
+        \#Z(G)+\sum_{i=1}^r[G:C_G(g_i)]
+      \end{equation}
+      where $\{g_1,\dots,g_r\}$ is a set of representatives of distinct
+      conjugacy classes not contained in $Z(G)$.
+      Since $g_i\not\in Z(G)$, $p$ divides $[G:C_G(g_i)]$ for every $i$.
+      Then Equation \ref{eqn:classequation} implies $p$ divides
+      $\#Z(G)$.
     \end{proof}
+    \begin{lemma}
+      \label{lem:conjugacyinsubgroups}
+      Let $H$ be a normal subgroup of a $p$-group $G$.
+      Let $C$ be a conjugacy class of $G$.
+      Then either $C\subseteq H$ or $C\cap H = \emptyset$.
+    \end{lemma}
+    \begin{proof}
+      Suppose $a\in C\cap H$.
+      Let $x\in C$.
+      Then there exists $g\in G$ so that
+      $x = gag^{-1}$.
+      But $a\in H$ and $H$ is normal,
+      so $x=gag^{-1}\in H$.
+      Thus $C\subseteq H$.
+    \end{proof}
+    \begin{lemma}
+      \label{lem:normalimpliescentralintersect}
+      Let $G$ be a $p$-group.
+      Let $H$ be a nontrivial normal subgroup of $G$.
+      Then $H$ intersects the center $Z(G)$ nontrivially.
+    \end{lemma}
+    \begin{proof}
+      Let $\{g_1,\dots,g_r\}$ be a set of representatives of the
+      $r$ distinct conjugacy classes (denoted $C_i$)
+      of $G$ with $\#C_i\ge 2$.
+      We will use Equation \ref{eqn:classequation}
+      for the subgroup $H$, so
+      by Lemma \ref{lem:conjugacyinsubgroups}
+      we may assume all $g_i\in H$.
+      The conjugacy classes of size $1$ are contained in the center $Z(G)$
+      and as in Equation \ref{eqn:classequation} we
+      can write
+      \begin{equation}
+        \label{eqn:classequationsubgroup}
+        \#H = \#(H\cap Z(G))+
+        \sum_{i=1}^r[G:C_G(g_i)].
+      \end{equation}
+      As in the proof of
+      Lemma \ref{lem:pgrouphasacenter}
+      we see that $p$ divides $\#(H\cap Z(G))$.
+    \end{proof}
+    \begin{corr}
+      \label{cor:normalcentral}
+      Let $H$ be a normal subgroup of order $p$ of a $p$-group $G$.
+      Then $H$ is central.
+    \end{corr}
+    \begin{proof}
+      By Lemma \ref{lem:normalimpliescentralintersect},
+      $H\cap Z(G)$ is a nontrivial subgroup of $G$
+      or order at least $p$.
+      Since $\#H=p$ this tells us
+      $H=H\cap Z(G)$.
+      In particular,
+      $H$ is contained in $Z(G)$.
+    \end{proof}
+    \begin{lemma}
+      \label{lem:normalsubgroupsofallorders}
+      Let $H$ be a normal subgroup of a $p$-group $G$.
+      Let $\#G=p^\alpha$.
+      Then $H$ contains a subgroup $H_\beta$ of order $p^\beta$
+      for every divisor $p^\beta$ of $\#H$
+      with the property that
+      $H_\beta$ is normal in $G$ for every $\beta$.
+    \end{lemma}
+    \begin{proof}
+    \end{proof}
+    \begin{corr}
+      \label{cor:normalsubgroupsofallorders}
+    \end{corr}
+    \begin{lemma}
+      \label{lem:propersubgroupcontainedinnormalizer}
+      A proper subgroup $H$ of a $p$-group $G$
+      is contained in its normalizer $N_G(H)$.
+    \end{lemma}
+    \begin{proof}
+    \end{proof}
+    \begin{lemma}
+      \label{lem:maximalsubgroup}
+      Every maximal subgroup $H$ of a $p$-group $G$
+      has $[G:H]=p$ and $H\trianglelefteq G$.
+    \end{lemma}
+    \begin{proof}
+    \end{proof}
+    \begin{definition}
+      \label{def:uppercentralseries}
+      Let $G$ be a finite group.
+      We define a sequence of subgroups of $G$ iteratively as follows.
+      Let $Z_0(G) = \{1\}$
+      and let $Z_1(G) = Z(G)$.
+      For $i\geq 2$ consider
+      the map
+      \[
+        \pi\colon G\to G/Z_i(G),
+      \]
+      and define $Z_{i+1}(G)$ to be the preimage of the center of $G/Z_i(G)$ under $\pi$
+      as follows.
+      \[
+        Z_{i+1}(G)\colonequals\pi^{-1}
+        \left(Z\left(\frac{G}{Z_i(G)}\right)\right)
+      \]
+      Continuing this process produces a sequence of
+      characteristic subgroups of $G$
+      \[
+        Z_0(G)\trianglelefteq Z_1(G)\trianglelefteq\cdots\trianglelefteq Z_{i}(G)\trianglelefteq\cdots
+      \]
+    \end{definition}
+    \begin{definition}
+      \label{def:lowercentralseries}
+      For $x,y\in G$ a finite group,
+      define the \defi{commutator of $x$ and $y$}
+      by
+      $[x,y]\colonequals x^{-1}y^{-1}xy$.
+      For subgroups $H,K$ of $G$ define
+      $[H,K]\colonequals\langle[h,k]:h\in H\text{ and }k\in K\rangle$.
+      We define the \defi{lower central series} of $G$ iteratively as follows.
+      Let $G^0=G$,
+      let $G^1 = [G,G]$,
+      and for $i\geq 1$ define
+      $G^{i+1}=[G,G^i]$.
+    \end{definition}
+    \begin{definition}
+      \label{def:nilpotentgroup}
+      A finite group $G$ is \defi{nilpotent}
+      if the upper central series
+      \[
+        Z_0(G)\trianglelefteq Z_1(G)\trianglelefteq\cdots\trianglelefteq Z_{i}(G)\trianglelefteq\cdots
+      \]
+      has $Z_c(G) = G$ for some nonnegative integer $c$.
+      The integer $c$ is called the \defi{nilpotency class} of
+      the nilpotent group $G$.
+    \end{definition}
+    \begin{lemma}
+      \label{lem:upperlowernilpotent}
+      % Thm 8 chapter 6.1 DF
+      A finite group $G$ is nilpotent if and only if
+      $G^c=\{1\}$ for some nonnegative integer $c$.
+      Moreover,
+      the smallest $c$ such that $G^c=\{1\}$
+      is the nilpotency class of $G$ and
+      \[
+        Z_i(G)\leq G^{c-i-1}\leq Z_{i+1}(G)
+      \]
+      for all $i\in \{0,1,\dots,c-1\}$.
+    \end{lemma}
+    \begin{lemma}
+      % Prop 2 chapter 6.1 DF
+      A $p$-group of order $p^\alpha$ is nilpotent with nilpotency class
+      at most $\alpha-1$.
+    \end{lemma}
+    \begin{proof}
+    \end{proof}
+    \begin{lemma}
+      % Prop 7 chapter 6.1 DF
+      A finite group is nilpotent if and only if
+      every maximal subgroup is normal.
+    \end{lemma}
+    \begin{proof}
+    \end{proof}
+    \begin{definition}
+      \label{def:frattinisubgroup}
+      For a group $G$,
+      define $\Phi(G)$
+      to be the intersection of all maximal subgroups of $G$.
+      $\Phi(G)$ is called the
+      \defi{Frattini subgroup of $G$}.
+    \end{definition}
   }
   \section{Examples of $2$-groups}{\label{sec:twogroupexamples}
     % examples, families: gen dihedral, gen quats, etc
+  }
+  \section{Cohomology modules}{\label{sec:modcoho}
+    % trivial G-Module -> Cohomology module -> Holt's algorithm
   }
   \section{Iterative algorithm to produce generating triples}{\label{sec:triplesalgorithm}
   }
