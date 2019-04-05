@@ -91,6 +91,7 @@
 \newcommand{\Kbar}{\overline{K}}
 \newcommand{\LL}{\mathscr L}
 \newcommand{\sm}{\setminus}
+\newcommand{\FF}{\mathbb{F}}
 
 \DeclareMathOperator{\Div}{Div}
 \DeclareMathOperator{\Pic}{Pic}
@@ -111,6 +112,7 @@
 \DeclareMathOperator{\mult}{mult}
 \DeclareMathOperator{\stab}{stab}
 \DeclareMathOperator{\orb}{orb}
+\DeclareMathOperator{\id}{id}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theorem Declarations
@@ -1617,6 +1619,7 @@ B
       \[
         Z_0(G)\trianglelefteq Z_1(G)\trianglelefteq\cdots\trianglelefteq Z_{i}(G)\trianglelefteq\cdots
       \]
+      called the \defi{upper central series} of $G$.
     \end{definition}
     \begin{definition}
       \label{def:lowercentralseries}
@@ -1678,12 +1681,560 @@ B
       $\Phi(G)$ is called the
       \defi{Frattini subgroup of $G$}.
     \end{definition}
+    % frattini quotient and generators
   }
   \section{Examples of $2$-groups}{\label{sec:twogroupexamples}
     % examples, families: gen dihedral, gen quats, etc
+    In this section we discuss some special families of $2$-groups.
+    % maybe these show up later in the "proof of the conjecture"
+    \begin{example}
+      \label{exm:cyclic}
+      For $n\geq 1$ define
+      $C_{2^n}$ to be the \defi{cyclic group of order $2^n$}
+      with presentation
+      \[
+        \left\langle
+          a\mid
+          a^{2^n}=1
+        \right\rangle.
+      \]
+      % \begin{itemize}
+      %   \item
+      % \end{itemize}
+    \end{example}
+    \begin{example}
+      \label{exm:abeliannoncyclic}
+      For $n\geq 2$ define
+      $A_{2^n}$ to be the
+      abelian group
+      with presentation
+      \[
+        \left\langle
+          a, b\mid
+          a^{2^{n-1}}=b^2=1,
+          ab=ba
+        \right\rangle.
+      \]
+      \begin{itemize}
+        \item
+          $A_{2^n}$ is the unique noncyclic abelian group
+          with a cyclic subgroup of index $2$.
+      \end{itemize}
+    \end{example}
+    \begin{example}
+      \label{exm:generalizedquaternion}
+      For $n\geq 3$ define
+      $Q_{2^n}$ to be the
+      abelian group
+      with presentation
+      \[
+        \left\langle
+          a,b\mid
+          a^{2^{n-1}}=1,
+          b^2=a^{2^{n-2}},
+          ba=a^{-1}b
+        \right\rangle.
+      \]
+      \begin{itemize}
+        \item
+      \end{itemize}
+    \end{example}
+    \begin{example}
+      \label{exm:dihedralgroup}
+      For $n\geq 3$ define
+      $D_{2^n}$ to be the
+      abelian group
+      with presentation
+      \[
+        \left\langle
+          a,b\mid
+          a^{2^{n-1}}=
+          b^2=1,
+          ba=a^{-1}b
+        \right\rangle.
+      \]
+      \begin{itemize}
+        \item
+      \end{itemize}
+    \end{example}
+    \begin{example}
+      \label{exm:generalizeddihedral}
+      \mm{generalized dihedral}
+    \end{example}
+    \begin{example}
+      \label{exm:randomtwogroups}
+      For $n\geq 4$ define
+      the following $2$-groups by their presentations.
+      \begin{itemize}
+        \item
+          \[
+            \left\langle
+              a,b\mid
+              a^{2^{n-1}}=b^2=1,
+              ba=a^{1+2^{n-2}}b
+            \right\rangle.
+          \]
+        \item
+          \[
+            \left\langle
+              a,b\mid
+              a^{2^{n-1}}=b^2=1,
+              ba=a^{-1+2^{n-2}}b
+            \right\rangle.
+          \]
+      \end{itemize}
+    \end{example}
+    % some more examples in pgroups.pdf
   }
-  \section{Cohomology modules}{\label{sec:modcoho}
+  \section{Cohomology and extensions}{\label{sec:modcoho}
     % trivial G-Module -> Cohomology module -> Holt's algorithm
+    In Section \ref{sec:triplesalgorithm},
+    we will be interested in constructing $2$-groups
+    as (central) extensions of other $2$-groups.
+    The computations we rely on are implemented in
+    \textsf{Magma}
+    and described in
+    \emph{Computations and group extensions in \textsf{Magma}}
+    \cite{magmabook}.
+    We will describe the broad strokes of this implementation
+    emphasizing the particular setting we are interested in.
+    \begin{definition}
+      \label{def:groupextension}
+      Let $G$ be a finite group
+      and $A$ a finite abelian group.
+      An \defi{extension of $A$ by $G$} is
+      a group $\wt{G}$ such that the sequence
+      \begin{equation}
+        \label{eqn:extension}
+        \begin{tikzcd}
+          1\arrow{r}&A\arrow{r}{\iota}&\wt{G}\arrow{r}{\pi}&G\arrow{r}&1
+        \end{tikzcd}
+      \end{equation}
+      is exact.
+    \end{definition}
+    Note that for a group extension
+    (as in Equation \ref{eqn:extension})
+    there is an action of $\pi^{-1}(G)$ on
+    $\iota(A)$ by conjugation.
+    % This motivates the following definition.
+    \begin{definition}
+      \label{def:Gmodule}
+      Let $G$ be a finite group.
+      A \defi{$G$-module}
+      is a finite abelian group $A$
+      and a group homomorphism
+      $\phi\colon G\to\Aut(A)$.
+    \end{definition}
+    \begin{definition}
+      \label{def:centralextension}
+      An extension as in Equation \ref{eqn:extension}
+      is \defi{central}
+      if $\iota(A)$ is contained in the center of $\wt{G}$.
+    \end{definition}
+    \begin{prop}
+      \label{prop:centralextensionstrivialGaction}
+      An extension as in Equation \ref{eqn:extension}
+      is central
+      if and only if $A$ is the trivial $G$-module.
+    \end{prop}
+    \begin{proof}
+      Let $a\in A$, let $g\in G$,
+      and let $\wt{g}\in\pi^{-1}(g)$.
+      Then $g$ acts on $a$ by
+      \begin{equation}
+        \label{eqn:gaction}
+        ga=\iota^{-1}\left(\wt{g}\iota(a){\wt{g}}^{-1}\right).
+      \end{equation}
+      For the trivial action this is just
+      \begin{equation}
+        \label{eqn:gactiontrivial1}
+        a=\iota^{-1}\left(\wt{g}\iota(a)\wt{g}^{-1}\right)
+      \end{equation}
+      or equivalently
+      \begin{equation}
+        \label{eqn:gactiontrivial2}
+        \iota(a)=\wt{g}\iota(a)\wt{g}^{-1}.
+      \end{equation}
+      Since every element of $\wt{G}$ can be written as some
+      $\wt{g}$ (the lift of some $g$ under the surjective map $\pi$),
+      this is equivalent to saying $\iota(a)$
+      is central in $\wt{G}$.
+    \end{proof}
+    \begin{definition}
+      \label{def:equivalentgroupextension}
+      Two extensions of $A$ by $G$ are
+      \defi{equivalent}
+      if there exists an isomorphism of groups
+      $\phi$ making the diagram
+      \begin{equation}
+        \label{eqn:twoextensions}
+        \begin{tikzcd}
+          1\arrow{r}&A\arrow{d}{\id}\arrow{r}{}&\wt{G}_1\arrow{r}{}\arrow{d}{\phi}&G\arrow{d}{\id}\arrow{r}&1\\
+          1\arrow{r}&A\arrow{r}{}&\wt{G}_2\arrow{r}{}&G\arrow{r}&1
+        \end{tikzcd}
+      \end{equation}
+      commute.
+    \end{definition}
+    \begin{remark}
+      \label{rmk:otherequivalences}
+      The notion of equivalence from
+      Definition \ref{def:equivalentgroupextension}
+      requires an isomorphism $\phi$
+      inducing the identity map on $A$ and $G$.
+      This definition comes from the $G$-module structure of $A$
+      in the sense that equivalent extensions
+      induce (by conjugation) the same $G$-module structure on $A$.
+      A weaker notion of equivalence
+      (where we only require $\phi$
+      to map $A$ to $A$)
+      is useful to characterize
+      the groups $\wt{G}$ up to group isomorphism,
+      but will not be used in our situation.
+    \end{remark}
+    % It is possible for isomorphic groups
+    % $\wt{G}_1$
+    % and
+    % $\wt{G}_2$
+    % to appear as inequivalent extensions
+    % of $A$ by $G$.
+    % We can weaken this notion of equivalent extensions
+    % with the following definition.
+    % % in the end we are just trying to find isomorphism classes
+    % % of groups sitting in extensions of A by G
+    % \begin{definition}
+    %   \label{def:isoextensions}
+    %   Let
+    %   $\wt{G}_1$
+    %   be an extension of
+    %   $A_1$ by $G$,
+    %   let
+    %   $\wt{G}_2$
+    %   an extension of
+    %   $A_2$ by $G$,
+    %   and let
+    %   $A_1$ isomorphic to $A_2$.
+    %   We say the extensions are
+    %   \defi{isomorphic}
+    %   if there exists an isomorphism of groups
+    %   $\phi\colon\wt{G}_1\to\wt{G}_2$
+    %   mapping $A_1$ to $A_2$.
+    % \end{definition}
+    % Given a finite group $G$
+    % and an abelian group $A$,
+    % we would like to find all isomorphism classes of groups
+    % $\wt{G}$ sitting in the exact sequence
+    % in Equation \ref{eqn:extension}.
+    % Computing any of the following sets
+    % helps us to achieve this goal.
+    % \begin{enumerate}
+    %   \item
+    %     \label{itm:equal}
+    %     $\{
+    %       \text{
+    %         isomorphism classes of groups
+    %         $\wt{G}$ sitting in the exact sequence
+    %         in Equation \ref{eqn:extension}
+    %       }
+    %     \}$
+    %   \item
+    %     \label{itm:iso}
+    %     $\{
+    %       \text{
+    %         isomorphism classes of extensions of $A$ by $G$
+    %       }
+    %     \}$
+    %   \item
+    %     \label{itm:equiv}
+    %     $\{
+    %       \text{
+    %         equivalence classes of extensions of $A$ by $G$
+    %       }
+    %     \}$
+    % \end{enumerate}
+    % There are surjective maps
+    % from the set in \ref{itm:equiv}
+    % to the set in \ref{itm:iso}
+    % and from the set in \ref{itm:iso}
+    % to the set in \ref{itm:equal},
+    % but ultimately
+    % we will not make too much fuss about these
+    % various distinctions.
+    We now look at a motivating example.
+    \begin{example}
+      \label{exm:semidirectproduct}
+      Let $A$ be a $G$-module
+      with $\phi\colon G\to\Aut(A)$
+      defining the action of $G$ on $A$.
+      Then we can construct
+      the \defi{(external) semidirect product}
+      $A\rtimes G$ which is the set
+      $A\times G$ equipped with multiplication
+      defined by
+      \[
+        (a_1,g_1)(a_2,g_2)\colonequals
+        (a_1+\phi(g_1)(a_2), g_1g_2).
+      \]
+      Then $A\rtimes G$
+      is an extension of $A$ by $G$
+      \[
+        \begin{tikzcd}
+          1\arrow{r}&A\arrow{r}{\iota}&A\rtimes G\arrow{r}{\pi}&G\arrow{r}&1
+        \end{tikzcd}
+      \]
+      where the conjugation action of $\pi^{-1}(G)$
+      on $\iota(A)$
+      conincides with the original $G$-module action of $A$.
+    \end{example}
+    We now explain the bijection between
+    equivalence classes of extensions
+    (of $A$ by $G$)
+    and elements of the group
+    $H^2(G,A)$.
+    The latter
+    can be efficiently computed in \textsf{Magma}
+    \cite{magmabook},
+    and is a crucial part of the algorithms
+    in
+    Section \ref{sec:triplesalgorithm}.
+    % examples at the end..
+    \begin{definition}
+      \label{def:section}
+      Suppose we have an extension
+      as in Equation \ref{eqn:extension}.
+      A function $s\colon G\to\wt{G}$
+      such that $\pi\circ s = \id_G$
+      is called a
+      \defi{section}
+      of $\pi$.
+      A section is
+      \defi{normalized}
+      if it maps $\id_G$
+      to
+      $\id_{\wt{G}}$.
+    \end{definition}
+    \begin{definition}
+      \label{def:splitextension}
+      An extension as in Equation \ref{eqn:extension}
+      is \defi{split}
+      if there exists a section $s$ such that
+      $s$ is a homomorphism.
+    \end{definition}
+    \begin{prop}
+      \label{prop:splitextensions}
+      Consider an extension as written in
+      Equation \ref{eqn:extension}.
+      This extension is split
+      if and only if
+      it is equivalent to
+      \[
+        \begin{tikzcd}
+          1\arrow{r}&A\arrow{r}{\iota'}
+                    &A\rtimes G\arrow{r}{\pi'}
+                    &G\arrow{r}&1
+        \end{tikzcd}
+      \]
+      where $A\rtimes G$ is the semidirect product
+      of $G$ and $A$ relative to the given action
+      described in
+      Example \ref{exm:semidirectproduct}.
+    \end{prop}
+    \begin{proof}
+      Suppose $\phi\colon\wt{G}\to A\rtimes G$
+      is an isomorphism inducing the identity maps
+      on $A$ and $G$.
+      Let $s'\colon G\to A\rtimes G$ be the section
+      $g\mapsto (\id_A,g)$.
+      Then the section $s\colonequals\phi^{-1}s'$
+      is a group homomorphism
+      $s\colon G\to\wt{G}$
+      showing the extension is split.
+      % For a proof see \cite[Proposition 2.1]{brown}
+      % or \cite[\S 17.4]{DF}
+      Conversely,
+      assume there exists
+      a section
+      $s\colon G\to\wt{G}$
+      which is a group homomorphism.
+      Then the map $\phi\colon A\rtimes G\to\wt{G}$ defined by
+      \[
+        (a,g)\mapsto\iota(a)s(g)
+      \]
+      is a bijection.
+      We now show that this map is a group isomorphism
+      by analyzing the multiplication of two
+      elements in the image of $\phi$.
+      Let $\iota(a)s(g)$ and $\iota(a')s(g')$
+      in the image of $\phi$.
+      Then
+      from the $G$-module structure of $A$ we have
+      \begin{equation}
+        \label{eqn:gmodulestructureofA}
+        s(g)\iota(a')=\iota(ga)s(g).
+      \end{equation}
+      Equation \ref{eqn:gmodulestructureofA}
+      then implies
+      \[
+        \iota(a)s(g)\iota(a')s(g')=\iota(a)\iota(ga')s(g)s(g')=\iota(a+ga')s(gg')
+      \]
+      which is precisely the semidirect product multiplication
+      rule on $A\times G$.
+    \end{proof}
+    Proposition \ref{prop:splitextensions}
+    completely describes split extensions.
+    For nonsplit extensions,
+    we must analyze sections that are not homomorphisms.
+    To measure the failure of $s$ to be a homomorphism,
+    we make the following definition.
+    % \begin{definition}
+    %   \label{def:factorset}
+    %   Consider an extension as in Equation \ref{eqn:extension}
+    %   and a section $s$.
+    %   Let $f\colon G\times G\to A$ be defined by the equation
+    %   \begin{equation}
+    %     \label{eqn:factorset}
+    %     s(g_1)s(g_2) = \iota(f(g_1,g_2))s(g_1g_2).
+    %   \end{equation}
+    %   In other words,
+    %   $\pi(s(g_1g_2)) = \pi(s(g_1)s(g_2)) = g_1g_2$,
+    %   so we know that
+    %   $s(g_1g_2)$ and $s(g_1)s(g_2)$ differ by an element of $\iota(A)$.
+    %   We define $f(g_1,g_2)$ to be the element $a\in A$
+    %   such that
+    %   Equation \ref{eqn:factorset}
+    %   is satisfied.
+    %   The function $f$ is called the \defi{factor set}
+    %   for the extension and the section $s$.
+    %   A factor set is \defi{normalized}
+    %   if $s$ is normalized.
+    %   A normalized factor set $f$ satisfies
+    %   \[
+    %     f(g,1)=f(1,g)=0
+    %   \]
+    %   for all $g\in G$.
+    % \end{definition}
+    \begin{definition}
+      \label{def:factorset}
+      Consider an extension as in Equation \ref{eqn:extension}
+      and a section $s$.
+      Let $f\colon G\times G\to A$ be defined by the equation
+      \begin{equation}
+        \label{eqn:factorset}
+        s(g_1)s(g_2) = \iota(f(g_1,g_2))s(g_1g_2).
+      \end{equation}
+      In other words,
+      $\pi(s(g_1g_2)) = \pi(s(g_1)s(g_2)) = g_1g_2$,
+      so we know that
+      $s(g_1g_2)$ and $s(g_1)s(g_2)$ differ by an element of $\iota(A)$.
+      We define $f(g_1,g_2)$ to be the element $a\in A$
+      such that
+      Equation \ref{eqn:factorset}
+      is satisfied.
+      The function $f$ is called the \defi{factor set}
+      for the extension and the section $s$.
+      A factor set is \defi{normalized}
+      if $s$ is normalized.
+      A normalized factor set $f$ satisfies
+      \[
+        f(g,1)=f(1,g)=0
+      \]
+      for all $g\in G$.
+    \end{definition}
+    A factor set for an extension with a section
+    is a special case of a
+    \emph{$2$-cocycle}
+    which we now define.
+    \begin{definition}
+      \label{def:twococycle}
+      Consider an extension as in Equation \ref{eqn:extension}.
+      A \defi{$2$-cocycle}
+      is a map
+      $f\colon G\times G\to A$
+      satisfying
+      \begin{equation}
+        \label{eqn:twococycle}
+        f(g,h)+f(gh,k)=gf(h,k)+f(g,hk)
+      \end{equation}
+      for all $g,h,k\in G$.
+    \end{definition}
+    \begin{definition}
+      \label{def:twocoboundary}
+      Consider an extension as in Equation \ref{eqn:extension}.
+      A \defi{$2$-coboundary}
+      is a map
+      $f\colon G\times G\to A$
+      such that there exists
+      $f_1\colon G\to A$ satisfying
+      \begin{equation}
+        \label{eqn:twocoboundary}
+        f(g,h) = gf_1(h)-f_1(gh)+f_1(g)
+      \end{equation}
+      for all $g,h\in G$.
+    \end{definition}
+    \begin{definition}
+      \label{def:h2}
+      Consider an extension as in Equation \ref{eqn:extension}.
+      Let $Z(G,A)$ denote the set
+      of $2$-cocycles and $B(G,A)$
+      denote the set of all $2$-coboundaries.
+      The \defi{second cohohology group} $H^2(G,A)$
+      is defined by the
+      quotient $Z(G,A)/B(G,A)$.
+    \end{definition}
+    \mm{instead of this terse definition of $H^2$ we could define boundary maps\ldots}
+    \begin{lemma}
+      \label{lem:factorsetisacocycle}
+      \mm{factor set of an extension is a $2$-cocycle}
+    \end{lemma}
+    \begin{proof}
+      % DF p.825
+    \end{proof}
+    \begin{lemma}
+      \label{lem:choiceofsectioncoboundary}
+      \mm{choice of section changes a factor set by a coboundary
+      and therefore an extension determines a class in $H^2$}
+    \end{lemma}
+    \begin{proof}
+      % DF p.826
+    \end{proof}
+    \mm{Does every extension admit a normalized section?}
+    \begin{lemma}
+      \label{lem:equivalentextensionssamecohomologyclass}
+      \mm{equivalent extensions determine the same element of $H^2$}
+    \end{lemma}
+    \begin{proof}
+      % DF p.826
+    \end{proof}
+    \begin{lemma}
+      \label{lem:constructextensionfromcocycle}
+      \mm{how to construct an extension from a normalized $2$-cocycle}
+    \end{lemma}
+    \begin{proof}
+      % DF p.827
+      % Brown p.92
+    \end{proof}
+    \begin{theorem}
+      \label{thm:dfthm36}
+      \mm{
+        bijection between extensions of $A$ by $G$
+        and $H^2(G,A)$,
+        everything normalized
+      }
+    \end{theorem}
+    \begin{proof}
+      % DF p.828
+    \end{proof}
+    \begin{notation}
+      \label{not:oursetting}
+      In our computation of permutation triples
+      corresponding to $2$-group Belyi maps,
+      we will be concerned with computing
+      extensions of $A$ by $G$
+      where $G$ is a finite $2$-group
+      and $A\cong\ZZ/2\ZZ$.
+      The $G$-module structure on $A$
+      is the trivial action corresponding
+      to the trivial $\FF_2G$-module of dimension $1$.
+    \end{notation}
   }
   \section{Iterative algorithm to produce generating triples}{\label{sec:triplesalgorithm}
   }
@@ -1696,6 +2247,10 @@ B
     % hyperbolic vs. nonhyperbolic
     % anything else you can say using just the group theory
     % Paulhus code. . .
+  }
+  \section{Automorphisms of $2$-groups}{\label{sec:automorphismsoftwogroups}
+    % results on automorphisms
+    % refined passport conjecture/proof?
   }
   % \section{Group theory}{
   %  \subsection{Central group extensions and $H^2(G,A)$}{
