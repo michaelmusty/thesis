@@ -1795,7 +1795,7 @@ Preface and Acknowledgments go here!
     The computations we rely on are implemented in
     \textsf{Magma}
     and described in
-    \emph{Computations and group extensions in \textsf{Magma}}
+    \emph{Cohomology and group extensions in \textsf{Magma}}
     \cite{magmabook}.
     We now describe the broad strokes of this implementation
     emphasizing the particular setting we are interested in.
@@ -2689,23 +2689,781 @@ Preface and Acknowledgments go here!
       % DF p.828
       % use the lemmata..
     \end{proof}
+    %NORMALIZED REMARK
+    % \begin{remark}
+    %   \label{rmk:normalcocyclesandfactorsets}
+    %   The bijection in Theorem \ref{thm:dfthm36}
+    %   is simplified by taking
+    %   $2$-cocycles representing
+    %   elements
+    %   of $H^2(G,A)$ to be normalized.
+    % \end{remark}
+    Having established Theorem \ref{thm:dfthm36},
+    we are interested in computing representatives
+    of $H^2(G,A)$.
+    To do this
+    we use the implementation
+    in \textsf{Magma} described in
+    \cite[Cohomology and group extensions]{magmabook}.
+    Describing this implementation in detail is beyond the scope of this work.
+    Instead, we provide
+    Example \ref{exm:magmaH2example}
+    detailing how we use these
+    implementations in practice.
     % discuss Holt's algorithm
     % to enumerate H^2(G,A) elements
     % then move on to our specific setting
+    \begin{example}
+      \label{exm:magmaH2example}
+      \mm{example of how to use \textsf{Magma} implementation in our specific setting}
+    \end{example}
+    In our computation of permutation triples
+    corresponding to $2$-group Belyi maps
+    in the next section,
+    we will first be concerned with computing
+    extensions of $A$ by $G$
+    where $G$ is a finite $2$-group
+    and $A\cong\ZZ/2\ZZ$.
+    The first consideration in producing these
+    extensions is the possible $G$-module
+    structures on $A$.
+    Fortunately,
+    the only $G$-module structure on $A$
+    is the trivial action
+    corresponding to the only
+    homomorphism
+    \begin{equation}
+      \label{eqn:trivialGmodule}
+      G\to\Aut(\ZZ/2\ZZ).
+    \end{equation}
+    According to Theorem
+    \ref{thm:dfthm36},
+    the equivalent extensions of $A$ by $G$
+    correspond to elements of $H^2(G,A)$
+    which can be computed efficiently
+    in \textsf{Magma}
+    and explicitly converted to
+    group extensions
+    as in Example \ref{exm:magmaH2example}.
+    \begin{remark}
+      \label{rmk:abelianconsiderations}
+      Only minor modifications are
+      needed to compute
+      extensions when
+      $A$ is cyclic of prime order $n$.
+      The possible homomorphisms
+      $
+        G\to\Aut(\ZZ/n\ZZ)
+      $
+      now correspond to the elements
+      of $(\ZZ/n\ZZ)^\times$,
+      and $H^2(G,A)$ must now be computed
+      $\phi(n)$ times.
+      When $A$ has more than one cyclic factor,
+      the situation becomes more complicated.
+      For example,
+      the possible $G$-module structures on
+      $A\cong\underbrace{\ZZ/p\ZZ\times\dots\times\ZZ/p\ZZ}_{d\text{ times }}$
+      correspond to
+      irreducible $\FF_p[G]$-modules of dimension
+      $d$.
+      We avoid this added complexity in the next
+      section where we only consider
+      cases where $A$ is cyclic.
+    \end{remark}
+  }
+  \section{An iterative algorithm to produce generating triples}{\label{sec:triplesalgorithm}
+    The aim of this section is to use
+    techniques to compute group
+    extensions from Section \ref{sec:modcoho}
+    to iteratively
+    compute \emph{$p$-group Belyi triples}
+    which we now define.
+    \begin{definition}
+      \label{def:pgroupbelyitriple}
+      Let $p$ be prime.
+      Let $d\in\ZZ_{\geq 1}$.
+      A \defi{$p$-group Belyi triple
+      of degree $d$}
+      is a permutation triple
+      $\sigma\colonequals
+      (\sigma_0,\sigma_1,\sigma_\infty)\in S_d^3$
+      satisfying the following properties.
+      \begin{itemize}
+        \item
+          $\sigma_\infty\sigma_1\sigma_0=1$
+        \item
+          $G\colonequals\langle\sigma\rangle$ is a transitive
+          subgroup of $S_d$
+        \item
+          $\#G$ is a $p$-group
+          of order $d$
+          embedded in $S_d$
+          via its left regular representation
+      \end{itemize}
+      We call $G$ the
+      \defi{monodromy group of $\sigma$}.
+    \end{definition}
+    \begin{remark}
+      \label{rmk:leftregularrepn}
+      In the process of computing extensions of
+      monodromy groups of $p$-group Belyi maps
+      we must pass back and forth
+      between permutation groups
+      and
+      abstract groups given by a presentation.
+      Insisting that $G$ embeds into $S_d$
+      via its regular representation
+      eliminates the ambiguity
+      in embedding a finitely presented group
+      into $S_d$.
+      This explains the last property
+      in Definition \ref{def:pgroupbelyitriple}.
+    \end{remark}
+    % \begin{lemma}
+    %   \label{lem:pgroupleftregularrepn}
+    %   Let $\sigma$ be a $p$-group Belyi triple
+    %   of degree $d$
+    %   with monodromy group $G$.
+    %   Then there is a unique
+    %   injective
+    %   homomorphism
+    %   \begin{equation}
+    %     \label{eqn:regularrepnunique}
+    %     G\to S_d.
+    %   \end{equation}
+    % \end{lemma}
+    \begin{example}
+      \label{exm:degree1belyitriple}
+      \mm{degree 1 Belyi triple}
+    \end{example}
     \begin{notation}
       \label{not:oursetting}
-      In our computation of permutation triples
-      corresponding to $2$-group Belyi maps,
-      we will be concerned with computing
-      extensions of $A$ by $G$
-      where $G$ is a finite $2$-group
-      and $A\cong\ZZ/2\ZZ$.
-      The $G$-module structure on $A$
-      is the trivial action corresponding
-      to the trivial $\FF_2G$-module of dimension $1$.
+      Let $\sigma$ be a $p$-group Belyi triple
+      with monodromy group $G$
+      and
+      let $A\cong\ZZ/p\ZZ$
+      cyclic of prime order.
+      We will describe the algorithms in this
+      section in this slightly more general setting
+      even though the $p=2$ case is our primary
+      concern.
+      Let $\wt{G}$ be an extension of $A$
+      by $G$ sitting in the exact sequence
+      \begin{equation}
+        \label{eqn:motivateliftdefinition}
+        \begin{tikzcd}
+          1\arrow{r}&A\arrow{r}{\iota}
+                    &\wt{G}\arrow{r}{\pi}
+                    &G\arrow{r}
+                    &1.
+        \end{tikzcd}
+      \end{equation}
+      By Corollary \ref{cor:normalcentral}
+      the image of $\iota$
+      is a central subgroup of $\wt{G}$.
+      \mm{any other observations that should go here?}
+      The algorithm discussed in this section
+      is iterative,
+      and the base case for this iteration is described in Example \ref{exm:degree1belyitriple}.
+      Our goal is to lift the
+      $p$-group Belyi triple
+      $\sigma$
+      of degree $d$
+      to a $p$-group Belyi triple $\wt{\sigma}$
+      of degree $2d$.
     \end{notation}
-  }
-  \section{Iterative algorithm to produce generating triples}{\label{sec:triplesalgorithm}
+    \begin{definition}
+      \label{def:lift}
+      We say that a
+      $p$-group Belyi
+      triple $\wt{\sigma}$
+      is a \defi{central degree $p$ lift}
+      (or simply a \defi{lift})
+      of a $p$-group Belyi triple $\sigma$
+      of degree $d$
+      if $\wt{\sigma}$ is
+      a $p$-group Belyi triple of degree $2d$
+      with monodromy group $\wt{G}$
+      sitting in the exact sequence
+      in
+      Equation
+      \ref{eqn:motivateliftdefinition}
+      where $G$ is the monodromy group of $\sigma$
+      and $A\cong\ZZ/p\ZZ$ equipped with a
+      $G$-module structure.
+    \end{definition}
+    % \begin{notation}\label{not:triples}
+      % First we suppose that we are given
+      % $\sigma$ a permutation triple corresponding
+      % to a $2$-group Belyi map $\phi:X\to\PP^1$.
+      % \begin{definition}
+      %   \label{def:lift}
+      %   We say that a permutation triple $\wt{\sigma}$
+      %   is a \defi{degree $2$ lift} (or simply a \defi{lift})
+      %   of a permutation triple $\sigma$ if
+      %   there exists a short exact sequence of groups
+      %   as in Figure \ref{fig:lifttriple}
+      %   with $\iota(\ZZ/2\ZZ)$ contained in the center of
+      %   $\langle\wt{\sigma}\rangle$.
+      % \end{definition}
+      % \begin{figure}[ht]\label{fig:lifttriple}
+      %   \[
+      %     \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+      %       1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota}\&\langle\widetilde{\sigma}\rangle\arrow{r}{\pi}\&\langle\sigma\rangle\arrow{r}\&1
+      %     \end{tikzcd}
+      %   \]
+      %   \caption{$\wt{\sigma}$ a lift of $\sigma$}
+      % \end{figure}
+      % In Algorithm \ref{alg:triples} below
+      % we describe how to determine all lifts $\wt{\sigma}$ (up to isomorphism)
+      % of a given permutation triple $\sigma$.
+      % \begin{lemma}
+      %   \label{lem:central}
+      %   Let $\sigma$ be a permutation triple corresponding to a $2$-group Belyi map
+      %   $\phi:X\to\PP^1$ and $\wt{\sigma}$ a lift of $\sigma$
+      %   corresponding to a $2$-group Belyi map $\wt{\phi}:\wt{X}\to\PP^1$.
+      %   Then there exists a permutation triple $\wt{\sigma}'$
+      %   that is simultaneously conjugate to $\wt{\sigma}$ with
+      %   $\iota(\langle\wt{\sigma}'\rangle)$ contained in the center of
+      %   $\langle\sigma\rangle$.
+      % \end{lemma}
+      % \begin{proof}
+      % \end{proof}
+      % \begin{remark}
+      %   \label{rmk:central}
+      %   In light of Lemma \ref{lem:central},
+      %   we can restrict our attention to central extensions of
+      %   $\langle\sigma\rangle$
+      %   in Definition \ref{def:lift}.
+      % \end{remark}
+    % \end{notation}
+    \begin{alg}\label{alg:triples}
+      % Let the notation be as described above in \ref{not:triples}.
+      Let $p$ be prime and
+      let $d\in\ZZ_{\geq 1}$.
+      \newline
+      \textbf{Input}:
+      \begin{itemize}
+        \item 
+          $\sigma=(\sigma_0,\sigma_1,\sigma_\infty)\in S_d^3$ a $p$-group Beyli triple
+          with monodromy group $G$
+        \item
+          $A$ a $G$-module
+      \end{itemize}
+      \textbf{Output}: all lifts $\wt{\sigma}$
+      of $\sigma$ up to simultaneous conjugation in $S_{2d}$
+      \begin{enumerate}
+        \item
+          Let $G = \langle\sigma\rangle$
+          and compute all central extensions $\wt{G}$
+          sitting in the exact sequence in Figure \ref{fig:centralext}
+          up to isomorphism (see Definition \ref{def:isoextentions}).
+          For more information about the algorithms to do this
+          see Section \ref{subsec:holtsalgorithm}.
+          \begin{figure}[ht]
+            \[
+              \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+                1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota}\&\wt{G}\arrow{r}{\pi}\&G\arrow{r}\&1
+              \end{tikzcd}
+            \]
+            \caption{$\wt{G}$ a (central) extension of $G$}
+            \label{fig:centralext}
+          \end{figure}
+        \item
+          For each extension $\wt{G}$ as in Figure \ref{fig:centralext}
+          from the previous step
+          we perform the following:
+          \begin{enumerate}
+            \item
+              % For $s\in\{0,1,\infty\}$,
+              % $\sigma_s$ has $2$ preimages under the map $\pi$
+              % which yields $8$ triples $\wt{\sigma} = (\wt{\sigma}_0,\wt{\sigma}_1,\wt{\sigma}_\infty)$
+              % with the property that $\pi(\wt{\sigma}_s) = \sigma_s$ for each $s$.
+              Consider the set of triples
+              \begin{equation}
+                \label{eqn:lifts}
+                \{
+                  \wt{\sigma}\colonequals(\wt{\sigma}_0, \wt{\sigma}_1, \wt{\sigma}_\infty) :
+                  \wt{\sigma}_s\in\pi^{-1}(\sigma_s)\text{ for }
+                  s\in\{0,1,\infty\}
+                \}
+              \end{equation}
+              and let $\Lifts(\sigma)$ denote the set of such $\wt{\sigma}$
+              with the property that $\wt{\sigma}_\infty\wt{\sigma}_1\wt{\sigma}_0 = 1$
+              and $\langle\wt{\sigma}\rangle = \wt{G}$.
+            \item
+              For each $\wt{\sigma}\in\Lifts(\sigma)$ compute
+              $\order(\wt{\sigma})\colonequals(\order(\wt{\sigma}_0), \order(\wt{\sigma}_1), \order(\wt{\sigma}_\infty))\in\ZZ^3$
+              and sort $\Lifts(\sigma)$ according to $\order(\wt{\sigma})$.
+              Let
+              \begin{equation}
+                \label{eqn:liftsorders}
+                \Lifts(\sigma,(a,b,c))\colonequals
+                \{
+                  \wt{\sigma}\in\Lifts(\sigma) :
+                  \order(\wt{\sigma}) = (a,b,c)
+                \}.
+              \end{equation}
+            \item
+              For each set of triples $\Lifts(\sigma,(a,b,c))$
+              remove simultaneously conjugate triples so that
+              $\Lifts(\sigma,(a,b,c))$ has exactly one representative
+              from each simultaneous conjugacy class.
+              \mm{TODO: reword}
+          \end{enumerate}
+        \item
+          Return the union of the sets $\Lifts(\sigma,(a,b,c))$
+          ranging over all extensions as in Figure
+          \ref{fig:centralext}
+          and for each extension ranging over all orders
+          $(a,b,c)$.
+      \end{enumerate}
+    \end{alg}
+    \begin{proof}[Proof of correctness]
+      The algorithms in Step 1 are addressed in Section \ref{subsec:holtsalgorithm}.
+      Let $\phi:X\to\PP^1$ be the $2$-group Belyi map corresponding to $\sigma$.
+      By Proposition \ref{prop:galoiscorrespondence},
+      the groups obtained from Step 1 are precisely the
+      groups that can occur as monodromy groups of degree $2$ covers of $X$.
+      \mm{
+        lemma in section about extensions
+        (or in background about Belyi maps)
+        to prove
+        that two isomorphic extensions cannot produce
+        nonisomorphic Belyi maps
+        and that two nonisomorphic extensions cannot produce
+        isomorphic Belyi maps
+      }
+      In Step 2 we restrict our attention to a single extension of $G$
+      as in Figure \ref{fig:centralext}.
+      When we pullback a triple $\sigma$ under the map $\pi$,
+      there are $2^3=8$ preimages $\wt{\sigma}$.
+      Of these $8$ preimages, exactly $4$ have the property that
+      $\wt{\sigma}_\infty\wt{\sigma}_1\wt{\sigma}_0=1$.
+      Of these $4$ triples, we only take those that generate $\wt{G}$
+      and this makes up the set $\Lifts(\sigma)$.
+      In Step 2(b),
+      we are sorting $\Lifts(\sigma)$ by passport.
+      Since $2$-group Belyi maps are Galois,
+      the cycle structure of each $\wt{\sigma}_s\in\wt{\sigma}$
+      is determined by the order of $\wt{\sigma}_s$
+      so that sorting by order is the same as sorting by cycle structure.
+      \begin{remark}\label{rmk:twouniquepassports}
+        In fact,
+        even though we do not need this for the algorithm,
+        there are at most $2$ different passports that can occur
+        in $\Lifts(\sigma)$.
+        $2$ different passports occur when one of $\sigma_s\in\sigma$
+        is the identity.
+        If $\sigma$ does not contain an identity element,
+        then all triples in $\Lifts(\sigma)$ have the same passport.
+      \end{remark}
+      At this point,
+      we have constructed the sets $\Lifts(\sigma,(a,b,c))$.
+      In light of Remark \ref{rmk:twouniquepassports},
+      there are only $2$ possibilities:
+      \begin{itemize}
+        \item
+          There is only one such set $\Lifts(\sigma, (a,b,c))$
+          consisting of at most $4$ triples.
+        \item
+          There are $2$ sets $\Lifts(\sigma, (a,b,c))$ and $\Lifts(\sigma, (a',b',c'))$
+          each consisting of at most $2$ triples.
+      \end{itemize}
+      Step 2(c) is to eliminate simultaneous conjugation in each
+      set $\Lifts(\sigma, (a,b,c))$.
+      After Step 2(c) is complete,
+      the sets $\Lifts(\sigma, (a,b,c))$ contain exactly one permutation triple
+      for each isomorphism class of $2$-group Belyi map with passport determined by
+      $(a,b,c)$ and monodromy group $\wt{G}$ such that the diagram in
+      Figure \ref{fig:liftbelyimap} commutes.
+      \begin{figure}[ht]
+        \[
+          \begin{tikzcd}[ampersand replacement=\&]
+            \widetilde{X}\arrow{dd}[swap]{\widetilde{\phi}}\arrow{dr}{2}\\
+            \&X\arrow{dl}{\phi}\\
+            \PP^1
+          \end{tikzcd}
+        \]
+        \caption{
+          The permutation triples $\wt{\sigma}$ constructed in
+          Algorithm \ref{alg:triples}
+          correspond to Belyi maps $\wt{\phi}:\wt{X}\to\PP^1$
+          in the above diagram.
+        }
+        \label{fig:liftbelyimap}
+      \end{figure}
+      In Step 3 we collect together all sets $\Lifts(\sigma, (a,b,c))$
+      as we range over all possible extensions in Step 1,
+      and by the discussion for Step 2 yields the desired output.
+    \end{proof}
+    We now illustrate Algorithm \ref{alg:triples}
+    with the following example.
+    \begin{example}\label{exm:lift}
+      In this example we carry out Algorithm \ref{alg:triples} for
+      the degree $2$ permutation triple
+      $\sigma = ((1\,2),(1)(2),(1\,2))$.
+      Here $G = \langle\sigma\rangle\cong\ZZ/2\ZZ$.
+      In Step 1,
+      we obtain two group extensions
+      $\wt{G}_1\cong\ZZ/2\ZZ\times\ZZ/2\ZZ$
+      and
+      $\wt{G}_2\cong\ZZ/4\ZZ$:
+      \begin{figure}[ht]
+        \[
+          \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+            1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota_1}\&\wt{G}_1\arrow{r}{\pi_1}\&G\arrow{r}\&1
+          \end{tikzcd}
+        \]
+        \[
+          \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+            1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota_2}\&\wt{G}_2\arrow{r}{\pi_2}\&G\arrow{r}\&1
+          \end{tikzcd}
+        \]
+        \caption{Two extensions of $G$ in Example \ref{exm:lift}}
+        \label{fig:liftexampleextensions}
+      \end{figure}
+      We will consider the two extensions separately:
+      \begin{itemize}
+        \item
+          For $\wt{G}_1$, we have
+          \begin{align*}
+            \Lifts(\sigma) =
+            &\Big\{
+              ((1\,2)(3\,4), (1)(2)(3)(4), (1\,2)(3\,4)),
+              ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,3)),\\
+            &((1\,4)(2\,3), (1)(2)(3)(4), (1\,4)(2\,3)),
+              ((1\,4)(2\,3), (1\,3)(2\,4), (1\,2)(3\,4))
+            \Big\}
+          \end{align*}
+          Before we continue with the algorithm,
+          let us take a moment to explain this more closely in the following remark.
+          \begin{remark}\label{rem:actiononblocks}
+            First, note that the image of $\iota_1$ is an order $2$ subgroup of
+            $\wt{G}_1$.
+            Let $\tau\in\wt{G}_1$ denote the generator of this image.
+            From the perspective of branched covers,
+            $\tau$ is identifying $4$ sheets in a degree $4$ cover down to $2$ sheets
+            in a degree $2$ cover.
+            Elements $\wt{\sigma}$ of $\Lifts(\sigma)$ must induce a well-defined action on the
+            identified sheets and this action must be compatible with $\sigma$.
+            In this example $\tau = (1\,3)(2\,4)$ meaning that $\tau$
+            identifies the sheets labeled $1$ and $3$ into a single sheet
+            and $\tau$ identifies the sheets labeled $2$ and $4$ into a single sheet.
+            Another way of saying that $\wt{\sigma}$ induces a well-defined
+            action is that $\wt{\sigma}$ acts on the blocks
+            $\left\{\boxed{1\,3},\boxed{2\,4}\right\}$.
+            Saying that this action is compatible with $\sigma$ means that for each
+            $s\in\{0,1,\infty\}$ the induced action of $\wt{\sigma}_s$ on blocks
+            is the same as $\sigma_s$.
+            For
+            \[
+              \wt{\sigma} = ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,4))
+            \]
+            we have
+            $\wt{\sigma}_0\boxed{1\,3} = \boxed{2\,4}$
+            and
+            $\wt{\sigma}_0\boxed{2\,4} = \boxed{1\,3}$
+            so that the induced permutation of blocks is
+            \[
+              \left(\boxed{1\,3},\boxed{2\,4}\right)
+            \]
+            which is the same as the permutation $\sigma_0 = (1\,2)$
+            (as long as we identity $\boxed{1\,3}$ with $1$ and $\boxed{2\,4}$ with $2$).
+          \end{remark}
+          To finish Step 2(a)
+          we only take triples in $\Lifts(\sigma)$ that generate $\wt{G}_1$,
+          so at the end of Step 2(a) for this extension we have
+          \begin{align*}
+            \Lifts(\sigma) =
+            \Big\{
+              ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,3)),
+              ((1\,4)(2\,3), (1\,3)(2\,4), (1\,2)(3\,4))
+            \Big\}.
+          \end{align*}
+          In Step 2(b) we sort $\Lifts(\sigma)$ into passports as determined by orders of elements.
+          Here, all $\wt{\sigma}\in\Lifts(\sigma)$ have the same orders
+          (and hence belong to the same passport).
+          Thus we get a single set $\Lifts(\sigma,(2,2,2)) = \Lifts(\sigma)$.
+          Lastly,
+          in Step 2(c) we see that that the two triples in
+          $\Lifts(\sigma, (2,2,2))$ are simultaneously conjugate
+          (by the permutation $(2\,4)$)
+          and hence we remove one of the triples from $\Lifts(\sigma, (2,2,2))$.
+        \item
+          For $\wt{G}_2$, we have
+          \begin{align*}
+            \Lifts(\sigma) =
+            &\Big\{
+              ((1\,4\,3\,2), (1)(2)(3)(4), (1\,2\,3\,4)),
+              ((1\,2\,3\,4), (1\,3)(2\,4), (1\,2\,3\,4)),\\
+            &((1\,2\,3\,4),  (1)(2)(3)(4), (1\,4\,3\,2)),
+              ((1\,4\,3\,2), (1\,3)(2\,4), (1\,4\,3\,2))
+            \Big\}
+          \end{align*}
+          All $4$ of the above triples in $\Lifts(\sigma)$
+          generate $\wt{G}_2$, so we continue to Step 2(b) with
+          $\#\Lifts(\sigma) = 4$.
+          In Step 2(b),
+          we sort $\Lifts(\sigma)$ into two sets
+          $\Lifts(\sigma, (4,1,4))$ and $\Lifts(\sigma,(4,2,4))$
+          each containing $2$ triples.
+          In Step 2(c),
+          we find that the $2$ triples in $\Lifts(\sigma, (4,1,4))$
+          are simultaneously conjugate
+          (by the permutation $(2\,4)$)
+          and the $2$ triples in $\Lifts(\sigma, (4,2,4))$
+          are simultaneously conjugate
+          (also by the permutation $(2\,4)$),
+          so we remove one permutation triple from each of these sets
+          so that $\Lifts(\sigma, (4,1,4))$
+          and
+          $\Lifts(\sigma, (4,2,4))$ both have cardinality $1$.
+      \end{itemize}
+      In Step 3,
+      we return
+      \[
+        \Lifts(\sigma, (2,2,2))\cup\Lifts(\sigma, (4,1,4))\cup\Lifts(\sigma, (4,2,4))
+      \]
+      which is a set of $3$ permutation triples
+      each corresponding to an isomorphism class of $2$-group Belyi map
+      as in Figure \ref{fig:liftbelyimap}.
+    \end{example}
+    Now that we have an algorithm to find all lifts of a single
+    permutation triple,
+    the next step is to describe how to use this
+    to organize all isomorpism classes of $2$-group Belyi maps
+    of a given degree.
+    \begin{alg}\label{alg:alltriples}
+      Let the notation be as described above in \ref{not:triples}.
+      \newline
+      \textbf{Input}: $d = 2^m$ for some positive integer $m$
+      \newline
+      \textbf{Output}: a sequence of bipartite graphs
+      $\mathscr{G}_2, \mathscr{G}_4,\dots,\mathscr{G}_{2^m}$
+      where the two sets of nodes of $\mathscr{G}_{2^i}$
+      are
+      \begin{itemize}
+        \item
+          $\mathscr{G}_{2^i}^\text{above}$ :
+          the set of isomorphism classes of $2$-group Belyi maps
+          of degree $2^i$ indexed by permutation triples $\wt{\sigma}$
+        \item
+          $\mathscr{G}_{2^i}^\text{below}$ :
+          the set of isomorphism classes of $2$-group Belyi maps
+          of degree $2^{i-1}$ indexed by permutation triples $\sigma$
+      \end{itemize}
+      and there is an edge between $\wt{\sigma}$ and $\sigma$
+      if and only if $\wt{\sigma}$ is a lift
+      (as in Definition \ref{def:lift})
+      of $\sigma$.
+      % Moreover,
+      % for each $i$,
+      % we have
+      % $\mathscr{G}_{2^{i-1}}^\text{above} = \mathscr{G}_{2^i}^\text{below}$.
+      This algorithm is iterative.
+      For each $i=1,\dots,m$,
+      we use $\mathscr{G}_{2^i}^\text{below}$ to
+      compute $\mathscr{G}_{2^i}^\text{above}$
+      and then we define
+      \[
+        \mathscr{G}_{2^{i+1}}^\text{below}\colonequals\mathscr{G}_{2^i}^\text{above}
+      \]
+      and continue the process.
+      \begin{enumerate}
+        \item
+          To begin the iteration we
+          let $\mathscr{G}_2^\text{below}$ = $\{\sigma\}$
+          where $\sigma = ((1),(1),(1))\in S_1^3$
+          corresponds to the degree $1$ Belyi map.
+        \item
+          Now suppose we have computed $\mathscr{G}_{2^i}^\text{below}$.
+          We compute $\mathscr{G}_{2^i}^\text{above}$ as follows:
+          \begin{enumerate}
+            \item
+              Apply Algorithm \ref{alg:triples} to every
+              $\sigma\in\mathscr{G}_{2^i}^\text{below}$
+              to obtain
+              $\#\mathscr{G}_{2^i}^\text{below}$
+              sets
+              $\Lifts(\sigma)$.
+              As a word of caution,
+              the notation $\Lifts(\sigma)$ has
+              a different meaning here than in
+              Algorithm \ref{alg:triples}.
+              Here $\Lifts(\sigma)$ is the set of
+              lifts of $\sigma$ up to simultaneous
+              conjugation.
+              Let
+              \[
+                \mathscr{G}_{2^i}^\text{above}
+                \colonequals
+                \bigcup_{\sigma\in\mathscr{G}_{2^i}^\text{below}}
+                \Lifts(\sigma)
+              \]
+              and place an edge 
+              of $\mathscr{G}_{2^i}$
+              between
+              $\wt{\sigma}\in\mathscr{G}_{2^i}^\text{above}$
+              and
+              $\sigma\in\mathscr{G}_{2^i}^\text{below}$
+              if and only if $\wt{\sigma}\in\Lifts(\sigma)$.
+            \item
+              Consider all pairs $(\wt{\sigma},\wt{\sigma}')\in\mathscr{G}_{2^i}^\text{above}$
+              and for each pair
+              test if $\wt{\sigma}$ is simultaneously conjugate to
+              $\wt{\sigma}'$ in $S_{2^i}$.
+              If the pair is simultaneously conjugate,
+              then combine the nodes $\wt{\sigma}$ and $\wt{\sigma}'$
+              into a single node (take either triple)
+              and combine the edge sets of $\wt{\sigma}$
+              and $\wt{\sigma}'$ to be the edge set of the new node.
+            \item
+              Return the resulting bipartite graph as
+              $\mathscr{G}_{2^i}$.
+            \item
+              If $i<m$, then let
+              $\mathscr{G}_{2^{i+1}}^\text{below}\colonequals\mathscr{G}_{2^i}^\text{above}$
+              and repeat Step 2 with $i+1$.
+              If $i=m$,
+              then return the sequence of bipartite graphs
+              $\mathscr{G}_2,\mathscr{G}_4,\dots,\mathscr{G}_{2^m}$.
+          \end{enumerate}
+      \end{enumerate}
+    \end{alg}
+    \begin{proof}[Proof of correctness]
+      % first use 2-groups and Galois correspondence to see we get all iso classes
+      We first address the claim that
+      every $2$-group Belyi map $\phi:X\to\PP^1$ of degree $2^i$
+      is represented by a permutation triple in
+      $\mathcal{G}_{2^i}^\text{above}$.
+      Let $G$ be the monodromy group of $\phi$.
+      Since $\#G=2^i$,
+      by Lemma \ref{lem:2groupfiltration},
+      there exists a normal tower of groups
+      \begin{equation}\label{eqn:2groupfiltration}
+        G_0\trianglelefteq G_1\trianglelefteq\dots
+        \trianglelefteq G_i
+      \end{equation}
+      where $G_0 = \{1\}$, $G_i = G$,
+      and each consecutive quotient is isomorphic
+      to $\ZZ/2\ZZ$.
+      By the Galois correspondence,
+      Proposition \ref{prop:galoiscorrespondence},
+      this normal tower of groups corresponds to
+      the diagram in Figure \ref{fig:2groupfiltration}.
+      \begin{figure}[ht]
+        \begin{center}
+          \begin{tikzpicture}[scale=0.3]
+            \node at (0,0) (X0) {$X_0 = \PP^1$};
+            \node [above left=of X0] (X1) {$X_1$};
+            \node [above =of X1] (X2) {$X_2$};
+            \node [above =of X2] (dots) {$\vdots$};
+            \node [above =of dots] (Xr) {$X_i=X$};
+            %\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
+            \draw[->] (X1) to node [below] {$2$} node [right] {$\phi_1$} (X0);
+            \draw[->] (X2) to node [left] {$2$} node {} (X1);
+            \draw[->, bend left] (X2) to node [below, right] {$\phi_2$} node {} (X0);
+            \draw[->] (dots) to node [left] {$2$} node {} (X2);
+            \draw[->] (Xr) to node [left] {$2$} node {} (dots);
+            \draw[->, bend left] (Xr) to node [below, right] {$\phi_i=\phi$} node {} (X0);
+            %\node at (8,0) (KX0) {$K(X_1) = K(\PP^1)$};
+            %\node [above left=of KX0] (KX1) {$K(X_2)$};
+            %\node [above =of KX1] (KX2) {$K(X_3)$};
+            %\node [above =of KX2] (dots) {$\vdots$};
+            %\node [above =of dots] (KXr) {$K(X_r)$};
+            %%\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
+            %\draw[-] (KX1) to node [below] {$2$} node {} (KX0);
+            %\draw[-] (KX2) to node [left] {$2$} node {} (KX1);
+            %\draw[-, bend left] (KX2) to node [below, left] {} node {} (KX0);
+            %\draw[-] (dots) to node [left] {$2$} node {} (KX2);
+            %\draw[-] (KXr) to node [left] {$2$} node {} (dots);
+            %\draw[-, bend left] (KXr) to node [below, left] {} node {} (KX0);
+          \end{tikzpicture}
+        \end{center}
+        \caption{
+          A $2$-group Belyi map $\phi$
+          as a sequence of degree $2$ covers.
+          For $j\in\{1,\dots,i\}$,
+          $\phi$ factors through
+          a degree $2^j$ Belyi map denoted $\phi_j$.
+        }
+        \label{fig:2groupfiltration}
+      \end{figure}
+      Let $\sigma_j$ be the permutation triple corresponding to
+      $\phi_j$ in Figure \ref{fig:2groupfiltration}.
+      Applying Algorithm \ref{alg:triples} to $\sigma_j$
+      we obtain $\sigma_{j+1}$ as a lift of $\sigma_j$
+      so that the permutation triple corresponding to $\phi$
+      appears in $\mathscr{G}_{2^i}^\text{above}$.
+      This shows that every $2$-group Belyi map
+      of degree $2^i$ is represented by at least one node in
+      $\mathscr{G}_{2^i}$.
+      We now claim that every $2$-group Belyi map of degree $2^i$
+      is represented by exactly one node in $\mathscr{G}_{2^i}$.
+      % then show why only one in each iso class
+      Since we are applying Algorithm \ref{alg:triples}
+      to every permutation triple in $\mathscr{G}_{2^i}^\text{below}$,
+      it is possible that in Step 2(a),
+      the set of permutation triples in $\mathscr{G}_{2^i}^\text{above}$
+      has simultaneously conjugate triples
+      which arise when a degree $2^i$ Belyi map
+      is a degree $2$ cover of more than one
+      nonisomorphic Belyi map of degree $2^{i-1}$.
+      In Step 2(b),
+      we combine permutation triples in $\mathscr{G}_{2^i}^\text{above}$
+      that are simultaneously conjugate by taking a single
+      permutation triple to represent this isomorphism class
+      of $2$-group Belyi map.
+      Note that in Step 2(b)
+      we never remove any edges in the graph
+      $\mathscr{G}_{2^i}$.
+      It follows from Step 2(b)
+      that $\mathscr{G}_{2^i}^\text{above}$ has at most
+      one node for each
+      $2$-group Belyi map
+      isomorphism class of degree $2^i$.
+    \end{proof}
+    \begin{theorem}\label{thm:isoclasses}
+      The following table lists the number of isomorphism classes of
+      $2$-group Belyi maps of degree $d$ for $d$ up to $256$.
+      \[
+        \begin{tabular}{|c||c|c|c|c|c|c|c|c|}
+          \hline
+          $d$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
+          \hline
+          \# & $$ & $$ & $$ & $$ & $$ & $$ & $$ & $$\\
+          \hline
+        \end{tabular}
+      \]
+    \end{theorem}
+    \begin{proof}
+      Apply Algorithm \ref{alg:alltriples}.
+      \mm{maybe go up to 512 or 1024 and include source code link to implementation}
+    \end{proof}
+    \begin{alg}\label{alg:allpassports}
+      We use Algorithm \ref{alg:alltriples}
+      to count the number of Passports of $2$-group Belyi maps
+      of a given degree.
+      \mm{todo}
+    \end{alg}
+    \begin{theorem}\label{thm:passports}
+      The following table lists the number of passports of
+      $2$-group Belyi maps of degree $d$ for $d$ up to $256$.
+      \[
+        \begin{tabular}{|c||c|c|c|c|c|c|c|c|}
+          \hline
+          $d$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
+          \hline
+          \# passports & $3$ & $7$ & $16$ & $41$ & $96$ & $267$ & $834$ & $2893$\\
+          \hline
+        \end{tabular}
+      \]
+    \end{theorem}
+    \begin{proof}
+      Apply Algorithm \ref{alg:allpassports}.
+    \end{proof}
   }
   \section{Description of computations}{\label{sec:grouptheorycomputations}
     % how long did it take?
@@ -4005,575 +4763,575 @@ Preface and Acknowledgments go here!
   \end{definition}
   \section{Degree $1$ Belyi maps}{\label{sec:degree1}
   }
-  \section{An algorithm to enumerate isomorphism classes of $2$-group Belyi maps}{\label{sec:isoclasses}
-    The algorithm we describe here is iterative.
-    The degree $1$ case is discussed in Section \ref{sec:degree1}.
-    We now set up some notation for the iteration.
-    \begin{notation}\label{not:triples}
-      First we suppose that we are given
-      $\sigma$ a permutation triple corresponding
-      to a $2$-group Belyi map $\phi:X\to\PP^1$.
-      \begin{definition}
-        \label{def:lift}
-        We say that a permutation triple $\wt{\sigma}$
-        is a \defi{degree $2$ lift} (or simply a \defi{lift})
-        of a permutation triple $\sigma$ if
-        there exists a short exact sequence of groups
-        as in Figure \ref{fig:lifttriple}
-        with $\iota(\ZZ/2\ZZ)$ contained in the center of
-        $\langle\wt{\sigma}\rangle$.
-      \end{definition}
-      \begin{figure}[ht]\label{fig:lifttriple}
-        \[
-          \begin{tikzcd}[ampersand replacement=\&, row sep = small]
-            1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota}\&\langle\widetilde{\sigma}\rangle\arrow{r}{\pi}\&\langle\sigma\rangle\arrow{r}\&1
-          \end{tikzcd}
-        \]
-        \caption{$\wt{\sigma}$ a lift of $\sigma$}
-      \end{figure}
-      In Algorithm \ref{alg:triples} below
-      we describe how to determine all lifts $\wt{\sigma}$ (up to isomorphism)
-      of a given permutation triple $\sigma$.
-      \begin{lemma}
-        \label{lem:central}
-        Let $\sigma$ be a permutation triple corresponding to a $2$-group Belyi map
-        $\phi:X\to\PP^1$ and $\wt{\sigma}$ a lift of $\sigma$
-        corresponding to a $2$-group Belyi map $\wt{\phi}:\wt{X}\to\PP^1$.
-        Then there exists a permutation triple $\wt{\sigma}'$
-        that is simultaneously conjugate to $\wt{\sigma}$ with
-        $\iota(\langle\wt{\sigma}'\rangle)$ contained in the center of
-        $\langle\sigma\rangle$.
-      \end{lemma}
-      \begin{proof}
-      \end{proof}
-      \begin{remark}
-        \label{rmk:central}
-        In light of Lemma \ref{lem:central},
-        we can restrict our attention to central extensions of
-        $\langle\sigma\rangle$
-        in Definition \ref{def:lift}.
-      \end{remark}
-    \end{notation}
-    \begin{alg}\label{alg:triples}
-      Let the notation be as described above in \ref{not:triples}.
-      \newline
-      \textbf{Input}: $\sigma=(\sigma_0,\sigma_1,\sigma_\infty)\in S_d^3$ a permutation triple
-      corresponding to a $2$-group Belyi map
-      \newline
-      \textbf{Output}: all lifts $\wt{\sigma}$
-      of $\sigma$ up to simultaneous conjugation in $S_{2d}$
-      \begin{enumerate}
-        \item
-          Let $G = \langle\sigma\rangle$
-          and compute all central extensions $\wt{G}$
-          sitting in the exact sequence in Figure \ref{fig:centralext}
-          up to isomorphism (see Definition \ref{def:isoextentions}).
-          For more information about the algorithms to do this
-          see Section \ref{subsec:holtsalgorithm}.
-          \begin{figure}[ht]
-            \[
-              \begin{tikzcd}[ampersand replacement=\&, row sep = small]
-                1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota}\&\wt{G}\arrow{r}{\pi}\&G\arrow{r}\&1
-              \end{tikzcd}
-            \]
-            \caption{$\wt{G}$ a (central) extension of $G$}
-            \label{fig:centralext}
-          \end{figure}
-        \item
-          For each extension $\wt{G}$ as in Figure \ref{fig:centralext}
-          from the previous step
-          we perform the following:
-          \begin{enumerate}
-            \item
-              % For $s\in\{0,1,\infty\}$,
-              % $\sigma_s$ has $2$ preimages under the map $\pi$
-              % which yields $8$ triples $\wt{\sigma} = (\wt{\sigma}_0,\wt{\sigma}_1,\wt{\sigma}_\infty)$
-              % with the property that $\pi(\wt{\sigma}_s) = \sigma_s$ for each $s$.
-              Consider the set of triples
-              \begin{equation}
-                \label{eqn:lifts}
-                \{
-                  \wt{\sigma}\colonequals(\wt{\sigma}_0, \wt{\sigma}_1, \wt{\sigma}_\infty) :
-                  \wt{\sigma}_s\in\pi^{-1}(\sigma_s)\text{ for }
-                  s\in\{0,1,\infty\}
-                \}
-              \end{equation}
-              and let $\Lifts(\sigma)$ denote the set of such $\wt{\sigma}$
-              with the property that $\wt{\sigma}_\infty\wt{\sigma}_1\wt{\sigma}_0 = 1$
-              and $\langle\wt{\sigma}\rangle = \wt{G}$.
-            \item
-              For each $\wt{\sigma}\in\Lifts(\sigma)$ compute
-              $\order(\wt{\sigma})\colonequals(\order(\wt{\sigma}_0), \order(\wt{\sigma}_1), \order(\wt{\sigma}_\infty))\in\ZZ^3$
-              and sort $\Lifts(\sigma)$ according to $\order(\wt{\sigma})$.
-              Let
-              \begin{equation}
-                \label{eqn:liftsorders}
-                \Lifts(\sigma,(a,b,c))\colonequals
-                \{
-                  \wt{\sigma}\in\Lifts(\sigma) :
-                  \order(\wt{\sigma}) = (a,b,c)
-                \}.
-              \end{equation}
-            \item
-              For each set of triples $\Lifts(\sigma,(a,b,c))$
-              remove simultaneously conjugate triples so that
-              $\Lifts(\sigma,(a,b,c))$ has exactly one representative
-              from each simultaneous conjugacy class.
-              \mm{TODO: reword}
-          \end{enumerate}
-        \item
-          Return the union of the sets $\Lifts(\sigma,(a,b,c))$
-          ranging over all extensions as in Figure
-          \ref{fig:centralext}
-          and for each extension ranging over all orders
-          $(a,b,c)$.
-      \end{enumerate}
-    \end{alg}
-    \begin{proof}[Proof of correctness]
-      The algorithms in Step 1 are addressed in Section \ref{subsec:holtsalgorithm}.
-      Let $\phi:X\to\PP^1$ be the $2$-group Belyi map corresponding to $\sigma$.
-      By Proposition \ref{prop:galoiscorrespondence},
-      the groups obtained from Step 1 are precisely the
-      groups that can occur as monodromy groups of degree $2$ covers of $X$.
-      \mm{
-        lemma in section about extensions
-        (or in background about Belyi maps)
-        to prove
-        that two isomorphic extensions cannot produce
-        nonisomorphic Belyi maps
-        and that two nonisomorphic extensions cannot produce
-        isomorphic Belyi maps
-      }
-      In Step 2 we restrict our attention to a single extension of $G$
-      as in Figure \ref{fig:centralext}.
-      When we pullback a triple $\sigma$ under the map $\pi$,
-      there are $2^3=8$ preimages $\wt{\sigma}$.
-      Of these $8$ preimages, exactly $4$ have the property that
-      $\wt{\sigma}_\infty\wt{\sigma}_1\wt{\sigma}_0=1$.
-      Of these $4$ triples, we only take those that generate $\wt{G}$
-      and this makes up the set $\Lifts(\sigma)$.
-      In Step 2(b),
-      we are sorting $\Lifts(\sigma)$ by passport.
-      Since $2$-group Belyi maps are Galois,
-      the cycle structure of each $\wt{\sigma}_s\in\wt{\sigma}$
-      is determined by the order of $\wt{\sigma}_s$
-      so that sorting by order is the same as sorting by cycle structure.
-      \begin{remark}\label{rmk:twouniquepassports}
-        In fact,
-        even though we do not need this for the algorithm,
-        there are at most $2$ different passports that can occur
-        in $\Lifts(\sigma)$.
-        $2$ different passports occur when one of $\sigma_s\in\sigma$
-        is the identity.
-        If $\sigma$ does not contain an identity element,
-        then all triples in $\Lifts(\sigma)$ have the same passport.
-      \end{remark}
-      At this point,
-      we have constructed the sets $\Lifts(\sigma,(a,b,c))$.
-      In light of Remark \ref{rmk:twouniquepassports},
-      there are only $2$ possibilities:
-      \begin{itemize}
-        \item
-          There is only one such set $\Lifts(\sigma, (a,b,c))$
-          consisting of at most $4$ triples.
-        \item
-          There are $2$ sets $\Lifts(\sigma, (a,b,c))$ and $\Lifts(\sigma, (a',b',c'))$
-          each consisting of at most $2$ triples.
-      \end{itemize}
-      Step 2(c) is to eliminate simultaneous conjugation in each
-      set $\Lifts(\sigma, (a,b,c))$.
-      After Step 2(c) is complete,
-      the sets $\Lifts(\sigma, (a,b,c))$ contain exactly one permutation triple
-      for each isomorphism class of $2$-group Belyi map with passport determined by
-      $(a,b,c)$ and monodromy group $\wt{G}$ such that the diagram in
-      Figure \ref{fig:liftbelyimap} commutes.
-      \begin{figure}[ht]
-        \[
-          \begin{tikzcd}[ampersand replacement=\&]
-            \widetilde{X}\arrow{dd}[swap]{\widetilde{\phi}}\arrow{dr}{2}\\
-            \&X\arrow{dl}{\phi}\\
-            \PP^1
-          \end{tikzcd}
-        \]
-        \caption{
-          The permutation triples $\wt{\sigma}$ constructed in
-          Algorithm \ref{alg:triples}
-          correspond to Belyi maps $\wt{\phi}:\wt{X}\to\PP^1$
-          in the above diagram.
-        }
-        \label{fig:liftbelyimap}
-      \end{figure}
-      In Step 3 we collect together all sets $\Lifts(\sigma, (a,b,c))$
-      as we range over all possible extensions in Step 1,
-      and by the discussion for Step 2 yields the desired output.
-    \end{proof}
-    We now illustrate Algorithm \ref{alg:triples}
-    with the following example.
-    \begin{example}\label{exm:lift}
-      In this example we carry out Algorithm \ref{alg:triples} for
-      the degree $2$ permutation triple
-      $\sigma = ((1\,2),(1)(2),(1\,2))$.
-      Here $G = \langle\sigma\rangle\cong\ZZ/2\ZZ$.
-      In Step 1,
-      we obtain two group extensions
-      $\wt{G}_1\cong\ZZ/2\ZZ\times\ZZ/2\ZZ$
-      and
-      $\wt{G}_2\cong\ZZ/4\ZZ$:
-      \begin{figure}[ht]
-        \[
-          \begin{tikzcd}[ampersand replacement=\&, row sep = small]
-            1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota_1}\&\wt{G}_1\arrow{r}{\pi_1}\&G\arrow{r}\&1
-          \end{tikzcd}
-        \]
-        \[
-          \begin{tikzcd}[ampersand replacement=\&, row sep = small]
-            1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota_2}\&\wt{G}_2\arrow{r}{\pi_2}\&G\arrow{r}\&1
-          \end{tikzcd}
-        \]
-        \caption{Two extensions of $G$ in Example \ref{exm:lift}}
-        \label{fig:liftexampleextensions}
-      \end{figure}
-      We will consider the two extensions separately:
-      \begin{itemize}
-        \item
-          For $\wt{G}_1$, we have
-          \begin{align*}
-            \Lifts(\sigma) =
-            &\Big\{
-              ((1\,2)(3\,4), (1)(2)(3)(4), (1\,2)(3\,4)),
-              ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,3)),\\
-            &((1\,4)(2\,3), (1)(2)(3)(4), (1\,4)(2\,3)),
-              ((1\,4)(2\,3), (1\,3)(2\,4), (1\,2)(3\,4))
-            \Big\}
-          \end{align*}
-          Before we continue with the algorithm,
-          let us take a moment to explain this more closely in the following remark.
-          \begin{remark}\label{rem:actiononblocks}
-            First, note that the image of $\iota_1$ is an order $2$ subgroup of
-            $\wt{G}_1$.
-            Let $\tau\in\wt{G}_1$ denote the generator of this image.
-            From the perspective of branched covers,
-            $\tau$ is identifying $4$ sheets in a degree $4$ cover down to $2$ sheets
-            in a degree $2$ cover.
-            Elements $\wt{\sigma}$ of $\Lifts(\sigma)$ must induce a well-defined action on the
-            identified sheets and this action must be compatible with $\sigma$.
-            In this example $\tau = (1\,3)(2\,4)$ meaning that $\tau$
-            identifies the sheets labeled $1$ and $3$ into a single sheet
-            and $\tau$ identifies the sheets labeled $2$ and $4$ into a single sheet.
-            Another way of saying that $\wt{\sigma}$ induces a well-defined
-            action is that $\wt{\sigma}$ acts on the blocks
-            $\left\{\boxed{1\,3},\boxed{2\,4}\right\}$.
-            Saying that this action is compatible with $\sigma$ means that for each
-            $s\in\{0,1,\infty\}$ the induced action of $\wt{\sigma}_s$ on blocks
-            is the same as $\sigma_s$.
-            For
-            \[
-              \wt{\sigma} = ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,4))
-            \]
-            we have
-            $\wt{\sigma}_0\boxed{1\,3} = \boxed{2\,4}$
-            and
-            $\wt{\sigma}_0\boxed{2\,4} = \boxed{1\,3}$
-            so that the induced permutation of blocks is
-            \[
-              \left(\boxed{1\,3},\boxed{2\,4}\right)
-            \]
-            which is the same as the permutation $\sigma_0 = (1\,2)$
-            (as long as we identity $\boxed{1\,3}$ with $1$ and $\boxed{2\,4}$ with $2$).
-          \end{remark}
-          To finish Step 2(a)
-          we only take triples in $\Lifts(\sigma)$ that generate $\wt{G}_1$,
-          so at the end of Step 2(a) for this extension we have
-          \begin{align*}
-            \Lifts(\sigma) =
-            \Big\{
-              ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,3)),
-              ((1\,4)(2\,3), (1\,3)(2\,4), (1\,2)(3\,4))
-            \Big\}.
-          \end{align*}
-          In Step 2(b) we sort $\Lifts(\sigma)$ into passports as determined by orders of elements.
-          Here, all $\wt{\sigma}\in\Lifts(\sigma)$ have the same orders
-          (and hence belong to the same passport).
-          Thus we get a single set $\Lifts(\sigma,(2,2,2)) = \Lifts(\sigma)$.
-          Lastly,
-          in Step 2(c) we see that that the two triples in
-          $\Lifts(\sigma, (2,2,2))$ are simultaneously conjugate
-          (by the permutation $(2\,4)$)
-          and hence we remove one of the triples from $\Lifts(\sigma, (2,2,2))$.
-        \item
-          For $\wt{G}_2$, we have
-          \begin{align*}
-            \Lifts(\sigma) =
-            &\Big\{
-              ((1\,4\,3\,2), (1)(2)(3)(4), (1\,2\,3\,4)),
-              ((1\,2\,3\,4), (1\,3)(2\,4), (1\,2\,3\,4)),\\
-            &((1\,2\,3\,4),  (1)(2)(3)(4), (1\,4\,3\,2)),
-              ((1\,4\,3\,2), (1\,3)(2\,4), (1\,4\,3\,2))
-            \Big\}
-          \end{align*}
-          All $4$ of the above triples in $\Lifts(\sigma)$
-          generate $\wt{G}_2$, so we continue to Step 2(b) with
-          $\#\Lifts(\sigma) = 4$.
-          In Step 2(b),
-          we sort $\Lifts(\sigma)$ into two sets
-          $\Lifts(\sigma, (4,1,4))$ and $\Lifts(\sigma,(4,2,4))$
-          each containing $2$ triples.
-          In Step 2(c),
-          we find that the $2$ triples in $\Lifts(\sigma, (4,1,4))$
-          are simultaneously conjugate
-          (by the permutation $(2\,4)$)
-          and the $2$ triples in $\Lifts(\sigma, (4,2,4))$
-          are simultaneously conjugate
-          (also by the permutation $(2\,4)$),
-          so we remove one permutation triple from each of these sets
-          so that $\Lifts(\sigma, (4,1,4))$
-          and
-          $\Lifts(\sigma, (4,2,4))$ both have cardinality $1$.
-      \end{itemize}
-      In Step 3,
-      we return
-      \[
-        \Lifts(\sigma, (2,2,2))\cup\Lifts(\sigma, (4,1,4))\cup\Lifts(\sigma, (4,2,4))
-      \]
-      which is a set of $3$ permutation triples
-      each corresponding to an isomorphism class of $2$-group Belyi map
-      as in Figure \ref{fig:liftbelyimap}.
-    \end{example}
-    Now that we have an algorithm to find all lifts of a single
-    permutation triple,
-    the next step is to describe how to use this
-    to organize all isomorpism classes of $2$-group Belyi maps
-    of a given degree.
-    \begin{alg}\label{alg:alltriples}
-      Let the notation be as described above in \ref{not:triples}.
-      \newline
-      \textbf{Input}: $d = 2^m$ for some positive integer $m$
-      \newline
-      \textbf{Output}: a sequence of bipartite graphs
-      $\mathscr{G}_2, \mathscr{G}_4,\dots,\mathscr{G}_{2^m}$
-      where the two sets of nodes of $\mathscr{G}_{2^i}$
-      are
-      \begin{itemize}
-        \item
-          $\mathscr{G}_{2^i}^\text{above}$ :
-          the set of isomorphism classes of $2$-group Belyi maps
-          of degree $2^i$ indexed by permutation triples $\wt{\sigma}$
-        \item
-          $\mathscr{G}_{2^i}^\text{below}$ :
-          the set of isomorphism classes of $2$-group Belyi maps
-          of degree $2^{i-1}$ indexed by permutation triples $\sigma$
-      \end{itemize}
-      and there is an edge between $\wt{\sigma}$ and $\sigma$
-      if and only if $\wt{\sigma}$ is a lift
-      (as in Definition \ref{def:lift})
-      of $\sigma$.
-      % Moreover,
-      % for each $i$,
-      % we have
-      % $\mathscr{G}_{2^{i-1}}^\text{above} = \mathscr{G}_{2^i}^\text{below}$.
-      This algorithm is iterative.
-      For each $i=1,\dots,m$,
-      we use $\mathscr{G}_{2^i}^\text{below}$ to
-      compute $\mathscr{G}_{2^i}^\text{above}$
-      and then we define
-      \[
-        \mathscr{G}_{2^{i+1}}^\text{below}\colonequals\mathscr{G}_{2^i}^\text{above}
-      \]
-      and continue the process.
-      \begin{enumerate}
-        \item
-          To begin the iteration we
-          let $\mathscr{G}_2^\text{below}$ = $\{\sigma\}$
-          where $\sigma = ((1),(1),(1))\in S_1^3$
-          corresponds to the degree $1$ Belyi map.
-        \item
-          Now suppose we have computed $\mathscr{G}_{2^i}^\text{below}$.
-          We compute $\mathscr{G}_{2^i}^\text{above}$ as follows:
-          \begin{enumerate}
-            \item
-              Apply Algorithm \ref{alg:triples} to every
-              $\sigma\in\mathscr{G}_{2^i}^\text{below}$
-              to obtain
-              $\#\mathscr{G}_{2^i}^\text{below}$
-              sets
-              $\Lifts(\sigma)$.
-              As a word of caution,
-              the notation $\Lifts(\sigma)$ has
-              a different meaning here than in
-              Algorithm \ref{alg:triples}.
-              Here $\Lifts(\sigma)$ is the set of
-              lifts of $\sigma$ up to simultaneous
-              conjugation.
-              Let
-              \[
-                \mathscr{G}_{2^i}^\text{above}
-                \colonequals
-                \bigcup_{\sigma\in\mathscr{G}_{2^i}^\text{below}}
-                \Lifts(\sigma)
-              \]
-              and place an edge 
-              of $\mathscr{G}_{2^i}$
-              between
-              $\wt{\sigma}\in\mathscr{G}_{2^i}^\text{above}$
-              and
-              $\sigma\in\mathscr{G}_{2^i}^\text{below}$
-              if and only if $\wt{\sigma}\in\Lifts(\sigma)$.
-            \item
-              Consider all pairs $(\wt{\sigma},\wt{\sigma}')\in\mathscr{G}_{2^i}^\text{above}$
-              and for each pair
-              test if $\wt{\sigma}$ is simultaneously conjugate to
-              $\wt{\sigma}'$ in $S_{2^i}$.
-              If the pair is simultaneously conjugate,
-              then combine the nodes $\wt{\sigma}$ and $\wt{\sigma}'$
-              into a single node (take either triple)
-              and combine the edge sets of $\wt{\sigma}$
-              and $\wt{\sigma}'$ to be the edge set of the new node.
-            \item
-              Return the resulting bipartite graph as
-              $\mathscr{G}_{2^i}$.
-            \item
-              If $i<m$, then let
-              $\mathscr{G}_{2^{i+1}}^\text{below}\colonequals\mathscr{G}_{2^i}^\text{above}$
-              and repeat Step 2 with $i+1$.
-              If $i=m$,
-              then return the sequence of bipartite graphs
-              $\mathscr{G}_2,\mathscr{G}_4,\dots,\mathscr{G}_{2^m}$.
-          \end{enumerate}
-      \end{enumerate}
-    \end{alg}
-    \begin{proof}[Proof of correctness]
-      % first use 2-groups and Galois correspondence to see we get all iso classes
-      We first address the claim that
-      every $2$-group Belyi map $\phi:X\to\PP^1$ of degree $2^i$
-      is represented by a permutation triple in
-      $\mathcal{G}_{2^i}^\text{above}$.
-      Let $G$ be the monodromy group of $\phi$.
-      Since $\#G=2^i$,
-      by Lemma \ref{lem:2groupfiltration},
-      there exists a normal tower of groups
-      \begin{equation}\label{eqn:2groupfiltration}
-        G_0\trianglelefteq G_1\trianglelefteq\dots
-        \trianglelefteq G_i
-      \end{equation}
-      where $G_0 = \{1\}$, $G_i = G$,
-      and each consecutive quotient is isomorphic
-      to $\ZZ/2\ZZ$.
-      By the Galois correspondence,
-      Proposition \ref{prop:galoiscorrespondence},
-      this normal tower of groups corresponds to
-      the diagram in Figure \ref{fig:2groupfiltration}.
-      \begin{figure}[ht]
-        \begin{center}
-          \begin{tikzpicture}[scale=0.3]
-            \node at (0,0) (X0) {$X_0 = \PP^1$};
-            \node [above left=of X0] (X1) {$X_1$};
-            \node [above =of X1] (X2) {$X_2$};
-            \node [above =of X2] (dots) {$\vdots$};
-            \node [above =of dots] (Xr) {$X_i=X$};
-            %\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
-            \draw[->] (X1) to node [below] {$2$} node [right] {$\phi_1$} (X0);
-            \draw[->] (X2) to node [left] {$2$} node {} (X1);
-            \draw[->, bend left] (X2) to node [below, right] {$\phi_2$} node {} (X0);
-            \draw[->] (dots) to node [left] {$2$} node {} (X2);
-            \draw[->] (Xr) to node [left] {$2$} node {} (dots);
-            \draw[->, bend left] (Xr) to node [below, right] {$\phi_i=\phi$} node {} (X0);
-            %\node at (8,0) (KX0) {$K(X_1) = K(\PP^1)$};
-            %\node [above left=of KX0] (KX1) {$K(X_2)$};
-            %\node [above =of KX1] (KX2) {$K(X_3)$};
-            %\node [above =of KX2] (dots) {$\vdots$};
-            %\node [above =of dots] (KXr) {$K(X_r)$};
-            %%\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
-            %\draw[-] (KX1) to node [below] {$2$} node {} (KX0);
-            %\draw[-] (KX2) to node [left] {$2$} node {} (KX1);
-            %\draw[-, bend left] (KX2) to node [below, left] {} node {} (KX0);
-            %\draw[-] (dots) to node [left] {$2$} node {} (KX2);
-            %\draw[-] (KXr) to node [left] {$2$} node {} (dots);
-            %\draw[-, bend left] (KXr) to node [below, left] {} node {} (KX0);
-          \end{tikzpicture}
-        \end{center}
-        \caption{
-          A $2$-group Belyi map $\phi$
-          as a sequence of degree $2$ covers.
-          For $j\in\{1,\dots,i\}$,
-          $\phi$ factors through
-          a degree $2^j$ Belyi map denoted $\phi_j$.
-        }
-        \label{fig:2groupfiltration}
-      \end{figure}
-      Let $\sigma_j$ be the permutation triple corresponding to
-      $\phi_j$ in Figure \ref{fig:2groupfiltration}.
-      Applying Algorithm \ref{alg:triples} to $\sigma_j$
-      we obtain $\sigma_{j+1}$ as a lift of $\sigma_j$
-      so that the permutation triple corresponding to $\phi$
-      appears in $\mathscr{G}_{2^i}^\text{above}$.
-      This shows that every $2$-group Belyi map
-      of degree $2^i$ is represented by at least one node in
-      $\mathscr{G}_{2^i}$.
-      We now claim that every $2$-group Belyi map of degree $2^i$
-      is represented by exactly one node in $\mathscr{G}_{2^i}$.
-      % then show why only one in each iso class
-      Since we are applying Algorithm \ref{alg:triples}
-      to every permutation triple in $\mathscr{G}_{2^i}^\text{below}$,
-      it is possible that in Step 2(a),
-      the set of permutation triples in $\mathscr{G}_{2^i}^\text{above}$
-      has simultaneously conjugate triples
-      which arise when a degree $2^i$ Belyi map
-      is a degree $2$ cover of more than one
-      nonisomorphic Belyi map of degree $2^{i-1}$.
-      In Step 2(b),
-      we combine permutation triples in $\mathscr{G}_{2^i}^\text{above}$
-      that are simultaneously conjugate by taking a single
-      permutation triple to represent this isomorphism class
-      of $2$-group Belyi map.
-      Note that in Step 2(b)
-      we never remove any edges in the graph
-      $\mathscr{G}_{2^i}$.
-      It follows from Step 2(b)
-      that $\mathscr{G}_{2^i}^\text{above}$ has at most
-      one node for each
-      $2$-group Belyi map
-      isomorphism class of degree $2^i$.
-    \end{proof}
-    \begin{theorem}\label{thm:isoclasses}
-      The following table lists the number of isomorphism classes of
-      $2$-group Belyi maps of degree $d$ for $d$ up to $256$.
-      \[
-        \begin{tabular}{|c||c|c|c|c|c|c|c|c|}
-          \hline
-          $d$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
-          \hline
-          \# & $$ & $$ & $$ & $$ & $$ & $$ & $$ & $$\\
-          \hline
-        \end{tabular}
-      \]
-    \end{theorem}
-    \begin{proof}
-      Apply Algorithm \ref{alg:alltriples}.
-      \mm{maybe go up to 512 or 1024 and include source code link to implementation}
-    \end{proof}
-    \begin{alg}\label{alg:allpassports}
-      We use Algorithm \ref{alg:alltriples}
-      to count the number of Passports of $2$-group Belyi maps
-      of a given degree.
-      \mm{todo}
-    \end{alg}
-    \begin{theorem}\label{thm:passports}
-      The following table lists the number of passports of
-      $2$-group Belyi maps of degree $d$ for $d$ up to $256$.
-      \[
-        \begin{tabular}{|c||c|c|c|c|c|c|c|c|}
-          \hline
-          $d$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
-          \hline
-          \# passports & $3$ & $7$ & $16$ & $41$ & $96$ & $267$ & $834$ & $2893$\\
-          \hline
-        \end{tabular}
-      \]
-    \end{theorem}
-    \begin{proof}
-      Apply Algorithm \ref{alg:allpassports}.
-    \end{proof}
-  }
+  %\section{An algorithm to enumerate isomorphism classes of $2$-group Belyi maps}{\label{sec:isoclasses}
+  %  The algorithm we describe here is iterative.
+  %  The degree $1$ case is discussed in Section \ref{sec:degree1}.
+  %  We now set up some notation for the iteration.
+  %  \begin{notation}\label{not:triples}
+  %    First we suppose that we are given
+  %    $\sigma$ a permutation triple corresponding
+  %    to a $2$-group Belyi map $\phi:X\to\PP^1$.
+  %    \begin{definition}
+  %      \label{def:lift}
+  %      We say that a permutation triple $\wt{\sigma}$
+  %      is a \defi{degree $2$ lift} (or simply a \defi{lift})
+  %      of a permutation triple $\sigma$ if
+  %      there exists a short exact sequence of groups
+  %      as in Figure \ref{fig:lifttriple}
+  %      with $\iota(\ZZ/2\ZZ)$ contained in the center of
+  %      $\langle\wt{\sigma}\rangle$.
+  %    \end{definition}
+  %    \begin{figure}[ht]\label{fig:lifttriple}
+  %      \[
+  %        \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+  %          1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota}\&\langle\widetilde{\sigma}\rangle\arrow{r}{\pi}\&\langle\sigma\rangle\arrow{r}\&1
+  %        \end{tikzcd}
+  %      \]
+  %      \caption{$\wt{\sigma}$ a lift of $\sigma$}
+  %    \end{figure}
+  %    In Algorithm \ref{alg:triples} below
+  %    we describe how to determine all lifts $\wt{\sigma}$ (up to isomorphism)
+  %    of a given permutation triple $\sigma$.
+  %    \begin{lemma}
+  %      \label{lem:central}
+  %      Let $\sigma$ be a permutation triple corresponding to a $2$-group Belyi map
+  %      $\phi:X\to\PP^1$ and $\wt{\sigma}$ a lift of $\sigma$
+  %      corresponding to a $2$-group Belyi map $\wt{\phi}:\wt{X}\to\PP^1$.
+  %      Then there exists a permutation triple $\wt{\sigma}'$
+  %      that is simultaneously conjugate to $\wt{\sigma}$ with
+  %      $\iota(\langle\wt{\sigma}'\rangle)$ contained in the center of
+  %      $\langle\sigma\rangle$.
+  %    \end{lemma}
+  %    \begin{proof}
+  %    \end{proof}
+  %    \begin{remark}
+  %      \label{rmk:central}
+  %      In light of Lemma \ref{lem:central},
+  %      we can restrict our attention to central extensions of
+  %      $\langle\sigma\rangle$
+  %      in Definition \ref{def:lift}.
+  %    \end{remark}
+  %  \end{notation}
+  %  \begin{alg}\label{alg:triples}
+  %    Let the notation be as described above in \ref{not:triples}.
+  %    \newline
+  %    \textbf{Input}: $\sigma=(\sigma_0,\sigma_1,\sigma_\infty)\in S_d^3$ a permutation triple
+  %    corresponding to a $2$-group Belyi map
+  %    \newline
+  %    \textbf{Output}: all lifts $\wt{\sigma}$
+  %    of $\sigma$ up to simultaneous conjugation in $S_{2d}$
+  %    \begin{enumerate}
+  %      \item
+  %        Let $G = \langle\sigma\rangle$
+  %        and compute all central extensions $\wt{G}$
+  %        sitting in the exact sequence in Figure \ref{fig:centralext}
+  %        up to isomorphism (see Definition \ref{def:isoextentions}).
+  %        For more information about the algorithms to do this
+  %        see Section \ref{subsec:holtsalgorithm}.
+  %        \begin{figure}[ht]
+  %          \[
+  %            \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+  %              1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota}\&\wt{G}\arrow{r}{\pi}\&G\arrow{r}\&1
+  %            \end{tikzcd}
+  %          \]
+  %          \caption{$\wt{G}$ a (central) extension of $G$}
+  %          \label{fig:centralext}
+  %        \end{figure}
+  %      \item
+  %        For each extension $\wt{G}$ as in Figure \ref{fig:centralext}
+  %        from the previous step
+  %        we perform the following:
+  %        \begin{enumerate}
+  %          \item
+  %            % For $s\in\{0,1,\infty\}$,
+  %            % $\sigma_s$ has $2$ preimages under the map $\pi$
+  %            % which yields $8$ triples $\wt{\sigma} = (\wt{\sigma}_0,\wt{\sigma}_1,\wt{\sigma}_\infty)$
+  %            % with the property that $\pi(\wt{\sigma}_s) = \sigma_s$ for each $s$.
+  %            Consider the set of triples
+  %            \begin{equation}
+  %              \label{eqn:lifts}
+  %              \{
+  %                \wt{\sigma}\colonequals(\wt{\sigma}_0, \wt{\sigma}_1, \wt{\sigma}_\infty) :
+  %                \wt{\sigma}_s\in\pi^{-1}(\sigma_s)\text{ for }
+  %                s\in\{0,1,\infty\}
+  %              \}
+  %            \end{equation}
+  %            and let $\Lifts(\sigma)$ denote the set of such $\wt{\sigma}$
+  %            with the property that $\wt{\sigma}_\infty\wt{\sigma}_1\wt{\sigma}_0 = 1$
+  %            and $\langle\wt{\sigma}\rangle = \wt{G}$.
+  %          \item
+  %            For each $\wt{\sigma}\in\Lifts(\sigma)$ compute
+  %            $\order(\wt{\sigma})\colonequals(\order(\wt{\sigma}_0), \order(\wt{\sigma}_1), \order(\wt{\sigma}_\infty))\in\ZZ^3$
+  %            and sort $\Lifts(\sigma)$ according to $\order(\wt{\sigma})$.
+  %            Let
+  %            \begin{equation}
+  %              \label{eqn:liftsorders}
+  %              \Lifts(\sigma,(a,b,c))\colonequals
+  %              \{
+  %                \wt{\sigma}\in\Lifts(\sigma) :
+  %                \order(\wt{\sigma}) = (a,b,c)
+  %              \}.
+  %            \end{equation}
+  %          \item
+  %            For each set of triples $\Lifts(\sigma,(a,b,c))$
+  %            remove simultaneously conjugate triples so that
+  %            $\Lifts(\sigma,(a,b,c))$ has exactly one representative
+  %            from each simultaneous conjugacy class.
+  %            \mm{TODO: reword}
+  %        \end{enumerate}
+  %      \item
+  %        Return the union of the sets $\Lifts(\sigma,(a,b,c))$
+  %        ranging over all extensions as in Figure
+  %        \ref{fig:centralext}
+  %        and for each extension ranging over all orders
+  %        $(a,b,c)$.
+  %    \end{enumerate}
+  %  \end{alg}
+  %  \begin{proof}[Proof of correctness]
+  %    The algorithms in Step 1 are addressed in Section \ref{subsec:holtsalgorithm}.
+  %    Let $\phi:X\to\PP^1$ be the $2$-group Belyi map corresponding to $\sigma$.
+  %    By Proposition \ref{prop:galoiscorrespondence},
+  %    the groups obtained from Step 1 are precisely the
+  %    groups that can occur as monodromy groups of degree $2$ covers of $X$.
+  %    \mm{
+  %      lemma in section about extensions
+  %      (or in background about Belyi maps)
+  %      to prove
+  %      that two isomorphic extensions cannot produce
+  %      nonisomorphic Belyi maps
+  %      and that two nonisomorphic extensions cannot produce
+  %      isomorphic Belyi maps
+  %    }
+  %    In Step 2 we restrict our attention to a single extension of $G$
+  %    as in Figure \ref{fig:centralext}.
+  %    When we pullback a triple $\sigma$ under the map $\pi$,
+  %    there are $2^3=8$ preimages $\wt{\sigma}$.
+  %    Of these $8$ preimages, exactly $4$ have the property that
+  %    $\wt{\sigma}_\infty\wt{\sigma}_1\wt{\sigma}_0=1$.
+  %    Of these $4$ triples, we only take those that generate $\wt{G}$
+  %    and this makes up the set $\Lifts(\sigma)$.
+  %    In Step 2(b),
+  %    we are sorting $\Lifts(\sigma)$ by passport.
+  %    Since $2$-group Belyi maps are Galois,
+  %    the cycle structure of each $\wt{\sigma}_s\in\wt{\sigma}$
+  %    is determined by the order of $\wt{\sigma}_s$
+  %    so that sorting by order is the same as sorting by cycle structure.
+  %    \begin{remark}\label{rmk:twouniquepassports}
+  %      In fact,
+  %      even though we do not need this for the algorithm,
+  %      there are at most $2$ different passports that can occur
+  %      in $\Lifts(\sigma)$.
+  %      $2$ different passports occur when one of $\sigma_s\in\sigma$
+  %      is the identity.
+  %      If $\sigma$ does not contain an identity element,
+  %      then all triples in $\Lifts(\sigma)$ have the same passport.
+  %    \end{remark}
+  %    At this point,
+  %    we have constructed the sets $\Lifts(\sigma,(a,b,c))$.
+  %    In light of Remark \ref{rmk:twouniquepassports},
+  %    there are only $2$ possibilities:
+  %    \begin{itemize}
+  %      \item
+  %        There is only one such set $\Lifts(\sigma, (a,b,c))$
+  %        consisting of at most $4$ triples.
+  %      \item
+  %        There are $2$ sets $\Lifts(\sigma, (a,b,c))$ and $\Lifts(\sigma, (a',b',c'))$
+  %        each consisting of at most $2$ triples.
+  %    \end{itemize}
+  %    Step 2(c) is to eliminate simultaneous conjugation in each
+  %    set $\Lifts(\sigma, (a,b,c))$.
+  %    After Step 2(c) is complete,
+  %    the sets $\Lifts(\sigma, (a,b,c))$ contain exactly one permutation triple
+  %    for each isomorphism class of $2$-group Belyi map with passport determined by
+  %    $(a,b,c)$ and monodromy group $\wt{G}$ such that the diagram in
+  %    Figure \ref{fig:liftbelyimap} commutes.
+  %    \begin{figure}[ht]
+  %      \[
+  %        \begin{tikzcd}[ampersand replacement=\&]
+  %          \widetilde{X}\arrow{dd}[swap]{\widetilde{\phi}}\arrow{dr}{2}\\
+  %          \&X\arrow{dl}{\phi}\\
+  %          \PP^1
+  %        \end{tikzcd}
+  %      \]
+  %      \caption{
+  %        The permutation triples $\wt{\sigma}$ constructed in
+  %        Algorithm \ref{alg:triples}
+  %        correspond to Belyi maps $\wt{\phi}:\wt{X}\to\PP^1$
+  %        in the above diagram.
+  %      }
+  %      \label{fig:liftbelyimap}
+  %    \end{figure}
+  %    In Step 3 we collect together all sets $\Lifts(\sigma, (a,b,c))$
+  %    as we range over all possible extensions in Step 1,
+  %    and by the discussion for Step 2 yields the desired output.
+  %  \end{proof}
+  %  We now illustrate Algorithm \ref{alg:triples}
+  %  with the following example.
+  %  \begin{example}\label{exm:lift}
+  %    In this example we carry out Algorithm \ref{alg:triples} for
+  %    the degree $2$ permutation triple
+  %    $\sigma = ((1\,2),(1)(2),(1\,2))$.
+  %    Here $G = \langle\sigma\rangle\cong\ZZ/2\ZZ$.
+  %    In Step 1,
+  %    we obtain two group extensions
+  %    $\wt{G}_1\cong\ZZ/2\ZZ\times\ZZ/2\ZZ$
+  %    and
+  %    $\wt{G}_2\cong\ZZ/4\ZZ$:
+  %    \begin{figure}[ht]
+  %      \[
+  %        \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+  %          1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota_1}\&\wt{G}_1\arrow{r}{\pi_1}\&G\arrow{r}\&1
+  %        \end{tikzcd}
+  %      \]
+  %      \[
+  %        \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+  %          1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota_2}\&\wt{G}_2\arrow{r}{\pi_2}\&G\arrow{r}\&1
+  %        \end{tikzcd}
+  %      \]
+  %      \caption{Two extensions of $G$ in Example \ref{exm:lift}}
+  %      \label{fig:liftexampleextensions}
+  %    \end{figure}
+  %    We will consider the two extensions separately:
+  %    \begin{itemize}
+  %      \item
+  %        For $\wt{G}_1$, we have
+  %        \begin{align*}
+  %          \Lifts(\sigma) =
+  %          &\Big\{
+  %            ((1\,2)(3\,4), (1)(2)(3)(4), (1\,2)(3\,4)),
+  %            ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,3)),\\
+  %          &((1\,4)(2\,3), (1)(2)(3)(4), (1\,4)(2\,3)),
+  %            ((1\,4)(2\,3), (1\,3)(2\,4), (1\,2)(3\,4))
+  %          \Big\}
+  %        \end{align*}
+  %        Before we continue with the algorithm,
+  %        let us take a moment to explain this more closely in the following remark.
+  %        \begin{remark}\label{rem:actiononblocks}
+  %          First, note that the image of $\iota_1$ is an order $2$ subgroup of
+  %          $\wt{G}_1$.
+  %          Let $\tau\in\wt{G}_1$ denote the generator of this image.
+  %          From the perspective of branched covers,
+  %          $\tau$ is identifying $4$ sheets in a degree $4$ cover down to $2$ sheets
+  %          in a degree $2$ cover.
+  %          Elements $\wt{\sigma}$ of $\Lifts(\sigma)$ must induce a well-defined action on the
+  %          identified sheets and this action must be compatible with $\sigma$.
+  %          In this example $\tau = (1\,3)(2\,4)$ meaning that $\tau$
+  %          identifies the sheets labeled $1$ and $3$ into a single sheet
+  %          and $\tau$ identifies the sheets labeled $2$ and $4$ into a single sheet.
+  %          Another way of saying that $\wt{\sigma}$ induces a well-defined
+  %          action is that $\wt{\sigma}$ acts on the blocks
+  %          $\left\{\boxed{1\,3},\boxed{2\,4}\right\}$.
+  %          Saying that this action is compatible with $\sigma$ means that for each
+  %          $s\in\{0,1,\infty\}$ the induced action of $\wt{\sigma}_s$ on blocks
+  %          is the same as $\sigma_s$.
+  %          For
+  %          \[
+  %            \wt{\sigma} = ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,4))
+  %          \]
+  %          we have
+  %          $\wt{\sigma}_0\boxed{1\,3} = \boxed{2\,4}$
+  %          and
+  %          $\wt{\sigma}_0\boxed{2\,4} = \boxed{1\,3}$
+  %          so that the induced permutation of blocks is
+  %          \[
+  %            \left(\boxed{1\,3},\boxed{2\,4}\right)
+  %          \]
+  %          which is the same as the permutation $\sigma_0 = (1\,2)$
+  %          (as long as we identity $\boxed{1\,3}$ with $1$ and $\boxed{2\,4}$ with $2$).
+  %        \end{remark}
+  %        To finish Step 2(a)
+  %        we only take triples in $\Lifts(\sigma)$ that generate $\wt{G}_1$,
+  %        so at the end of Step 2(a) for this extension we have
+  %        \begin{align*}
+  %          \Lifts(\sigma) =
+  %          \Big\{
+  %            ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,3)),
+  %            ((1\,4)(2\,3), (1\,3)(2\,4), (1\,2)(3\,4))
+  %          \Big\}.
+  %        \end{align*}
+  %        In Step 2(b) we sort $\Lifts(\sigma)$ into passports as determined by orders of elements.
+  %        Here, all $\wt{\sigma}\in\Lifts(\sigma)$ have the same orders
+  %        (and hence belong to the same passport).
+  %        Thus we get a single set $\Lifts(\sigma,(2,2,2)) = \Lifts(\sigma)$.
+  %        Lastly,
+  %        in Step 2(c) we see that that the two triples in
+  %        $\Lifts(\sigma, (2,2,2))$ are simultaneously conjugate
+  %        (by the permutation $(2\,4)$)
+  %        and hence we remove one of the triples from $\Lifts(\sigma, (2,2,2))$.
+  %      \item
+  %        For $\wt{G}_2$, we have
+  %        \begin{align*}
+  %          \Lifts(\sigma) =
+  %          &\Big\{
+  %            ((1\,4\,3\,2), (1)(2)(3)(4), (1\,2\,3\,4)),
+  %            ((1\,2\,3\,4), (1\,3)(2\,4), (1\,2\,3\,4)),\\
+  %          &((1\,2\,3\,4),  (1)(2)(3)(4), (1\,4\,3\,2)),
+  %            ((1\,4\,3\,2), (1\,3)(2\,4), (1\,4\,3\,2))
+  %          \Big\}
+  %        \end{align*}
+  %        All $4$ of the above triples in $\Lifts(\sigma)$
+  %        generate $\wt{G}_2$, so we continue to Step 2(b) with
+  %        $\#\Lifts(\sigma) = 4$.
+  %        In Step 2(b),
+  %        we sort $\Lifts(\sigma)$ into two sets
+  %        $\Lifts(\sigma, (4,1,4))$ and $\Lifts(\sigma,(4,2,4))$
+  %        each containing $2$ triples.
+  %        In Step 2(c),
+  %        we find that the $2$ triples in $\Lifts(\sigma, (4,1,4))$
+  %        are simultaneously conjugate
+  %        (by the permutation $(2\,4)$)
+  %        and the $2$ triples in $\Lifts(\sigma, (4,2,4))$
+  %        are simultaneously conjugate
+  %        (also by the permutation $(2\,4)$),
+  %        so we remove one permutation triple from each of these sets
+  %        so that $\Lifts(\sigma, (4,1,4))$
+  %        and
+  %        $\Lifts(\sigma, (4,2,4))$ both have cardinality $1$.
+  %    \end{itemize}
+  %    In Step 3,
+  %    we return
+  %    \[
+  %      \Lifts(\sigma, (2,2,2))\cup\Lifts(\sigma, (4,1,4))\cup\Lifts(\sigma, (4,2,4))
+  %    \]
+  %    which is a set of $3$ permutation triples
+  %    each corresponding to an isomorphism class of $2$-group Belyi map
+  %    as in Figure \ref{fig:liftbelyimap}.
+  %  \end{example}
+  %  Now that we have an algorithm to find all lifts of a single
+  %  permutation triple,
+  %  the next step is to describe how to use this
+  %  to organize all isomorpism classes of $2$-group Belyi maps
+  %  of a given degree.
+  %  \begin{alg}\label{alg:alltriples}
+  %    Let the notation be as described above in \ref{not:triples}.
+  %    \newline
+  %    \textbf{Input}: $d = 2^m$ for some positive integer $m$
+  %    \newline
+  %    \textbf{Output}: a sequence of bipartite graphs
+  %    $\mathscr{G}_2, \mathscr{G}_4,\dots,\mathscr{G}_{2^m}$
+  %    where the two sets of nodes of $\mathscr{G}_{2^i}$
+  %    are
+  %    \begin{itemize}
+  %      \item
+  %        $\mathscr{G}_{2^i}^\text{above}$ :
+  %        the set of isomorphism classes of $2$-group Belyi maps
+  %        of degree $2^i$ indexed by permutation triples $\wt{\sigma}$
+  %      \item
+  %        $\mathscr{G}_{2^i}^\text{below}$ :
+  %        the set of isomorphism classes of $2$-group Belyi maps
+  %        of degree $2^{i-1}$ indexed by permutation triples $\sigma$
+  %    \end{itemize}
+  %    and there is an edge between $\wt{\sigma}$ and $\sigma$
+  %    if and only if $\wt{\sigma}$ is a lift
+  %    (as in Definition \ref{def:lift})
+  %    of $\sigma$.
+  %    % Moreover,
+  %    % for each $i$,
+  %    % we have
+  %    % $\mathscr{G}_{2^{i-1}}^\text{above} = \mathscr{G}_{2^i}^\text{below}$.
+  %    This algorithm is iterative.
+  %    For each $i=1,\dots,m$,
+  %    we use $\mathscr{G}_{2^i}^\text{below}$ to
+  %    compute $\mathscr{G}_{2^i}^\text{above}$
+  %    and then we define
+  %    \[
+  %      \mathscr{G}_{2^{i+1}}^\text{below}\colonequals\mathscr{G}_{2^i}^\text{above}
+  %    \]
+  %    and continue the process.
+  %    \begin{enumerate}
+  %      \item
+  %        To begin the iteration we
+  %        let $\mathscr{G}_2^\text{below}$ = $\{\sigma\}$
+  %        where $\sigma = ((1),(1),(1))\in S_1^3$
+  %        corresponds to the degree $1$ Belyi map.
+  %      \item
+  %        Now suppose we have computed $\mathscr{G}_{2^i}^\text{below}$.
+  %        We compute $\mathscr{G}_{2^i}^\text{above}$ as follows:
+  %        \begin{enumerate}
+  %          \item
+  %            Apply Algorithm \ref{alg:triples} to every
+  %            $\sigma\in\mathscr{G}_{2^i}^\text{below}$
+  %            to obtain
+  %            $\#\mathscr{G}_{2^i}^\text{below}$
+  %            sets
+  %            $\Lifts(\sigma)$.
+  %            As a word of caution,
+  %            the notation $\Lifts(\sigma)$ has
+  %            a different meaning here than in
+  %            Algorithm \ref{alg:triples}.
+  %            Here $\Lifts(\sigma)$ is the set of
+  %            lifts of $\sigma$ up to simultaneous
+  %            conjugation.
+  %            Let
+  %            \[
+  %              \mathscr{G}_{2^i}^\text{above}
+  %              \colonequals
+  %              \bigcup_{\sigma\in\mathscr{G}_{2^i}^\text{below}}
+  %              \Lifts(\sigma)
+  %            \]
+  %            and place an edge 
+  %            of $\mathscr{G}_{2^i}$
+  %            between
+  %            $\wt{\sigma}\in\mathscr{G}_{2^i}^\text{above}$
+  %            and
+  %            $\sigma\in\mathscr{G}_{2^i}^\text{below}$
+  %            if and only if $\wt{\sigma}\in\Lifts(\sigma)$.
+  %          \item
+  %            Consider all pairs $(\wt{\sigma},\wt{\sigma}')\in\mathscr{G}_{2^i}^\text{above}$
+  %            and for each pair
+  %            test if $\wt{\sigma}$ is simultaneously conjugate to
+  %            $\wt{\sigma}'$ in $S_{2^i}$.
+  %            If the pair is simultaneously conjugate,
+  %            then combine the nodes $\wt{\sigma}$ and $\wt{\sigma}'$
+  %            into a single node (take either triple)
+  %            and combine the edge sets of $\wt{\sigma}$
+  %            and $\wt{\sigma}'$ to be the edge set of the new node.
+  %          \item
+  %            Return the resulting bipartite graph as
+  %            $\mathscr{G}_{2^i}$.
+  %          \item
+  %            If $i<m$, then let
+  %            $\mathscr{G}_{2^{i+1}}^\text{below}\colonequals\mathscr{G}_{2^i}^\text{above}$
+  %            and repeat Step 2 with $i+1$.
+  %            If $i=m$,
+  %            then return the sequence of bipartite graphs
+  %            $\mathscr{G}_2,\mathscr{G}_4,\dots,\mathscr{G}_{2^m}$.
+  %        \end{enumerate}
+  %    \end{enumerate}
+  %  \end{alg}
+  %  \begin{proof}[Proof of correctness]
+  %    % first use 2-groups and Galois correspondence to see we get all iso classes
+  %    We first address the claim that
+  %    every $2$-group Belyi map $\phi:X\to\PP^1$ of degree $2^i$
+  %    is represented by a permutation triple in
+  %    $\mathcal{G}_{2^i}^\text{above}$.
+  %    Let $G$ be the monodromy group of $\phi$.
+  %    Since $\#G=2^i$,
+  %    by Lemma \ref{lem:2groupfiltration},
+  %    there exists a normal tower of groups
+  %    \begin{equation}\label{eqn:2groupfiltration}
+  %      G_0\trianglelefteq G_1\trianglelefteq\dots
+  %      \trianglelefteq G_i
+  %    \end{equation}
+  %    where $G_0 = \{1\}$, $G_i = G$,
+  %    and each consecutive quotient is isomorphic
+  %    to $\ZZ/2\ZZ$.
+  %    By the Galois correspondence,
+  %    Proposition \ref{prop:galoiscorrespondence},
+  %    this normal tower of groups corresponds to
+  %    the diagram in Figure \ref{fig:2groupfiltration}.
+  %    \begin{figure}[ht]
+  %      \begin{center}
+  %        \begin{tikzpicture}[scale=0.3]
+  %          \node at (0,0) (X0) {$X_0 = \PP^1$};
+  %          \node [above left=of X0] (X1) {$X_1$};
+  %          \node [above =of X1] (X2) {$X_2$};
+  %          \node [above =of X2] (dots) {$\vdots$};
+  %          \node [above =of dots] (Xr) {$X_i=X$};
+  %          %\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
+  %          \draw[->] (X1) to node [below] {$2$} node [right] {$\phi_1$} (X0);
+  %          \draw[->] (X2) to node [left] {$2$} node {} (X1);
+  %          \draw[->, bend left] (X2) to node [below, right] {$\phi_2$} node {} (X0);
+  %          \draw[->] (dots) to node [left] {$2$} node {} (X2);
+  %          \draw[->] (Xr) to node [left] {$2$} node {} (dots);
+  %          \draw[->, bend left] (Xr) to node [below, right] {$\phi_i=\phi$} node {} (X0);
+  %          %\node at (8,0) (KX0) {$K(X_1) = K(\PP^1)$};
+  %          %\node [above left=of KX0] (KX1) {$K(X_2)$};
+  %          %\node [above =of KX1] (KX2) {$K(X_3)$};
+  %          %\node [above =of KX2] (dots) {$\vdots$};
+  %          %\node [above =of dots] (KXr) {$K(X_r)$};
+  %          %%\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
+  %          %\draw[-] (KX1) to node [below] {$2$} node {} (KX0);
+  %          %\draw[-] (KX2) to node [left] {$2$} node {} (KX1);
+  %          %\draw[-, bend left] (KX2) to node [below, left] {} node {} (KX0);
+  %          %\draw[-] (dots) to node [left] {$2$} node {} (KX2);
+  %          %\draw[-] (KXr) to node [left] {$2$} node {} (dots);
+  %          %\draw[-, bend left] (KXr) to node [below, left] {} node {} (KX0);
+  %        \end{tikzpicture}
+  %      \end{center}
+  %      \caption{
+  %        A $2$-group Belyi map $\phi$
+  %        as a sequence of degree $2$ covers.
+  %        For $j\in\{1,\dots,i\}$,
+  %        $\phi$ factors through
+  %        a degree $2^j$ Belyi map denoted $\phi_j$.
+  %      }
+  %      \label{fig:2groupfiltration}
+  %    \end{figure}
+  %    Let $\sigma_j$ be the permutation triple corresponding to
+  %    $\phi_j$ in Figure \ref{fig:2groupfiltration}.
+  %    Applying Algorithm \ref{alg:triples} to $\sigma_j$
+  %    we obtain $\sigma_{j+1}$ as a lift of $\sigma_j$
+  %    so that the permutation triple corresponding to $\phi$
+  %    appears in $\mathscr{G}_{2^i}^\text{above}$.
+  %    This shows that every $2$-group Belyi map
+  %    of degree $2^i$ is represented by at least one node in
+  %    $\mathscr{G}_{2^i}$.
+  %    We now claim that every $2$-group Belyi map of degree $2^i$
+  %    is represented by exactly one node in $\mathscr{G}_{2^i}$.
+  %    % then show why only one in each iso class
+  %    Since we are applying Algorithm \ref{alg:triples}
+  %    to every permutation triple in $\mathscr{G}_{2^i}^\text{below}$,
+  %    it is possible that in Step 2(a),
+  %    the set of permutation triples in $\mathscr{G}_{2^i}^\text{above}$
+  %    has simultaneously conjugate triples
+  %    which arise when a degree $2^i$ Belyi map
+  %    is a degree $2$ cover of more than one
+  %    nonisomorphic Belyi map of degree $2^{i-1}$.
+  %    In Step 2(b),
+  %    we combine permutation triples in $\mathscr{G}_{2^i}^\text{above}$
+  %    that are simultaneously conjugate by taking a single
+  %    permutation triple to represent this isomorphism class
+  %    of $2$-group Belyi map.
+  %    Note that in Step 2(b)
+  %    we never remove any edges in the graph
+  %    $\mathscr{G}_{2^i}$.
+  %    It follows from Step 2(b)
+  %    that $\mathscr{G}_{2^i}^\text{above}$ has at most
+  %    one node for each
+  %    $2$-group Belyi map
+  %    isomorphism class of degree $2^i$.
+  %  \end{proof}
+  %  \begin{theorem}\label{thm:isoclasses}
+  %    The following table lists the number of isomorphism classes of
+  %    $2$-group Belyi maps of degree $d$ for $d$ up to $256$.
+  %    \[
+  %      \begin{tabular}{|c||c|c|c|c|c|c|c|c|}
+  %        \hline
+  %        $d$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
+  %        \hline
+  %        \# & $$ & $$ & $$ & $$ & $$ & $$ & $$ & $$\\
+  %        \hline
+  %      \end{tabular}
+  %    \]
+  %  \end{theorem}
+  %  \begin{proof}
+  %    Apply Algorithm \ref{alg:alltriples}.
+  %    \mm{maybe go up to 512 or 1024 and include source code link to implementation}
+  %  \end{proof}
+  %  \begin{alg}\label{alg:allpassports}
+  %    We use Algorithm \ref{alg:alltriples}
+  %    to count the number of Passports of $2$-group Belyi maps
+  %    of a given degree.
+  %    \mm{todo}
+  %  \end{alg}
+  %  \begin{theorem}\label{thm:passports}
+  %    The following table lists the number of passports of
+  %    $2$-group Belyi maps of degree $d$ for $d$ up to $256$.
+  %    \[
+  %      \begin{tabular}{|c||c|c|c|c|c|c|c|c|}
+  %        \hline
+  %        $d$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
+  %        \hline
+  %        \# passports & $3$ & $7$ & $16$ & $41$ & $96$ & $267$ & $834$ & $2893$\\
+  %        \hline
+  %      \end{tabular}
+  %    \]
+  %  \end{theorem}
+  %  \begin{proof}
+  %    Apply Algorithm \ref{alg:allpassports}.
+  %  \end{proof}
+  %}
   \section{An algorithm to compute $2$-group Belyi curves and maps}{\label{sec:curvesandmaps}
     The algorithm we describe here is iterative.
     The degree $1$ case is discussed in Section \ref{sec:degree1}.
