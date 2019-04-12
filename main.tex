@@ -51,7 +51,7 @@
 \hypersetup{colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue}
 \usepackage{tikz}
 \usepackage{colonequals}
-\usetikzlibrary{arrows,calc,automata,shadows,backgrounds,positioning,intersections,fadings,decorations.pathreplacing,shapes,snakes, matrix}
+\usetikzlibrary{arrows,calc,automata,shadows,backgrounds,positioning,intersections,fadings,decorations.pathreplacing,shapes,matrix}
 \usepackage{tikz-cd}
 \tikzset{commutative diagrams/.cd, arrow style = tikz, diagrams = {>=latex}}
 \tikzset{>=latex}
@@ -1686,106 +1686,239 @@ Preface and Acknowledgments go here!
   }
   \section{Examples of $2$-groups}{\label{sec:twogroupexamples}
     % examples, families: gen dihedral, gen quats, etc
-    In this section we discuss some special families of $2$-groups.
+    % In this section we discuss some special families of $2$-groups.
     % maybe these show up later in the "proof of the conjecture"
-    \begin{example}
-      \label{exm:cyclic}
-      For $n\geq 1$ define
-      $C_{2^n}$ to be the \defi{cyclic group of order $2^n$}
-      with presentation
-      \[
-        \left\langle
-          a\mid
-          a^{2^n}=1
-        \right\rangle.
-      \]
+    In this section we describe several families of
+    nonabelian $2$-groups
+    that we reference in the partial proof
+    of Conjecture \ref{conj:refinedpassportsizeone}.
+    The first examples are $2$-groups
+    with a cyclic index $2$ subgroup.
+    According to
+    \cite[Theorem 1.2]{berkovich1},
+    these groups all have a center of order $2$,
+    abelianization of order $4$,
+    and maximal nilpotency class.
+    % \begin{example}
+      % \label{exm:cyclic}
+      % For $n\geq 1$ define
+      % $C_{2^n}$ to be the \defi{cyclic group of order $2^n$}
+      % with presentation
+      % \[
+      %   \left\langle
+      %     a\mid
+      %     a^{2^n}=1
+      %   \right\rangle.
+      % \]
+      % % \begin{itemize}
+      % %   \item
+      % % \end{itemize}
+    % \end{example}
+    % \begin{example}
+      % \label{exm:abeliannoncyclic}
+      % For $n\geq 2$ define
+      % $A_{2^n}$ to be the
+      % abelian group
+      % with presentation
+      % \[
+      %   \left\langle
+      %     a, b\mid
+      %     a^{2^{n-1}}=b^2=1,
+      %     ab=ba
+      %   \right\rangle.
+      % \]
       % \begin{itemize}
       %   \item
+      %     $A_{2^n}$ is the unique noncyclic abelian group
+      %     with a cyclic subgroup of index $2$.
       % \end{itemize}
-    \end{example}
-    \begin{example}
-      \label{exm:abeliannoncyclic}
-      For $n\geq 2$ define
-      $A_{2^n}$ to be the
-      abelian group
-      with presentation
-      \[
-        \left\langle
-          a, b\mid
-          a^{2^{n-1}}=b^2=1,
-          ab=ba
-        \right\rangle.
-      \]
-      \begin{itemize}
-        \item
-          $A_{2^n}$ is the unique noncyclic abelian group
-          with a cyclic subgroup of index $2$.
-      \end{itemize}
-    \end{example}
-    \begin{example}
-      \label{exm:generalizedquaternion}
-      For $n\geq 3$ define
-      $Q_{2^n}$ to be the
-      abelian group
-      with presentation
-      \[
-        \left\langle
-          a,b\mid
-          a^{2^{n-1}}=1,
-          b^2=a^{2^{n-2}},
-          ba=a^{-1}b
-        \right\rangle.
-      \]
-      \begin{itemize}
-        \item
-      \end{itemize}
-    \end{example}
-    \begin{example}
-      \label{exm:dihedralgroup}
-      For $n\geq 3$ define
-      $D_{2^n}$ to be the
-      abelian group
-      with presentation
-      \[
-        \left\langle
-          a,b\mid
-          a^{2^{n-1}}=
-          b^2=1,
-          ba=a^{-1}b
-        \right\rangle.
-      \]
-      \begin{itemize}
-        \item
-      \end{itemize}
-    \end{example}
-    \begin{example}
-      \label{exm:generalizeddihedral}
-      \mm{generalized dihedral}
-    \end{example}
-    \begin{example}
-      \label{exm:randomtwogroups}
-      For $n\geq 4$ define
-      the following $2$-groups by their presentations.
-      \begin{itemize}
-        \item
-          \[
-            \left\langle
-              a,b\mid
-              a^{2^{n-1}}=b^2=1,
-              ba=a^{1+2^{n-2}}b
-            \right\rangle.
-          \]
-        \item
-          \[
-            \left\langle
-              a,b\mid
-              a^{2^{n-1}}=b^2=1,
-              ba=a^{-1+2^{n-2}}b
-            \right\rangle.
-          \]
-      \end{itemize}
-    \end{example}
+    % \end{example}
+    % \begin{example}
+      % \label{exm:randomtwogroups}
+      % For $n\geq 4$ define
+      % the following $2$-groups by their presentations.
+      % \begin{itemize}
+      %   \item
+      %     \[
+      %       \left\langle
+      %         a,b\mid
+      %         a^{2^{n-1}}=b^2=1,
+      %         ba=a^{1+2^{n-2}}b
+      %       \right\rangle.
+      %     \]
+      %   \item
+      %     \[
+      %       \left\langle
+      %         a,b\mid
+      %         a^{2^{n-1}}=b^2=1,
+      %         ba=a^{-1+2^{n-2}}b
+      %       \right\rangle.
+      %     \]
+      % \end{itemize}
+    % \end{example}
     % some more examples in pgroups.pdf
+    \begin{example}[Dihedral]
+      \label{exm:dihedral}
+      For $n\geq 2$ define
+      \begin{equation}
+        \label{eqn:dihedral}
+        D_{2^{n+1}}\colonequals
+        \left\langle
+          a,b\mid
+          a^{2^{n}}=
+          b^2=1,
+          \,
+          bab=a^{-1}
+        \right\rangle.
+      \end{equation}
+      We summarize some properties of $D_{2^{n+1}}$:
+      \begin{itemize}
+        \item
+          $D_{2^{n+1}}$ has $2^{n+1}$ elements which can be written as
+          \begin{equation}
+            \label{eqn:elementsofdihedral}
+            \{
+              1,a,a^2,\dots,a^{2^n-1},
+              b,ab,a^2b,\dots,a^{2^n-1}b
+            \}.
+          \end{equation}
+        \item
+          $D_{2^{n+1}}$ is a split extension
+          of cyclic groups.
+        \item
+          All elements in $D_{2^{n+1}}\setminus\langle a\rangle$ are involutions.
+        \item
+          The conjugacy classes of $D_{2^{n+1}}$ are as follows.
+          There are $2$ conjugacy classes
+          of size $1$.
+          They are $\{1\}$, $\{a^{2^{n-1}}\}$.
+          There are $2^{n-1}-1$ conjugacy classes of
+          size $2$.
+          They are
+          % $\{a,a^{-1}\}$,
+          % $\{a^2,a^{-2}\}$,
+          % \dots,
+          % $\{a^{2^{n-1}-2},a^{2-2^{n-1}}\}$,
+          % $\{a^{2^{n-1}-1},a^{1-2^{n-1}}\}$,
+          \begin{equation}
+            \label{eqn:conjclassesdihedral}
+            \left\{
+              \{a^i,a^{-i}\}
+            \right\}
+            _{i=1}^{2^{n-1}-1}.
+          \end{equation}
+          There are $2$ conjugacy classes of
+          size $2^{n-1}$. They are
+          \begin{equation}
+            \label{eqn:conjclassesdihedralbiggest}
+            \{a^{2i}b : 0\leq i\leq 2^{n-1}-1\}
+            \text{ and }
+            \{a^{2i+1}b : 0\leq i\leq 2^{n-1}-1\}.
+          \end{equation}
+      \end{itemize}
+    \end{example}
+    \begin{example}[Generalized Quaternion]
+      \label{exm:generalizedquaternion}
+      For $n\geq 2$ define
+      \begin{equation}
+        \label{eqn:quaternionpresentation}
+        Q_{2^{n+1}}
+        \colonequals
+        \left\langle
+          % a,b\mid
+          % a^{2^{n-1}}=1,
+          % b^2=a^{2^{n-2}},
+          % ba=a^{-1}b
+          a,b\mid
+          a^{2^n}=1,\,
+          b^2=a^{2^{n-1}},\,
+          b^{-1}ab=a^{-1}
+        \right\rangle.
+      \end{equation}
+      We summarize some properties of $Q_{2^{n+1}}$:
+      \begin{itemize}
+        \item
+          $Q_{2^{n+1}}$ has $2^{n+1}$ elements
+          which can be written as
+          \mm{todo}
+        \item
+          $Q_{2^{n+1}}$ is a nonsplit extension
+          of cyclic groups.
+        \item
+          All elements in
+          $Q_{2^{n+1}}\setminus\langle a\rangle$
+          have order $4$.
+        \item
+          $Q_{2^{n+1}}$ has a unique involution
+          \mm{todo}
+        \item
+          $Q_{2^{n+1}}/Z(Q_{2^{n+1}})$ is dihedral
+          for $n\geq 3$.
+        \item
+          The conjugacy classes of
+          $Q_{2^{n+1}}$ are as follows.
+          \mm{todo}
+      \end{itemize}
+    \end{example}
+    \begin{example}[Semi dihedral]
+      \label{exm:semidihedral}
+      For $n\geq 3$ define
+      \begin{equation}
+        \label{eqn:semidehedralpresentation}
+        SD_{2^{n+1}}
+        \colonequals
+        \left\langle
+          a,b\mid
+          a^{2^{n}}=b^2=1,\;
+          bab=a^{-1+2^{n-1}}
+        \right\rangle.
+      \end{equation}
+      We summarize some properties of $SD_{2^{n+1}}$:
+      \begin{itemize}
+        \item
+          $SD_{2^{n+1}}$ has $2^{n+1}$ elements
+          which can be written as
+          \mm{todo}
+        \item
+          $SD_{2^{n+1}}$ is a split extension
+          of cyclic groups.
+        \item
+          \mm{involutions?}
+        \item
+          $Q_{2^{n+1}}/Z(Q_{2^{n+1}})$ is dihedral.
+        \item
+          Maximal subgroups in $SD_{2^{n+1}}$ are characteristic:
+          \begin{align}
+            \label{eqn:maximalsubgroupssemidihedral}
+            \begin{split}
+              \langle a^2,b\rangle=\Omega_1(SD_{2^{n+1}})&\cong D_{2^n}\\
+              \langle a^2,ab\rangle&\cong Q_{2^n}
+            \end{split}
+          \end{align}
+        \item
+          The conjugacy classes of
+          $SD_{2^{n+1}}$ are as follows.
+          \mm{todo}
+      \end{itemize}
+    \end{example}
+    \begin{lemma}
+      \label{lem:dihedralquotient}
+      Let $G$ be one of the groups
+      $D_{2^{n+1}}$, $Q_{2^{n+1}}$, $SD_{2^{n+1}}$
+      discussed in the previous examples
+      with center $Z(G)$.
+      Then $\#Z(G) = 2$
+      and $G/Z(G)$ is a dihedral group.
+    \end{lemma}
+    \begin{proof}
+      % Conrad has elementary proof for dihedral
+      \mm{todo}
+    \end{proof}
+    \mm{
+      In fact, these groups are the $p$-groups
+      of maximal nilpotency class and carry
+      many properties\ldots
+    }
   }
   \section{Computing group extensions}{\label{sec:modcoho}
     % trivial G-Module -> Cohomology module -> Holt's algorithm
@@ -3478,6 +3611,7 @@ Preface and Acknowledgments go here!
   \section{Automorphisms of $2$-groups}{\label{sec:automorphismsoftwogroups}
     % results on automorphisms
     % refined passport conjecture/proof?
+    % refined in next chapter
   }
   % \section{Group theory}{
   %  \subsection{Central group extensions and $H^2(G,A)$}{
@@ -3494,6 +3628,628 @@ Preface and Acknowledgments go here!
   %    \end{lemma}
   %  }
   % }
+}
+\chapter{Fields of definition}{\label{chapter:fieldsofdefinition}
+  Using data from Chapter \ref{chapter:grouptheory},
+  we formulate a conjecture about the possible fields of definition of
+  $2$-group Belyi maps.
+  % \section{Fields of moduli}{\label{sec:fieldsofmoduli}}{
+  %   Recall the action of $G_\QQ$ on the set of Belyi maps
+  %   described in Proposition \ref{prop:galoisaction}.
+  %   For a fixed Belyi map,
+  %   we can simplify matters as described in the following definition.
+  %   \begin{definition}\label{def:fieldofmoduli}
+  %     The \defi{field of moduli} of a Belyi map
+  %     $\phi:X\to\PP^1$ is the fixed field
+  %     \[
+  %       \{\tau\in G_\QQ : \phi^\tau\cong\phi\}.
+  %     \]
+  %   \end{definition}
+  %   Definition \ref{def:fieldofmoduli} allows us to study
+  %   a more manageable finite extension.
+  %   Moreover, passports (recall Definition \ref{def:passport})
+  %   allow us to bound the degree of the field of moduli.
+  %   \begin{theorem}\label{thm:fieldofmoduli}
+  %     Let $\phi:X\to\PP^1$ be a Belyi map
+  %     with passport $\mathcal{P}$.
+  %     Then the degree of the field of moduli of $\phi$
+  %     is bounded by the size of $\mathcal{P}$.
+  %   \end{theorem}
+  %   \begin{proof}
+  %     % proof in JVSijsling
+  %   \end{proof}
+  % }
+  \section{Refined passports}{\label{sec:refined}}{
+    Let $\sigma$ be a $2$-group Belyi triple.
+    Recall, from Definition \ref{def:passport},
+    that the passport of $\sigma$
+    consists of the data
+    $(g(\sigma), \langle\sigma\rangle, \lambda(\sigma))$
+    where $g(\sigma)$ is the genus,
+    $\langle\sigma\rangle$ is the monodromy group
+    as a subgroup of $S_d$,
+    and $\lambda(\sigma)$ is a triple of partitions
+    specifying the three ordered
+    $S_d$
+    conjugacy classes
+    $C_0,C_1,C_\infty$
+    of
+    $\sigma_0,\sigma_1,\sigma_\infty$
+    respectively.
+    Let $\mathcal{P}$ be the passport
+    of $\sigma$.
+    The size of
+    $\mathcal{P}$
+    is the cardinality of the set
+    \begin{equation}
+      \label{eqn:coarse}
+      \Sigma_\mathcal{P}
+      =
+      \{
+        (\sigma_0,\sigma_1,\sigma_\infty)\in
+        C_0\times C_1\times C_\infty:
+        \sigma_\infty\sigma_1\sigma_0=1
+        \text{ and }
+        \langle\sigma_0,\sigma_1,\sigma_\infty\rangle=G
+      \}/\sim
+    \end{equation}
+    where
+    $(\sigma_0,\sigma_1,\sigma_\infty)\sim
+    (\sigma_0',\sigma_1',\sigma_\infty')$
+    if the triples are simultaneously conjugate
+    by an element of $S_d$.
+    By Theorem \ref{thm:fieldofmoduli},
+    the cardinality of $\Sigma_\mathcal{P}$
+    bounds the field of moduli of
+    the Belyi map corresponding to $\sigma$.
+    \par
+    Let $G$ be a transitive subgroup of $S_d$
+    and let $C$ be a conjugacy class of $S_d$.
+    $C$ can be partitioned into
+    conjugacy classes of $G$.
+    To analyze conjugacy in $G$ we
+    make the following definition.
+    \begin{definition}\label{def:refined}
+      A \defi{refined passport} $\mathscr{P}$ consists of the data
+      $(g,G,C)$
+      where $g\geq 0$ is an integer,
+      $G\leq S_d$ is a transitive subgroup,
+      and $C = (C_0,C_1,C_\infty)$
+      is a triple of conjugacy classes of $G$.
+      For a refined passport $\mathscr{P}$ consider the set
+      \begin{equation}
+        \label{eqn:refined}
+        \Sigma_\mathscr{P} =
+        \{(\sigma_0,\sigma_1,\sigma_\infty)\in C_0\times C_1\times C_\infty : \sigma_\infty\sigma_1\sigma_0=1\text{ and } \langle\sigma_0,\sigma_1,\sigma_\infty\rangle=G\}/\sim
+      \end{equation}
+      where $(\sigma_0,\sigma_1,\sigma_\infty)\sim(\sigma_0', \sigma_1', \sigma_\infty')$
+      if and only if there exists $\alpha\in\Aut(G)$ with
+      $\alpha(\sigma_s) = \sigma_s'$ for $s\in\{0,1,\infty\}$.
+      Let $\sigma$ be a $2$-group Belyi triple
+      and let $c_s$ denote the conjugacy
+      class of $\langle\sigma\rangle$
+      containing $\sigma_s$ for
+      $s\in \{0,1,\infty\}$.
+      We define the
+      \defi{refined passport of $\sigma$}
+      to be
+      \begin{equation}
+        \label{eqn:refinedpassportofsigma}
+        \mathscr{P}(\sigma)
+        =(g(\sigma), \langle\sigma\rangle, (c_0,c_1,c_\infty)).
+      \end{equation}
+    \end{definition}
+    \begin{theorem}
+      \label{thm:refinedsizebounds}
+      \mm{
+        The group $\Gal(\QQal/\QQab)$ acts on the refined passport
+      }
+    \end{theorem}
+  }
+  \section{A refined conjecture}{\label{sec:conjecture}}{
+    Let $\sigma$ be a $2$-group Belyi triple.
+    Let $\mathcal{P}$ and $\mathscr{P}$ denote the
+    passport and refined passport of $\sigma$
+    respectively.
+    Let $\Sigma_\mathcal{P}$ and $\Sigma_\mathscr{P}$
+    denote the sets in
+    Equation \ref{eqn:coarse}
+    and
+    Equation \ref{eqn:refined}
+    respectively.
+    Let $\wt{\sigma}$ be a lift of $\sigma$
+    with passport and refined passport
+    $\wt{\mathcal{P}}$ and $\wt{\mathscr{P}}$.
+    \par
+    Chapter \ref{chapter:grouptheory}
+    provides us with an explicit list
+    of all $2$-group Belyi triples
+    (up to simultaneous conjugation in $S_d$)
+    for fixed degree.
+    Using techniques from
+    \cite{belyidb},
+    we computed $\Sigma_\mathscr{P}$ for
+    every $2$-group Belyi triple
+    up to and including degree $256$.
+    We observed that
+    $\#\Sigma_\mathscr{P}=1$
+    in every such example.
+    This observation,
+    combined with Theorem \ref{thm:refinedsizebounds},
+    motivates us to study the behavior
+    of refined passports with respect
+    to the iterative structure of
+    $2$-group Belyi triples.
+    % \begin{lemma}
+    %   \label{lem:lineemuplemma}
+    %   Let $d\in\ZZ_{\geq 1}$,
+    %   let $\lambda=(\lambda_0,\lambda_1,\lambda_\infty)$ be a partition of $d$,
+    %   and let $G$ be a transitive subgroup of $S_d$.
+    %   Let $\mathcal{C}$ denote the
+    %   set of conjugacy classes of $G$.
+    %   For $C\in\mathcal{C}$
+    %   let $c(C)$ denote the
+    %   partition of $d$
+    %   encoding the
+    %   cycle structure of $C$
+    %   (i.e. the conjugacy class of $S_d$
+    %   containing $C$).
+    %   Let
+    %   \begin{equation}
+    %     \label{eqn:triplesofclasses}
+    %     \mathscr{C}
+    %     \colonequals
+    %     \{
+    %       (C_0,C_1,C_\infty)\in\mathcal{C}^3:
+    %       (c(C_0),c(C_1), c(C_\infty))=
+    %       (\lambda_0,\lambda_1,\lambda_\infty)
+    %     \}
+    %   \end{equation}
+    % \end{lemma}
+    % \begin{proof}
+    % \end{proof}
+    \begin{lemma}
+      \label{lem:coarsetorefined}
+      Let $\sigma$ be a $2$-group Belyi triple
+      with passport
+      $\mathcal{P}=(g,G,C)$
+      where $C=(C_0,C_1,C_\infty)$.
+      Let $\mathscr{P} = (g,G,c)$
+      be the refined passport of $\sigma$
+      where $c=(c_0,c_1,c_\infty)$.
+      Let $\sigma'$ be a $2$-group Belyi triple
+      % with passport $\mathcal{P}$
+      simultaneously conjugate to $\sigma$
+      with refined passport $\mathscr{P}'=(g,G,c')$
+      where $c' = (c_0',c_1',c_\infty')$.
+      Then $\#\Sigma_\mathscr{P} = \#\Sigma_{\mathscr{P}'}$.
+    \end{lemma}
+    \begin{proof}
+      \mm{line em up..}
+      % Choose representatives
+      % $\{\psi_i\}_{i=1}^k$
+      % for $\Sigma_\mathscr{P}$
+      % and representatives
+      % $\{\psi_i'\}_{i=1}^{k'}$
+      % for $\Sigma_{\mathscr{P}'}$.
+      % Let $\tau\in S_d$ satisfying
+      % Equation \ref{eqn:simconj}.
+      % % sigma^tau = (tau^-1sigma0tau,..) = sigma'
+    \end{proof}
+    \begin{lemma}
+      \label{lem:identifiedinlift}
+      Let $\sigma$ and $\sigma'$
+      be $2$-group Belyi triples
+      with distinct refined passports
+      $(g,G,C)$ and $(g,G,C')$ respectively.
+      Then the refined passport of any lift
+      of $\sigma$ is not equal to the refined
+      passport of any lift of $\sigma'$.
+    \end{lemma}
+    \begin{proof}
+      Assume for contradiction that we have
+      lifts
+      $\wt{\sigma}$ and $\wt{\sigma}'$
+      of $\sigma$ and $\sigma'$
+      with the same refined passport
+      $(\wt{g},\wt{G},\wt{C})$.
+      Let
+      \begin{equation}
+        \label{eqn:twoextensionsrefinedlemma}
+        \begin{tikzcd}
+          1\arrow{r}&\ZZ/2\ZZ\arrow{r}{\iota}
+                    &\wt{G}\arrow{r}{\pi}
+                    &G\arrow{r}&1\\
+          1\arrow{r}&\ZZ/2\ZZ\arrow{r}{\iota'}
+                    &\wt{G}\arrow{r}{\pi'}
+                    &G\arrow{r}&1
+        \end{tikzcd}
+      \end{equation}
+      be extensions of $\ZZ/2\ZZ$ by $G$
+      such that $\wt{\sigma}\in\pi^{-1}(\sigma)$
+      and $\wt{\sigma}'\in\pi'^{-1}(\sigma')$.
+      Since $\wt{\sigma}$ and $\wt{\sigma}'$
+      have the same refined passport,
+      there exists
+      $\wt{\tau}_s\in\wt{G}$
+      with
+      \begin{equation}
+        \label{eqn:eachconjugate}
+        \wt{\sigma}_s'=\wt{\tau}_s\wt{\sigma}_s\wt{\tau}_s^{-1}
+      \end{equation}
+      for each $s\in \{0,1,\infty\}$.
+      Let $\tau_s\colonequals\pi(\wt{\tau}_s)$.
+      Applying $\pi$ to Equation \ref{eqn:eachconjugate} yields
+      \begin{equation}
+        \label{eqn:applypi}
+        \sigma_s' = \tau_s\sigma_s\tau_s^{-1}.
+      \end{equation}
+      Since Equation \ref{eqn:applypi}
+      holds for each $s\in \{0,1,\infty\}$
+      this implies that
+      $\sigma_s$ and $\sigma_s'$
+      are conjugate in $G$
+      for each $s$.
+      But this implies $\sigma$
+      and $\sigma'$ have the same refined passport
+      which contradicts the hypothesis
+      that these refined passports were distinct.
+      Thus the refined passports of
+      $\wt{\sigma}$ and $\wt{\sigma}'$
+      cannot be equal.
+    \end{proof}
+    \begin{conj}
+      \label{conj:refinedpassportsizeone}
+      Every $2$-group Belyi triple $\sigma$
+      has refined passport size $1$.
+    \end{conj}
+    % \mm{computational evidence, true in easy cases}
+    \begin{proof}[Proof for $\langle\sigma\rangle$ abelian]
+      The proof is by induction on the degree of $\sigma$.
+      There is a unique $2$-group Belyi
+      triple of degree $1$ which therefore has refined passport size $1$.
+      For induction,
+      assume that every $2$-group Belyi triple
+      of degree $d$
+      with $\langle\sigma\rangle$ abelian
+      has refined passport size $1$.
+      Let $\wt{\sigma}$ be a $2$-group Belyi triple of degree $2d$ with $\langle\wt{\sigma}\rangle$
+      abelian.
+      We are required to show that the refined
+      passport of $\wt{\sigma}$ has size $1$.
+      \par
+      Let $\Sigma_\mathscr{P}\colonequals\Sigma_{\mathscr{P}(\wt{\sigma})}$ be the set of refined
+      passport representatives defined in
+      Equation \ref{eqn:refined}.
+      By Algorithm \ref{alg:triples}
+      there exists a $2$-group Belyi triple
+      $\sigma$ such that the following sequence is exact.
+      \begin{equation}
+        \label{eqn:sigmasequence}
+        \begin{tikzcd}
+          1\arrow{r}&\ZZ/2\ZZ\arrow{r}{\iota}
+                    &\langle\wt{\sigma}\rangle\arrow{r}{\pi}
+                    &\langle\sigma\rangle\arrow{r}
+                    &1
+        \end{tikzcd}
+      \end{equation}
+      In other words,
+      $\wt{\sigma}$ is a lift of $\sigma$.
+      Since quotients of abelian groups are abelian,
+      $\langle\sigma\rangle$ is abelian.
+      Thus, by induction,
+      the refined passport of $\sigma$
+      has size $1$.
+      By Lemma \ref{lem:identifiedinlift}
+      every element of $\Sigma_\mathscr{P}$
+      must also be a lift of $\sigma$.
+      Thus, it is sufficient to prove that every
+      lift $\wt{\sigma}'$ satisfies one
+      of the following.
+      \begin{enumerate}
+        \item\label{itm:distinctconjclasses}
+          The $\langle\wt{\sigma}\rangle$
+          conjugacy class of
+          $\wt{\sigma}_s'$ differs from
+          the $\langle\wt{\sigma}\rangle$
+          conjugacy class of
+          $\wt{\sigma}_s$ for
+          some $s\in \{0,1,\infty\}$
+        \item\label{itm:thereexistsanauto}
+          There exists an automorphism
+          $\phi\in\Aut(\langle\wt{\sigma}\rangle)$
+          with
+          $\phi(\wt{\sigma}_s') = \wt{\sigma}_s$
+          for all $s\in \{0,1,\infty\}$
+      \end{enumerate}
+      Let $\alpha\in\iota(\ZZ/2\ZZ)$ be the generator of the image.
+      There are $2^3 = 8$ preimages of $\sigma$
+      under the map $\pi$.
+      Since $\wt{\sigma}_\infty\wt{\sigma}_1\wt{\sigma}_0=1$
+      and $\alpha$ is central,
+      there are exactly $4$ preimages
+      that multiply to $1$.
+      They are as follows.
+      \begin{equation}
+        \label{eqn:preimagesto1}
+        \{
+          (\wt{\sigma}_0,\wt{\sigma}_1,\wt{\sigma}_\infty),
+          (\wt{\sigma}_0,\alpha\wt{\sigma}_1,\alpha\wt{\sigma}_\infty),
+          (\alpha\wt{\sigma}_0,\wt{\sigma}_1,\alpha\wt{\sigma}_\infty),
+          (\alpha\wt{\sigma}_0,\alpha\wt{\sigma}_1,\wt{\sigma}_\infty)
+        \}
+      \end{equation}
+      Since $\langle\wt{\sigma}\rangle$ is abelian,
+      the lifts in Equation \ref{eqn:preimagesto1}
+      all define distinct triples of conjugacy
+      classes of $\langle\wt{\sigma}\rangle$.
+      Thus every lift satisfies \ref{itm:distinctconjclasses} which completes the proof in
+      the abelian case.
+    \end{proof}
+    \begin{proof}[Proof for $\langle\sigma\rangle$ dihedral]
+      The proof in the dihedral case
+      follows the same outline as the abelian case.
+      For the induction hypothesis we now assume
+      that every $2$-group Belyi triple of degree
+      $d$ with $\langle\sigma\rangle$
+      abelian or dihedral has
+      refined passport size $1$.
+      Let $\wt{\sigma}$
+      be a $2$-group Belyi triple of degree $2d$
+      with $\langle\wt{\sigma}\rangle$
+      dihedral.
+      Using the same notation from
+      the abelian case in
+      Equation \ref{eqn:sigmasequence}
+      we are required to show that the
+      $4$ lifts in
+      Equation \ref{eqn:preimagesto1}
+      satisfy either
+      \ref{itm:distinctconjclasses}
+      or
+      \ref{itm:thereexistsanauto}
+      in the proof of the abelian case.
+      \mm{Lemma that quotients of dihedral are dihedral}
+      Using the notation for dihedral groups
+      from Example \ref{exm:dihedral}
+      with $2^{n+1}$ replaced with $2d$
+      we have the following conjugacy classes
+      of $\langle\wt{\sigma}\rangle$.
+      \begin{itemize}
+        \item
+          $ \{1\} $,
+          $ \{a^{\frac{d}{2}}\} $
+        \item
+          $c_i\colonequals \{a^i,a^{-i}\}$
+          for $i\in \{1,\dots,\frac{d}{2}-1\}$
+        \item
+          $c_\text{even}
+          \colonequals
+          \{a^{2i}b : 0\leq i\leq \frac{d}{2}-1\}$
+        \item
+          $c_\text{odd}
+          \colonequals
+          \{a^{2i+1}b : 0\leq i\leq \frac{d}{2}-1\}$
+      \end{itemize}
+      Note that $c_\text{even}$ and $c_\text{odd}$
+      consist of all the involutions of the group.
+      We will say that an involution has
+      \defi{even parity}
+      if it is in $c_\text{ even }$
+      and \defi{odd parity}
+      if it is in $c_\text{odd}$.
+      \par
+      If $\wt{\sigma}_s$ is central,
+      then the conjugacy class of
+      $\alpha\wt{\sigma}_s$ cannot be equal to
+      the conjugacy class of
+      $\wt{\sigma}_s$.
+      Thus we can assume
+      the conjugacy class of
+      $\wt{\sigma}_s$
+      is $c_i$ for some $i$,
+      $c_\text{even}$, or
+      $c_\text{odd}$ for every $s\in \{0,1,\infty\}$.
+      If $\wt{\sigma}_s\in c_i$,
+      then
+      \begin{equation}
+        \label{eqn:alphaci}
+        \alpha\wt{\sigma}_s
+        =a^{d/2}a^{\pm i}=a^{\frac{d}{2}\pm i}.
+      \end{equation}
+      Now $a^{\frac{d}{2}\pm i}\in c_i$
+      if and only if
+      $i=\pm d/4$.
+      Thus we can assume the conjugacy class of
+      $\wt{\sigma}_s$
+      is $c_{d/4}$,
+      $c_\text{even}$, or
+      $c_\text{odd}$
+      for every $s\in \{0,1,\infty\}$.
+      \par
+      Now let us focus on the condition that
+      $\wt{\sigma}_\infty\wt{\sigma}_1
+      \wt{\sigma}_0=1$.
+      First note that
+      every element of
+      $c_\text{even}\cup c_\text{odd}$
+      is an involution, so we need
+      at least one of $\wt{\sigma}_s\in c_{d/4}$
+      to satisfy
+      $\wt{\sigma}_\infty\wt{\sigma}_1
+      \wt{\sigma}_0=1$.
+      Without loss of generality
+      assume that
+      $\wt{\sigma}_\infty\in c_{d/4}$.
+      Then since $\wt{\sigma}_\infty$ has order $4$,
+      we must have
+      $\wt{\sigma}_0,\wt{\sigma}_1
+      \in c_\text{even}\cup c_\text{odd}$
+      (again to have a chance of satisfying
+      their product equals $1$).
+      Let $\wt{\sigma}_1
+      = a^kb
+      \in c_\text{even}\cup
+      c_\text{odd}$ be an involution.
+      Then
+      \begin{align}
+        \label{eqn:sigma1sigmaoo}
+        \begin{split}
+          \wt{\sigma}_\infty\wt{\sigma}_1
+          &= a^{\pm d/4}a^kb
+          = a^{\pm (d/4)+k}b
+          % \wt{\sigma}_1\wt{\sigma}_0
+          % &= a^kba^{\pm d/4}
+          % = a^{k\mp (d/4)}b.
+        \end{split}
+      \end{align}
+      The parity
+      of the involution $\wt{\sigma}_1$
+      is the same as the
+      parity of the involution
+      $\wt{\sigma}_\infty\wt{\sigma}_1$
+      when $d\geq 8$
+      and the parity is different for $d=4$.
+      \begin{claim}
+        \label{claim:sameparitydoesnotgenerate}
+        Two involutions of the same parity
+        do not generate $D_{2d}$ for $d=2^n$
+        and $n\geq 2$.
+      \end{claim}
+      \begin{proof}[Proof of Claim]
+        Let $a^kb$ and $a^{k'}b$ be involutions
+        of $D_{2d}$ with $k$ and $k'$ the same
+        parity.
+        Since $d\geq 4$ is a power of $2$,
+        $\pm k, \pm k'$ all have the same parity.
+        Now since
+        $\langle a^kb,a^{k'}b\rangle$
+        is generated by involutions
+        we have
+        \begin{align}
+          \begin{split}
+            \label{eqn:generatedbyinvolutions}
+            \langle a^kb,a^{k'}b\rangle
+            &=
+            \{a^kb,a^{k'}b\}
+            \cup
+            \langle a^kba^{k'}b\rangle\\
+            &=
+            \{a^kb,a^{k'}b\}
+            \cup
+            \langle a^{k-k'}\rangle\\
+            &=
+            \{a^kb,a^{k'}b\}
+            \cup
+            \langle a^{k'-k}\rangle
+          \end{split}
+        \end{align}
+        which never contains $a$
+        since $k$ and $k'$ have the same parity.
+      \end{proof}
+      The claim finishes the proof
+      for $d\geq 8$.
+      To summarize,
+      the condition that
+      $\wt{\sigma}_\infty\wt{\sigma}_1
+      \wt{\sigma}_0=1$
+      with each $\wt{\sigma}_s\in
+      c_{d/4}\cup c_\text{even} \cup
+      c_\text{odd}$
+      implies that
+      the triple $\wt{\sigma}$
+      consists of exactly one element from
+      $c_{d/4}$
+      and the other two elements
+      are involutions with the same parity.
+      By the claim,
+      no such triple can generate $D_{2d}$
+      which completes the proof for
+      $d\geq 8$.
+      It remains to consider $d=4$ when the $2$
+      involutions have opposite parity.
+      \par
+      It remains to consider the case
+      $d=4$ (i.e. $D_{2d} = D_8$).
+      In this case,
+      $c_{d/4} = c_1=\{a,a^{-1}\}$,
+      $c_\text{even}=\{b,a^2b\}$,
+      $c_\text{odd}=\{ab,a^3b\}$,
+      and we are considering triples
+      $\wt{\sigma}\in
+      c^3$
+      where $c=c_1\cup c_\text{even}\cup c_\text{odd}$.
+      As discussed above,
+      to satisfy $\wt{\sigma}_\infty
+      \wt{\sigma}_1\wt{\sigma}_0=1$
+      we must have exactly one of
+      $\wt{\sigma}_s\in c_1$.
+      Without loss of generality assume
+      $\wt{\sigma}_\infty\in c_1$.
+      Then from Equation \ref{eqn:sigma1sigmaoo}
+      we have that $\wt{\sigma_1}$
+      and $\wt{\sigma_0}$ are involutions with
+      opposite parity.
+      Without loss of generality let
+      $\wt{\sigma}_1\in c_\text{odd}$
+      and $\wt{\sigma}_0\in c_\text{even}$.
+      We then have the following triples
+      $\wt{\sigma}$ that generate
+      $D_8$ and satisfy
+      $\wt{\sigma}_\infty\wt{\sigma}_1
+      \wt{\sigma}_0=1$.
+      \begin{align}
+        \label{eqn:possibleD8triples}
+        \begin{split}
+          (a^2b,ab,a),
+          (b,a^3b,a),
+          (b,ab,a^{-1}),
+          (a^2b,a^3b,a^{-1})
+        \end{split}
+      \end{align}
+      To show that the refined passport
+      of a $\wt{\sigma}$ taken from
+      Equation \ref{eqn:possibleD8triples}
+      we are required to find elements of
+      $\Aut(D_8)$
+      showing all $4$ of these triples are
+      equivalent.
+      Let $f_1\in\Aut(D_8)$ be defined by
+      $a\mapsto a$, and
+      $b\mapsto a^2b$.
+      Let $f_2\in\Aut(D_8)$ be defined by
+      $a\mapsto a^{-1}$, and
+      $b\mapsto b$.
+      Then $f_1$ identifies
+      $(a^2b,ab,a)$
+      and
+      $(b,a^3b,a)$,
+      $f_2$ identifies
+      $(b,a^3b,a)$
+      and
+      $(b,ab,a^{-1})$,
+      and
+      $f_1$ identifies
+      $(b,ab,a^{-1})$
+      and
+      $(a^2b,a^3b,a^{-1})$.
+      Thus completes the proof for $D_8$
+      and thus for the entire dihedral case.
+      % \begin{equation}
+      %   \label{eqn:dihedral8}
+      %   D_8=
+      %   \{1,a,a^2,a^3,b,ab,a^2b,a^3b\}
+      % \end{equation}
+    \end{proof}
+    \begin{proof}[Proof for $G$ Generalized Quaternion]
+    \end{proof}
+    \begin{corr}
+      Every $2$-group Belyi map is defined over a cyclotomic field
+      $\QQ(\zeta_{2^m})$ for some $m$.
+    \end{corr}
+    \begin{proof}
+    \end{proof}
+  }
 }
 %\chapter{Background}{\label{chapter:background}
   %  \section{What is a Belyi map?}{\label{sec:belyimaps}
@@ -6146,81 +6902,6 @@ Preface and Acknowledgments go here!
     %   \begin{proof}
     %   \end{proof}
     % }
-}
-\chapter{Fields of definition of $2$-group Belyi maps}{\label{chapter:fieldsofdefinition}
-  Using data from Chapter \ref{chapter:database},
-  we formulate a conjecture about the possible fields of definition of
-  $2$-group Belyi maps.
-  Recall Section
-  \ref{subsec:fieldsofmodulifieldsofdefinition}
-  on fields of moduli and fields of definition
-  and
-  Recall Section \ref{subsec:passports} on passports.
-  % \section{Fields of moduli}{\label{sec:fieldsofmoduli}}{
-  %   Recall the action of $G_\QQ$ on the set of Belyi maps
-  %   described in Proposition \ref{prop:galoisaction}.
-  %   For a fixed Belyi map,
-  %   we can simplify matters as described in the following definition.
-  %   \begin{definition}\label{def:fieldofmoduli}
-  %     The \defi{field of moduli} of a Belyi map
-  %     $\phi:X\to\PP^1$ is the fixed field
-  %     \[
-  %       \{\tau\in G_\QQ : \phi^\tau\cong\phi\}.
-  %     \]
-  %   \end{definition}
-  %   Definition \ref{def:fieldofmoduli} allows us to study
-  %   a more manageable finite extension.
-  %   Moreover, passports (recall Definition \ref{def:passport})
-  %   allow us to bound the degree of the field of moduli.
-  %   \begin{theorem}\label{thm:fieldofmoduli}
-  %     Let $\phi:X\to\PP^1$ be a Belyi map
-  %     with passport $\mathcal{P}$.
-  %     Then the degree of the field of moduli of $\phi$
-  %     is bounded by the size of $\mathcal{P}$.
-  %   \end{theorem}
-  %   \begin{proof}
-  %     % proof in JVSijsling
-  %   \end{proof}
-  % }
-  \section{Refined passports}{\label{sec:refined}}{
-    \begin{definition}\label{def:refined}
-      A \defi{refined passport} $\mathcal{P}$ consists of the data
-      $(g,G,C)$
-      where $g\geq 0$ is an integer,
-      $G\leq S_d$ is a transitive subgroup,
-      and $C = (C_0,C_1,C_\infty)$
-      is a triple of conjugacy classes of $G$.
-    \end{definition}
-    \mm{some exposition about refined passports}
-    For a refined passport $\mathcal{P}$ consider the set
-    \[
-      \Sigma_\mathcal{P} =
-      \{(\sigma_0,\sigma_1,\sigma_\infty)\in C_0\times C_1\times C_\infty : \sigma_\infty\sigma_1\sigma_0=1,\text{ and } \langle\sigma\rangle=G\}/\sim
-    \]
-    where $(\sigma_0,\sigma_1,\sigma_\infty)\sim(\sigma_0', \sigma_1', \sigma_\infty')$
-    if and only if there exists $\alpha\in\Aut(G)$ with
-    $\alpha(\sigma_s) = \sigma_s'$ for $s\in\{0,1,\infty\}$.
-  }
-  \section{A refined conjecture}{\label{sec:conjecture}}{
-    \begin{conj}
-      Let $\mathcal{P} = (g,G,C)$
-      be a refined passport with
-      $G=\Mon(\phi)$ for some $2$-group Belyi map $\phi$.
-      Then $\#\Sigma_\mathcal{P} = 0\text{ or }1$.
-    \end{conj}
-    \begin{proof}
-      \mm{computational evidence, true in easy cases}
-    \end{proof}
-    \begin{corr}
-      Every $2$-group Belyi map is defined over a cyclotomic field
-      $\QQ(\zeta_{2^m})$ for some $m$.
-    \end{corr}
-    \begin{proof}
-      \mm{
-        The group $\Gal(\QQal/\QQab)$ acts on the refined passport
-      }
-    \end{proof}
-  }
 }
 \chapter{Gross's conjecture for $p=2$}{\label{chapter:grossconjecture}
   We begin this chapter with Theorem \ref{thm:beckmann} which provides
