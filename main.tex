@@ -115,6 +115,8 @@
 \DeclareMathOperator{\orb}{orb}
 \DeclareMathOperator{\id}{id}
 % \DeclareMathOperator{\ker}{ker}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\charpoly}{charpoly}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theorem Declarations
@@ -3630,6 +3632,8 @@ Preface and Acknowledgments go here!
   % }
 }
 \chapter{Fields of definition}{\label{chapter:fieldsofdefinition}
+  \mm{need some sort of lead up for this chapter to connect group theory to field of moduli field of definition\ldots}
+  \mm{K\"{o}ck: $X$ and $\phi$ defined over field of moduli in Galois case}
   Using data from Chapter \ref{chapter:grouptheory},
   we formulate a conjecture about the possible fields of definition of
   $2$-group Belyi maps.
@@ -4250,6 +4254,178 @@ Preface and Acknowledgments go here!
     \end{corr}
     \begin{proof}
     \end{proof}
+  }
+  \section{Representation theory}{\label{sec:reptheory}
+    Let $\sigma$ be a $2$-group Belyi triple
+    of degree $d$ with monodromy
+    $G=\langle\sigma\rangle$
+    and $\wt{\sigma}$ a lift of $\sigma$
+    of degree $2d$ and monodromy
+    $\wt{G}=\langle\wt{\sigma}\rangle$.
+    Recall that we have the
+    following exact sequence.
+    \begin{equation}
+      \label{eqn:reptheoryextension}
+      \begin{tikzcd}
+        1\arrow{r}&\ZZ/2\ZZ\arrow{r}{\iota}
+                  &\wt{G}\arrow{r}{\pi}
+                  &G\arrow{r}
+                  &1
+      \end{tikzcd}
+    \end{equation}
+    Let $\alpha$ be a generator of
+    $\iota(\ZZ/2\ZZ)\leq Z(\wt{G})$.
+    There are $4$ triples of permutations
+    that map to $\sigma$ under $\pi$
+    with the additional property that
+    they multiply to $1$.
+    \begin{equation}
+      \label{eqn:possiblelifts}
+      \{
+        (\wt{\sigma}_0,\wt{\sigma}_1,\wt{\sigma}_\infty),
+        (\wt{\sigma}_0,\alpha\wt{\sigma}_1,\alpha\wt{\sigma}_\infty),
+        (\alpha\wt{\sigma}_0,\wt{\sigma}_1,\alpha\wt{\sigma}_\infty),
+        (\alpha\wt{\sigma}_0,\alpha\wt{\sigma}_1,\wt{\sigma}_\infty)
+      \}
+    \end{equation}
+    Let $\mathscr{P} = \mathscr{P}(\wt{\sigma})$
+    be the refined passport of $\wt{\sigma}$
+    and $\Sigma_\mathscr{P}$ a set of
+    representatives.
+    Let $\wt{\sigma}'$ be an arbitrary lift in
+    Equation \ref{eqn:possiblelifts}.
+    To prove that $\#\Sigma_\mathscr{P}=1$
+    we are required to show that
+    every lift in
+    Equation \ref{eqn:possiblelifts}
+    satisfies at least one of the following
+    conditions.
+    \begin{enumerate}
+      \item\label{itm:distinctconjclasses}
+        The $\wt{G}$
+        conjugacy class of
+        $\wt{\sigma}_s'$ differs from
+        % the $\langle\wt{\sigma}\rangle$
+        the $\wt{G}$
+        conjugacy class of
+        $\wt{\sigma}_s$ for
+        some $s\in \{0,1,\infty\}$
+      \item\label{itm:thereexistsanauto}
+        There exists an automorphism
+        $\phi\in\Aut(\wt{G})$
+        with
+        $\phi(\wt{\sigma}_s') = \wt{\sigma}_s$
+        for all $s\in \{0,1,\infty\}$
+    \end{enumerate}
+    Suppose now that $\#\Sigma_\mathscr{P}\geq 2$.
+    According to
+    \ref{itm:distinctconjclasses}
+    it is necessary to have
+    \begin{equation}
+      \label{eqn:alphatau}
+      \wt{\sigma}_s\alpha
+      =
+      \wt{\tau}\wt{\sigma}_s\wt{\tau}^{-1}
+    \end{equation}
+    for some $s\in \{0,1,\infty\}$
+    and some $\wt{\tau}\in\wt{G}$.
+    Let $\tau = \pi(\wt{\tau})$.
+    Applying $\pi$ to Equation
+    \ref{eqn:alphatau}
+    we get the following.
+    \begin{align}
+      \label{eqn:taucentralizes}
+      \begin{split}
+        \pi(\wt{\sigma}_s\alpha)=
+        \pi(\wt{\tau}\wt{\sigma}_s\wt{\tau}^{-1})
+        &\implies
+        \sigma_s = \tau\sigma_s\tau^{-1}\\
+        &\implies
+        \tau\in C_G(\sigma_s)
+      \end{split}
+    \end{align}
+    \begin{remark}
+      \label{rmk:size3}
+      If we assume the more stringent condition
+      that $\#\Sigma_\mathscr{P}\geq 3$,
+      then Equation
+      \ref{eqn:possiblelifts}
+      implies that
+      Equation \ref{eqn:alphatau}
+      holds for all $s\in \{0,1,\infty\}$.
+      Then by
+      Equation
+      \ref{eqn:taucentralizes}
+      we have that a centralizing element
+      $\tau_s\in C_G(\sigma_s)$ for every $s$.
+      If all these $\tau_s$ are equal to some
+      $\tau\in G$, then $\tau$ lives in the
+      center of $G$
+      and the element
+      $\wt{\tau}\in\pi^{-1}(Z(G))$
+      upstairs
+      satisfies
+      Equation
+      \ref{eqn:alphatau}
+      for all $s$.
+    \end{remark}
+    Let $\rho\colon \wt{G}\to\GL(V)$ be a
+    representation
+    of $\wt{G}$ over $\CC$.
+    For $M\in\GL(V)$, let
+    $\charpoly(M)$ denote the
+    characteristic polynomial of $M$.
+    Let $A = \rho(\alpha)$.
+    Then $A^2=1$.
+    Since $\alpha\in Z(\wt{G})$,
+    we have
+    $\rho(\alpha \wt{g}) = \rho(\wt{g}\alpha)$
+    so that $A$ commutes with $\rho(\wt{g})$
+    for all $\wt{g}\in \wt{G}$.
+    If $\rho$ is faithful,
+    then $A\neq 1$.
+    In general,
+    $\rho(\wt{g})$ will have finite order
+    and thus can be diagonalized
+    over a cyclotomic field.
+    If Equation \ref{eqn:alphatau}
+    is satisfied for some $s$,
+    then
+    \begin{equation}
+      \label{eqn:rhoalphatau}
+      \rho(\wt{\sigma}_s\alpha)
+      =
+      \rho(\wt{\tau}\wt{\sigma}_s\wt{\tau}^{-1})
+    \end{equation}
+    which implies
+    \begin{align}
+      \label{eqn:charpoly}
+      \begin{split}
+        \charpoly(\rho(\wt{\sigma}_s\alpha))
+        &=\charpoly(\rho(\wt{\tau}\wt{\sigma}_s\wt{\tau}))\\
+        &=\charpoly(\rho(\wt{\sigma}_s)).
+      \end{split}
+    \end{align}
+    If we let $S = \rho(\wt{\sigma}_s)$
+    and $A=\rho(\alpha)$ (as above),
+    then Equation \ref{eqn:charpoly}
+    becomes
+    \begin{equation}
+      \label{eqn:charpoly2}
+      \charpoly(SA) = \charpoly(S).
+    \end{equation}
+    Since $A^2=1$ and $A\neq 1$,
+    we have that $A$ is a diagonal matrix
+    with $\pm 1$ along the diagonal with
+    at least one occurence of $-1$.
+    Over $\CC$,
+    we can apply Shur's Lemma
+    to get that $A$ is a scalar matrix
+    and therefore $A=-1$.
+    The eigenspaces of $A$ are $\wt{G}$-stable.
+    % two nxn matrices A,B over char(K)=0
+    % have same charpolys iff
+    % trace(A^k) = trace(A^k) for all k \ge 0
   }
 }
 %\chapter{Background}{\label{chapter:background}
