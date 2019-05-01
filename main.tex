@@ -2,7 +2,6 @@
 % arara: bibtex
 % arara: bibtex
 % arara: pdflatex
-% arara: pdflatex
 
 \documentclass{dcthesis}
 
@@ -154,6 +153,7 @@
 \DeclareMathOperator{\charpoly}{charpoly}
 % \DeclareMathOperator{\det}{det}
 \DeclareMathOperator{\Tr}{tr}
+\DeclareMathOperator{\Pl}{Pl}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theorem Declarations
@@ -5887,8 +5887,92 @@ Preface and Acknowledgments go here!
     % trace(A^k) = trace(A^k) for all k \ge 0
   }
 }
-\chapter{Computing Equations}{\label{chapter:equations}
-  \section{Function Fields over Finite Fields}{\label{sec:functionfields}
+\chapter{Computing equations}{\label{chapter:equations}
+  In this chapter we discuss how to compute
+  equations for $2$-group Belyi maps
+  corresponding to the $2$-group Belyi triples
+  computed in Chapter
+  \ref{chapter:grouptheory}.
+  As was the case for computing the permutation
+  triples,
+  the algorithm to compute equations follows an
+  iterative approach where we
+  construct the Belyi maps
+  as towers of quadratic extensions
+  of function fields.
+  Before describing these algorithms,
+  we first discuss the analogous situation
+  over number fields.
+  \section{Quadratic extensions of number fields}{\label{sec:numberfields}
+    Let $F$ be a number field
+    and let $\ZZ_F$ denote the ring of integers
+    of $F$.
+    Kummer theory tells us that quadratic
+    extensions of $F$ are in bijection with
+    nontrivial cosets $dF^{\times 2}$ of 
+    $F^\times/F^{\times 2}$.
+    Such a $d$ defines a quadratic extension
+    $F(\sqrt{d})$.
+    Conversely,
+    let $F(\alpha)$ be a quadratic extension of $F$.
+    The discriminant of the minimal polynomial
+    of $\alpha$ defines the bijection in the other
+    direction.
+    % \begin{equation}
+      % \label{eqn:kummer}
+      % \begin{tikzpicture}[scale=1]
+      %   \node at (-4,0) (extensions)
+      %   {
+      %     $
+      %       \left\{
+      %         \begin{minipage}{26ex}
+      %           quadratic extensions $K/F$
+      %         \end{minipage}
+      %       \right\}
+      %     $
+      %   };
+      %   \node at (4,0) (discriminants)
+      %   {
+      %     $
+      %       \left\{
+      %         \begin{minipage}{26ex}
+      %           $d\in F^\times/F^{\times 2}$
+      %           with
+      %           $d\not\in F^{\times 2}$
+      %         \end{minipage}
+      %       \right\}
+      %     $
+      %   };
+      %   \draw[<->] (extensions) to node [above] {$\sim$} node {} (discriminants);
+      %   % \draw[<->] (dessins) to node [above,rotate=35] {$\sim$} node {} (fields);
+      % \end{tikzpicture}
+    % \end{equation}
+    Let $\Pl(F)$ denote the set of places of $F$
+    and let $S_\infty$ denote the archimedean
+    places.
+    For $v\in\Pl(F)\setminus S_\infty$
+    let $\mathfrak{p}_v$
+    be the prime ideal of $\ZZ_F$ corresponding
+    to $v$.
+    Let $S\subset\Pl(F)\setminus S_\infty$
+    be a finite set of nonarchimedean places.
+    \begin{center}
+      \emph{
+        How do we construct a
+        quadratic extension of
+        $F$ ramified at $\mathfrak{p}_v$
+        for all $v\in S$
+        and unramified at all
+        nonarchimedean places outside of $S$?
+      }
+    \end{center}
+    To answer this question
+  }
+  \section{Function fields}{\label{sec:functionfields}
+  }
+  \section{Quadratic extensions of function fields}{\label{sec:functionfieldextensions}
+  }
+  \section{An iterative algorithm over $\FF_q$}{\label{sec:functionfieldalgorithm}
   }
 }
 %\chapter{Background}{\label{chapter:background}
