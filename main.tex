@@ -43,6 +43,8 @@
 % Additional Packages (add as desired)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsmath,amssymb,amsthm,amsxtra}
+\usepackage{showkeys}
+\usepackage{chngcntr}
 \usepackage{mathrsfs} 
 \usepackage{lipsum}
 \usepackage{xcolor}
@@ -154,30 +156,43 @@
 % \DeclareMathOperator{\det}{det}
 \DeclareMathOperator{\Tr}{tr}
 \DeclareMathOperator{\Pl}{Pl}
+\DeclareMathOperator{\Cl}{Cl}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%numberwithin section for
+%tables equations and figures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\numberwithin{equation}{section}
+\renewcommand{\thefigure}{\arabic{chapter}.\arabic{section}.\arabic{equation}}
+% \numberwithin{figure}{section}
+% \numberwithin{table}{section}
+% \counterwithin{equation}{section}
+% \counterwithin{figure}{section}
+% \counterwithin{table}{section}
+% \renewcommand{\thefigure}{\arabic{figure}}
+%%%%%%%%%
+% \makeatletter
+% \let\c@equation\c@figure
+% \makeatother
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theorem Declarations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % A basic set of theorem declarations.  Add or remove as desired. 
 % \newtheorem{prop}{Proposition}[chapter]
-\newtheorem{prop}{Proposition}[section]
-\newtheorem{theorem}[prop]{Theorem}
-\newtheorem{conj}[prop]{Conjecture}
-\newtheorem{lemma}[prop]{Lemma}
-\newtheorem{corr}[prop]{Corollary}
+\newtheorem{theorem}[equation]{Theorem}
+\newtheorem{prop}[equation]{Proposition}
+\newtheorem{conj}[equation]{Conjecture}
+\newtheorem{lemma}[equation]{Lemma}
+\newtheorem{corr}[equation]{Corollary}
 \theoremstyle{definition}
-\newtheorem{definition}[prop]{Definition}
-\newtheorem{alg}[prop]{Algorithm}
-\newtheorem{notation}[prop]{Notation}
+\newtheorem{definition}[equation]{Definition}
+\newtheorem{alg}[equation]{Algorithm}
+\newtheorem{notation}[equation]{Notation}
 \theoremstyle{remark}
-\newtheorem{remark}[prop]{Remark}
-\newtheorem{example}[prop]{Example}
+\newtheorem{remark}[equation]{Remark}
+\newtheorem{example}[equation]{Example}
 \newtheorem*{claim}{Claim}
-% numberwithin section for tables equations and figures
-\numberwithin{equation}{section}
-\numberwithin{figure}{section}
-\numberwithin{table}{section}
-% \renewcommand{\thefigure}{\arabic{figure}}
+\newtheorem{question}[equation]{Question}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Indices
@@ -5900,9 +5915,26 @@ Preface and Acknowledgments go here!
   construct the Belyi maps
   as towers of quadratic extensions
   of function fields.
-  Before describing these algorithms,
-  we first discuss the analogous situation
-  over number fields.
+  In
+  Section \ref{sec:functionfields}
+  we give a brief overview of
+  algebraic function fields,
+  in Section
+  \ref{sec:numberfields}
+  we discuss the analogous situation
+  over number fields,
+  and then describe the algorithms
+  in
+  Section
+  \ref{sec:functionfieldextensions}
+  and Section
+  \ref{sec:functionfieldalgorithm}.
+  \section{Function fields}{\label{sec:functionfields}
+    \mm{
+      some background to support the
+      claims in this chapter as needed
+    }
+  }
   \section{Quadratic extensions of number fields}{\label{sec:numberfields}
     Let $F$ be a number field
     and let $\ZZ_F$ denote the ring of integers
@@ -5911,7 +5943,8 @@ Preface and Acknowledgments go here!
     extensions of $F$ are in bijection with
     nontrivial cosets $dF^{\times 2}$ of 
     $F^\times/F^{\times 2}$.
-    Such a $d$ defines a quadratic extension
+    Such a $d$ defines a
+    quadratic extension
     $F(\sqrt{d})$.
     Conversely,
     let $F(\alpha)$ be a quadratic extension of $F$.
@@ -5956,21 +5989,145 @@ Preface and Acknowledgments go here!
     to $v$.
     Let $S\subset\Pl(F)\setminus S_\infty$
     be a finite set of nonarchimedean places.
-    \begin{center}
-      \emph{
-        How do we construct a
-        quadratic extension of
-        $F$ ramified at $\mathfrak{p}_v$
-        for all $v\in S$
-        and unramified at all
-        nonarchimedean places outside of $S$?
-      }
-    \end{center}
-    To answer this question
-  }
-  \section{Function fields}{\label{sec:functionfields}
+    We aim to answer the following question.
+    \begin{question}
+      \label{ques:construct}
+      How do we construct a
+      quadratic extension of
+      $F$ ramified at $\mathfrak{p}_v$
+      for all $v\in S$
+      and unramified at all
+      nonarchimedean places outside of $S$?
+      If so, then
+      how \emph{unique} is the construction?
+    \end{question}
+    To formulate this question more clearly,
+    let
+    $
+      % \label{eqn:aadivisor}
+      \mathfrak{a}\colonequals
+      \prod_{v\in S}\mathfrak{p}_v
+    $
+    encode the primes
+    we want to ramify in this quadratic extension.
+    There are three possibilities.
+    \begin{itemize}
+      \item
+        It is possible that no such
+        extension exists.
+      \item
+        First, suppose
+        $\mathfrak{a}$ is principal.
+        If $\mathfrak{a} = (d)$,
+        then the extension
+        $F(\sqrt{d})$ is a quadratic extension
+        ramified exactly at the $\mathfrak{p}_v$,
+        and the generator $d$ is unique
+        up to multiplication
+        by a unit in $\ZZ_F^\times$.
+      \item
+        If $\mathfrak{a}$ is not principal,
+        it is possible there
+        exists a fractional ideal
+        $\mathfrak{b}$ such that
+        $\mathfrak{a}\mathfrak{b}^2=(d)$.
+        In this case,
+        we can again construct the extension
+        $F(\sqrt{d})$ with the prescribed
+        ramification,
+        but $d$ is only unique up to
+        the the ideal $\mathfrak{b}$ used
+        to construct it.
+    \end{itemize}
+    Let us consider the last case more closely.
+    Let $\Cl_F$ denote the class group of $F$
+    and for a fractional ideal
+    $\mathfrak{i}$ let $[\mathfrak{i}]$
+    denote its ideal class in $\Cl_F$.
+    The equation $\mathfrak{a}\mathfrak{b}^2=(d)$
+    means that $[\mathfrak{a}] = [\mathfrak{b}^{-2}]$
+    so that $[\mathfrak{a}]\in\Cl_F^2$.
+    Moreover, if we take an element
+    $[\mathfrak{c}]$
+    of order $2$
+    in $\Cl_F$,
+    then
+    \begin{equation}
+      \label{eqn:twotorsionintheclassgroup}
+      [\mathfrak{a}\mathfrak{b}^2]
+      =[\mathfrak{a}\mathfrak{b}^2][(1)]
+      =[\mathfrak{a}\mathfrak{b}^2][\mathfrak{c}^2]
+      =[\mathfrak{a}(\mathfrak{bc})^2].
+    \end{equation}
+    Thus,
+    in the case where $\mathfrak{a}$ is not
+    principal,
+    but there exists $\mathfrak{b}$ with
+    $\mathfrak{a}\mathfrak{b}^2$ principal,
+    we have
+    $[\mathfrak{a}]\in\Cl_F^2$ and
+    $[\mathfrak{b}]$ is unique up to
+    multiplication by $[\mathfrak{c}]$
+    an order $2$ element in $\Cl_F$.
+    \par
+    We can now formulate our precise goal.
+    Given $\mathfrak{a}$
+    (encoding ramification data),
+    find $\mathfrak{b}^2$ and $d$ such that
+    $\mathfrak{a}\mathfrak{b}^2=(d)$.
+    In the next section we will rephrase this
+    problem in the function field setting.
   }
   \section{Quadratic extensions of function fields}{\label{sec:functionfieldextensions}
+    Let $F$ be a function field
+    over a finite field $\FF_q$
+    of characteristic $p\neq 2$.
+    % Let $\Pl(F)$ denote the set of places of $F$
+    % and let $S_\infty$ denote the archimedean
+    % places.
+    % Let $S\subset\Pl(F)\setminus S_\infty$
+    % be a finite set of nonarchimedean places.
+    \begin{prop}
+      \label{prop:kummerramification}
+      % rosen Prop 10.3
+      Let $aF^{\times 2}$ be a nontrivial
+      coset of $F^\times/F^{\times 2}$
+      and consider the extension
+      $K\colonequals F(\sqrt{a})$.
+      Then a prime $P$ of $F$ is ramified
+      in $K$ if and only if
+      $\ord_P(a)$ is odd.
+    \end{prop}
+    \begin{proof}
+      Since $a$ is not a square in $F$,
+      the extension is quadratic.
+      Suppose $\ord_P(a)$ is odd
+      and let $\mathfrak{p}$ be
+      a prime above $P$ in $K$.
+      Then we have
+      \begin{equation}
+        \label{eqn:sqrtsquared}
+        2\ord_{\mathfrak{p}}(\sqrt{a})
+        = \ord_{\mathfrak{p}}(a)
+        = e(\mathfrak{p}/P)\ord_P(a).
+      \end{equation}
+      Since $\ord_P(a)$ is odd,
+      Equation \ref{eqn:sqrtsquared}
+      implies that $2$ divides
+      $e(\mathfrak{p}/P)$ so that
+      $P$ is ramified in $K$.
+      Moreover, this says that
+      $e(\mathfrak{p}/P) = 2$.
+      \mm{converse}
+    \end{proof}
+    We now consider the problem of
+    finding a quadratic extension $K/F$
+    with ramification prescribed by
+    $R\in\Div(F)$.
+    By Proposition
+    \ref{prop:kummerramification},
+    we can take all nonzero coefficients
+    of $R$ to be $1$.
   }
   \section{An iterative algorithm over $\FF_q$}{\label{sec:functionfieldalgorithm}
   }
