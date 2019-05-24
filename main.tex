@@ -119,6 +119,7 @@
 \newcommand{\mm}[1]{{\color{blue} \sf MM: [#1]}}
 \newcommand{\wt}[1]{\widetilde{#1}}
 \newcommand{\QQal}{{\mathbb Q}^{\textup{al}}}
+\newcommand{\FFqal}{{\mathbb F}_q^{\textup{al}}}
 \newcommand{\QQab}{{\mathbb Q}^{\textup{ab}}}
 \newcommand{\QQbar}{{\mathbb Q}^{\textup{al}}}
 \newcommand{\Kal}{{{K}^{\textup{al}}}}
@@ -6202,15 +6203,15 @@ Preface and Acknowledgments go here!
       is $2^m$.
       \mm{define iso of Belyi mod q}
     \end{definition}
-    We now describe an iterative algorithm
-    to produce $2$-group Belyi maps
+    We now describe the algorithms
+    to iteratively compute $2$-group Belyi maps
     modulo $q$.
-    Algorithm
-    \ref{alg:degree2FF}
-    details the degree $2$ case,
-    and
-    Algorithm
-    \ref{alg:extractroot} describes the iteration.
+    % Algorithm
+    % \ref{alg:degree2FF}
+    % details the degree $2$ case,
+    % and
+    % Algorithm
+    % \ref{alg:getcandidates} describes the iteration.
     \begin{alg}
       \label{alg:degree2FF}
       Let the notation be
@@ -6221,11 +6222,102 @@ Preface and Acknowledgments go here!
       \mm{degree 2 Belyi maps mod q up to iso}
     \end{alg}
     \begin{alg}
-      \label{alg:extractroot}
+      \label{alg:isgalois}
       Let the notation be
       as above in the beginning of
       Section
-      \ref{sec:functionfieldalgorithm}
+      \ref{sec:functionfieldalgorithm}.
+      \newline
+      \textbf{Input}:
+      \begin{itemize}
+        \item
+          $F$ a Galois extension of
+          $\FF_q(x)$
+        \item
+          $\Gal(F/\FF_q(x))$
+          explicitly given
+          as automorphisms of $F$
+        \item
+          $f\in F$
+      \end{itemize}
+      \textbf{Output}:
+      True if the quadratic extension
+      $F(\sqrt{f})$ of $F$
+      is a Galois extension over $\FF_q(x)$
+      and False otherwise
+      \begin{enumerate}
+        \item
+          For each $\sigma\in\Gal(F/\FF_q(x))$
+          test if $\sigma(f)/f$ is a square
+          in $F$.
+        \item
+          If $\sigma(f)/f$ is a square in $F$
+          for all $\sigma\in\Gal(F/\FF_q(x))$
+          then return True
+          otherwise return False.
+      \end{enumerate}
+    \end{alg}
+    \begin{proof}[Proof of correctness]
+    \end{proof}
+    \begin{alg}
+      \label{alg:isgaloisoverextension}
+      Let the notation be
+      as above in the beginning of
+      Section
+      \ref{sec:functionfieldalgorithm}.
+      \newline
+      \textbf{Input}:
+      \begin{itemize}
+        \item
+          $F$ a Galois extension of
+          $\FF_q(x)$
+        \item
+          $\Gal(F/\FF_q(x))$
+          explicitly given
+          as automorphisms of $F$
+        \item
+          $f\in F$
+      \end{itemize}
+      Let $F'$ be the function field $F$
+      with the constant field
+      extended
+      from $\FF_q$ to $\FF_{q^2}$.
+      \textbf{Output}:
+      True if the quadratic extension
+      $F'(\sqrt{f})$ of $F'$
+      is a Galois extension over $\FF_{q^2}(x)$
+      and False otherwise
+      \begin{enumerate}
+        \item
+          For each $\sigma\in\Gal(F'/\FF_{q^2}(x))$
+          test if $\sigma(f)/f$ is a square
+          in $F'$.
+        \item
+          If $\sigma(f)/f$ is a square in $F'$
+          for all $\sigma\in\Gal(F'/\FF_{q^2}(x))$
+          then return True
+          otherwise return False.
+      \end{enumerate}
+    \end{alg}
+    \begin{proof}[Proof of correctness]
+    \end{proof}
+    \begin{lemma}
+      \label{lem:qsquaredisgoodenough}
+      Let $F$ be a function field
+      with algebraically closed constant field
+      $\FFqal$.
+      Let $F'$ denote the function field $F$
+      with constant field restricted to
+      $\FF_{q^2}$.
+      Then $g$ is a square in $F$ if and only if
+      $g$ is a square in $F'$.
+    \end{lemma}
+    \begin{alg}
+      \label{alg:getcandidates}
+      Let the notation be
+      as above in the beginning of
+      Section
+      \ref{sec:functionfieldalgorithm}.
       \newline
       \textbf{Input}:
       \begin{itemize}
@@ -6249,21 +6341,22 @@ Preface and Acknowledgments go here!
           as automorphisms of $F$
       \end{itemize}
       \textbf{Output}:
-      $\wt{\phi}\in\wt{F}$
-      a $2$-group Belyi map modulo $q$
-      (or $q^2$)
-      of degree $2d$
-      with $\Gal(\wt{F}/\FF_q(x))
-      \cong\langle\wt{\sigma}\rangle$
-      explicitly given as
-      automorphisms of $\wt{F}$
-      such that each automorphism
-      restricts to an automorphism
-      in $\Gal(F/\FF_q(x))$ given
-      as input.
-      \mm{note we can check if we need $q^2$ at the very beginning}
+      \mm{list of candidate functions...}
+        % $\wt{\phi}\in\wt{F}$
+        % a $2$-group Belyi map modulo $q$
+        % (or $q^2$)
+        % of degree $2d$
+        % with $\Gal(\wt{F}/\FF_q(x))
+        % \cong\langle\wt{\sigma}\rangle$
+        % explicitly given as
+        % automorphisms of $\wt{F}$
+        % such that each automorphism
+        % restricts to an automorphism
+        % in $\Gal(F/\FF_q(x))$ given
+        % as input.
+      % \mm{note we can check if we need $q^2$ at the very beginning}
       \begin{enumerate}
-        \item\label{alg:extractroot_setup}
+        \item\label{alg:gencandidates_setup}
           For $s\in\{0,1,\infty\}$
           compute
           \begin{align}
@@ -6280,7 +6373,7 @@ Preface and Acknowledgments go here!
               \order(\wt{\sigma}_s)\\
             \end{cases}
           \end{align}
-        \item\label{alg:extractroot_getram}
+        \item\label{alg:getcandidates_getram}
           Compute
           \begin{equation}
             \label{eqn:ramdivisor}
@@ -6296,12 +6389,50 @@ Preface and Acknowledgments go here!
           $\ddiv(\phi-1)$,
           and $\ddiv(1/\phi)$
           respectively.
-        \item\label{alg:extractroot_Pic}
-          Compute the abelian group $\Pic(F)$
-          and explicit
-          representatives in
-          $\Div(F)$.
-        \item
+        \item\label{alg:getcandidates_Pic}
+          Compute the abelian group
+          $\Pic(F)=T\oplus\ZZ$
+          (with $T$ a finite abelian group)
+          along with a map
+          $\psi\colon\Pic(F)\to\Div(F)$.
+        \item\label{alg:getcandidates_PicR}
+          Compute
+          $[R]\colonequals\psi^{-1}(R)$.
+        \item\label{alg:getcandidates_Pic2}
+          For each $a\in\Pic(F)[2]$ compute the
+          following:
+          \begin{enumerate}
+            \item\label{alg:getcandidates_Da}
+              Let $D_a\colonequals\psi(a+[R]/2)
+              \in\Div(F)$.
+            \item\label{alg:getcandidates_LDa}
+              Compute $\mathscr{L}(D_a)$.
+            \item\label{alg:getcandidates_dimLDa}
+              If $\mathscr{L}(D_a)$ has dimension
+              $1$, then compute
+              $f_a\in F$ with $\ddiv(f_a)$
+              generating $\mathscr{L}(D_a)$
+              and go to Step
+              \ref{alg:getcandidates_isgalois}.
+              Otherwise go to the next
+              $a\in\Pic(F)[2]$.
+            \item\label{alg:getcandidates_isgalois}
+              Apply Algorithm \ref{alg:isgalois}
+              to $F$,
+              $\Gal(F/\FF_q(x))$,
+              and $f_a$
+              from Step
+              \ref{alg:getcandidates_dimLDa}
+              to see if $F(\sqrt{f_a})$
+              generates a Galois extension.
+              If $F(\sqrt{f_a})$ is Galois over
+              $\FF_q(x)$ then save $f_a$.
+              Go to the next
+              $a\in\Pic(F)[2]$.
+          \end{enumerate}
+        \item\label{alg:getcandidates_return}
+          Return the list of all $f_a$
+          saved in Step \ref{alg:getcandidates_isgalois}.
       \end{enumerate}
       % \begin{enumerate}
         % \item
@@ -6356,6 +6487,31 @@ Preface and Acknowledgments go here!
         %   Let $\wt{X}$ be the curve corresponding to $\sat(\wt{I})$ and
         %   $\wt{\phi}$ the map $(y_1,\dots,y_{n+1})\mapsto y_1$.
       % \end{enumerate}
+    \end{alg}
+    \begin{alg}
+      \label{alg:extractroot}
+      Let the notation be
+      as above in the beginning of
+      Section
+      \ref{sec:functionfieldalgorithm}.
+      \newline
+      \textbf{Input}:
+      \begin{itemize}
+        \item
+          Input from
+          Algorithm
+          \ref{alg:getcandidates}
+        \item
+          Additionally,
+          a specific
+          $f_a$ from the output of
+          Algorithm
+          \ref{alg:getcandidates}
+      \end{itemize}
+      \textbf{Output}:
+      \begin{enumerate}
+        \item 
+      \end{enumerate}
     \end{alg}
     \begin{proof}[Proof of correctness]
     \end{proof}
