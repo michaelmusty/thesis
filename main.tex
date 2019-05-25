@@ -43,7 +43,7 @@
 % Additional Packages (add as desired)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{amsmath,amssymb,amsthm,amsxtra}
-\usepackage{showkeys}
+% \usepackage{showkeys}
 \usepackage{chngcntr}
 \usepackage{mathrsfs} 
 \usepackage{lipsum}
@@ -6312,6 +6312,7 @@ Preface and Acknowledgments go here!
       Then $g$ is a square in $F$ if and only if
       $g$ is a square in $F'$.
     \end{lemma}
+    \mm{$q^2$ is good enough to lift auts but not for field of definition}
     \begin{alg}
       \label{alg:getcandidates}
       Let the notation be
@@ -6325,15 +6326,19 @@ Preface and Acknowledgments go here!
           $\phi\in F$
           a $2$-group Belyi map modulo $q$
           of degree $d=2^m$
+          corresponding to a $2$-group
+          Belyi triple $\sigma$
         \item
-          $\wt{\sigma}$ a $2$-group Belyi triple
-          of degree $2d$
+          A passport
+          $\mathcal{P}=(\wt{G},(a,b,c))$
+          with $\wt{G}$ a $2$-group of order
+          $2d$ such that there
+          exists a
+          $2$-group Belyi triple
+          $\wt{\sigma}$ with passport
+          $\mathcal{P}$
           that is a lift of
-          a $2$-group Belyi triple
           $\sigma$
-          of degree $d$
-          corresponding
-          to $\phi$
         \item
           $\Gal(F/\FF_q(x))\cong
           \langle\sigma\rangle$
@@ -6341,7 +6346,22 @@ Preface and Acknowledgments go here!
           as automorphisms of $F$
       \end{itemize}
       \textbf{Output}:
-      \mm{list of candidate functions...}
+      A list of candidate functions
+      $\{f_1,\dots,f_k\}$ with each $f_i\in F$
+      such that $F(\sqrt{f_i})$ is a
+      $2$-group Belyi map modulo $q$
+      with passport $\mathcal{P}$.
+      More specifically, each $f_i$ satisfies
+      the following:
+      \begin{itemize}
+        \item
+          $F(\sqrt{f_i})$ is a Galois
+          extension of $\FF_q(x)$
+          with $\Gal(F(\sqrt{f_i})/\FF_q(x))
+          \cong \wt{G}$
+        \item
+      \end{itemize}
+      % \mm{list of candidate functions...}
         % $\wt{\phi}\in\wt{F}$
         % a $2$-group Belyi map modulo $q$
         % (or $q^2$)
@@ -6489,7 +6509,7 @@ Preface and Acknowledgments go here!
       % \end{enumerate}
     \end{alg}
     \begin{alg}
-      \label{alg:extractroot}
+      \label{alg:liftbelyimap}
       Let the notation be
       as above in the beginning of
       Section
