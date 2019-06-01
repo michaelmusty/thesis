@@ -139,8 +139,8 @@
         \@degree \par
         in \par
         \@field \par
-        by \@author \par
-	Guarini School of Graduate and Advanced Studies \par
+        by \par
+        \@author \par
         \MakeUppercase{\@school} \par
         \@location \par
         \@date \par
@@ -150,10 +150,8 @@
           & \@signatureline{\@advisor, Chair} \\
           & \@signatureline{\@examinera} \\
           & \@signatureline{\@examinerb} \\
-          & \@signatureline{\@examinerc}\\
-          \@longsignatureline{\@dean}\\
-	[-.5em]
-	\multicolumn{2}{l}{Dean of the Guarini School of Graduate and Advanced Studies}
+          & \@signatureline{\@examinerc} \\
+          \@longsignatureline{\@dean \par Dean of Graduate and Advanced Studies}
         \end{tabular}
       \end{center}
     \end{doublespace}
