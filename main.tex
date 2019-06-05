@@ -52,6 +52,7 @@
 \hypersetup{colorlinks=true,urlcolor=blue,citecolor=blue,linkcolor=blue}
 \usepackage{tikz}
 \usepackage{colonequals}
+% \usepackage{caption}
 \usepackage{enumerate}
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -158,6 +159,7 @@
 \DeclareMathOperator{\Tr}{tr}
 \DeclareMathOperator{\Pl}{Pl}
 \DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\Jac}{Jac}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %numberwithin section for
@@ -246,7 +248,7 @@ Preface and Acknowledgments go here!
 \tableofcontents
 
 %Add a list of tables
-\listoftables
+% \listoftables
 
 %Add a list of figures
 \listoffigures
@@ -257,66 +259,96 @@ Preface and Acknowledgments go here!
 \mainmatter
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
-%%  YOUR THESIS HERE!  %%
+%%  THESIS  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Introduction}{\label{chapter:intro}
-  \section{Motivation}{\label{sec:motivation}}{
+  \section{Motivation}{\label{sec:motivation}{
     A broad goal of arithmetic geometry is
     to use tools from algebraic geometry
     to study arithmetic questions that arise
     in number theory.
-    One example of this connection is Falting's
-    Theorem which bounds an arithmetic quantity
-    (in this case the number of rational points)
-    in terms of a geometric invariant
-    (the genus ($\geq 2$)
-    of a nonsingular algebraic curve).
+    One example of this connection is
+    the theorem of
+    Faltings,
+    which bounds
+    the number of rational points
+    (an arithmetic quantity)
+    according to
+    the genus $g \geq 2$
+    of a nonsingular algebraic curve
+    (a geometric quantity).
+    Another example of this connection
+    is a theorem due to Belyi
+    which states that an algebraic curve
+    $X$
+    over the complex numbers
+    (equivalently a compact Riemann surface)
+    can be defined by equations with
+    coefficients in a number field
+    if and only if
+    $X$ admits a \defi{Belyi map}
+    (a finite cover $\phi\colon X\to\PP^1$
+    unramified outside three points).
+    The way in which Belyi maps
+    capture precisely when a transcendental
+    object is also an algebraic object
+    is just one of the remarkable properties
+    of these covers.
+    The goal of this thesis is to exploit
+    these properties in the
+    particular setting which we
+    now describe.
     \par
-    To help motivate the work in this thesis,
-    we describe another example of this connection
-    between arithmetic objects and geometry.
+    We begin with a motivating example.
     Let $E$ be an elliptic curve over $\QQ$,
     let $\ell\in\ZZ$ be prime,
-    and let $G_\QQ\colonequals\Gal(\QQal/\QQ)$
+    and let $G_\QQ\colonequals\Gal(\QQal\,|\,\QQ)$
     be the absolute Galois group of $\QQ$.
     There is an action of $G_\QQ$ on the
-    $\ell$-torsion points of $E$
-    (denoted $E[\ell]$ and isomorphic to
-    $\ZZ/\ell\ZZ\times\ZZ/\ell\ZZ$)
+    $\ell$-torsion points
+    $E[\ell](\QQal)\cong\ZZ/\ell\ZZ\times
+    \ZZ/\ell\ZZ$
+    of $E$,
     which determines a $2$-dimensional
     mod-$\ell$ Galois representation
     \begin{equation}
       \label{eqn:modlgalois}
       \rho\colon
       G_\QQ\to
-      \GL_2(\FF_\ell).
+      \Aut(E[\ell])\cong
+      \GL_2(\ZZ/\ell\ZZ).
     \end{equation}
-    This representation determines
-    a field $\QQ(E[\ell])$,
-    the so-called
+    The kernel of this
+    representation fixes the field
+    $\QQ(E[\ell])$
+    the
     $\ell$-torsion field of $E$
     obtained by adjoining the coordinates
     of all $\ell$-torsion points of $E$.
     The geometry of $E$ and the arithmetic
     of $\rho$ are intimately related.
     For example,
-    if $E$ has good reduction at a prime $p$,
+    if $E$ has good reduction at a prime $p\neq\ell$,
     then $p$ will be unramified in
-    the field $\QQ(E[\ell])$.
+    the field $\QQ(E[\ell])$
+    by the criterion of
+    N\'{e}ron-Ogg-Shafarevich.
     \par
     This relationship between curves and Galois
     representations extends to higher genus
     curves.
     Let $X$ be an
-    irreducible complete regular curve
-    of genus $g$
+    irreducible, smooth projective
+    curve
+    of genus $g\geq 1$
     over a number field $K$.
     The Jacobian variety of $X$,
-    $J\colonequals J(X)$,
-    is an abelian variety with dimension $2g$.
-    Again the $\ell$-torsion points of $J$,
-    denoted $J[\ell]$,
+    $J\colonequals \Jac(X)$,
+    is an abelian variety over $K$
+    of dimension $2g$.
+    Again the $\ell$-torsion points
+    $J[\ell]$ of $J$
     define a mod-$\ell$ Galois representation
     and a number field $K(J[\ell])$.
     As was the case for elliptic curves,
@@ -327,9 +359,24 @@ Preface and Acknowledgments go here!
     $K(J[\ell])$.
     \par
     The application of Belyi maps to this
-    situation comes from the following theorem
-    which can be found in \cite{beckmann}.
-    \begin{theorem}[Beckmann]\label{thm:beckmann}
+    situation comes from Beckmann's theorem
+    \ref{thm:beckmann}.
+    To state Beckmann's theorem requires
+    a bit more terminology.
+    Associated to every Belyi map
+    $\phi\colon X\to\PP^1$
+    is the \defi{monodromy group}
+    of the covering
+    obtained by lifting paths around
+    the ramification points on $\PP^1$.
+    We say that a Belyi map is
+    \defi{Galois} if the covering is Galois
+    (equivalently if the degree
+    of the cover equals the size
+    of the monodromy group).
+    We can now state Beckmann's theorem.
+    \begin{theorem}[Beckmann \cite{beckmann}]
+      \label{thm:beckmann}
       Let $\phi\colon X\to\PP^1$
       be a Galois Belyi map with
       monodromy group $G$
@@ -348,24 +395,181 @@ Preface and Acknowledgments go here!
           of $M$ above $p$
       \end{itemize}
     \end{theorem}
-    Combining Beckmann's result
-    with our previous discussion
-    motivates the explicit enumeration
-    of Galois Belyi maps as a jumping off point
-    to construct interesting Galois
-    representations and torsion fields.
+    If we insist that $G$ is a $2$-group
+    in Beckmann's theorem,
+    then we can hope to find
+    fields $M$
+    and $M(\Jac(X)[2])$ unramified away from $2$.
+    The main interest in finding such a field
+    comes from a conjecture
+    (now theorem) of Gross.
+    \begin{conj}[Gross]
+      \label{conj:gross}
+      For every prime $p$,
+      there exists a nonsolvable Galois
+      number field
+      ramified only at $p$.
+    \end{conj}
+    Although Gross's conjecture is now resolved,
+    the only explicit example of such
+    a field for $p<11$ is given
+    in \cite{roberts5} for $p=5$.
+    A long-term application of the work
+    in this thesis is to
+    find an explicit nonsolvable number field
+    ramified only at $2$.
+    The existence of such a field was proved
+    in \cite{lassina} using techniques
+    unrelated to Belyi maps.
+    \par
+    But first, to use Beckmann's theorem
+    to construct interesting number fields,
+    we must have explicit
+    Galois Belyi maps with monodromy group
+    a $2$-group.
+    The explicit construction of these
+    objects is the focus of this thesis,
+    and it is these objects we refer to as
+    \defi{$2$-group Belyi maps}.
+    We now summarize the results of this thesis
+    concerning
+    $2$-group Belyi maps.
   }
-  \section{Main results}{\label{sec:results}}{
+  \section{Main results}{\label{sec:mainresults}
     Motivated by the discussion in
     Section \ref{sec:motivation},
     this work aims to address the task
     of explicitly computing
-    Galois Belyi maps with
-    monodromy group a $2$-group.
-    Throughout this thesis
-    we define a \defi{$2$-group Belyi map}
-    to be a Galois Belyi map with monodromy group
-    a $2$-group.
+    $2$-group Belyi maps up to isomorphism.
+    This computation consists of two
+    main parts:
+    \begin{itemize}
+      \item
+        enumerating isomorphism classes
+      \item
+        computing explicit equations
+        for each isomorphism class
+    \end{itemize}
+    \par
+    Let $d\in\ZZ_{\geq 1}$.
+    Isomorphism classes of degree $d$
+    Belyi maps
+    are in bijection with
+    the set of
+    transitive permutation triples
+    up to
+    simultaneous conjugation
+    in the symmetric group $S_d$.
+    A \defi{transitive permutation triple}
+    is a triple of permutations
+    $\sigma\colonequals
+    (\sigma_0,\sigma_1,\sigma_\infty)
+    \in S_d^3$
+    that multiply to the identity
+    and generate a transitive subgroup
+    of $S_d$.
+    We say
+    that two permutation triples
+    $\sigma,\sigma'$ are
+    \defi{simultaneously conjugate}
+    if there exists $\tau\in S_d$ such that
+    \begin{equation}\label{eqn:simconj_results}
+      \sigma^\tau \colonequals
+      (\tau^{-1}\sigma_0\tau, \tau^{-1}\sigma_1\tau, \tau^{-1}\sigma_\infty\tau)
+      = \left(\sigma'_0,\sigma'_1,\sigma'_\infty\right)
+      = \sigma'.
+    \end{equation}
+    The first main result of this thesis
+    is an explicit algorithm
+    to compute permutation triples
+    corresponding to all $2$-group Belyi
+    maps up to a given degree.
+    We use this algorithm (implemented in
+    Magma \cite{magma})
+    all such permutation triples up to
+    degree $256$.
+    \begin{theorem}\label{thm:isoclasses_results}
+      The following table lists
+      the number of isomorphism classes of
+      permutation triples corresponding to
+      $2$-group Belyi maps
+      of degree $d$ up to $256$.
+      \begin{equation}
+        \label{eqn:}
+        \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|}
+          \hline
+          $d$ & $1$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
+          \hline
+          \#\text{ Belyi triples } & $1$ & $3$ & $7$ & $19$ & $55$ & $151$ & $503$ & $1799$ & $7175$\\
+          \hline
+        \end{tabular}
+      \end{equation}
+    \end{theorem}
+    Having explicit permutation triples
+    allows us to apply techniques from
+    \cite{belyidb}
+    to prove the following theorem.
+    \begin{theorem}
+      \label{thm:conj_up_to_256_results}
+      Every $2$-group Belyi map
+      of degree $d\leq 256$ is defined over
+      an abelian number field.
+    \end{theorem}
+    This leads us to tentatively make the
+    following conjecture.
+    \begin{conj}
+      \label{conj:conjecture_results}
+      Every $2$-group Belyi map
+      is defined over an abelian number field.
+    \end{conj}
+    In addition to verifying this conjecture
+    for $d\leq 256$,
+    we were able to prove this conjecture
+    for $2$-group Belyi maps
+    with monodromy group abelian or dihedral.
+    \par
+    The rest of the results of this thesis
+    pertain to computing equations
+    of $2$-group Belyi maps.
+    The first of these is an algorithm
+    to compute $2$-group Belyi maps
+    over a finite field $\FF_q$
+    where $q=p^k$ and $p\neq 2$.
+    This algorithm has been implemented in Magma
+    and used to construct a database
+    of all $2$-group Belyi maps
+    (up to isomorphism)
+    over
+    $\FF_3^\textup{al}$
+    up to degree $64$.
+    \par
+    The other main result is an implementation
+    (similar to the algorithm over 
+    $\FF_q$)
+    in characteristic zero.
+    Although the characteristic zero
+    implementation does not succeed in all cases,
+    it does work well in practice.
+    In particular,
+    the Magma implementation succeeded
+    to compute hundreds of $2$-group Belyi maps
+    over $\QQal$ up to degree $256$.
+  }
+  % \section{Explicit computations}{
+  %   \label{sec:mainresults}
+  %   All source code and examples
+  %   can be found at the following link:
+  %   \begin{center}
+  %     \url{https://github.com/michaelmusty/2GroupDessins}
+  %   \end{center}
+  % }
+  \section{Navigation}{\label{sec:navigation}
+    Having motivated and stated the main
+    results, we now provide
+    some explanation of how this thesis is
+    organized
+    and where to find details pertaining
+    to the main results.
     \par
     Chapter \ref{chapter:backgroundbelyimaps}
     details some of the
@@ -412,6 +616,9 @@ Preface and Acknowledgments go here!
     Algorithm \ref{alg:liftbelyimap},
     and
     Algorithm \ref{alg:computepassport}).
+    Algorithm \ref{alg:characteristiczero}
+    describes the implementation over
+    $\QQal$.
     \par
     The source code for the implementation used
     in this thesis can be found at
@@ -1291,16 +1498,17 @@ Preface and Acknowledgments go here!
     the main mathematical objects of interest in this work.
     \begin{definition}\label{def:belyimap}
       A
-      \defi{Belyi map of degree $d$ and
-      genus $g$}
-      is a $d$-sheeted branched cover
-      of algebraic curves over $\CC$
-      (equivalently of Riemann surfaces)
+      \defi{Belyi map}
+      is a morphism
       $\phi\colon X \to \PP^1$
-      (with $X$ a genus $g$ curve)
+      of
+      smooth projective
+      algebraic curves over $\CC$
       that is
       unramified outside
       $\{0,1,\infty\}$.
+      We define the \defi{genus} of $\phi$
+      to be the genus of $X$.
     \end{definition}
     \begin{definition}\label{def:belyiiso}
       Two Belyi maps
@@ -1308,7 +1516,8 @@ Preface and Acknowledgments go here!
       $\phi'\colon X'\to\PP^1$
       are \defi{isomorphic}
       if there exists an isomorphism
-      between $X$ and $X'$
+      of curves from
+      $X$ to $X'$
       such that the diagram
       \begin{equation}
         \label{eqn:belyiiso}
@@ -1322,7 +1531,7 @@ Preface and Acknowledgments go here!
       commutes.
       If instead we only insist that
       the isomorphism
-      makes the diagram
+      makes a diagram
       \begin{equation}
         \label{eqn:}
         \begin{tikzcd}
@@ -1331,6 +1540,7 @@ Preface and Acknowledgments go here!
         \end{tikzcd}
       \end{equation}
       commute,
+      with the bottom map
       then we say that $\phi$ and $\phi'$
       are \defi{lax isomorphic}.
     \end{definition}
@@ -7416,6 +7626,22 @@ Preface and Acknowledgments go here!
         with ramification $(4,4,4)$...
       }
     \end{example}
+  }
+  \section{An implementation over $\QQal$}{
+    \label{sec:characteristiczero}
+    \begin{alg}
+      \label{alg:characteristiczero}
+      char0 implementation
+      \newline
+      \textbf{Input}:
+      \begin{itemize}
+        \item
+      \end{itemize}
+      \textbf{Output}:
+      \begin{enumerate}
+        \item 
+      \end{enumerate}
+    \end{alg}
   }
   \section{Results of computations}{
     \label{sec:resultsequations}
