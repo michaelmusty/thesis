@@ -74,8 +74,24 @@
 % %  numbersep=5pt
 % }
 \tcbuselibrary{listings, skins, breakable}
-\newtcblisting{code}{%
+\newtcblisting{magma}{%
   title={\textsf{Magma}},
+  %every listing line={\textcolor{blue}{\texttt{> }}},
+  arc=0mm,
+  top=0mm,
+  bottom=0mm,
+  left=3mm,
+  right=0mm,
+  width=\textwidth,
+  boxrule=0.5pt,
+  colback=gray!20,
+  %spartan,
+  listing only,
+  % listing options={style=mystyle},
+  breakable
+}
+\newtcblisting{code}{%
+  title={\textsf{Shell}},
   %every listing line={\textcolor{blue}{\texttt{> }}},
   arc=0mm,
   top=0mm,
@@ -485,7 +501,7 @@ Preface and Acknowledgments go here!
     corresponding to all $2$-group Belyi
     maps up to a given degree.
     We use this algorithm (implemented in
-    Magma \cite{magma})
+    \textsf{Magma} \cite{magma})
     all such permutation triples up to
     degree $256$.
     \begin{theorem}\label{thm:isoclasses_results}
@@ -500,7 +516,7 @@ Preface and Acknowledgments go here!
           \hline
           $d$ & $1$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
           \hline
-          \#\text{ Belyi triples } & $1$ & $3$ & $7$ & $19$ & $55$ & $151$ & $503$ & $1799$ & $7175$\\
+          \#\text{ permutation triples } & $1$ & $3$ & $7$ & $19$ & $55$ & $151$ & $503$ & $1799$ & $7175$\\
           \hline
         \end{tabular}
       \end{equation}
@@ -535,7 +551,8 @@ Preface and Acknowledgments go here!
     to compute $2$-group Belyi maps
     over a finite field $\FF_q$
     where $q=p^k$ and $p\neq 2$.
-    This algorithm has been implemented in Magma
+    This algorithm has been implemented in
+    \textsf{Magma}
     and used to construct a database
     of all $2$-group Belyi maps
     (up to isomorphism)
@@ -551,7 +568,7 @@ Preface and Acknowledgments go here!
     implementation does not succeed in all cases,
     it does work well in practice.
     In particular,
-    the Magma implementation succeeded
+    the \textsf{Magma} implementation succeeded
     to compute hundreds of $2$-group Belyi maps
     over $\QQal$ up to degree $256$.
   }
@@ -1536,21 +1553,24 @@ Preface and Acknowledgments go here!
         \label{eqn:}
         \begin{tikzcd}
           X\arrow{r}{\sim}\arrow{d}[swap]{\phi}&X'\arrow{d}{\phi'}\\
-          \PP^1\arrow{r}{\sim}&\PP^1
+          \PP^1\arrow{r}{\sim}[swap]{\beta}&\PP^1
         \end{tikzcd}
       \end{equation}
       commute,
       with the bottom map
+      $\beta$ satisfying
+      $\beta(\{0,1,\infty\}) =
+      \{0,1,\infty\}$,
       then we say that $\phi$ and $\phi'$
       are \defi{lax isomorphic}.
     \end{definition}
     \begin{definition}\label{def:ramificationtype}
-      The ramification
-      of a degree $d$ Belyi map $\phi$
-      can be encoded with $3$ partitions of $d$
-      denoted
-      $(\lambda_0,\lambda_1,\lambda_\infty)$.
-      We call this triple of partitions
+      The triple of partitions
+      $(\lambda_0,\lambda_1,\lambda_\infty)$
+      encoding the ramification
+      above
+      $0$, $1$, and $\infty$
+      is called
       the \defi{ramification type} of $\phi$.
     \end{definition}
     Let $\phi\colon X\to\PP^1$ be a
@@ -1566,7 +1586,7 @@ Preface and Acknowledgments go here!
     by lifting paths around the
     branch points of $\phi$.
     \begin{definition}\label{def:monodromy}
-      The image of $h$ in Equation \ref{eqn:monodromy}
+      The image of $h$ in \eqref{eqn:monodromy}
       is the \defi{monodromy group} of $\phi$
       denoted $\Mon(\phi)$.
     \end{definition}
@@ -1575,16 +1595,15 @@ Preface and Acknowledgments go here!
       \label{thm:belyistheorem}
       An algebraic curve $X$ over $\CC$
       can be defined over a number field
-      if and only if there exists a branched cover
-      $\phi\colon X\to\PP^1$ unramified outside
-      $\{0,1,\infty\}$.
+      if and only if $X$
+      admits a Belyi map.
     \end{theorem}
     \begin{definition}
       \label{def:definedover}
       A Belyi map
       $\phi\colon X\to\PP^1$
       is \defi{defined over}
-      a number field $K$
+      a number field $K\subseteq\CC$
       if the defining equations
       of $\phi$ and $X$
       can be described by
@@ -1595,7 +1614,7 @@ Preface and Acknowledgments go here!
     every Belyi map can be described by
     a morphism $\phi\colon X\to\PP^1$
     of algebraic curves
-    defined over a number field $K$
+    defined over a number field $K\subseteq\CC$
     (instead of over $\CC$).
     Since maps of curves
     correspond to function field
@@ -1604,7 +1623,7 @@ Preface and Acknowledgments go here!
     $\phi\colon X\to\PP^1$
     (defined over $K$)
     by an extension of function fields
-    $K(X)/K(\PP^1)$.
+    $K(X)\supseteq K(\PP^1)$.
     $K(\PP^1)$ is isomorphic the field of
     rational functions
     (referred to as the
@@ -1627,14 +1646,15 @@ Preface and Acknowledgments go here!
     in maximal orders of $K(X)$.
     The monodromy group in this setting
     corresponds to field automorphisms
-    of $K(X)$ fixing $K(x)$.
+    of the Galois closure of $K(X)$
+    fixing $K(x)$.
     \par
     Let $\Kal$
     denote an algebraic closure of $K$ in $\CC$.
     \begin{definition}\label{def:galoisbelyi}
       A Belyi map $\phi\colon X\to\PP^1$
       defined over $K$
-      is \defi{Galois}
+      is \defi{(geometrically) Galois}
       if the corresponding
       function field extension
       $\Kal(X)$ is a Galois field extension
@@ -1650,7 +1670,7 @@ Preface and Acknowledgments go here!
     we can identify $\Mon(\phi)$
     in Definition \ref{def:monodromy}
     as the Galois group
-    $\Gal(\Kal(X)/\Kal(\PP^1))$.
+    $\Gal(\Kal(X)\,|\,\Kal(\PP^1))$.
     For this reason,
     we may also write $\Gal(\phi)$
     to denote $\Mon(\phi)$ when $\phi$
@@ -1665,6 +1685,9 @@ Preface and Acknowledgments go here!
       of degree $d$
       with monodromy group a
       $2$-group of order $d$.
+      Necessarily,
+      $\Mon(\phi)=\Gal(\phi)\subseteq S_d$
+      is the regular representation.
     \end{definition}
     % \begin{prop}\label{prop:galoiscover}
       %   Let $\phi\colon X\to\PP^1$ be a Galois Belyi map
@@ -1772,7 +1795,7 @@ Preface and Acknowledgments go here!
       is (conjugate in $S_d$ to) the group
       generated by~$\sigma$.
     \end{proof}
-    The group $G_\QQ\colonequals\Gal(\QQal/ \QQ)$
+    The group $G_\QQ\colonequals\Gal(\QQal\,|\,\QQ)$
     acts on Belyi maps by acting on the
     coefficients of a set of defining equations;
     under the bijection of Lemma
@@ -1799,13 +1822,21 @@ Preface and Acknowledgments go here!
       $C=(C_0,C_1,C_\infty)$ by cycle
       type,
       so we will also write passports as $(g,G,C)$.
+      Two passports $(g,G,C)$ and $(g',G',C')$
+      are \defi{equal}
+      if $g=g'$, $C=C'$, and
+      $G$ is conjugate to $G'$.
     \end{definition}
     \begin{definition}
       \label{def:passportofbelyimap}
       The \defi{passport} of a
       Belyi map $\phi\colon X \to \PP^1$ is
-      $(g(X),\Mon(\phi),
-      (\lambda_0,\lambda_1,\lambda_\infty))$,
+      \begin{equation}
+        \label{eqn:passportofbelyimap}
+        \mathcal{P}(\phi)=
+        (g(X),\Mon(\phi),
+        (\lambda_0,\lambda_1,\lambda_\infty))
+      \end{equation}
       where $g(X)$ is the genus of $X$ and
       $\lambda_s$ is the partition of $d$ obtained by the ramification degrees above
       $s=0,1,\infty$, respectively.
@@ -1814,7 +1845,12 @@ Preface and Acknowledgments go here!
       \label{def:passportofpermutationtriple}
       The \defi{passport} of a transitive
       permutation triple $\sigma$ is
-      $(g(\sigma),\langle \sigma \rangle, \lambda(\sigma))$,
+      \begin{equation}
+        \label{eqn:passportofpermutationtriple}
+        \mathcal{P}(\sigma)=
+        (g(\sigma),\langle \sigma \rangle,
+        \lambda(\sigma))
+      \end{equation}
       where (by Riemann--Hurwitz)
       \begin{equation}
         \label{eqn:riemannhurwitzfortriples}
@@ -1833,7 +1869,7 @@ Preface and Acknowledgments go here!
       The
       \defi{size} of a passport $\mathcal{P}$
       is the number of simultaneous conjugacy
-      classes (as in \ref{eqn:simconj}) of
+      classes as in \eqref{eqn:simconj} of
       (necessarily transitive) permutation
       triples $\sigma$ with passport $\mathcal{P}$.
     \end{definition}
@@ -1914,9 +1950,10 @@ Preface and Acknowledgments go here!
       according to whether the value of
       \begin{equation}
         \label{eqn:eulerchar}
-        \chi(a,b,c) = 1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}
+        \chi(a,b,c) = \frac{1}{a}+\frac{1}{b}
+        +\frac{1}{c}-1
       \end{equation}
-      is negative, zero, or positive.
+      is positive, zero, or negative.
       We call this the \defi{geometry type}
       of the triple.
       We associate the \defi{geometry}
@@ -1924,7 +1961,7 @@ Preface and Acknowledgments go here!
         \label{eqn:geometrytype}
         H=
         \begin{cases}
-          \PP^1&\chi(a,b,c)<0\\
+          \PP^1&\chi(a,b,c)>0\\
           \CC&\chi(a,b,c)=0\\
           \mathfrak{H}&\chi(a,b,c)<0
         \end{cases}
@@ -1940,7 +1977,7 @@ Preface and Acknowledgments go here!
         \Delta(a,b,c)
         =
         \langle
-        \delta_a, \delta_b, \delta_c |
+        \delta_a, \delta_b, \delta_c \,|\,
         \delta_a^a=\delta_b^b=\delta_c^c=\delta_c\delta_b\delta_a=1
         \rangle
       \end{equation}
@@ -1960,7 +1997,8 @@ Preface and Acknowledgments go here!
       The \defi{geometry type} of $\sigma$
       is the geometry type of $(a,b,c)$.
     \end{definition}
-    The connection between Belyi maps and triangle groups
+    The connection between Belyi maps
+    and triangle groups
     of various geometry types is explained by Lemma
     \ref{lem:belyimapsandtrianglegroups}.
     \begin{lemma}
@@ -1970,11 +2008,11 @@ Preface and Acknowledgments go here!
       is in bijection with the set of
       index $d$ subgroups
       $\Gamma\leq\Delta(a,b,c)$
-      up to isomorphism.
+      up to conjugation.
     \end{lemma}
-    \begin{proof}
-      See \cite{KMSV} for a detailed discussion.
-    \end{proof}
+    For a detailed explanation of this relationship
+    see the first part of Section $1$
+    in \cite{KMSV}.
   }
   % \section{Background results on Belyi maps}{\label{sec:backgroundresults}
     % \begin{theorem}\label{thm:bigbijection}
@@ -1991,11 +2029,18 @@ Preface and Acknowledgments go here!
     % \mm{\cite[1.6, 1.7]{SV}}
   % }
   \section{Fields of moduli and fields of definition}{\label{sec:fieldsofmodulifieldsofdefinition}
-    We now discuss some of the background
+    We now discuss the background
     material necessary to describe
     the conjecture in
     Chapter \ref{chapter:fieldsofdefinition}.
-    Let $\Aut(\CC)$ denote the
+    This section aims
+    to define a canonical number field
+    associated to a Belyi map
+    which is well-defined on isomorphism classes,
+    bound the degree of this number field,
+    and discuss when a Belyi map can be defined
+    over this field.
+    To start let $\Aut(\CC)$ denote the
     field automorphisms of $\CC$.
     \begin{definition}
       \label{def:fieldofmoduli}
@@ -2005,7 +2050,7 @@ Preface and Acknowledgments go here!
       field automorphisms
       \begin{equation}
         \label{eqn:fixedfield}
-        \{\tau\in\Aut(\CC) : X^\tau\cong X\}
+        \{\tau\in\Aut(\CC) : X^\tau\simeq X\}
       \end{equation}
       where $\tau\in\Aut(\CC)$ acts on
       the defining equations of $X$.
@@ -2044,13 +2089,30 @@ Preface and Acknowledgments go here!
     % \end{definition}
     \begin{theorem}\label{thm:fieldofmoduli}
       Let $\phi:X\to\PP^1$ be a Belyi map
-      with passport $\mathcal{P}$.
-      Then the degree of the field of
-      moduli of $\phi$
-      is bounded by the size of $\mathcal{P}$.
+      with passport $\mathcal{P}(\phi)$.
+      Then the degree
+      of $M(\phi)$
+      % of the field of
+      % moduli of $\phi$
+      is bounded by the size of
+      $\mathcal{P}(\phi)$.
     \end{theorem}
     \begin{proof}
-      \cite{SV}
+      Let $\tau\in G_\QQ$ and consider the
+      conjugated map
+      $\phi^\tau\colon X^\tau\to\PP^1$.
+      By \cite[Appendix]{jones_streit_manfred}
+      $\phi^\tau$ is a Belyi map with
+      $\mathcal{P}(\phi) = \mathcal{P}(\phi^\tau)$.
+      Thus $G_\QQ$ acts on the set
+      of (isomorphism classes of) Belyi maps with
+      a given passport.
+      The degree of $M(\phi)$
+      is bounded by the index of the
+      stabilizer of $\phi$ in $G_\QQ$
+      under this action,
+      and this index is bounded by
+      the size of $\mathcal{P}(\phi)$.
     \end{proof}
     Recall from Definition \ref{def:definedover}
     that a Belyi map
@@ -2061,29 +2123,47 @@ Preface and Acknowledgments go here!
     We say that $K$
     is a \defi{field of definition}
     for $\phi$.
+    For a general Belyi map it may not be possible
+    to define the Belyi map over its field
+    of moduli.
+    However,
+    in the setting we are concerned with
+    this is always possible.
+    For a proof of the following theorem see
+    \cite[Proposition 2.5]{coombes_harbater}.
     \begin{theorem}
       \label{thm:galoisbelyimapoverfieldofmoduli}
-      A Galois Belyi map is defined over
+      A Galois Belyi map can always be defined over
       its field of moduli.
     \end{theorem}
-    \begin{proof}
-      \cite[Lemma 4.1]{triangles}
-    \end{proof}
-    \mm{
-      this could include
-      more background material to
-      tidy up the conjecture
-    }
   }
 }
 \chapter{Group theory}{\label{chapter:grouptheory}
-  In this chapter we discuss results on the groups
-  that arise as monodromy groups
-  of the Belyi maps we are interested in.
+  We begin this chapter with some background
+  on $2$-groups and group extensions which we
+  use to explain the algorithms
+  in Section \ref{sec:triplesalgorithm}
+  on computing explicit permutation
+  triples corresponding to $2$-group Belyi maps.
+  We conclude the chapter with 
+  Section \ref{sec:grouptheorycomputations}
+  where we summarize the computation
+  of all permutation triples corresponding
+  to $2$-group Belyi maps up to degree $256$.
+  We also do some coarse data analysis of these
+  results.
   \section{$2$-groups}{\label{sec:twogroups}
-    % def, center, exact sequence, group coho, cosets
-    % examples, families: gen dihedral, gen quats, etc
-    \mm{references \cite{DF}\ldots}
+    % def, center, 
+    % exact sequence, group coho, cosets
+    % examples, families:
+    % gen dihedral, gen quats, etc
+    % \mm{references \cite{DF}\ldots}
+    In this section we set up some notation
+    and
+    summarize some background material
+    on $2$-groups all of which can be found
+    in \cite[\S 6.1]{DF}.
+    \par
     Let $G$ be a finite group.
     Denote the \defi{centralizer} and
     \defi{normalizer} of a subet $S\subseteq G$
@@ -2096,7 +2176,7 @@ Preface and Acknowledgments go here!
     $\orb_x(G)$.
     \begin{definition}
       \label{def:pgroup}
-      Let $p$ be a rational prime.
+      Let $p\in\ZZ$ be prime.
       A finite group $G$ is a
       \defi{$p$-group}
       if the cardinality of $G$
@@ -2106,82 +2186,82 @@ Preface and Acknowledgments go here!
       \label{lem:pgrouphasacenter}
       The center of a nontrivial $p$-group is nontrivial.
     \end{lemma}
-    \begin{proof}
-      Let $G$ be a $p$-group acting on itself by conjugation.
-      Note that for $g\in G$ we have
-      $C_G(g)=\stab_g(G)=N_G(\{g\})$,
-      and
-      $Z(G)=\cap_g C_G(g)$.
-      Let
-      $C_g\colonequals\orb_g(G)$
-      denote the conjugacy class of $g\in G$.
-      Then $\#C_g = [G:C_G(g)]$ for every $g$.
-      Partitioning $G$ into conjugacy classes we obtain
-      \begin{equation}\label{eqn:classequation}
-        \#G =
-        \#Z(G)+\sum_{i=1}^r[G:C_G(g_i)]
-      \end{equation}
-      where $\{g_1,\dots,g_r\}$ is a set of representatives of distinct
-      conjugacy classes not contained in $Z(G)$.
-      Since $g_i\not\in Z(G)$, $p$ divides $[G:C_G(g_i)]$ for every $i$.
-      Then Equation \ref{eqn:classequation} implies $p$ divides
-      $\#Z(G)$.
-    \end{proof}
+    % \begin{proof}
+      % Let $G$ be a $p$-group acting on itself by conjugation.
+      % Note that for $g\in G$ we have
+      % $C_G(g)=\stab_g(G)=N_G(\{g\})$,
+      % and
+      % $Z(G)=\cap_g C_G(g)$.
+      % Let
+      % $C_g\colonequals\orb_g(G)$
+      % denote the conjugacy class of $g\in G$.
+      % Then $\#C_g = [G:C_G(g)]$ for every $g$.
+      % Partitioning $G$ into conjugacy classes we obtain
+      % \begin{equation}\label{eqn:classequation}
+      %   \#G =
+      %   \#Z(G)+\sum_{i=1}^r[G:C_G(g_i)]
+      % \end{equation}
+      % where $\{g_1,\dots,g_r\}$ is a set of representatives of distinct
+      % conjugacy classes not contained in $Z(G)$.
+      % Since $g_i\not\in Z(G)$, $p$ divides $[G:C_G(g_i)]$ for every $i$.
+      % Then \eqref{eqn:classequation} implies $p$ divides
+      % $\#Z(G)$.
+    % \end{proof}
     \begin{lemma}
       \label{lem:conjugacyinsubgroups}
       Let $H$ be a normal subgroup of a $p$-group $G$.
       Let $C$ be a conjugacy class of $G$.
       Then either $C\subseteq H$ or $C\cap H = \emptyset$.
     \end{lemma}
-    \begin{proof}
-      Suppose $a\in C\cap H$.
-      Let $x\in C$.
-      Then there exists $g\in G$ so that
-      $x = gag^{-1}$.
-      But $a\in H$ and $H$ is normal,
-      so $x=gag^{-1}\in H$.
-      Thus $C\subseteq H$.
-    \end{proof}
+    % \begin{proof}
+      % Suppose $a\in C\cap H$.
+      % Let $x\in C$.
+      % Then there exists $g\in G$ so that
+      % $x = gag^{-1}$.
+      % But $a\in H$ and $H$ is normal,
+      % so $x=gag^{-1}\in H$.
+      % Thus $C\subseteq H$.
+    % \end{proof}
     \begin{lemma}
       \label{lem:normalimpliescentralintersect}
       Let $G$ be a $p$-group.
       Let $H$ be a nontrivial normal subgroup of $G$.
       Then $H$ intersects the center $Z(G)$ nontrivially.
     \end{lemma}
-    \begin{proof}
-      Let $\{g_1,\dots,g_r\}$ be a set of representatives of the
-      $r$ distinct conjugacy classes (denoted $C_i$)
-      of $G$ with $\#C_i\ge 2$.
-      We will use Equation \ref{eqn:classequation}
-      for the subgroup $H$, so
-      by Lemma \ref{lem:conjugacyinsubgroups}
-      we may assume all $g_i\in H$.
-      The conjugacy classes of size $1$ are contained in the center $Z(G)$
-      and as in Equation \ref{eqn:classequation} we
-      can write
-      \begin{equation}
-        \label{eqn:classequationsubgroup}
-        \#H = \#(H\cap Z(G))+
-        \sum_{i=1}^r[G:C_G(g_i)].
-      \end{equation}
-      As in the proof of
-      Lemma \ref{lem:pgrouphasacenter}
-      we see that $p$ divides $\#(H\cap Z(G))$.
-    \end{proof}
+    % \begin{proof}
+      % Let $\{g_1,\dots,g_r\}$ be a set of representatives of the
+      % $r$ distinct conjugacy classes (denoted $C_i$)
+      % of $G$ with $\#C_i\ge 2$.
+      % We will use \eqref{eqn:classequation}
+      % for the subgroup $H$, so
+      % by Lemma \ref{lem:conjugacyinsubgroups}
+      % we may assume all $g_i\in H$.
+      % The conjugacy classes of size $1$ are contained in the center $Z(G)$
+      % and as in \eqref{eqn:classequation} we
+      % can write
+      % \begin{equation}
+      %   \label{eqn:classequationsubgroup}
+      %   \#H = \#(H\cap Z(G))+
+      %   \sum_{i=1}^r[G:C_G(g_i)].
+      % \end{equation}
+      % As in the proof of
+      % Lemma \ref{lem:pgrouphasacenter}
+      % we see that $p$ divides $\#(H\cap Z(G))$.
+    % \end{proof}
     \begin{corr}
       \label{cor:normalcentral}
       Let $H$ be a normal subgroup of order $p$ of a $p$-group $G$.
       Then $H$ is central.
     \end{corr}
-    \begin{proof}
-      By Lemma \ref{lem:normalimpliescentralintersect},
-      $H\cap Z(G)$ is a nontrivial subgroup of $G$
-      or order at least $p$.
-      Since $\#H=p$ this tells us
-      $H=H\cap Z(G)$.
-      In particular,
-      $H$ is contained in $Z(G)$.
-    \end{proof}
+    % \begin{proof}
+      % By Lemma \ref{lem:normalimpliescentralintersect},
+      % $H\cap Z(G)$ is a nontrivial subgroup of $G$
+      % or order at least $p$.
+      % Since $\#H=p$ this tells us
+      % $H=H\cap Z(G)$.
+      % In particular,
+      % $H$ is contained in $Z(G)$.
+    % \end{proof}
     \begin{lemma}
       \label{lem:normalsubgroupsofallorders}
       Let $H$ be a normal subgroup of a $p$-group $G$.
@@ -2191,25 +2271,11 @@ Preface and Acknowledgments go here!
       with the property that
       $H_\beta$ is normal in $G$ for every $\beta$.
     \end{lemma}
-    \begin{proof}
-    \end{proof}
-    \begin{corr}
-      \label{cor:normalsubgroupsofallorders}
-    \end{corr}
-    \begin{lemma}
-      \label{lem:propersubgroupcontainedinnormalizer}
-      A proper subgroup $H$ of a $p$-group $G$
-      is contained in its normalizer $N_G(H)$.
-    \end{lemma}
-    \begin{proof}
-    \end{proof}
     \begin{lemma}
       \label{lem:maximalsubgroup}
       Every maximal subgroup $H$ of a $p$-group $G$
       has $[G:H]=p$ and $H\trianglelefteq G$.
     \end{lemma}
-    \begin{proof}
-    \end{proof}
     \begin{definition}
       \label{def:uppercentralseries}
       Let $G$ be a finite group.
@@ -2243,10 +2309,10 @@ Preface and Acknowledgments go here!
       For subgroups $H,K$ of $G$ define
       $[H,K]\colonequals\langle[h,k]:h\in H\text{ and }k\in K\rangle$.
       We define the \defi{lower central series} of $G$ iteratively as follows.
-      Let $G^0=G$,
-      let $G^1 = [G,G]$,
+      Let $G_0=G$,
+      let $G_1 = [G,G]$,
       and for $i\geq 1$ define
-      $G^{i+1}=[G,G^i]$.
+      $G_{i+1}=[G,G_i]$.
     \end{definition}
     \begin{definition}
       \label{def:nilpotentgroup}
@@ -2273,44 +2339,45 @@ Preface and Acknowledgments go here!
       for all $i\in \{0,1,\dots,c-1\}$.
     \end{lemma}
     \begin{lemma}
-      % Prop 2 chapter 6.1 DF
-      A $p$-group of order $p^\alpha$ is nilpotent with nilpotency class
-      at most $\alpha-1$.
+      \label{lem:pgroupsarenilpotent}
+      Every $p$-group is nilpotent.
     \end{lemma}
-    \begin{proof}
-    \end{proof}
-    \begin{lemma}
-      % Prop 7 chapter 6.1 DF
-      A finite group is nilpotent if and only if
-      every maximal subgroup is normal.
-    \end{lemma}
-    \begin{proof}
-    \end{proof}
-    \begin{definition}
-      \label{def:frattinisubgroup}
-      For a group $G$,
-      define $\Phi(G)$
-      to be the intersection of all maximal subgroups of $G$.
-      $\Phi(G)$ is called the
-      \defi{Frattini subgroup of $G$}.
-    \end{definition}
+    % \begin{lemma}
+    %   % Prop 2 chapter 6.1 DF
+    %   A $p$-group of order $p^\alpha$ is nilpotent with nilpotency class
+    %   at most $\alpha-1$.
+    % \end{lemma}
+    % \begin{definition}
+    %   \label{def:frattinisubgroup}
+    %   For a group $G$,
+    %   define $\Phi(G)$
+    %   to be the intersection of all maximal subgroups of $G$.
+    %   $\Phi(G)$ is called the
+    %   \defi{Frattini subgroup of $G$}.
+    % \end{definition}
     % frattini quotient and generators
   }
   \section{Examples of $2$-groups}{\label{sec:twogroupexamples}
-    % examples, families: gen dihedral, gen quats, etc
-    % In this section we discuss some special families of $2$-groups.
-    % maybe these show up later in the "proof of the conjecture"
-    In this section we describe several families of
+    % examples, families:
+    % gen dihedral, gen quats, etc
+    % In this section we discuss some
+    % special families of $2$-groups.
+    % maybe these show up later in the
+    % "proof of the conjecture"
+    In this section we define
+    some families of
     nonabelian $2$-groups
-    that we reference in the partial proof
-    of Conjecture \ref{conj:refinedpassportsizeone}.
-    The first examples are $2$-groups
-    with a cyclic index $2$ subgroup.
+    that we refer to later in
+    the partial proof of
+    Conjecture \ref{conj:refinedpassportsizeone}.
+    These examples are all $2$-groups
+    with an index $2$ cyclic subgroup.
     According to
-    \cite[Theorem 1.2]{berkovich1},
-    these groups all have a center of order $2$,
-    abelianization of order $4$,
-    and maximal nilpotency class.
+    Berkovich and Janko
+    (\cite[Theorem 1.2]{berkovich1}),
+    these groups all have order $2$ center,
+    order $4$ abelianization,
+    and highest possible nilpotency class.
     % \begin{example}
       % \label{exm:cyclic}
       % For $n\geq 1$ define
@@ -2383,7 +2450,8 @@ Preface and Acknowledgments go here!
           bab=a^{-1}
         \right\rangle.
       \end{equation}
-      We summarize some properties of $D_{2^{n+1}}$:
+      We summarize some properties of
+      $D_{2^{n+1}}$:
       \begin{itemize}
         \item
           $D_{2^{n+1}}$ has $2^{n+1}$ elements which can be written as
@@ -2395,18 +2463,35 @@ Preface and Acknowledgments go here!
             \}.
           \end{equation}
         \item
+          The center
+          $Z(D_{2^{n+1}}) = \{1,a^{2^{n-1}}\}$
+          is characteristic.
+        \item
           $D_{2^{n+1}}$ is a split extension
           of cyclic groups.
+          There exists an exact sequence
+          \begin{equation}
+            \label{eqn:dihedralses}
+            \begin{tikzcd}
+              1\arrow{r}
+              &Z(D_{2^{n+1}})\cong\ZZ/2\ZZ\arrow{r}
+              &D_{2^{n+1}}\arrow{r}
+              &\ZZ/2^{n}\ZZ\arrow{r}&1.
+            \end{tikzcd}
+          \end{equation}
         \item
-          All elements in $D_{2^{n+1}}\setminus\langle a\rangle$ are involutions.
+          All elements in
+          $D_{2^{n+1}}\setminus\langle a\rangle$
+          are involutions.
         \item
-          The conjugacy classes of $D_{2^{n+1}}$ are as follows.
+          The conjugacy classes of
+          $D_{2^{n+1}}$ are as follows.
           There are $2$ conjugacy classes
-          of size $1$.
-          They are $\{1\}$, $\{a^{2^{n-1}}\}$.
-          There are $2^{n-1}-1$ conjugacy classes of
-          size $2$.
-          They are
+          of size $1$,
+          namely $\{1\}$ and $\{a^{2^{n-1}}\}$.
+          There are $2^{n-1}-1$
+          conjugacy classes of
+          size $2$,
           % $\{a,a^{-1}\}$,
           % $\{a^2,a^{-2}\}$,
           % \dots,
@@ -2419,8 +2504,9 @@ Preface and Acknowledgments go here!
             \right\}
             _{i=1}^{2^{n-1}-1}.
           \end{equation}
-          There are $2$ conjugacy classes of
-          size $2^{n-1}$. They are
+          Finally, there are
+          $2$ conjugacy classes of
+          size $2^{n-1}$,
           \begin{equation}
             \label{eqn:conjclassesdihedralbiggest}
             \{a^{2i}b : 0\leq i\leq 2^{n-1}-1\}
@@ -2447,32 +2533,33 @@ Preface and Acknowledgments go here!
           b^{-1}ab=a^{-1}
         \right\rangle.
       \end{equation}
-      We summarize some properties of $Q_{2^{n+1}}$:
-      \begin{itemize}
-        \item
-          $Q_{2^{n+1}}$ has $2^{n+1}$ elements
-          which can be written as
-          \mm{todo}
-        \item
-          $Q_{2^{n+1}}$ is a nonsplit extension
-          of cyclic groups.
-        \item
-          All elements in
-          $Q_{2^{n+1}}\setminus\langle a\rangle$
-          have order $4$.
-        \item
-          $Q_{2^{n+1}}$ has a unique involution
-          \mm{todo}
-        \item
-          $Q_{2^{n+1}}/Z(Q_{2^{n+1}})$ is dihedral
-          for $n\geq 3$.
-        \item
-          The conjugacy classes of
-          $Q_{2^{n+1}}$ are as follows.
-          \mm{todo}
-      \end{itemize}
+      % We summarize some properties of
+      % $Q_{2^{n+1}}$:
+      % \begin{itemize}
+      %   \item
+      %     $Q_{2^{n+1}}$ has $2^{n+1}$ elements
+      %     which can be written as
+      %     \mm{todo}
+      %   \item
+      %     $Q_{2^{n+1}}$ is a nonsplit extension
+      %     of cyclic groups.
+      %   \item
+      %     All elements in
+      %     $Q_{2^{n+1}}\setminus\langle a\rangle$
+      %     have order $4$.
+      %   \item
+      %     $Q_{2^{n+1}}$ has a unique involution
+      %     \mm{todo}
+      %   \item
+      %     $Q_{2^{n+1}}/Z(Q_{2^{n+1}})$ is dihedral
+      %     for $n\geq 3$.
+      %   \item
+      %     The conjugacy classes of
+      %     $Q_{2^{n+1}}$ are as follows.
+      %     \mm{todo}
+      % \end{itemize}
     \end{example}
-    \begin{example}[Semi dihedral]
+    \begin{example}[Semi-dihedral]
       \label{exm:semidihedral}
       For $n\geq 3$ define
       \begin{equation}
@@ -2485,33 +2572,34 @@ Preface and Acknowledgments go here!
           bab=a^{-1+2^{n-1}}
         \right\rangle.
       \end{equation}
-      We summarize some properties of $SD_{2^{n+1}}$:
-      \begin{itemize}
-        \item
-          $SD_{2^{n+1}}$ has $2^{n+1}$ elements
-          which can be written as
-          \mm{todo}
-        \item
-          $SD_{2^{n+1}}$ is a split extension
-          of cyclic groups.
-        \item
-          \mm{involutions?}
-        \item
-          $Q_{2^{n+1}}/Z(Q_{2^{n+1}})$ is dihedral.
-        \item
-          Maximal subgroups in $SD_{2^{n+1}}$ are characteristic:
-          \begin{align}
-            \label{eqn:maximalsubgroupssemidihedral}
-            \begin{split}
-              \langle a^2,b\rangle=\Omega_1(SD_{2^{n+1}})&\cong D_{2^n}\\
-              \langle a^2,ab\rangle&\cong Q_{2^n}
-            \end{split}
-          \end{align}
-        \item
-          The conjugacy classes of
-          $SD_{2^{n+1}}$ are as follows.
-          \mm{todo}
-      \end{itemize}
+      % We summarize some properties of
+      % $SD_{2^{n+1}}$:
+      % \begin{itemize}
+      %   \item
+      %     $SD_{2^{n+1}}$ has $2^{n+1}$ elements
+      %     which can be written as
+      %     \mm{todo}
+      %   \item
+      %     $SD_{2^{n+1}}$ is a split extension
+      %     of cyclic groups.
+      %   \item
+      %     \mm{involutions?}
+      %   \item
+      %     $Q_{2^{n+1}}/Z(Q_{2^{n+1}})$ is dihedral.
+      %   \item
+      %     Maximal subgroups in $SD_{2^{n+1}}$ are characteristic:
+      %     \begin{align}
+      %       \label{eqn:maximalsubgroupssemidihedral}
+      %       \begin{split}
+      %         \langle a^2,b\rangle=\Omega_1(SD_{2^{n+1}})&\cong D_{2^n}\\
+      %         \langle a^2,ab\rangle&\cong Q_{2^n}
+      %       \end{split}
+      %     \end{align}
+      %   \item
+      %     The conjugacy classes of
+      %     $SD_{2^{n+1}}$ are as follows.
+      %     \mm{todo}
+      % \end{itemize}
     \end{example}
     \begin{lemma}
       \label{lem:dihedralquotient}
@@ -2523,27 +2611,41 @@ Preface and Acknowledgments go here!
       and $G/Z(G)$ is a dihedral group.
     \end{lemma}
     \begin{proof}
-      % Conrad has elementary proof for dihedral
-      \mm{todo}
+      % % Conrad has elementary proof for dihedral
+      % \mm{todo}
+      This is proved in
+      Berkovich and Janko
+      \cite[Theorem 1.2]{berkovich1}
+      where they attribute a stronger result
+      to Burnside.
     \end{proof}
-    \mm{
-      In fact, these groups are the $p$-groups
-      of maximal nilpotency class and carry
-      many properties\ldots
-    }
+    % \mm{
+    %   In fact, these groups are the $p$-groups
+    %   of maximal nilpotency class and carry
+    %   many properties\ldots
+    % }
   }
   \section{Computing group extensions}{\label{sec:modcoho}
-    % trivial G-Module -> Cohomology module -> Holt's algorithm
+    % trivial G-Module ->
+    % Cohomology module -> Holt's algorithm
     In Section \ref{sec:triplesalgorithm},
-    we will be interested in constructing $2$-groups
+    we will be interested in constructing
+    $2$-groups
     as (central) extensions of other $2$-groups.
     The computations we rely on are implemented in
     \textsf{Magma}
     and described in
-    \emph{Cohomology and group extensions in \textsf{Magma}}
+    % \emph{Cohomology and group extensions in
+    % \textsf{Magma}}
     \cite{magmabook}.
-    We now describe the broad strokes of this implementation
-    emphasizing the particular setting we are interested in.
+    We now describe the broad strokes of
+    this implementation
+    emphasizing the particular
+    setting we are interested in.
+    The background material concerning group
+    extensions in this section is summarized
+    from
+    \cite[\S 17.4]{DF}.
     \begin{definition}
       \label{def:groupextension}
       Let $G$ be a finite group
@@ -2557,13 +2659,26 @@ Preface and Acknowledgments go here!
         \end{tikzcd}
       \end{equation}
       is exact.
+      An extension \eqref{eqn:extension}
+      is \defi{central}
+      if $\iota(A)$ is
+      contained in the center of $\wt{G}$.
     \end{definition}
     Note that for a group extension
-    (as in Equation \ref{eqn:extension})
+    \eqref{eqn:extension}
     there is an action of $G$ on
     $\iota(A)$ by conjugation.
+    This action is obtained by choosing
+    a lift in $\wt{G}$ and conjugating.
+    Conjugating $\iota(A)$ by
+    this lift is well-defined
+    since $A$ is abelian.
+    From now on we identify $A$ with
+    its image $\iota(A)$ in $\wt{G}$
+    to ease notation.
     % This motivates the following definition.
-    To keep track of this structure we make the
+    To keep track of the action of $G$
+    on $A$ we make the
     following definition.
     \begin{definition}
       \label{def:Gmodule}
@@ -2573,41 +2688,54 @@ Preface and Acknowledgments go here!
       and a group homomorphism
       $\phi\colon G\to\Aut(A)$.
     \end{definition}
-    \begin{definition}
-      \label{def:centralextension}
-      An extension as in Equation \ref{eqn:extension}
-      is \defi{central}
-      if $\iota(A)$ is contained in the center of $\wt{G}$.
-    \end{definition}
     \begin{prop}
       \label{prop:centralextensionstrivialGaction}
-      An extension as in Equation \ref{eqn:extension}
+      The extension in \eqref{eqn:extension}
       is central
-      if and only if $A$ is the trivial $G$-module.
+      if and only if
+      $A$
+      (identified with its image $\iota(A)$
+      in $\wt{G}$)
+      has trivial $G$-module
+      structure.
     \end{prop}
     \begin{proof}
       Let $a\in A$, let $g\in G$,
       and let $\wt{g}\in\pi^{-1}(g)$.
       Then $g$ acts on $a$ by
       \begin{equation}
-        \label{eqn:gaction}
-        ga=\iota^{-1}\left(\wt{g}\iota(a){\wt{g}}^{-1}\right).
-      \end{equation}
-      For the trivial action this is just
-      \begin{equation}
         \label{eqn:gactiontrivial1}
-        a=\iota^{-1}\left(\wt{g}\iota(a)\wt{g}^{-1}\right)
+        g\cdot a=\wt{g}a\wt{g}^{-1},
       \end{equation}
-      or equivalently
-      \begin{equation}
-        \label{eqn:gactiontrivial2}
-        \iota(a)=\wt{g}\iota(a)\wt{g}^{-1}.
-      \end{equation}
-      Since every element of $\wt{G}$ can be written as some
-      $\wt{g}$ (the lift of some $g$ under the surjective map $\pi$),
-      this is equivalent to saying $\iota(a)$
-      is central in $\wt{G}$.
+      so the action is trivial
+      if and only if
+      $a=\wt{g}a\wt{g}^{-1}$
+      for all $\wt{g}\in\wt{G}$
+      if and only if $a\in Z(\wt{G})$.
     \end{proof}
+    % \begin{proof}
+      % Let $a\in\iota(A)$, let $g\in G$,
+      % and let $\wt{g}\in\pi^{-1}(g)$.
+      % Then $g$ acts on $a$ by
+      % \begin{equation}
+      %   \label{eqn:gaction}
+      %   ga=\iota^{-1}\left(\wt{g}\iota(a){\wt{g}}^{-1}\right).
+      % \end{equation}
+      % For the trivial action this is just
+      % \begin{equation}
+      %   \label{eqn:gactiontrivial1}
+      %   a=\iota^{-1}\left(\wt{g}\iota(a)\wt{g}^{-1}\right)
+      % \end{equation}
+      % or equivalently
+      % \begin{equation}
+      %   \label{eqn:gactiontrivial2}
+      %   \iota(a)=\wt{g}\iota(a)\wt{g}^{-1}.
+      % \end{equation}
+      % Since every element of $\wt{G}$ can be written as some
+      % $\wt{g}$ (the lift of some $g$ under the surjective map $\pi$),
+      % this is equivalent to saying $\iota(a)$
+      % is central in $\wt{G}$.
+    % \end{proof}
     \begin{definition}
       \label{def:equivalentgroupextension}
       Two extensions of $A$ by $G$ are
@@ -2629,12 +2757,14 @@ Preface and Acknowledgments go here!
       Definition \ref{def:equivalentgroupextension}
       requires an isomorphism $\phi$
       inducing the identity map on $A$ and $G$.
-      This definition comes from the $G$-module structure of $A$
+      This definition comes from the
+      $G$-module structure of $A$
       in the sense that equivalent extensions
-      induce (by conjugation) the same $G$-module structure on $A$.
+      induce (by conjugation) the same
+      $G$-module structure on $A$.
       A weaker notion of equivalence
       (where we only require $\phi$
-      to map $A$ to $A$)
+      to be any isomorphism from $A$ to $A$)
       is useful to characterize
       the groups $\wt{G}$ up to group isomorphism,
       but will not be used in our situation.
@@ -2730,8 +2860,10 @@ Preface and Acknowledgments go here!
         \end{tikzcd}
       \]
       where the conjugation action of $\pi^{-1}(G)$
-      on $\iota(A)$
-      conincides with the original $G$-module action of $A$.
+      on $A$
+      (identified with $\iota(A)$)
+      conincides with the original
+      $G$-module action of $A$.
     \end{example}
     We now explain the bijection between
     equivalence classes of extensions
@@ -2747,8 +2879,6 @@ Preface and Acknowledgments go here!
     % examples at the end..
     \begin{definition}
       \label{def:section}
-      Suppose we have an extension
-      as in Equation \ref{eqn:extension}.
       A function $s\colon G\to\wt{G}$
       such that $\pi\circ s = \id_G$
       is called a
@@ -2759,19 +2889,16 @@ Preface and Acknowledgments go here!
       if it maps $\id_G$
       to
       $\id_{\wt{G}}$.
-    \end{definition}
-    \begin{definition}
-      \label{def:splitextension}
-      An extension as in Equation \ref{eqn:extension}
+      An extension
       is \defi{split}
       if there exists a section $s$ such that
       $s$ is a homomorphism.
     \end{definition}
     \begin{prop}
       \label{prop:splitextensions}
-      Consider an extension as written in
-      Equation \ref{eqn:extension}.
-      This extension is split
+      The extension in
+      \eqref{eqn:extension}
+      is split
       if and only if
       it is equivalent to
       \[
@@ -2819,7 +2946,7 @@ Preface and Acknowledgments go here!
         \label{eqn:gmodulestructureofA}
         s(g)\iota(a')=\iota(ga)s(g).
       \end{equation}
-      Equation \ref{eqn:gmodulestructureofA}
+      \eqref{eqn:gmodulestructureofA}
       then implies
       \[
         \iota(a)s(g)\iota(a')s(g')=\iota(a)\iota(ga')s(g)s(g')=\iota(a+ga')s(gg')
@@ -2830,8 +2957,10 @@ Preface and Acknowledgments go here!
     Proposition \ref{prop:splitextensions}
     completely describes split extensions.
     For nonsplit extensions,
-    we must analyze sections that are not homomorphisms.
-    To measure the failure of $s$ to be a homomorphism,
+    we must analyze sections that are
+    not homomorphisms.
+    To measure the failure of $s$
+    to be a homomorphism,
     we make the following definition.
     % \begin{definition}
     %   \label{def:factorset}
@@ -2862,9 +2991,10 @@ Preface and Acknowledgments go here!
     % \end{definition}
     \begin{definition}
       \label{def:factorset}
-      Consider an extension as in Equation \ref{eqn:extension}
-      and a section $s$.
-      Let $f\colon G\times G\to A$ be defined by the equation
+      Let $s$ be a section of an extension
+      \eqref{eqn:extension}.
+      Let $f\colon G\times G\to A$
+      be defined by the equation
       \begin{equation}
         \label{eqn:factorset}
         s(g)s(h) = \iota(f(g,h))s(gh).
@@ -2875,7 +3005,7 @@ Preface and Acknowledgments go here!
       $s(gh)$ and $s(g)s(h)$ differ by an element of $\iota(A)$.
       We define $f(g,h)$ to be the element $a\in A$
       such that
-      Equation \ref{eqn:factorset}
+      \eqref{eqn:factorset}
       is satisfied.
       The function $f$ is called the \defi{factor set}
       for the extension and the section $s$.
@@ -2888,13 +3018,13 @@ Preface and Acknowledgments go here!
       for all $g\in G$.
     \end{definition}
     In Lemma \ref{lem:factorsetisacocycle}
-    we will see that a factor set for an extension with a section
+    we will see that a factor set
+    for an extension with a section
     is a special case of a
     \emph{$2$-cocycle}
     which we now define.
     \begin{definition}
       \label{def:twococycle}
-      Consider an extension as in Equation \ref{eqn:extension}.
       A \defi{$2$-cocycle}
       is a map
       $f\colon G\times G\to A$
@@ -2913,7 +3043,6 @@ Preface and Acknowledgments go here!
     \end{definition}
     \begin{definition}
       \label{def:twocoboundary}
-      Consider an extension as in Equation \ref{eqn:extension}.
       A \defi{$2$-coboundary}
       is a map
       $f\colon G\times G\to A$
@@ -2927,7 +3056,6 @@ Preface and Acknowledgments go here!
     \end{definition}
     \begin{definition}
       \label{def:h2}
-      Consider an extension as in Equation \ref{eqn:extension}.
       Let $Z^2(G,A)$ denote the set
       of $2$-cocycles and $B^2(G,A)$
       denote the set of all $2$-coboundaries.
@@ -2935,162 +3063,166 @@ Preface and Acknowledgments go here!
       is defined by the
       quotient $Z^2(G,A)/B^2(G,A)$.
     \end{definition}
-    % \mm{instead of this terse definition of $H^2$ we could define boundary maps\ldots}
     \begin{lemma}
       \label{lem:factorsetisacocycle}
       The factor set $f$ of an extension
-      as in Equation \ref{eqn:extension}
+      as in \eqref{eqn:extension}
       and a section $s$ is a $2$-cocycle.
     \end{lemma}
-    \begin{proof}
-      % DF p.825
-      Since $s\colon G\to\wt{G}$ is a section,
-      we can write elements of $\wt{G}$ in the form
-      $\iota(a)s(g)$ for $a\in A, g\in G$.
-      Now we can write the multiplication of arbitrary elements in $\wt{G}$ as
-      $\iota(a_1)s(g)\iota(a_2)s(h)$.
-      From the action of $G$ on $A$ we have
-      \begin{equation}
-        \label{eqn:factorsetisacocycle1}
-        \iota(a_1)s(g)\iota(a_2)s(h) = \iota(a_1)\iota(ga_2)s(g)s(h)
-        % = \iota(a_1+s(g)a_2s(g)^{-1})s(g)s(h)
-      \end{equation}
-      which, by Equation \ref{eqn:factorset},
-      is equal to
-      \begin{equation}
-        \label{eqn:factorsetisacocycle2}
-        \iota(a_1)\iota(ga_2)\iota(f(g,h))s(gh)
-        =\iota(a_1+ga_2+f(g,h))s(gh)
-        % \iota(a_1+s(g)a_2s(g)^{-1})\iota(f(g,h))s(gh)=
-        % \iota((a_1+s(g)a_2s(g)^{-1})f(g,h))s(gh)
-      \end{equation}
-      so that
-      \begin{equation}
-        \label{eqn:factorsetisacocycle3}
-        \iota(a_1)s(g)\iota(a_2)s(h)
-        =\iota(a_1+ga_2+f(g,h))s(gh).
-      \end{equation}
-      Now let $g,h,k\in G$ and,
-      using Equation \ref{eqn:factorsetisacocycle3},
-      we have
-      \begin{align}
-        \label{eqn:associative1}
-        \begin{split}
-          [s(g)s(h)]s(k) &= [\iota(f(g,h))s(gh)]s(k)\\
-                         &= \iota(f(g,h)+f(gh,k))s(ghk)
-        \end{split}
-      \end{align}
-      and
-      \begin{align}
-        \label{eqn:associative2}
-        \begin{split}
-          s(g)[s(h)s(k)] &= s(g)[\iota(f(h,k))s(hk)]\\
-                         &= \iota(gf(h,k)+f(g,hk))s(ghk).
-        \end{split}
-      \end{align}
-      Since the right hand sides of Equation
-      \ref{eqn:associative1}
-      and
-      Equation
-      \ref{eqn:associative2}
-      are equal
-      by associativity in $\wt{G}$,
-      we get
-      \begin{equation}
-        \label{eqn:justiota}
-        \iota(f(g,h)+f(gh,k))s(ghk)
-        =
-        \iota(gf(h,k)+f(g,hk))s(ghk).
-      \end{equation}
-      After canceling $s(ghk)$ from both sides
-      and using the injectivity of $\iota$
-      Equation \ref{eqn:justiota}
-      shows that $f$ satisfies the condition in
-      Definition
-      \ref{def:twococycle}.
-    \end{proof}
+    % \begin{proof}
+      % % DF p.825
+      % Since $s\colon G\to\wt{G}$ is a section,
+      % we can write elements of $\wt{G}$ in the form
+      % $\iota(a)s(g)$ for $a\in A, g\in G$.
+      % Now we can write the multiplication of arbitrary elements in $\wt{G}$ as
+      % $\iota(a_1)s(g)\iota(a_2)s(h)$.
+      % From the action of $G$ on $A$ we have
+      % \begin{equation}
+      %   \label{eqn:factorsetisacocycle1}
+      %   \iota(a_1)s(g)\iota(a_2)s(h) = \iota(a_1)\iota(ga_2)s(g)s(h)
+      %   % = \iota(a_1+s(g)a_2s(g)^{-1})s(g)s(h)
+      % \end{equation}
+      % which, by \eqref{eqn:factorset},
+      % is equal to
+      % \begin{equation}
+      %   \label{eqn:factorsetisacocycle2}
+      %   \iota(a_1)\iota(ga_2)\iota(f(g,h))s(gh)
+      %   =\iota(a_1+ga_2+f(g,h))s(gh)
+      %   % \iota(a_1+s(g)a_2s(g)^{-1})\iota(f(g,h))s(gh)=
+      %   % \iota((a_1+s(g)a_2s(g)^{-1})f(g,h))s(gh)
+      % \end{equation}
+      % so that
+      % \begin{equation}
+      %   \label{eqn:factorsetisacocycle3}
+      %   \iota(a_1)s(g)\iota(a_2)s(h)
+      %   =\iota(a_1+ga_2+f(g,h))s(gh).
+      % \end{equation}
+      % Now let $g,h,k\in G$ and,
+      % using \eqref{eqn:factorsetisacocycle3},
+      % we have
+      % \begin{align}
+      %   \label{eqn:associative1}
+      %   \begin{split}
+      %     [s(g)s(h)]s(k) &= [\iota(f(g,h))s(gh)]s(k)\\
+      %                    &= \iota(f(g,h)+f(gh,k))s(ghk)
+      %   \end{split}
+      % \end{align}
+      % and
+      % \begin{align}
+      %   \label{eqn:associative2}
+      %   \begin{split}
+      %     s(g)[s(h)s(k)] &= s(g)[\iota(f(h,k))s(hk)]\\
+      %                    &= \iota(gf(h,k)+f(g,hk))s(ghk).
+      %   \end{split}
+      % \end{align}
+      % Since the right hand sides of
+      % \eqref{eqn:associative1}
+      % and
+      % \eqref{eqn:associative2}
+      % are equal
+      % by associativity in $\wt{G}$,
+      % we get
+      % \begin{equation}
+      %   \label{eqn:justiota}
+      %   \iota(f(g,h)+f(gh,k))s(ghk)
+      %   =
+      %   \iota(gf(h,k)+f(g,hk))s(ghk).
+      % \end{equation}
+      % After canceling $s(ghk)$ from both sides
+      % and using the injectivity of $\iota$
+      % \eqref{eqn:justiota}
+      % shows that $f$ satisfies the condition in
+      % Definition
+      % \ref{def:twococycle}.
+    % \end{proof}
     \begin{lemma}
       \label{lem:choiceofsectioncoboundary}
       % \mm{choice of section changes a factor set by a coboundary
       % and therefore an extension determines a class in $H^2$}
-      Consider an extension as in Equation \ref{eqn:extension}.
+      Consider an extension as in
+      \eqref{eqn:extension}.
       Let $s$ and $s'$ be sections of this extension
       with corresponding factor sets $f$ and $f'$
       respectively.
       Then $f'-f$ is a $2$-coboundary.
     \end{lemma}
-    \begin{proof}
-      For $g\in G$ we have
-      $s(g)$ and $s'(g)$ define the same (right) coset of
-      $\wt{G}/\iota(A)$.
-      We can therefore write
-      \begin{equation}
-        \label{eqn:definef1}
-        s'(g) = \iota(a)s(g)
-      \end{equation}
-      for some $a\in A$.
-      This defines a map
-      $f_1\colon G\to A$
-      by mapping $g\in G$ to $a\in A$
-      satisfying
-      Equation \ref{eqn:definef1}.
-      Thus,
-      \begin{equation}
-        \label{eqn:definef1again}
-        s'(g)=\iota(f_1(g))s(g)
-      \end{equation}
-      for every $g\in G$.
-      Now on one hand we have
-      \begin{equation}
-        \label{eqn:onehand}
-        s'(g)s'(h)=
-        \iota(f'(g,h))s'(gh)=
-        \iota(f'(g,h))\iota(f_1(gh))s(gh)
-      \end{equation}
-      for all $g,h\in G$.
-      On the other hand we have
-      \begin{align}
-        \label{eqn:otherhand}
-        \begin{split}
-          s'(g)s'(h)
-          &=\iota(f_1(g))s(g)\iota(f_1(h))s(h)\\
-          &=\iota(f_1(g))\iota(gf_1(h))s(g)s(h)\\
-          &=\iota(f_1(g))\iota(gf_1(h))\iota(f(g,h))s(gh).
-        \end{split}
-      \end{align}
-      Combining Equation \ref{eqn:onehand}
-      and
-      Equation \ref{eqn:otherhand}
-      we get
-      \begin{equation}
-        \label{eqn:result1}
-        \iota(f'(g,h))\iota(f_1(gh))s(gh)
-        =\iota(f_1(g))\iota(gf_1(h))\iota(f(g,h))s(gh)
-      \end{equation}
-      which implies
-      \begin{equation}
-        \label{eqn:result2}
-        \iota(f'(g,h)+f_1(gh))
-        =\iota(f_1(g)+gf_1(h)+f(g,h))
-      \end{equation}
-      which implies (by injectivity of $\iota$)
-      that
-      \begin{equation}
-        \label{eqn:result3}
-        f'(g,h)+f_1(gh)
-        =f_1(g)+gf_1(h)+f(g,h).
-      \end{equation}
-      Rewriting Equation \ref{eqn:result3} as
-      \begin{equation}
-        \label{eqn:result4}
-        f'(g,h)-f(g,h)=gf_1(h)-f_1(gh)+f_1(g)
-      \end{equation}
-      shows that $f'-f$ satisfies
-      the conditions in
-      Definition \ref{def:twocoboundary}
-      and is a $2$-coboundary.
-      % DF p.826
-    \end{proof}
+    % \begin{proof}
+      % For $g\in G$ we have
+      % $s(g)$ and $s'(g)$ define the same (right) coset of
+      % $\wt{G}/\iota(A)$.
+      % We can therefore write
+      % \begin{equation}
+      %   \label{eqn:definef1}
+      %   s'(g) = \iota(a)s(g)
+      % \end{equation}
+      % for some $a\in A$.
+      % This defines a map
+      % $f_1\colon G\to A$
+      % by mapping $g\in G$ to $a\in A$
+      % satisfying
+      % \eqref{eqn:definef1}.
+      % Thus,
+      % \begin{equation}
+      %   \label{eqn:definef1again}
+      %   s'(g)=\iota(f_1(g))s(g)
+      % \end{equation}
+      % for every $g\in G$.
+      % Now on one hand we have
+      % \begin{equation}
+      %   \label{eqn:onehand}
+      %   s'(g)s'(h)=
+      %   \iota(f'(g,h))s'(gh)=
+      %   \iota(f'(g,h))\iota(f_1(gh))s(gh)
+      % \end{equation}
+      % for all $g,h\in G$.
+      % On the other hand we have
+      % \begin{align}
+      %   \label{eqn:otherhand}
+      %   \begin{split}
+      %     s'(g)s'(h)
+      %     &=\iota(f_1(g))s(g)\iota(f_1(h))s(h)\\
+      %     &=\iota(f_1(g))\iota(gf_1(h))s(g)s(h)\\
+      %     &=\iota(f_1(g))\iota(gf_1(h))\iota(f(g,h))s(gh).
+      %   \end{split}
+      % \end{align}
+      % Combining \eqref{eqn:onehand}
+      % and
+      % \eqref{eqn:otherhand}
+      % we get
+      % \begin{equation}
+      %   \label{eqn:result1}
+      %   \iota(f'(g,h))\iota(f_1(gh))s(gh)
+      %   =\iota(f_1(g))\iota(gf_1(h))\iota(f(g,h))s(gh)
+      % \end{equation}
+      % which implies
+      % \begin{equation}
+      %   \label{eqn:result2}
+      %   \iota(f'(g,h)+f_1(gh))
+      %   =\iota(f_1(g)+gf_1(h)+f(g,h))
+      % \end{equation}
+      % which implies (by injectivity of $\iota$)
+      % that
+      % \begin{equation}
+      %   \label{eqn:result3}
+      %   f'(g,h)+f_1(gh)
+      %   =f_1(g)+gf_1(h)+f(g,h).
+      % \end{equation}
+      % Rewriting \eqref{eqn:result3} as
+      % \begin{equation}
+      %   \label{eqn:result4}
+      %   f'(g,h)-f(g,h)=gf_1(h)-f_1(gh)+f_1(g)
+      % \end{equation}
+      % shows that $f'-f$ satisfies
+      % the conditions in
+      % Definition \ref{def:twocoboundary}
+      % and is a $2$-coboundary.
+      % % DF p.826
+    % \end{proof}
+    Lemma \ref{lem:factorsetisacocycle}
+    and Lemma
+    \ref{lem:choiceofsectioncoboundary}
+    are explained on page 825 and 826 of
+    \cite{DF}.
     \begin{lemma}
       \label{lem:equivalentextensionssamecohomologyclass}
       % \mm{equivalent extensions determine the same element of $H^2$}
@@ -3126,7 +3258,7 @@ Preface and Acknowledgments go here!
       and let
       $s_1\colon G\to\wt{G}$
       be a section of $\pi_1$.
-      From Equation \ref{eqn:twoextensions1} we have that
+      From \eqref{eqn:twoextensions1} we have that
       $s_2\colonequals \phi\circ s_1$ is a
       section of $\pi_2$.
       Let $f_1$ and $f_2$ be the factor sets
@@ -3142,7 +3274,7 @@ Preface and Acknowledgments go here!
       \end{align}
       for all $g,h\in G$.
       Chasing through the diagram in
-      Equation \ref{eqn:twoextensions1}
+      \eqref{eqn:twoextensions1}
       we have
       \begin{equation}
         \label{eqn:samefactorsets}
@@ -3156,7 +3288,7 @@ Preface and Acknowledgments go here!
         \end{split}
       \end{equation}
       where the last equality in
-      Equation \ref{eqn:samefactorsets}
+      \eqref{eqn:samefactorsets}
       follows from chasing the diagram through the
       identity map $\id\colon A\to A$.
       This shows if two extensions are equivalent,
@@ -3169,7 +3301,8 @@ Preface and Acknowledgments go here!
       which completes the proof.
       % DF p.826
     \end{proof}
-    Lemma \ref{lem:equivalentextensionssamecohomologyclass}
+    Lemma
+    \ref{lem:equivalentextensionssamecohomologyclass}
     proves that any factor set for an
     extension of $A$ by $G$
     defines a unique class in
@@ -3207,99 +3340,110 @@ Preface and Acknowledgments go here!
         (a_1,g_1)(a_2,g_2)=
         (a_1+g_1a_2+f(g_1,g_2), g_1g_2).
       \end{equation}
-      We are first required to prove that
-      $A\times G$ with this operation is a group.
-      We will do this in three steps.
-      \begin{enumerate}
-        \item
-          \label{itm:identityelement}
-          We claim the identity element is
-          $(-f(1,1), 1)$.
-          Indeed if we let $(a,g)\in\wt{G}$,
-          then
-          \begin{align}
-            \label{eqn:identityinwtG}
-            \begin{split}
-              (-f(1,1),1)(a,g)
-              &=(-f(1,1)+1a+f(1,g),1g)\\
-              &=(f(1,g)-f(1,1)+a,g)\\
-              (a,g)(-f(1,1),1)
-              &=(a+g(-f(1,1))+f(g,1), g1)\\
-              &=(a+f(g,1)-gf(1,1), g)
-            \end{split}
-          \end{align}
-          so it suffices to show
-          \begin{align}
-            \label{eqn:sufficientoshow}
-            \begin{split}
-              f(1,g)-f(1,1)=0=f(g,1)-gf(1,1).
-            \end{split}
-          \end{align}
-          Equation \ref{eqn:sufficientoshow}
-          follows from the equations
-          \begin{align}
-            \label{eqn:g11}
-            \begin{split}
-              f(1,1)+f(1,g)&=2f(1,g)\\
-              2f(g,1)&=gf(1,1)+f(g,1)
-            \end{split}
-          \end{align}
-          which are obtained
-          by substituting
-          $g=1,h=1,k=g$
-          and
-          $g=g, h=1, k=1$
-          respectively into
-          Equation
-          \ref{eqn:twococycle}.
-          % Then Equation \ref{eqn:g11} implies
-          % \begin{align}
-          %   \label{eqn:twotimeszero}
-          %   \begin{split}
-          %     f(1,g)-f(1,1)
-          %     &=2f(1,g)-2f(1,1)\\
-          %     &=2[f(1,g)-f(1,1)]\\
-          %     f(g,1)-gf(1,1)
-          %     &=2f(g,1)-2gf(1,1)\\
-          %     &=2[f(g,1)-gf(1,1)].
-          %   \end{split}
-          % \end{align}
-          % Thus Equation \ref{eqn:sufficientoshow}
-          % is satisfied.
-        \item
-          \label{itm:inverses}
-          Let $(a,g)\in A\times G$.
-          We claim that
-          \begin{equation}
-            \label{eqn:aginverses}
-            (a,g)^{-1}
-            =
-            (-g^{-1}a-f(g^{-1},g)-f(1,1), g^{-1}).
-          \end{equation}
-          % We are required to show
-          % \begin{align}
-          %   \label{eqn:sufficientforinverses}
-          %   \begin{split}
-          %     (a,g)(-g^{-1}a-f(g^{-1},g)-f(1,1), g^{-1})&=(-f(1,1),1)\\
-          %     (-g^{-1}a-f(g^{-1},g)-f(1,1), g^{-1})(a,g)&=(-f(1,1),1).
-          %   \end{split}
-          % \end{align}
-          We have \mm{TODO: verify inverse}
-          \begin{align}
-            \label{eqn:justgoforit}
-            \begin{split}
-              (a,g)(-g^{-1}a-f(g^{-1},g)-f(1,1), g^{-1})
-              &=(,gg^{-1})\\
-              &=(-f(1,1),1)\\
-              (-g^{-1}a-f(g^{-1},g)-f(1,1), g^{-1})(a,g)
-              &=(,g^{-1}g)\\
-              &=(-f(1,1),1)
-            \end{split}
-          \end{align}
-        \item
-          \mm{TODO: verify associativity}
-          \label{itm:associativity}
-      \end{enumerate}
+      % We are first required to prove that
+      $A\times G$ with this operation is a group
+      with identity element
+      $(-f(1,1), 1)$
+      and the inverse of $(a,g)\in A\times G$
+      given by
+      \begin{equation}
+        \label{eqn:aginverses}
+        (a,g)^{-1}
+        =
+        (-g^{-1}a-f(g^{-1},g)-f(1,1), g^{-1}).
+      \end{equation}
+      % We will do this in three steps.
+      % \begin{enumerate}
+      %   \item
+      %     \label{itm:identityelement}
+      %     % We claim the identity element is
+      %     The identity element is
+      %     $(-f(1,1), 1)$.
+      %     % Indeed if we let $(a,g)\in\wt{G}$,
+      %     % then
+      %     % \begin{align}
+      %     %   \label{eqn:identityinwtG}
+      %     %   \begin{split}
+      %     %     (-f(1,1),1)(a,g)
+      %     %     &=(-f(1,1)+1a+f(1,g),1g)\\
+      %     %     &=(f(1,g)-f(1,1)+a,g)\\
+      %     %     (a,g)(-f(1,1),1)
+      %     %     &=(a+g(-f(1,1))+f(g,1), g1)\\
+      %     %     &=(a+f(g,1)-gf(1,1), g)
+      %     %   \end{split}
+      %     % \end{align}
+      %     % so it suffices to show
+      %     % \begin{align}
+      %     %   \label{eqn:sufficientoshow}
+      %     %   \begin{split}
+      %     %     f(1,g)-f(1,1)=0=f(g,1)-gf(1,1).
+      %     %   \end{split}
+      %     % \end{align}
+      %     % \eqref{eqn:sufficientoshow}
+      %     % follows from the equations
+      %     % \begin{align}
+      %     %   \label{eqn:g11}
+      %     %   \begin{split}
+      %     %     f(1,1)+f(1,g)&=2f(1,g)\\
+      %     %     2f(g,1)&=gf(1,1)+f(g,1)
+      %     %   \end{split}
+      %     % \end{align}
+      %     % which are obtained
+      %     % by substituting
+      %     % $g=1,h=1,k=g$
+      %     % and
+      %     % $g=g, h=1, k=1$
+      %     % respectively into
+      %     % \eqref{eqn:twococycle}.
+      %     % % Then Equation \ref{eqn:g11} implies
+      %     % % \begin{align}
+      %     % %   \label{eqn:twotimeszero}
+      %     % %   \begin{split}
+      %     % %     f(1,g)-f(1,1)
+      %     % %     &=2f(1,g)-2f(1,1)\\
+      %     % %     &=2[f(1,g)-f(1,1)]\\
+      %     % %     f(g,1)-gf(1,1)
+      %     % %     &=2f(g,1)-2gf(1,1)\\
+      %     % %     &=2[f(g,1)-gf(1,1)].
+      %     % %   \end{split}
+      %     % % \end{align}
+      %     % % Thus Equation \ref{eqn:sufficientoshow}
+      %     % % is satisfied.
+      %   \item
+      %     \label{itm:inverses}
+      %     Let $(a,g)\in A\times G$.
+      %     % We claim that
+      %     Then
+      %     \begin{equation}
+      %       \label{eqn:aginverses}
+      %       (a,g)^{-1}
+      %       =
+      %       (-g^{-1}a-f(g^{-1},g)-f(1,1), g^{-1}).
+      %     \end{equation}
+      %     % We are required to show
+      %     % \begin{align}
+      %     %   \label{eqn:sufficientforinverses}
+      %     %   \begin{split}
+      %     %     (a,g)(-g^{-1}a-f(g^{-1},g)-f(1,1), g^{-1})&=(-f(1,1),1)\\
+      %     %     (-g^{-1}a-f(g^{-1},g)-f(1,1), g^{-1})(a,g)&=(-f(1,1),1).
+      %     %   \end{split}
+      %     % \end{align}
+      %     % We have \mm{TODO: verify inverse}
+      %     % \begin{align}
+      %     %   \label{eqn:justgoforit}
+      %     %   \begin{split}
+      %     %     (a,g)(-g^{-1}a-f(g^{-1},g)-f(1,1), g^{-1})
+      %     %     &=(,gg^{-1})\\
+      %     %     &=(-f(1,1),1)\\
+      %     %     (-g^{-1}a-f(g^{-1},g)-f(1,1), g^{-1})(a,g)
+      %     %     &=(,g^{-1}g)\\
+      %     %     &=(-f(1,1),1)
+      %     %   \end{split}
+      %     % \end{align}
+      %   \item
+      %     \mm{TODO: verify associativity}
+      %     \label{itm:associativity}
+      % \end{enumerate}
       We now construct the rest of the extension.
       Let $A^*$ be defined by
       \begin{equation}
@@ -3307,84 +3451,96 @@ Preface and Acknowledgments go here!
         A^*\colonequals
         \{(a-f(1,1), 1):a\in A\}.
       \end{equation}
-      We first show that $A^*$ is a subgroup of $\wt{G}$.
-      Let
-      $a_1^*\colonequals(a_1-f(1,1,),1)$
-      and
-      $a_2^*\colonequals(a_2-f(1,1),1)$
-      be elements of $A^*$.
-      Then
-      \begin{align}
-        \label{eqn:subgroupAstar}
-        \begin{split}
-          % (a_1-f(1,1),1)(a_2-f(1,1),1)
-          a_1^*a_2^*
-          &=(a_1-f(1,1)+1(a_2-f(1,1))+f(1,1), 1)\\
-          &=(a_1+a_2-f(1,1),1)
-        \end{split}
-      \end{align}
-      shows that $A^*$ is closed under the group operation.
-      Let $(a-f(1,1),1)\in A^*$.
-      Then
+      % We first show that $A^*$ is a subgroup of $\wt{G}$.
+      $A^*$ is a normal subgroup of
+      $\wt{G}$ with the inverses given by
       \begin{align}
         \label{eqn:subgroupinversesAstar}
         \begin{split}
           (a-f(1,1),1)^{-1}
-          &=(-(1(a-f(1,1)))-f(1,1)-f(1,1), 1)\\
-          &=(-(a-f(1,1))-f(1,1)-f(1,1), 1)\\
+          % &=(-(1(a-f(1,1)))-f(1,1)-f(1,1), 1)\\
+          % &=(-(a-f(1,1))-f(1,1)-f(1,1), 1)\\
           &=(-a-f(1,1), 1)
         \end{split}
       \end{align}
-      shows that $A^*$ is closed under inverses.
-      Thus $A^*$ is a subgroup of $\wt{G}$.
-      To see that $A^*$ is a normal subgroup,
-      let $a^*\colonequals (a-f(1,1),1)\in A^*$
-      and $(a',g)\in\wt{G}$.
-      Then
-      \mm{TODO: verify $A^*$ is normal}
-      \begin{align}
-        \label{eqn:Astarnormal}
-        \begin{split}
-          (a',g)a^*(a',g)^{-1}
-          &=(a',g)(a-f(1,1),1)(a',g)^{-1}\\
-          &=(a',g)(a-f(1,1),1)(-g^{-1}a'-f(g^{-1},g)-f(1,1),g^{-1})\\
-          &=(a'+g(a-f(1,1))+f(g,1),g)(-g^{-1}a'-f(g^{-1},g)-f(1,1),g^{-1})\\
-          % Nicole says comic sans would work here
-          &=(,gg^{-1})\\
-          &=
-        \end{split}
-      \end{align}
-      Now define $\iota\colon A\to A^*$
-      by
+      % Let
+      % $a_1^*\colonequals(a_1-f(1,1,),1)$
+      % and
+      % $a_2^*\colonequals(a_2-f(1,1),1)$
+      % be elements of $A^*$.
+      % Then
+      % \begin{align}
+      %   \label{eqn:subgroupAstar}
+      %   \begin{split}
+      %     % (a_1-f(1,1),1)(a_2-f(1,1),1)
+      %     a_1^*a_2^*
+      %     &=(a_1-f(1,1)+1(a_2-f(1,1))+f(1,1), 1)\\
+      %     &=(a_1+a_2-f(1,1),1)
+      %   \end{split}
+      % \end{align}
+      % shows that $A^*$ is closed under the group operation.
+      % Let $(a-f(1,1),1)\in A^*$.
+      % Then
+      % \begin{align}
+      %   \label{eqn:subgroupinversesAstar}
+      %   \begin{split}
+      %     (a-f(1,1),1)^{-1}
+      %     &=(-(1(a-f(1,1)))-f(1,1)-f(1,1), 1)\\
+      %     &=(-(a-f(1,1))-f(1,1)-f(1,1), 1)\\
+      %     &=(-a-f(1,1), 1)
+      %   \end{split}
+      % \end{align}
+      % shows that $A^*$ is closed under inverses.
+      % Thus $A^*$ is a subgroup of $\wt{G}$.
+      % To see that $A^*$ is a normal subgroup,
+      % let $a^*\colonequals (a-f(1,1),1)\in A^*$
+      % and $(a',g)\in\wt{G}$.
+      % Then
+      % \mm{TODO: verify $A^*$ is normal}
+      % \begin{align}
+      %   \label{eqn:Astarnormal}
+      %   \begin{split}
+      %     (a',g)a^*(a',g)^{-1}
+      %     &=(a',g)(a-f(1,1),1)(a',g)^{-1}\\
+      %     &=(a',g)(a-f(1,1),1)(-g^{-1}a'-f(g^{-1},g)-f(1,1),g^{-1})\\
+      %     &=(a'+g(a-f(1,1))+f(g,1),g)(-g^{-1}a'-f(g^{-1},g)-f(1,1),g^{-1})\\
+      %     % Nicole says comic sans would work here
+      %     &=(,gg^{-1})\\
+      %     &=
+      %   \end{split}
+      % \end{align}
+      The isomorphism $\iota\colon A\to A^*$
+      is defined by
       \begin{equation}
         \label{eqn:iotaAstar}
         a\mapsto
         (a-f(1,1),1).
       \end{equation}
-      To show that $\iota$ is a homomorphism
-      Let $a_1,a_2\in A$.
-      Then
-      \begin{align}
-        \label{eqn:iotahomo}
-        \begin{split}
-          \iota(a_1+a_2)
-          &=(a_1+a_2-f(1,1),1)\\
-          &=(a_1-f(1,1)+1(a_2-f(1,1))+f(1,1), 1)\\
-          &=\iota(a_1)\iota(a_2).
-        \end{split}
-      \end{align}
-      Now let $a\in\ker\iota$ so that
-      \begin{equation}
-        \label{eqn:keriota}
-        (-f(1,1),1) =\iota(a)
-                    =(a-f(1,1),1)
-      \end{equation}
-      implies that $a=0$
-      and $\iota$ is injective.
-      To see that $\iota$ maps onto $A^*$,
-      let $(a-f(1,1),1)\in A^*$.
-      Then $\iota(a)=(a-f(1,1),1)$.
-      Thus $\iota\colon A\to A^*$ is an isomorphism.
+      % To show that $\iota$ is a homomorphism
+      % Let $a_1,a_2\in A$.
+      % Then
+      % \begin{align}
+      %   \label{eqn:iotahomo}
+      %   \begin{split}
+      %     \iota(a_1+a_2)
+      %     &=(a_1+a_2-f(1,1),1)\\
+      %     &=(a_1-f(1,1)+1(a_2-f(1,1))+f(1,1), 1)\\
+      %     &=\iota(a_1)\iota(a_2).
+      %   \end{split}
+      % \end{align}
+      % Now let $a\in\ker\iota$ so that
+      % \begin{equation}
+      %   \label{eqn:keriota}
+      %   (-f(1,1),1) =\iota(a)
+      %               =(a-f(1,1),1)
+      % \end{equation}
+      % implies that $a=0$
+      % and $\iota$ is injective.
+      % To see that $\iota$ maps onto $A^*$,
+      % let $(a-f(1,1),1)\in A^*$.
+      % Then $\iota(a)=(a-f(1,1),1)$.
+      % Thus $\iota\colon A\to A^*$
+      % is an isomorphism.
       Define $\pi\colon\wt{G}\to G$ by
       the projection
       $(a,g)\mapsto g$.
@@ -3393,26 +3549,30 @@ Preface and Acknowledgments go here!
       since the second coordinate is $1\in G$
       for every element of $A^*$.
       Thus
-      Equation
-      \ref{eqn:extensionfromcocycle}
+      \eqref{eqn:extensionfromcocycle}
       is an extension of $A$ by $G$.
-      \par
       Lastly,
       let $s\colon G\to\wt{G}$
       be a section of $\pi$
       and let $f_s$ be the factor set
       of the extension in
-      Equation
-      \ref{eqn:extensionfromcocycle}.
-      \mm{todo: show $f_s$ and $f$ equal in $H^2(G,A)$}
+      \eqref{eqn:extensionfromcocycle}.
+      One can show that $f_s$ and $f$
+      are equal in
+      $H^2(G,A)$.
+      \par
+      For more of the details of this proof
+      see page 827 of \cite{DF}
+      and page 92 of \cite{brown}.
       % DF p.827
       % Brown p.92
     \end{proof}
     \begin{remark}
       \label{rmk:semidirectproducttrivialcocycle}
-      The construction in (the proof of)
+      The construction in
       Lemma \ref{lem:constructextensionfromcocycle}
-      generalizes the semidirect product construction
+      generalizes the
+      semidirect product construction
       in Example \ref{exm:semidirectproduct}.
     \end{remark}
     \begin{theorem}
@@ -3424,15 +3584,37 @@ Preface and Acknowledgments go here!
       % }
       There is a bijection between equivalence
       classes of extensions of $A$ by $G$
-      as in Equation
-      \ref{eqn:extension}
+      as in
+      \eqref{eqn:extension}
       and
       elements of $H^2(G,A)$.
     \end{theorem}
     \begin{proof}
-      \mm{use every Lemma}
-      % DF p.828
-      % use the lemmata..
+      The least technical proof is
+      by reducing to the normalized setting
+      and is described in detail
+      on page 826 and page 827
+      in \cite{DF}.
+      Below we give a summary of the proof.
+      \par
+      Every $2$-cocycle $f$ has a
+      normalized $2$-cocycle in its
+      cohomology class,
+      so without loss of generality we
+      can assume $f$ is normalized.
+      One then shows that
+      extension constructed from $f$
+      using Lemma
+      \ref{lem:constructextensionfromcocycle}
+      has normalized factor set equal to $f$.
+      The last step is showing that
+      this procedure does not depend on the
+      choice of normalized $2$-cocycle
+      by showing that as long
+      as the normalized $2$-cocycles
+      are in the same cohomology class
+      then the corresponding extensions
+      will be equivalent.
     \end{proof}
     %NORMALIZED REMARK
     % \begin{remark}
@@ -3450,25 +3632,23 @@ Preface and Acknowledgments go here!
     we use the implementation
     in \textsf{Magma} described in
     \cite[Cohomology and group extensions]{magmabook}.
-    Describing this implementation in detail is beyond the scope of this work.
+    Describing this implementation in
+    detail is beyond the scope of this work.
     Instead, we provide
     Example \ref{exm:magmaH2example}
+    at the end of this section
     detailing how we use these
     implementations in practice.
     % discuss Holt's algorithm
     % to enumerate H^2(G,A) elements
     % then move on to our specific setting
-    \begin{example}
-      \label{exm:magmaH2example}
-      \mm{example of how to use \textsf{Magma} implementation in our specific setting}
-    \end{example}
     In our computation of permutation triples
     corresponding to $2$-group Belyi maps
     in the next section,
     we will first be concerned with computing
     extensions of $A$ by $G$
     where $G$ is a finite $2$-group
-    and $A\cong\ZZ/2\ZZ$.
+    and $A\simeq\ZZ/2\ZZ$.
     The first consideration in producing these
     extensions is the possible $G$-module
     structures on $A$.
@@ -3491,16 +3671,16 @@ Preface and Acknowledgments go here!
     group extensions
     as in Example \ref{exm:magmaH2example}.
     \begin{remark}
-      \mm{decide what level of generality we want for the next section.}
+      % \mm{decide what level of generality we want for the next section.}
       \label{rmk:abelianconsiderations}
       Modifications are
       required to compute
       extensions when
-      $A$ is cyclic of prime order $\ell$.
+      $A$ is cyclic of prime order $p$.
       All possible homomorphisms
       $
-        G\to\Aut(\ZZ/\ell\ZZ)\cong
-        (\ZZ/\ell\ZZ)^\times
+        G\to\Aut(\ZZ/p\ZZ)\cong
+        (\ZZ/p\ZZ)^\times
       $
       must be computed,
       and for each $G$-module $A$,
@@ -3514,25 +3694,89 @@ Preface and Acknowledgments go here!
       correspond to
       irreducible $\FF_p[G]$-modules of dimension
       $d$.
-      We avoid this added complexity in the next
-      section where we only consider
-      cases where $A$ is cyclic.
+      Although \textsf{Magma} is capable of
+      computing these modules,
+      we do not require this level
+      of generality for the computations
+      in the next section.
+      % We avoid this added complexity in the next
+      % section where we only consider
+      % cases where $A$ is cyclic.
     \end{remark}
+    We conclude this section with an example
+    of how we compute group extensions
+    in \textsf{Magma}.
+    \begin{example}
+      \label{exm:magmaH2example}
+      % \mm{example of how to use \textsf{Magma} implementation in our specific setting}
+      A file with the source code
+      for this example can be found in
+      the repository
+      \begin{center}
+        \url{https://github.com/michaelmusty/2GroupDessins}
+      \end{center}
+      and can be run from a shell in the
+      repository as follows.
+      \begin{code}
+magma thesis_examples/group_extensions.m
+      \end{code}
+      Let $\sigma$ be the permutation triple
+      representing the size $1$ passport
+      $(41,G,(16,2,8))$
+      % 256S100-16,2,8-g41-3759776077.m
+      where $G$ is the permutation group
+      generated by $\sigma$ of
+      order $256$ and small group database
+      label $(256,100)$.
+      Suppressing the permutations in
+      $\sigma$, the source code is as follows.
+      \begin{magma}
+...
+G := sub<Sym(256)|sigma>;
+assert IsTransitive(G);
+assert #G eq 256;
+A := TrivialModule(G, GF(2));
+CM := CohomologyModule(G, A);
+H2 := CohomologyGroup(CM, 2);
+extensions := [* *];
+for h in H2 do
+  E_fp, pi_fp, iota_fp := Extension(CM, h);
+  iso, E, K := CosetAction(E_fp, sub<E_fp|Id(E_fp)>);
+  iotaE := iota_fp*iso;
+  piE := (iso^-1)*pi_fp;
+  assert Image(iotaE) eq Kernel(piE);
+  assert Image(iotaE).1 in Center(E);
+  Append(~extensions, [* E, iotaE, piE , h *]);
+end for;
+      \end{magma}
+      We first construct $A$ as a $G$-module
+      and construct $H^2(G,A)$
+      using the \emph{Cohomology module}
+      functionality in \textsf{Magma}.
+      In this example $\#H^2(G,A)=32$.
+      For each cohomology class,
+      we compute the corresponding extension
+      (as a finitely presented group)
+      along with mappings defining the extension.
+      Lastly, we act on the identity coset
+      to obtain the extension as a permutation
+      group along with the appropriate mappings.
+    \end{example}
   }
   \section{An iterative algorithm to produce generating triples}{\label{sec:triplesalgorithm}
     The aim of this section is to use
     techniques to compute group
     extensions from Section \ref{sec:modcoho}
     to iteratively
-    compute \emph{$p$-group Belyi triples}
+    compute \emph{$p$-group permutation triples}
     which we define below.
     \begin{definition}
       \label{def:pgroupbelyitriple}
       Let $p$ be prime.
       Let $d\in\ZZ_{\geq 1}$.
-      A \defi{$p$-group Belyi triple
-      of degree $d$}
-      is a permutation triple
+      A \defi{$p$-group permutation triple}
+      of degree $d$
+      is a triple of permutations
       $\sigma\colonequals
       (\sigma_0,\sigma_1,\sigma_\infty)\in S_d^3$
       satisfying the following properties.
@@ -3550,7 +3794,7 @@ Preface and Acknowledgments go here!
       \end{itemize}
       The group $G$ is called the
       \defi{monodromy group of $\sigma$}.
-      We say that two $p$-group Belyi triples
+      We say that two $p$-group permutation triples
       $\sigma,\sigma'$ are \defi{simultaneously
       conjugate} if there exists $\tau\in S_d$ such that
       \begin{equation}\label{eqn:simconjbelyitriple}
@@ -3578,7 +3822,8 @@ Preface and Acknowledgments go here!
     \end{remark}
     % \begin{lemma}
     %   \label{lem:pgroupleftregularrepn}
-    %   Let $\sigma$ be a $p$-group Belyi triple
+    %   Let $\sigma$ be a $p$-group permutation
+    %   triple
     %   of degree $d$
     %   with monodromy group $G$.
     %   Then there is a unique
@@ -3593,7 +3838,7 @@ Preface and Acknowledgments go here!
       \label{exm:degree1belyitriple}
       When $d=1$ we define the triple
       $(\id,\id,\id)\in S_1^3$ to be a $p$-group
-      Belyi triple for every $p$.
+      permutation triple for every $p$.
       This is the unique $p$-group Belyi
       triple of degree $1$.
     \end{example}
@@ -3602,7 +3847,7 @@ Preface and Acknowledgments go here!
       Let $d=p$ and let $\sigma_s$ be
       any $p$-cycle in $S_p$.
       Then we can write $3$ distinct
-      $p$-group Belyi triples
+      $p$-group permutation triples
       of degree $p$:
       \begin{align}
         \label{eqn:dequalsp}
@@ -3612,13 +3857,15 @@ Preface and Acknowledgments go here!
           \Big(\id,\sigma_s,\sigma_s^{-1}\Big).
         \end{split}
       \end{align}
-      These are the only $p$-group Belyi triples
+      These are the only $p$-group permutation
+      triples
       of degree $p$ up to
       simultaneous conjugation.
     \end{example}
     \begin{notation}
       \label{not:oursetting}
-      Let $\sigma$ be a $p$-group Belyi triple
+      Let $\sigma$ be a $p$-group permutation
+      triple
       with monodromy group $G$
       and
       let $A\cong\ZZ/p\ZZ$
@@ -3656,15 +3903,14 @@ Preface and Acknowledgments go here!
       triple $\wt{\sigma}$
       is a \defi{degree $p$ lift}
       (or simply a \defi{lift})
-      of a $p$-group Belyi triple $\sigma$
+      of a $p$-group permutation triple $\sigma$
       of degree $d$
       if $\wt{\sigma}$ is
-      a $p$-group Belyi triple of degree $2d$
+      a $p$-group permutation triple of degree $2d$
       with monodromy group $\wt{G}$
       sitting in the exact sequence
       in
-      Equation
-      \ref{eqn:motivateliftdefinition}
+      \eqref{eqn:motivateliftdefinition}
       where $G$ is the monodromy group of $\sigma$
       and $A\cong\ZZ/p\ZZ$.
       % equipped with a
@@ -3674,10 +3920,11 @@ Preface and Acknowledgments go here!
       \label{not:bipartitegraphs}
       In Algorithm \ref{alg:triples}
       the objective is to lift a
-      $p$-group Belyi triple
+      $p$-group permutation triple
       $\sigma$
       of degree $d$
-      to $p$-group Belyi triples $\wt{\sigma}$
+      to $p$-group permutation
+      triples $\wt{\sigma}$
       of degree $2d$.
       We will denote the set
       of lifts of $\sigma$
@@ -3701,7 +3948,7 @@ Preface and Acknowledgments go here!
         \item
           $\mathscr{G}_{p^i}^\text{above}$ :
           the set of isomorphism classes
-          of $p$-group Belyi triples
+          of $p$-group permutation triples
           of degree $p^i$ indexed by
           permutation triples $\wt{\sigma}$
           up to simultaneous conjugation
@@ -3709,7 +3956,7 @@ Preface and Acknowledgments go here!
         \item
           $\mathscr{G}_{p^i}^\text{below}$ :
           the set of isomorphism classes
-          of $p$-group Belyi triples
+          of $p$-group permutation triples
           of degree $p^{i-1}$ indexed
           by permutation triples $\sigma$
           up to simultaneous conjugation
@@ -3797,8 +4044,8 @@ Preface and Acknowledgments go here!
       simultaneous conjugation in $S_{2d}$
       where the induced $G$-module structure on
       $A$ from
-      the extension in Equation
-      \ref{eqn:motivateliftdefinition}
+      the extension in
+      \eqref{eqn:motivateliftdefinition}
       matches the $G$-module structure of $A$
       given as input.
       \begin{enumerate}
@@ -3823,8 +4070,8 @@ Preface and Acknowledgments go here!
         \item
           \label{alg:triplescomputelifts}
           For each extension
-          $\wt{G}_f$ in Equation
-          \ref{eqn:extensiondependson2cocycle}
+          $\wt{G}_f$ in
+          \eqref{eqn:extensiondependson2cocycle}
           % For $s\in\{0,1,\infty\}$,
           % $\sigma_s$ has $2$ preimages under the map $\pi$
           % which yields $8$ triples $\wt{\sigma} = (\wt{\sigma}_0,\wt{\sigma}_1,\wt{\sigma}_\infty)$
@@ -3908,8 +4155,8 @@ Preface and Acknowledgments go here!
           $\sim$ identifying triples
           in $\Lifts(\sigma)$ that
           are simultaneously conjugate
-          (see Equation
-          \ref{eqn:simconjbelyitriple})
+          (see
+          \eqref{eqn:simconjbelyitriple})
           to obtain representatives of
           $\Lifts(\sigma)/\!\!\sim$.
           % Compute representatives of
@@ -3932,8 +4179,8 @@ Preface and Acknowledgments go here!
           are in bijection
           with extensions
           $\wt{G}_f$
-          as in Equation
-          \ref{eqn:extensiondependson2cocycle}.
+          as in
+          \eqref{eqn:extensiondependson2cocycle}.
         \item
           Any lift of $\sigma$
           inducing the $G$-module
@@ -3958,7 +4205,7 @@ Preface and Acknowledgments go here!
       \ref{alg:triplesunionoflifts}
       it is possible there are
       simultaneously conjugate
-      $p$-group Belyi triples
+      $p$-group permutation triples
       in $\Lifts(\sigma)$.
       In Step
       \ref{alg:triplesuptoisomorphism}
@@ -4045,7 +4292,7 @@ Preface and Acknowledgments go here!
     % \end{remark}
     Algorithm \ref{alg:triples}
     reduces the problem of finding all lifts
-    of a given $p$-group Belyi triple
+    of a given $p$-group permutation triple
     $\sigma$ to determining all possible
     $\langle\sigma\rangle$-module
     structures on $\ZZ/p\ZZ$.
@@ -4184,8 +4431,8 @@ Preface and Acknowledgments go here!
           The generator $\alpha$
           of $\iota(\ZZ/2\ZZ)$
           in $\wt{G}_1$ is $(1\,3)(2\,4)$.
-          Each triple in Equation
-          \ref{eqn:examplelifts1}
+          Each triple in
+          \eqref{eqn:examplelifts1}
           must act on the blocks
           $\left\{\boxed{1\,3},\boxed{2\,4}\right\}$
           so that the induced permutations of these
@@ -4221,8 +4468,8 @@ Preface and Acknowledgments go here!
           \ref{rmk:distinguishedinvolution}
           allows us to label blocks
           by reducing modulo $d$
-          as in Equation
-          \ref{eqn:inducedpermutationofblocks}.
+          as in
+          \eqref{eqn:inducedpermutationofblocks}.
           The last requirement for a triple
           $\wt{\sigma}$
           in Equaiton \ref{eqn:examplelifts1}
@@ -4260,9 +4507,9 @@ Preface and Acknowledgments go here!
       we have that
       $\Lifts(\sigma)$
       contains the $2$ triples in
-      Equation \ref{eqn:liftssigma1}
+      \eqref{eqn:liftssigma1}
       and the $4$ triples in
-      Equation \ref{eqn:examplelifts2}.
+      \eqref{eqn:examplelifts2}.
       Lastly, in Step
       \ref{alg:triplesuptoisomorphism}
       we quotient by simultaneous conjugation
@@ -4285,7 +4532,7 @@ Preface and Acknowledgments go here!
     permutation triple,
     we now describe how to use this
     to compute all isomorpism classes
-    of $2$-group Belyi triples
+    of $2$-group permutation triples
     up to a given degree.
     In the algorithms to follow,
     we are concerned with constructing
@@ -4329,12 +4576,12 @@ Preface and Acknowledgments go here!
     \end{alg}
     \begin{proof}[Proof of correctness]
       By definition,
-      the $3$ degree $2$ Belyi triples
+      the $3$ degree $2$ permutation triples
       from Example \ref{exm:degreepbelyitriple}
-      are the only $2$-group Belyi triples
+      are the only $2$-group permutation triples
       of degree $2$.
       These are all lifts of the unique
-      $2$-group Belyi triple
+      $2$-group permutation triple
       (in Example \ref{exm:degree1belyitriple})
       via the extension
       \begin{equation}
@@ -4440,16 +4687,16 @@ Preface and Acknowledgments go here!
       % the "heavy lifting" is done by alg:triples
       Since $2$-groups are nilpotent,
       every
-      $2$-group Belyi triple
+      $2$-group permutation triple
       of degree $2^i$
       is the lift of at least one
-      $2$-group Belyi triple
+      $2$-group permutation triple
       of degree $2^{i-1}$.
       Let
       $\wt{\sigma}\in\mathscr{G}_{2^i}^\text{above}$
       be an arbitrary representative
       of an isomorphism class of
-      $2$-group Belyi triples of degree $2^i$
+      $2$-group permutation triples of degree $2^i$
       contained in $\Lifts(\sigma)$
       for some degree $2^{i-1}$ triple $\sigma$.
       Let $\sigma'$ denote the representative
@@ -4458,7 +4705,7 @@ Preface and Acknowledgments go here!
       $\sigma$.
       Algorithm \ref{alg:triples}
       ensures that there is a
-      $2$-group Belyi triple $\wt{\sigma}'$
+      $2$-group permutation triple $\wt{\sigma}'$
       of degree $2^i$ in
       $\Lifts(\sigma')$
       that is simultaneously conjugate
@@ -4470,7 +4717,7 @@ Preface and Acknowledgments go here!
       contains at least one 
       triple for every
       isomorphism class of $2$-group
-      Belyi triples of degree $2^i$.
+      permutation triples of degree $2^i$.
       It is,
       however,
       possible for
@@ -4741,7 +4988,7 @@ Preface and Acknowledgments go here!
     \url{https://github.com/michaelmusty/2GroupDessins}
     where the techniques of this chapter
     are used to tabulate a database
-    of $2$-group Belyi triples
+    of $2$-group permutation triples
     up to degree $256$.
     This computation took roughly
     $50$ hours on a single core of a server
@@ -4758,7 +5005,7 @@ Preface and Acknowledgments go here!
     \begin{theorem}\label{thm:isoclasses}
       The following table lists
       the number of isomorphism classes of
-      $2$-group Belyi triples
+      $2$-group permutation triples
       of degree $d$ up to $256$.
       \begin{equation}
         \label{eqn:}
@@ -4766,7 +5013,7 @@ Preface and Acknowledgments go here!
           \hline
           $d$ & $1$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
           \hline
-          \#\text{ Belyi triples } & $1$ & $3$ & $7$ & $19$ & $55$ & $151$ & $503$ & $1799$ & $7175$\\
+          \#\text{ permutation triples } & $1$ & $3$ & $7$ & $19$ & $55$ & $151$ & $503$ & $1799$ & $7175$\\
           \hline
         \end{tabular}
       \end{equation}
@@ -4774,7 +5021,7 @@ Preface and Acknowledgments go here!
     \begin{theorem}\label{thm:passports}
       The following table lists
       the number of passports of
-      $2$-group Belyi triples
+      $2$-group permutation triples
       of degree $d$ up to $256$.
       \begin{equation}
         \label{eqn:}
@@ -4790,7 +5037,7 @@ Preface and Acknowledgments go here!
     \begin{theorem}\label{thm:laxpassports}
       The following table lists
       the number of lax passports of
-      $2$-group Belyi triples
+      $2$-group permutation triples
       of degree $d$ up to $256$.
       \begin{equation}
         \label{eqn:}
@@ -4806,13 +5053,13 @@ Preface and Acknowledgments go here!
     % \begin{longtable}{| p{.20\textwidth} | p{.80\textwidth} |} 
     \begin{theorem}\label{thm:abc}
       The following table lists
-      the number of Belyi triples
+      the number of permutation triples
       up to degree $256$ with
       $\{\order(\sigma_s) : s\in\{0,1,\infty\}\}$
       equal to $\{a,b,c\}$ as sets.
       \begin{longtable}{|l|l|} 
         \hline
-        $(a,b,c)$ & \# Belyi triples \\
+        $(a,b,c)$ & \# permutation triples \\
         \hline
         \hline
         $(1,1,1)$ & $1$ \\ \hline
@@ -4919,7 +5166,7 @@ Preface and Acknowledgments go here!
         \begin{axis}[
           % title=Distribution of $g$,
           xlabel=$g$,
-          ylabel=\# Belyi triples,
+          ylabel=\# triples,
           ybar,
           ymin=0,
           xmin=-0.5,
@@ -4967,7 +5214,7 @@ Preface and Acknowledgments go here!
         %       anchor=north west,
         %       % legend columns=-1
         %     },
-        %     ylabel={\# Belyi triples},
+        %     ylabel={\# triples},
         %     xlabel={degree},
         %     symbolic x coords={
         %       $1$,$2$,$4$,
@@ -5143,7 +5390,7 @@ Preface and Acknowledgments go here!
             anchor=north west,
             % legend columns=-1
           },
-          ylabel={\# Belyi triples},
+          ylabel={\# triples},
           xlabel={degree},
           symbolic x coords={
             $1$,$2$,$4$,
@@ -5197,7 +5444,7 @@ Preface and Acknowledgments go here!
             anchor=north west,
             % legend columns=-1
           },
-          % ylabel={\# Belyi triples},
+          % ylabel={\# triples},
           xlabel={degree},
           symbolic x coords={
             $1$,$2$,$4$,
@@ -5308,11 +5555,11 @@ Preface and Acknowledgments go here!
       \end{tikzpicture}
       \label{fig:groupsbydegree}
       \caption{
-        \# Belyi triples by degree
+        \# permutation triples by degree
         with abelian and nonabelian monodromy
         groups (left)
         and
-        \# Belyi triples by degree
+        \# permutation triples by degree
         with monodromy groups of
         various nilpotency classes (right).
       }
@@ -5536,7 +5783,7 @@ Preface and Acknowledgments go here!
   %   \end{proof}
   % }
   \section{Refined passports}{\label{sec:refined}}{
-    Let $\sigma$ be a $2$-group Belyi triple.
+    Let $\sigma$ be a $2$-group permutation triple.
     Recall, from Definition \ref{def:passport},
     that the passport of $\sigma$
     consists of the data
@@ -5586,7 +5833,8 @@ Preface and Acknowledgments go here!
     To analyze conjugacy in $G$ we
     make the following definition.
     \begin{definition}\label{def:refined}
-      A \defi{refined passport} $\mathscr{P}$ consists of the data
+      A \defi{refined passport} $\mathscr{P}$
+      consists of the data
       $(g,G,C)$
       where $g\geq 0$ is an integer,
       $G\leq S_d$ is a transitive subgroup,
@@ -5601,7 +5849,8 @@ Preface and Acknowledgments go here!
       where $(\sigma_0,\sigma_1,\sigma_\infty)\sim(\sigma_0', \sigma_1', \sigma_\infty')$
       if and only if there exists $\alpha\in\Aut(G)$ with
       $\alpha(\sigma_s) = \sigma_s'$ for $s\in\{0,1,\infty\}$.
-      Let $\sigma$ be a $2$-group Belyi triple
+      Let $\sigma$ be a $2$-group
+      permutation triple
       and let $c_s$ denote the conjugacy
       class of $\langle\sigma\rangle$
       containing $\sigma_s$ for
@@ -5623,15 +5872,15 @@ Preface and Acknowledgments go here!
     \end{theorem}
   }
   \section{A refined conjecture}{\label{sec:conjecture}}{
-    Let $\sigma$ be a $2$-group Belyi triple.
+    Let $\sigma$ be a $2$-group permutation triple.
     Let $\mathcal{P}$ and $\mathscr{P}$ denote the
     passport and refined passport of $\sigma$
     respectively.
     Let $\Sigma_\mathcal{P}$ and $\Sigma_\mathscr{P}$
     denote the sets in
-    Equation \ref{eqn:coarse}
+    \eqref{eqn:coarse}
     and
-    Equation \ref{eqn:refined}
+    \eqref{eqn:refined}
     respectively.
     Let $\wt{\sigma}$ be a lift of $\sigma$
     with passport and refined passport
@@ -5639,13 +5888,13 @@ Preface and Acknowledgments go here!
     \par
     Chapter \ref{chapter:grouptheory}
     provides us with an explicit list
-    of all $2$-group Belyi triples
+    of all $2$-group permutation triples
     (up to simultaneous conjugation in $S_d$)
     for fixed degree.
     Using techniques from
     \cite{belyidb},
     we computed $\Sigma_\mathscr{P}$ for
-    every $2$-group Belyi triple
+    every $2$-group permutation triple
     up to and including degree $256$.
     We observed that
     $\#\Sigma_\mathscr{P}=1$
@@ -5655,7 +5904,7 @@ Preface and Acknowledgments go here!
     motivates us to study the behavior
     of refined passports with respect
     to the iterative structure of
-    $2$-group Belyi triples.
+    $2$-group permutation triples.
     % \begin{lemma}
     %   \label{lem:lineemuplemma}
     %   Let $d\in\ZZ_{\geq 1}$,
@@ -5686,14 +5935,16 @@ Preface and Acknowledgments go here!
     % \end{proof}
     \begin{lemma}
       \label{lem:coarsetorefined}
-      Let $\sigma$ be a $2$-group Belyi triple
+      Let $\sigma$ be a $2$-group
+      permutation triple
       with passport
       $\mathcal{P}=(g,G,C)$
       where $C=(C_0,C_1,C_\infty)$.
       Let $\mathscr{P} = (g,G,c)$
       be the refined passport of $\sigma$
       where $c=(c_0,c_1,c_\infty)$.
-      Let $\sigma'$ be a $2$-group Belyi triple
+      Let $\sigma'$ be a $2$-group
+      permutation triple
       % with passport $\mathcal{P}$
       simultaneously conjugate to $\sigma$
       with refined passport $\mathscr{P}'=(g,G,c')$
@@ -5715,7 +5966,7 @@ Preface and Acknowledgments go here!
     \begin{lemma}
       \label{lem:identifiedinlift}
       Let $\sigma$ and $\sigma'$
-      be $2$-group Belyi triples
+      be $2$-group permutation triples
       with distinct refined passports
       $(g,G,C)$ and $(g,G,C')$ respectively.
       Then the refined passport of any lift
@@ -5755,12 +6006,13 @@ Preface and Acknowledgments go here!
       \end{equation}
       for each $s\in \{0,1,\infty\}$.
       Let $\tau_s\colonequals\pi(\wt{\tau}_s)$.
-      Applying $\pi$ to Equation \ref{eqn:eachconjugate} yields
+      Applying $\pi$ to
+      \eqref{eqn:eachconjugate} yields
       \begin{equation}
         \label{eqn:applypi}
         \sigma_s' = \tau_s\sigma_s\tau_s^{-1}.
       \end{equation}
-      Since Equation \ref{eqn:applypi}
+      Since \eqref{eqn:applypi}
       holds for each $s\in \{0,1,\infty\}$
       this implies that
       $\sigma_s$ and $\sigma_s'$
@@ -5776,7 +6028,7 @@ Preface and Acknowledgments go here!
     \end{proof}
     \begin{conj}
       \label{conj:refinedpassportsizeone}
-      Every $2$-group Belyi triple $\sigma$
+      Every $2$-group permutation triple $\sigma$
       has refined passport size $1$.
     \end{conj}
     % \mm{computational evidence, true in easy cases}
@@ -5785,20 +6037,23 @@ Preface and Acknowledgments go here!
       There is a unique $2$-group Belyi
       triple of degree $1$ which therefore has refined passport size $1$.
       For induction,
-      assume that every $2$-group Belyi triple
+      assume that every $2$-group
+      permutation triple
       of degree $d$
       with $\langle\sigma\rangle$ abelian
       has refined passport size $1$.
-      Let $\wt{\sigma}$ be a $2$-group Belyi triple of degree $2d$ with $\langle\wt{\sigma}\rangle$
+      Let $\wt{\sigma}$ be a $2$-group
+      permutation triple of degree
+      $2d$ with $\langle\wt{\sigma}\rangle$
       abelian.
       We are required to show that the refined
       passport of $\wt{\sigma}$ has size $1$.
       \par
       Let $\Sigma_\mathscr{P}\colonequals\Sigma_{\mathscr{P}(\wt{\sigma})}$ be the set of refined
       passport representatives defined in
-      Equation \ref{eqn:refined}.
+      \eqref{eqn:refined}.
       By Algorithm \ref{alg:triples}
-      there exists a $2$-group Belyi triple
+      there exists a $2$-group permutation triple
       $\sigma$ such that the following sequence is exact.
       \begin{equation}
         \label{eqn:sigmasequence}
@@ -5856,7 +6111,7 @@ Preface and Acknowledgments go here!
         \}
       \end{equation}
       Since $\langle\wt{\sigma}\rangle$ is abelian,
-      the lifts in Equation \ref{eqn:preimagesto1}
+      the lifts in \eqref{eqn:preimagesto1}
       all define distinct triples of conjugacy
       classes of $\langle\wt{\sigma}\rangle$.
       Thus every lift satisfies \ref{itm:distinctconjclasses} which completes the proof in
@@ -5870,20 +6125,22 @@ Preface and Acknowledgments go here!
       dihedral, and we use induction
       as in the abelian case.
       For the induction hypothesis we now assume
-      that every $2$-group Belyi triple of degree
+      that every $2$-group
+      permutation triple of degree
       $d$ with $\langle\sigma\rangle$
       abelian or dihedral has
       refined passport size $1$.
       Let $\wt{\sigma}$
-      be a $2$-group Belyi triple of degree $2d$
+      be a $2$-group
+      permutation triple of degree $2d$
       with $\langle\wt{\sigma}\rangle$
       dihedral.
       Using the same notation from
       the abelian case in
-      Equation \ref{eqn:sigmasequence}
+      \eqref{eqn:sigmasequence}
       we are required to show that the
       $4$ lifts in
-      Equation \ref{eqn:preimagesto1}
+      \eqref{eqn:preimagesto1}
       satisfy either
       \ref{itm:distinctconjclasses}
       or
@@ -6065,7 +6322,7 @@ Preface and Acknowledgments go here!
       $\wt{\sigma}_s\in c_1$.
       Without loss of generality assume
       $\wt{\sigma}_\infty\in c_1$.
-      Then from Equation \ref{eqn:sigma1sigmaoo}
+      Then from \eqref{eqn:sigma1sigmaoo}
       we have that $\wt{\sigma_1}$
       and $\wt{\sigma_0}$ are involutions with
       opposite parity.
@@ -6088,7 +6345,7 @@ Preface and Acknowledgments go here!
       \end{align}
       To show that the refined passport
       of a $\wt{\sigma}$ taken from
-      Equation \ref{eqn:possibleD8triples}
+      \eqref{eqn:possibleD8triples}
       has size $1$,
       we are required to find elements of
       $\Aut(D_8)$
@@ -6129,20 +6386,22 @@ Preface and Acknowledgments go here!
       dihedral, and we use induction
       as in the abelian case.
       For the induction hypothesis we now assume
-      that every $2$-group Belyi triple of degree
+      that every $2$-group
+      permutation triple of degree
       $d$ with $\langle\sigma\rangle$
       abelian or dihedral has
       refined passport size $1$.
       Let $\wt{\sigma}$
-      be a $2$-group Belyi triple of degree $2d$
+      be a $2$-group
+      permutation triple of degree $2d$
       with $\langle\wt{\sigma}\rangle$
       dihedral.
       Using the same notation from
       the abelian case in
-      Equation \ref{eqn:sigmasequence}
+      \eqref{eqn:sigmasequence}
       we are required to show that the
       $4$ lifts in
-      Equation \ref{eqn:preimagesto1}
+      \eqref{eqn:preimagesto1}
       satisfy either
       \ref{itm:distinctconjclasses}
       or
@@ -6252,8 +6511,7 @@ Preface and Acknowledgments go here!
         =\charpoly(\rho(\wt{\sigma}_s)).
       \end{equation}
       Since $\rho(\alpha)=-1$,
-      Equation
-      \ref{eqn:charpolysequal} becomes
+      \eqref{eqn:charpolysequal} becomes
       \begin{equation}
         \label{eqn:charpolysequalalpha}
         \charpoly(-\rho(\wt{\sigma}_s))=
@@ -6287,7 +6545,7 @@ Preface and Acknowledgments go here!
       to see if we could possibly prove
       something in general
     }
-    Let $\sigma$ be a $2$-group Belyi triple
+    Let $\sigma$ be a $2$-group permutation triple
     of degree $d$ with monodromy
     $G=\langle\sigma\rangle$
     and $\wt{\sigma}$ a lift of $\sigma$
@@ -6324,11 +6582,11 @@ Preface and Acknowledgments go here!
     and $\Sigma_\mathscr{P}$ a set of
     representatives.
     Let $\wt{\sigma}'$ be an arbitrary lift in
-    Equation \ref{eqn:possiblelifts}.
+    \eqref{eqn:possiblelifts}.
     To prove that $\#\Sigma_\mathscr{P}=1$
     we are required to show that
     every lift in
-    Equation \ref{eqn:possiblelifts}
+    \eqref{eqn:possiblelifts}
     satisfies at least one of the following
     conditions.
     \begin{enumerate}
@@ -6361,8 +6619,8 @@ Preface and Acknowledgments go here!
     for some $s\in \{0,1,\infty\}$
     and some $\wt{\tau}\in\wt{G}$.
     Let $\tau = \pi(\wt{\tau})$.
-    Applying $\pi$ to Equation
-    \ref{eqn:alphatau}
+    Applying $\pi$ to
+    \eqref{eqn:alphatau}
     we get the following.
     \begin{align}
       \label{eqn:taucentralizes}
@@ -6379,14 +6637,13 @@ Preface and Acknowledgments go here!
       \label{rmk:size3}
       If we assume the more stringent condition
       that $\#\Sigma_\mathscr{P}\geq 3$,
-      then Equation
-      \ref{eqn:possiblelifts}
+      then
+      \eqref{eqn:possiblelifts}
       implies that
-      Equation \ref{eqn:alphatau}
+      \eqref{eqn:alphatau}
       holds for all $s\in \{0,1,\infty\}$.
       Then by
-      Equation
-      \ref{eqn:taucentralizes}
+      \eqref{eqn:taucentralizes}
       we have that a centralizing element
       $\tau_s\in C_G(\sigma_s)$ for every $s$.
       If all these $\tau_s$ are equal to some
@@ -6396,8 +6653,7 @@ Preface and Acknowledgments go here!
       $\wt{\tau}\in\pi^{-1}(Z(G))$
       upstairs
       satisfies
-      Equation
-      \ref{eqn:alphatau}
+      \eqref{eqn:alphatau}
       for all $s$.
     \end{remark}
     Let $\rho\colon \wt{G}\to\GL(V)$ be a
@@ -6419,7 +6675,7 @@ Preface and Acknowledgments go here!
     $\rho(\wt{g})$ will have finite order
     and thus can be diagonalized
     over a cyclotomic field.
-    If Equation \ref{eqn:alphatau}
+    If \eqref{eqn:alphatau}
     is satisfied for some $s$,
     then
     \begin{equation}
@@ -6439,7 +6695,7 @@ Preface and Acknowledgments go here!
     \end{align}
     If we let $S = \rho(\wt{\sigma}_s)$
     and $A=\rho(\alpha)$ (as above),
-    then Equation \ref{eqn:charpoly}
+    then \eqref{eqn:charpoly}
     becomes
     \begin{equation}
       \label{eqn:charpoly2}
@@ -6802,7 +7058,7 @@ Preface and Acknowledgments go here!
         = e(\mathfrak{p}/P)\ord_P(a).
       \end{equation}
       Since $\ord_P(a)$ is odd,
-      Equation \ref{eqn:sqrtsquared}
+      \eqref{eqn:sqrtsquared}
       implies that $2$ divides
       $e(\mathfrak{p}/P)$ so that
       $P$ is ramified in $K$.
@@ -7328,14 +7584,13 @@ Preface and Acknowledgments go here!
       in $\Pic(F)$.
       For every element $a\in\Pic(F)[2]$
       we get a solution
-      to Equation \ref{eqn:solutioninPic}.
+      to \eqref{eqn:solutioninPic}.
       More precisely, the divisor $D_a$
       computed in Step
       \ref{alg:getcandidates_Da}
       satisfies $[R-2D_a]=[0]$,
       and all solutions to
-      Equation
-      \ref{eqn:solutioninPic}
+      \eqref{eqn:solutioninPic}
       are of the form $D_a$
       for some $a\in\Pic(F)[2]$.
       Now,
@@ -9797,18 +10052,20 @@ Preface and Acknowledgments go here!
       \begin{itemize}
         \item[\underline{$a=1$}:]
           If $a=1$, then
-          Equation \ref{eqn:riemannhurwitzgenuszero} becomes
+          \eqref{eqn:riemannhurwitzgenuszero}
+          becomes
           $\frac{1}{b}+\frac{1}{c}=\frac{2}{\#G}$.
           \begin{itemize}
             \item[\underline{$b=1$}:]
               If $a=b=1$, then
-              Equation \ref{eqn:riemannhurwitzgenuszero}
+              \eqref{eqn:riemannhurwitzgenuszero}
               implies $a=b=c=\#G=1$.
             \item[\underline{$b\ge 2$}:]
               If $a=1$ and $b\geq 2$,
               then we can let $b=2^m$ and $c=2^n$ with $m\le n$.
               In this case
-              Equation \ref{eqn:riemannhurwitzgenuszero} becomes
+              \eqref{eqn:riemannhurwitzgenuszero}
+              becomes
               \[
                 \frac{1}{2^m}+\frac{1}{2^n} = \frac{2}{\#G}
                 \implies
@@ -9820,18 +10077,18 @@ Preface and Acknowledgments go here!
           \end{itemize}
         \item[\underline{$a=2$}:]
           If $a=2$, then
-          Equation \ref{eqn:riemannhurwitzgenuszero} becomes
+          \eqref{eqn:riemannhurwitzgenuszero} becomes
           \[
             \frac{2}{\#G} = \frac{1}{b}+\frac{1}{c}-\frac{1}{2}.
           \]
           \begin{itemize}
             \item[\underline{$b=2$}:]
               If $a=2$ and $b=2$, then
-              Equation \ref{eqn:riemannhurwitzgenuszero} implies
+              \eqref{eqn:riemannhurwitzgenuszero} implies
               $c=\frac{\#G}{2}$.
             \item[\underline{$b\ge 4$}:]
               If $a=2$ and $b,c\geq 4$, then
-              Equation \ref{eqn:riemannhurwitzgenuszero} implies
+              \eqref{eqn:riemannhurwitzgenuszero} implies
               \[
                 \frac{2}{\#G} = \frac{1}{b}+\frac{1}{c}-\frac{1}{2}
                 \implies
@@ -9841,7 +10098,7 @@ Preface and Acknowledgments go here!
           \end{itemize}
         \item[\underline{$a\geq 4$}:]
           If $a,b,c\geq 4$, then
-          Equation \ref{eqn:riemannhurwitzgenuszero} becomes
+          \eqref{eqn:riemannhurwitzgenuszero} becomes
           \[
             \frac{2}{\#G} = \frac{1}{b}+\frac{1}{c} - \left(1-\frac{1}{a}\right).
           \]
@@ -9936,13 +10193,15 @@ Preface and Acknowledgments go here!
       \end{equation}
       for the ramification triple
       $(\#G, 1, \#G)$.
-      The rational function $\phi$ in Equation \ref{eqn:squaringmap}
+      The rational function $\phi$ in
+      \eqref{eqn:squaringmap}
       has a root of multiplicity $\#G$ at $0$,
       a pole of multiplicity $\#G$ at $\infty$,
       and $\#G$ unique preimages above $1$.
       The Belyi maps for ramification triples
       $(1,\#G, \#G)$ and $(\#G, \#G, 1)$
-      are lax isomorphic to $\phi$ in Equation \ref{eqn:squaringmap}
+      are lax isomorphic to $\phi$ in
+      \eqref{eqn:squaringmap}
       and similarly have the correct ramification of this
       degenerate Belyi map.
       \par
@@ -9956,7 +10215,8 @@ Preface and Acknowledgments go here!
       \end{equation}
       in \cite[Example 5.1.2]{turkishbelyithesis}.
       The other dihedral maps are then lax isomorphic to
-      (the modification of) the map in Equation \ref{eqn:dihedral}.
+      (the modification of) the map in
+      \eqref{eqn:dihedral}.
       \par
       To show that there is at most one Belyi map in each of the above cases,
       we refer to Algorithm \ref{alg:triples}.
@@ -9978,7 +10238,7 @@ Preface and Acknowledgments go here!
     \end{equation}
     Since $a,b,c$ are powers of $2$,
     the only solution to
-    Equation \ref{eqn:genusoneramification}
+    \eqref{eqn:genusoneramification}
     is $a=2$ and $b=c=4$.
     We summarize this discussion in
     Proposition \ref{prop:genusoneramification}.
@@ -10048,7 +10308,7 @@ Preface and Acknowledgments go here!
       \cite{belyidb}.
       For degree $d$ with $d\geq 8$
       let $\phi$ be one of the degree $4$ maps in
-      Equation \ref{eqn:d4g1}.
+      \eqref{eqn:d4g1}.
       We then precompose
       $\phi$
       with $\alpha\cdots\alpha$ ($d/8$ times)
@@ -10134,7 +10394,7 @@ Preface and Acknowledgments go here!
       By a result in \cite[Page 36]{singerman},
       the inclusion of a triangle group $\Delta_H$ in
       a Fuchsian group $\Gamma$
-      as in Equation \ref{eqn:fuchsianinclusion}
+      as in \eqref{eqn:fuchsianinclusion}
       implies that $\Gamma$ is a triangle group
       which we denote $\Delta_G$.
       Now we have the

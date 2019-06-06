@@ -1,2 +1,18 @@
-      asdf
-    
+...
+G := sub<Sym(256)|sigma>;
+assert IsTransitive(G);
+assert #G eq 256;
+A := TrivialModule(G, GF(2));
+CM := CohomologyModule(G, A);
+H2 := CohomologyGroup(CM, 2);
+extensions := [* *];
+for h in H2 do
+  E_fp, pi_fp, iota_fp := Extension(CM, h);
+  iso, E, K := CosetAction(E_fp, sub<E_fp|Id(E_fp)>);
+  iotaE := iota_fp*iso;
+  piE := (iso^-1)*pi_fp;
+  assert Image(iotaE) eq Kernel(piE);
+  assert Image(iotaE).1 in Center(E);
+  Append(~extensions, [* E, iotaE, piE , h *]);
+end for;
+      
