@@ -639,10 +639,11 @@ Preface and Acknowledgments go here!
     \par
     The source code for the implementation used
     in this thesis can be found at
-    the following link.
-    \begin{center}
-      \url{https://github.com/michaelmusty/2GroupDessins}
-    \end{center}
+    \cite{twogroupdessins}.
+    % the following link.
+    % \begin{center}
+    %   \url{https://github.com/michaelmusty/2GroupDessins}
+    % \end{center}
   }
   % all main results motivated and stated
   % RETppr exposition about inverse Galois
@@ -1590,14 +1591,6 @@ Preface and Acknowledgments go here!
       is the \defi{monodromy group} of $\phi$
       denoted $\Mon(\phi)$.
     \end{definition}
-    \begin{theorem}
-      [Belyi's theorem \cite{belyi}]
-      \label{thm:belyistheorem}
-      An algebraic curve $X$ over $\CC$
-      can be defined over a number field
-      if and only if $X$
-      admits a Belyi map.
-    \end{theorem}
     \begin{definition}
       \label{def:definedover}
       A Belyi map
@@ -1609,7 +1602,18 @@ Preface and Acknowledgments go here!
       can be described by
       polynomials expressions
       with coefficients in $K$.
+      We say that $K$ is a
+      \defi{field of definition}
+      for $\phi$.
     \end{definition}
+    \begin{theorem}
+      [Belyi's theorem \cite{belyi}]
+      \label{thm:belyistheorem}
+      An algebraic curve $X$ over $\CC$
+      can be defined over a number field
+      if and only if $X$
+      admits a Belyi map.
+    \end{theorem}
     Belyi's theorem implies that
     every Belyi map can be described by
     a morphism $\phi\colon X\to\PP^1$
@@ -3712,9 +3716,10 @@ Preface and Acknowledgments go here!
       A file with the source code
       for this example can be found in
       the repository
-      \begin{center}
-        \url{https://github.com/michaelmusty/2GroupDessins}
-      \end{center}
+      \cite{twogroupdessins}
+      % \begin{center}
+      %   \url{https://github.com/michaelmusty/2GroupDessins}
+      % \end{center}
       and can be run from a shell in the
       repository as follows.
       \begin{code}
@@ -3779,18 +3784,18 @@ end for;
       is a triple of permutations
       $\sigma\colonequals
       (\sigma_0,\sigma_1,\sigma_\infty)\in S_d^3$
-      satisfying the following properties.
+      satisfying
       \begin{itemize}
         \item
-          $\sigma_\infty\sigma_1\sigma_0=1$
+          $\sigma_\infty\sigma_1\sigma_0=1$;
         \item
           $G\colonequals\langle\sigma\rangle$ is a transitive
-          subgroup of $S_d$
+          subgroup of $S_d$; and
         \item
-          $\#G$ is a $p$-group
+          $G$ is a $p$-group
           of order $d$
           embedded in $S_d$
-          via its left regular representation
+          via its left regular representation.
       \end{itemize}
       The group $G$ is called the
       \defi{monodromy group of $\sigma$}.
@@ -3839,7 +3844,7 @@ end for;
       When $d=1$ we define the triple
       $(\id,\id,\id)\in S_1^3$ to be a $p$-group
       permutation triple for every $p$.
-      This is the unique $p$-group Belyi
+      This is the unique $p$-group permutation
       triple of degree $1$.
     \end{example}
     \begin{example}
@@ -3862,6 +3867,10 @@ end for;
       of degree $p$ up to
       simultaneous conjugation.
     \end{example}
+    We will describe the algorithms in this
+    section in this slightly more general setting
+    even though the $p=2$ case is our primary
+    concern.
     \begin{notation}
       \label{not:oursetting}
       Let $\sigma$ be a $p$-group permutation
@@ -3870,10 +3879,6 @@ end for;
       and
       let $A\cong\ZZ/p\ZZ$
       cyclic of prime order.
-      We will describe the algorithms in this
-      section in this slightly more general setting
-      even though the $p=2$ case is our primary
-      concern.
       Let $\wt{G}$ be an extension of $A$
       by $G$ sitting in the exact sequence
       \begin{equation}
@@ -3888,8 +3893,8 @@ end for;
       By Corollary \ref{cor:normalcentral}
       the image of $\iota$
       is a central subgroup of $\wt{G}$.
-      \mm{any other observations that
-      should go here?}
+      % \mm{any other observations that
+      % should go here?}
       The algorithm discussed in this section
       is iterative,
       and the base case for this
@@ -3899,14 +3904,14 @@ end for;
     \begin{definition}
       \label{def:lift}
       We say that a
-      $p$-group Belyi
+      $p$-group permutation
       triple $\wt{\sigma}$
       is a \defi{degree $p$ lift}
       (or simply a \defi{lift})
       of a $p$-group permutation triple $\sigma$
       of degree $d$
       if $\wt{\sigma}$ is
-      a $p$-group permutation triple of degree $2d$
+      a $p$-group permutation triple of degree $pd$
       with monodromy group $\wt{G}$
       sitting in the exact sequence
       in
@@ -3918,25 +3923,26 @@ end for;
     \end{definition}
     \begin{notation}
       \label{not:bipartitegraphs}
-      In Algorithm \ref{alg:triples}
-      the objective is to lift a
+      In Algorithm \ref{alg:triples},
+      the objective will be to lift a
       $p$-group permutation triple
       $\sigma$
       of degree $d$
       to $p$-group permutation
       triples $\wt{\sigma}$
-      of degree $2d$.
+      of degree $pd$.
       We will denote the set
       of lifts of $\sigma$
       by $\Lifts(\sigma)$
       and write $\Lifts(\sigma)/\!\!\sim$
       to denote the equivalence classes
-      of lifts up to simultaneous conjugation.
+      of lifts up to simultaneous conjugation
+      in $S_{pd}$.
       \par
       Once we can compute
       $\Lifts(\sigma)$,
       the next objective is
-      to enumerate all $p$-group Belyi
+      to enumerate all $p$-group permutation
       triples up to a given degree
       along with the bipartite graph
       structure determined by lifting triples.
@@ -4032,7 +4038,7 @@ end for;
       \textbf{Input}:
       \begin{itemize}
         \item 
-          $\sigma=(\sigma_0,\sigma_1,\sigma_\infty)\in S_d^3$ a $p$-group Beyli triple
+          $\sigma=(\sigma_0,\sigma_1,\sigma_\infty)\in S_d^3$ a $p$-group permutation triple
           with monodromy group $G$
         \item
           $A$ a $G$-module
@@ -4041,7 +4047,7 @@ end for;
       \newline
       All degree $p$ lifts $\wt{\sigma}$
       of $\sigma$ up to
-      simultaneous conjugation in $S_{2d}$
+      simultaneous conjugation in $S_{pd}$
       where the induced $G$-module structure on
       $A$ from
       the extension in
@@ -4154,9 +4160,8 @@ end for;
           by the equivalence relation
           $\sim$ identifying triples
           in $\Lifts(\sigma)$ that
-          are simultaneously conjugate
-          (see
-          \eqref{eqn:simconjbelyitriple})
+          are simultaneously conjugate,
+          as in \eqref{eqn:simconjbelyitriple},
           to obtain representatives of
           $\Lifts(\sigma)/\!\!\sim$.
           % Compute representatives of
@@ -4936,11 +4941,12 @@ end for;
       %$2$-group Belyi map
       %isomorphism class of degree $2^i$.
     % \end{proof}
-    \mm{
-      In your comments you mention an possibly doing
-      an example...maybe write out the bipartite
-      graphs up to degree 8?
-    }
+    % \mm{
+    %   In your comments you
+    %   mention an possibly doing
+    %   an example...maybe write out the bipartite
+    %   graphs up to degree 8?
+    % }
     Algorithm
     \ref{alg:alltriplesbasecase}
     combined with
@@ -4964,8 +4970,11 @@ end for;
     and
     \ref{alg:alltriplesiteration}
     can be found at
-    \url{https://github.com/michaelmusty/2GroupDessins}.
-    In the following section we discuss
+    \cite{twogroupdessins}.
+    % \begin{center}
+    %   \url{https://github.com/michaelmusty/2GroupDessins}
+    % \end{center}
+    In the next section we discuss
     the results of these computations.
   }
   \section{Results of computations}{\label{sec:grouptheorycomputations}
@@ -4984,15 +4993,15 @@ end for;
     \ref{alg:alltriplesbasecase},
     and
     \ref{alg:alltriplesiteration}
-    at
-    \url{https://github.com/michaelmusty/2GroupDessins}
+    available at
+    \cite{twogroupdessins}
+    % \url{https://github.com/michaelmusty/2GroupDessins}
     where the techniques of this chapter
     are used to tabulate a database
     of $2$-group permutation triples
     up to degree $256$.
     This computation took roughly
-    $50$ hours on a single core of a server
-    running at $2.4$GHz.
+    $50$ CPU hours on a standart desktop.
     The majority
     of this time is spent
     checking conjugacy of degree $256$
@@ -5008,7 +5017,7 @@ end for;
       $2$-group permutation triples
       of degree $d$ up to $256$.
       \begin{equation}
-        \label{eqn:}
+        \label{eqn:isoclasses}
         \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|}
           \hline
           $d$ & $1$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
@@ -5053,7 +5062,8 @@ end for;
     % \begin{longtable}{| p{.20\textwidth} | p{.80\textwidth} |} 
     \begin{theorem}\label{thm:abc}
       The following table lists
-      the number of permutation triples
+      the number of $2$-group
+      permutation triples
       up to degree $256$ with
       $\{\order(\sigma_s) : s\in\{0,1,\infty\}\}$
       equal to $\{a,b,c\}$ as sets.
@@ -5749,12 +5759,23 @@ end for;
     \end{figure}
   }
 }
-\chapter{Fields of definition}{\label{chapter:fieldsofdefinition}
-  \mm{this chapter could possibly get combined into the group theory chapter}
-  \mm{need some sort of lead up for this chapter to connect group theory to field of moduli field of definition}
-  \mm{K\"{o}ck: $X$ and $\phi$ defined over field of moduli in Galois case}
-  Using data from Chapter \ref{chapter:grouptheory},
-  we formulate a conjecture about the possible fields of definition of
+\chapter{Fields of definition of $2$-group Belyi maps}{\label{chapter:fieldsofdefinition}
+  % \mm{this chapter could possibly get combined into the group theory chapter}
+  % \mm{need some sort of lead up for this chapter to connect group theory to field of moduli field of definition}
+  % \mm{K\"{o}ck: $X$ and $\phi$ defined over field of moduli in Galois case}
+  Recall from Definition
+  \ref{def:definedover},
+  that a field of definition of a Belyi map
+  $\phi\colon X\to\PP^1$
+  is a number field
+  $K\subseteq\CC$
+  such that $X$ and $\phi$
+  are defined using algebraic equations
+  having coefficients in $K$.
+  Using data from Chapter
+  \ref{chapter:grouptheory},
+  we formulate a conjecture about
+  the possible fields of definition of
   $2$-group Belyi maps.
   % \section{Fields of moduli}{\label{sec:fieldsofmoduli}}{
   %   Recall the action of $G_\QQ$ on the set of Belyi maps
@@ -5787,11 +5808,16 @@ end for;
     Recall, from Definition \ref{def:passport},
     that the passport of $\sigma$
     consists of the data
-    $(g(\sigma), \langle\sigma\rangle, \lambda(\sigma))$
+    $(g(\sigma), \langle\sigma\rangle,
+    \lambda(\sigma))$
     where $g(\sigma)$ is the genus,
-    $\langle\sigma\rangle$ is the monodromy group
+    $\langle\sigma\rangle$ is the monodromy
+    group
+    ($2$-group in its regular
+    representation)
     as a subgroup of $S_d$,
-    and $\lambda(\sigma)$ is a triple of partitions
+    and $\lambda(\sigma)$ is the
+    triple of partitions
     specifying the three ordered
     $S_d$
     conjugacy classes
@@ -5828,27 +5854,29 @@ end for;
     \par
     Let $G$ be a transitive subgroup of $S_d$
     and let $C$ be a conjugacy class of $S_d$.
-    $C$ can be partitioned into
+    Then $C$ can be partitioned into
     conjugacy classes of $G$.
     To analyze conjugacy in $G$ we
     make the following definition.
     \begin{definition}\label{def:refined}
       A \defi{refined passport} $\mathscr{P}$
       consists of the data
-      $(g,G,C)$
+      $(g,G,c)$
       where $g\geq 0$ is an integer,
       $G\leq S_d$ is a transitive subgroup,
-      and $C = (C_0,C_1,C_\infty)$
+      and $c = (c_0,c_1,c_\infty)$
       is a triple of conjugacy classes of $G$.
-      For a refined passport $\mathscr{P}$ consider the set
+      For a refined passport
+      $\mathscr{P}$ consider the set
       \begin{equation}
         \label{eqn:refined}
         \Sigma_\mathscr{P} =
-        \{(\sigma_0,\sigma_1,\sigma_\infty)\in C_0\times C_1\times C_\infty : \sigma_\infty\sigma_1\sigma_0=1\text{ and } \langle\sigma_0,\sigma_1,\sigma_\infty\rangle=G\}/\sim
+        \{(\sigma_0,\sigma_1,\sigma_\infty)\in c_0\times c_1\times c_\infty : \sigma_\infty\sigma_1\sigma_0=1\text{ and } \langle\sigma_0,\sigma_1,\sigma_\infty\rangle=G\}/\sim
       \end{equation}
       where $(\sigma_0,\sigma_1,\sigma_\infty)\sim(\sigma_0', \sigma_1', \sigma_\infty')$
       if and only if there exists $\alpha\in\Aut(G)$ with
       $\alpha(\sigma_s) = \sigma_s'$ for $s\in\{0,1,\infty\}$.
+      \par
       Let $\sigma$ be a $2$-group
       permutation triple
       and let $c_s$ denote the conjugacy
@@ -5864,19 +5892,21 @@ end for;
         =(g(\sigma), \langle\sigma\rangle, (c_0,c_1,c_\infty)).
       \end{equation}
     \end{definition}
-    \begin{theorem}
-      \label{thm:refinedsizebounds}
-      \mm{
-        The group $\Gal(\QQal/\QQab)$ acts on the refined passport
-      }
-    \end{theorem}
+    % \begin{theorem}
+    %   \label{thm:refinedsizebounds}
+    %   \mm{
+    %     The group $\Gal(\QQal/\QQab)$ acts on the refined passport
+    %   }
+    % \end{theorem}
   }
-  \section{A refined conjecture}{\label{sec:conjecture}}{
+  \section{A refined conjecture}{
+    \label{sec:conjecture}
     Let $\sigma$ be a $2$-group permutation triple.
     Let $\mathcal{P}$ and $\mathscr{P}$ denote the
     passport and refined passport of $\sigma$
     respectively.
-    Let $\Sigma_\mathcal{P}$ and $\Sigma_\mathscr{P}$
+    Let
+    $\Sigma_\mathcal{P}$ and $\Sigma_\mathscr{P}$
     denote the sets in
     \eqref{eqn:coarse}
     and
@@ -5891,17 +5921,27 @@ end for;
     of all $2$-group permutation triples
     (up to simultaneous conjugation in $S_d$)
     for fixed degree.
-    Using techniques from
-    \cite{belyidb},
-    we computed $\Sigma_\mathscr{P}$ for
+    Using explicit techniques from
+    Musty, Schiavone, Sijsling, and Voight
+    in \cite{belyidb},
+    we computed $\Sigma_{\mathscr{P}(\sigma)}$ for
     every $2$-group permutation triple
-    up to and including degree $256$.
-    We observed that
-    $\#\Sigma_\mathscr{P}=1$
-    in every such example.
-    This observation,
-    combined with Theorem \ref{thm:refinedsizebounds},
-    motivates us to study the behavior
+    $\sigma$
+    of degree $d$
+    for $d\leq 256$.
+    \begin{center}
+      \emph{
+        We observed that
+        $\#\Sigma_{\mathscr{P}(\sigma)}=1$
+        for every such permutation triple $\sigma$!
+      }
+    \end{center}
+    This observation
+    % combined with Theorem
+    % \ref{thm:refinedsizebounds},
+    provides motivation to
+    take a closer look at
+    the behavior
     of refined passports with respect
     to the iterative structure of
     $2$-group permutation triples.
@@ -5952,7 +5992,27 @@ end for;
       Then $\#\Sigma_\mathscr{P} = \#\Sigma_{\mathscr{P}'}$.
     \end{lemma}
     \begin{proof}
-      \mm{line em up..}
+      Let $S_d$ denote the ambient symmetric group.
+      By hypothesis,
+      there exists a permutation
+      $\tau\in S_d$
+      such that
+      $\sigma^\tau=\sigma'$.
+      Now define a map
+      ${}^\tau\colon\Sigma_\mathscr{P}
+      \to S_d^3$
+      by simultaneously conjugating
+      a representative
+      triple in $\Sigma_\mathscr{P}$
+      by $\tau$.
+      Since conjugation by $\tau$ in $S_d$
+      is an automorphism of $G$,
+      simultaneous conjugation by $\tau$
+      is a bijection from
+      $\Sigma_\mathscr{P}$
+      to
+      $\Sigma_{\mathscr{P}'}$.
+      % \mm{line em up..}
       % Choose representatives
       % $\{\psi_i\}_{i=1}^k$
       % for $\Sigma_\mathscr{P}$
@@ -5963,15 +6023,40 @@ end for;
       % Equation \ref{eqn:simconj}.
       % % sigma^tau = (tau^-1sigma0tau,..) = sigma'
     \end{proof}
+    \begin{definition}
+      \label{def:characteristiclift}
+      Let $\wt{\sigma}$
+      be a lift
+      of a $2$-group
+      permutation triple $\sigma$
+      obtained from the exact sequence
+      \begin{equation}
+        \label{eqn:characteristiclift}
+        \begin{tikzcd}
+          1\arrow{r}&\ZZ/2\ZZ\arrow{r}{\iota}
+                    &\wt{G}\arrow{r}{\pi}
+                    &G\arrow{r}&1
+        \end{tikzcd}
+      \end{equation}
+      with $G=\langle\sigma\rangle$
+      and $\wt{G}=\langle\sigma\rangle$.
+      We say that $\wt{\sigma}$
+      is a
+      \defi{characteristic lift}
+      of $\sigma$ if the center of
+      $\wt{G}$ is a characteristic subgroup.
+    \end{definition}
     \begin{lemma}
       \label{lem:identifiedinlift}
       Let $\sigma$ and $\sigma'$
       be $2$-group permutation triples
       with distinct refined passports
-      $(g,G,C)$ and $(g,G,C')$ respectively.
-      Then the refined passport of any lift
+      $(g,G,c)$ and $(g,G,c')$ respectively.
+      Then the refined passport of any
+      characteristic lift
       of $\sigma$ is not equal to the refined
-      passport of any lift of $\sigma'$.
+      passport of any
+      characteristic lift of $\sigma'$.
     \end{lemma}
     \begin{proof}
       Assume for contradiction that we have
@@ -5998,33 +6083,74 @@ end for;
       Since $\wt{\sigma}$ and $\wt{\sigma}'$
       have the same refined passport,
       there exists
-      $\wt{\tau}_s\in\wt{G}$
+      an automorphism
+      $\wt{\alpha}\in\Aut(\wt{G})$
       with
-      \begin{equation}
-        \label{eqn:eachconjugate}
-        \wt{\sigma}_s'=\wt{\tau}_s\wt{\sigma}_s\wt{\tau}_s^{-1}
-      \end{equation}
+      $\wt{\alpha}(\wt{\sigma}_s) =
+      \wt{\sigma}_s'$
       for each $s\in \{0,1,\infty\}$.
-      Let $\tau_s\colonequals\pi(\wt{\tau}_s)$.
-      Applying $\pi$ to
-      \eqref{eqn:eachconjugate} yields
+      \par
+      Define $\alpha\colon G\to G$ by
+      projecting $\wt{\alpha}$,
+      that is,
+      $\alpha\colonequals
+      \pi'\circ\wt{\alpha}\circ\pi^{-1}$.
+      Since $\alpha(\sigma_s)=\sigma_s'$
+      by definition,
+      we will have a contradiction if we can
+      show that $\alpha\in\Aut(G)$.
+      Let $\tau$
+      be the generator of the characteristic
+      subgroup
+      $\iota(\ZZ/2\ZZ)=\iota'(\ZZ/2\ZZ)$
+      and note that
+      $\wt{\alpha}(\tau) = \tau$.
+      \par
+      First we show that $\alpha$ is well-defined.
+      For $\sigma_s\in\sigma$,
+      $\pi^{-1}(\sigma_s)
+      \in\{\wt{\sigma}_s,\tau\wt{\sigma}_s\}$,
+      and the calculation
       \begin{equation}
-        \label{eqn:applypi}
-        \sigma_s' = \tau_s\sigma_s\tau_s^{-1}.
+        \label{eqn:alphawelldefined}
+        \pi'(\wt{\alpha}(\tau\wt{\sigma}_s))
+        =\pi'(\tau\wt{\alpha}(\wt{\sigma}_s))
+        =\pi'(\tau\wt{\sigma}_s')
       \end{equation}
-      Since \eqref{eqn:applypi}
-      holds for each $s\in \{0,1,\infty\}$
-      this implies that
-      $\sigma_s$ and $\sigma_s'$
-      are conjugate in $G$
-      for each $s$.
-      But this implies $\sigma$
-      and $\sigma'$ have the same refined passport
-      which contradicts the hypothesis
-      that these refined passports were distinct.
-      Thus the refined passports of
-      $\wt{\sigma}$ and $\wt{\sigma}'$
-      cannot be equal.
+      shows that $\alpha$ is well-defined
+      homomorphism.
+      \par
+      To finish the proof we now show that
+      $\alpha$ is injective.
+      Let $g\in\ker\alpha$
+      so that
+      $\pi'(\wt{\alpha}(\pi^{-1}(g)))=\id_G$.
+      Then
+      $\wt{\alpha}(\pi^{-1}(g))\in
+      \iota'(\ZZ/2\ZZ)$
+      which implies
+      $\pi^{-1}(g)\in\iota(\ZZ/2\ZZ)$
+      so that $g=\id_G$.
+      % Let $\tau_s\colonequals\pi(\wt{\tau}_s)$.
+      % Applying $\pi$ to
+      % \eqref{eqn:eachconjugate} yields
+      % \begin{equation}
+      %   \label{eqn:applypi}
+      %   \sigma_s' = \tau_s\sigma_s\tau_s^{-1}.
+      % \end{equation}
+      % Since \eqref{eqn:applypi}
+      % holds for each $s\in \{0,1,\infty\}$
+      % this implies that
+      % $\sigma_s$ and $\sigma_s'$
+      % are conjugate in $G$
+      % for each $s$.
+      % But this implies $\sigma$
+      % and $\sigma'$ have the same refined passport
+      % which contradicts the hypothesis
+      % that these refined passports were distinct.
+      % Thus the refined passports of
+      % $\wt{\sigma}$ and $\wt{\sigma}'$
+      % cannot be equal.
     \end{proof}
     \begin{conj}
       \label{conj:refinedpassportsizeone}
@@ -6032,92 +6158,131 @@ end for;
       has refined passport size $1$.
     \end{conj}
     % \mm{computational evidence, true in easy cases}
-    \begin{proof}[Proof for $\langle\sigma\rangle$ abelian]
-      The proof is by induction on the degree of $\sigma$.
-      There is a unique $2$-group Belyi
-      triple of degree $1$ which therefore has refined passport size $1$.
-      For induction,
-      assume that every $2$-group
-      permutation triple
-      of degree $d$
-      with $\langle\sigma\rangle$ abelian
-      has refined passport size $1$.
-      Let $\wt{\sigma}$ be a $2$-group
-      permutation triple of degree
-      $2d$ with $\langle\wt{\sigma}\rangle$
+    \begin{lemma}
+      \label{lem:conjectureabelian}
+      Conjecture
+      \ref{conj:refinedpassportsizeone}
+      is true for
+      $\langle\sigma\rangle$
       abelian.
-      We are required to show that the refined
-      passport of $\wt{\sigma}$ has size $1$.
-      \par
-      Let $\Sigma_\mathscr{P}\colonequals\Sigma_{\mathscr{P}(\wt{\sigma})}$ be the set of refined
-      passport representatives defined in
-      \eqref{eqn:refined}.
-      By Algorithm \ref{alg:triples}
-      there exists a $2$-group permutation triple
-      $\sigma$ such that the following sequence is exact.
+    \end{lemma}
+    \begin{proof}
+      In an abelian group the conjugacy classes
+      consist of sets of size $1$.
+      Therefore every refined passport
+      $\mathscr{P}=(g,G,c)$
+      with $G$ abelian has
       \begin{equation}
-        \label{eqn:sigmasequence}
-        \begin{tikzcd}
-          1\arrow{r}&\ZZ/2\ZZ\arrow{r}{\iota}
-                    &\langle\wt{\sigma}\rangle\arrow{r}{\pi}
-                    &\langle\sigma\rangle\arrow{r}
-                    &1
-        \end{tikzcd}
+        \label{eqn:leqone}
+        \Sigma_{\mathscr{P}}\leq 1.
       \end{equation}
-      In other words,
-      $\wt{\sigma}$ is a lift of $\sigma$.
-      Since quotients of abelian groups are abelian,
-      $\langle\sigma\rangle$ is abelian.
-      Thus, by induction,
-      the refined passport of $\sigma$
-      has size $1$.
-      By Lemma \ref{lem:identifiedinlift}
-      every element of $\Sigma_\mathscr{P}$
-      must also be a lift of $\sigma$.
-      Thus, it is sufficient to prove that every
-      lift $\wt{\sigma}'$ satisfies one
-      of the following.
-      \begin{enumerate}
-        \item\label{itm:distinctconjclasses}
-          The $\langle\wt{\sigma}\rangle$
-          conjugacy class of
-          $\wt{\sigma}_s'$ differs from
-          the $\langle\wt{\sigma}\rangle$
-          conjugacy class of
-          $\wt{\sigma}_s$ for
-          some $s\in \{0,1,\infty\}$
-        \item\label{itm:thereexistsanauto}
-          There exists an automorphism
-          $\phi\in\Aut(\langle\wt{\sigma}\rangle)$
-          with
-          $\phi(\wt{\sigma}_s') = \wt{\sigma}_s$
-          for all $s\in \{0,1,\infty\}$
-      \end{enumerate}
-      Let $\alpha\in\iota(\ZZ/2\ZZ)$ be the generator of the image.
-      There are $2^3 = 8$ preimages of $\sigma$
-      under the map $\pi$.
-      Since $\wt{\sigma}_\infty\wt{\sigma}_1\wt{\sigma}_0=1$
-      and $\alpha$ is central,
-      there are exactly $4$ preimages
-      that multiply to $1$.
-      They are as follows.
+      Since $\sigma$ is a $2$-group
+      permutation triple with refined passport
+      $\mathscr{P}(\sigma)$,
+      we have that
       \begin{equation}
-        \label{eqn:preimagesto1}
-        \{
-          (\wt{\sigma}_0,\wt{\sigma}_1,\wt{\sigma}_\infty),
-          (\wt{\sigma}_0,\alpha\wt{\sigma}_1,\alpha\wt{\sigma}_\infty),
-          (\alpha\wt{\sigma}_0,\wt{\sigma}_1,\alpha\wt{\sigma}_\infty),
-          (\alpha\wt{\sigma}_0,\alpha\wt{\sigma}_1,\wt{\sigma}_\infty)
-        \}
+        \label{eqn:geqone}
+        \Sigma_{\mathscr{P}(\sigma)}\geq 1.
       \end{equation}
-      Since $\langle\wt{\sigma}\rangle$ is abelian,
-      the lifts in \eqref{eqn:preimagesto1}
-      all define distinct triples of conjugacy
-      classes of $\langle\wt{\sigma}\rangle$.
-      Thus every lift satisfies \ref{itm:distinctconjclasses} which completes the proof in
-      the abelian case.
+      \eqref{eqn:leqone} and
+      \eqref{eqn:geqone}
+      imply
+      $\Sigma_{\mathscr{P}(\sigma)}=1$.
     \end{proof}
-    \begin{proof}[Proof for $\langle\sigma\rangle$ dihedral]
+    % \begin{proof}[Proof for $\langle\sigma\rangle$ abelian]
+      % The proof is by induction on the degree of $\sigma$.
+      % There is a unique $2$-group permutation
+      % triple of degree $1$ which therefore has refined passport size $1$.
+      % For induction,
+      % assume that every $2$-group
+      % permutation triple
+      % of degree $d$
+      % with $\langle\sigma\rangle$ abelian
+      % has refined passport size $1$.
+      % Let $\wt{\sigma}$ be a $2$-group
+      % permutation triple of degree
+      % $2d$ with $\langle\wt{\sigma}\rangle$
+      % abelian.
+      % We are required to show that the refined
+      % passport of $\wt{\sigma}$ has size $1$.
+      % \par
+      % Let $\Sigma_\mathscr{P}\colonequals\Sigma_{\mathscr{P}(\wt{\sigma})}$ be the set of refined
+      % passport representatives defined in
+      % \eqref{eqn:refined}.
+      % By Algorithm \ref{alg:triples}
+      % there exists a $2$-group permutation triple
+      % $\sigma$ such that the following sequence is exact.
+      % \begin{equation}
+      %   \label{eqn:sigmasequence}
+      %   \begin{tikzcd}
+      %     1\arrow{r}&\ZZ/2\ZZ\arrow{r}{\iota}
+      %               &\langle\wt{\sigma}\rangle\arrow{r}{\pi}
+      %               &\langle\sigma\rangle\arrow{r}
+      %               &1
+      %   \end{tikzcd}
+      % \end{equation}
+      % In other words,
+      % $\wt{\sigma}$ is a lift of $\sigma$.
+      % Since quotients of abelian groups are abelian,
+      % $\langle\sigma\rangle$ is abelian.
+      % Thus, by induction,
+      % the refined passport of $\sigma$
+      % has size $1$.
+      % By Lemma \ref{lem:identifiedinlift}
+      % every element of $\Sigma_\mathscr{P}$
+      % must also be a lift of $\sigma$.
+      % Thus, it is sufficient to prove that every
+      % lift $\wt{\sigma}'$ satisfies one
+      % of the following.
+      % \begin{enumerate}
+      %   \item\label{itm:distinctconjclasses}
+      %     The $\langle\wt{\sigma}\rangle$
+      %     conjugacy class of
+      %     $\wt{\sigma}_s'$ differs from
+      %     the $\langle\wt{\sigma}\rangle$
+      %     conjugacy class of
+      %     $\wt{\sigma}_s$ for
+      %     some $s\in \{0,1,\infty\}$
+      %   \item\label{itm:thereexistsanauto}
+      %     There exists an automorphism
+      %     $\phi\in\Aut(\langle\wt{\sigma}\rangle)$
+      %     with
+      %     $\phi(\wt{\sigma}_s') = \wt{\sigma}_s$
+      %     for all $s\in \{0,1,\infty\}$
+      % \end{enumerate}
+      % Let $\alpha\in\iota(\ZZ/2\ZZ)$ be the generator of the image.
+      % There are $2^3 = 8$ preimages of $\sigma$
+      % under the map $\pi$.
+      % Since $\wt{\sigma}_\infty\wt{\sigma}_1\wt{\sigma}_0=1$
+      % and $\alpha$ is central,
+      % there are exactly $4$ preimages
+      % that multiply to $1$.
+      % They are as follows.
+      % \begin{equation}
+      %   \label{eqn:preimagesto1}
+      %   \{
+      %     (\wt{\sigma}_0,\wt{\sigma}_1,\wt{\sigma}_\infty),
+      %     (\wt{\sigma}_0,\alpha\wt{\sigma}_1,\alpha\wt{\sigma}_\infty),
+      %     (\alpha\wt{\sigma}_0,\wt{\sigma}_1,\alpha\wt{\sigma}_\infty),
+      %     (\alpha\wt{\sigma}_0,\alpha\wt{\sigma}_1,\wt{\sigma}_\infty)
+      %   \}
+      % \end{equation}
+      % Since $\langle\wt{\sigma}\rangle$ is abelian,
+      % the lifts in \eqref{eqn:preimagesto1}
+      % all define distinct triples of conjugacy
+      % classes of $\langle\wt{\sigma}\rangle$.
+      % Thus every lift satisfies \ref{itm:distinctconjclasses} which completes the proof in
+      % the abelian case.
+    % \end{proof}
+    \begin{theorem}
+      \label{lem:conjecturedihedral}
+      Conjecture
+      \ref{conj:refinedpassportsizeone}
+      is true for
+      $\langle\sigma\rangle$
+      dihedral.
+    \end{theorem}
+    \begin{proof}
       The proof in the dihedral case
       follows the same outline as the abelian case.
       By Lemma \ref{lem:dihedralquotient},
@@ -6378,160 +6543,421 @@ end for;
       %   \{1,a,a^2,a^3,b,ab,a^2b,a^3b\}
       % \end{equation}
     \end{proof}
-    \begin{proof}[Alternate proof for $\langle\sigma\rangle$ dihedral]
-      The proof in the dihedral case
-      follows the same outline as the abelian case.
-      By Lemma \ref{lem:dihedralquotient},
-      the quotient of a dihedral group is
-      dihedral, and we use induction
-      as in the abelian case.
-      For the induction hypothesis we now assume
-      that every $2$-group
-      permutation triple of degree
-      $d$ with $\langle\sigma\rangle$
-      abelian or dihedral has
-      refined passport size $1$.
-      Let $\wt{\sigma}$
-      be a $2$-group
-      permutation triple of degree $2d$
-      with $\langle\wt{\sigma}\rangle$
-      dihedral.
-      Using the same notation from
-      the abelian case in
-      \eqref{eqn:sigmasequence}
-      we are required to show that the
-      $4$ lifts in
-      \eqref{eqn:preimagesto1}
-      satisfy either
-      \ref{itm:distinctconjclasses}
-      or
-      \ref{itm:thereexistsanauto}
-      in the proof of the abelian case.
-      Let $\langle\wt{\sigma}\rangle\cong D_{2d}$
-      dihedral of order $2d$.
-      Using the notation for dihedral groups
-      from Example \ref{exm:dihedral}
-      with $2^{n+1}$ replaced with $2d$
-      we have the following conjugacy classes
-      of $\langle\wt{\sigma}\rangle\cong D_{2d}$.
-      \begin{itemize}
-        \item
-          $ \{1\} $,
-          $ \{a^{\frac{d}{2}}\} $
-        \item
-          $c_i\colonequals \{a^i,a^{-i}\}$
-          for $i\in \{1,\dots,\frac{d}{2}-1\}$
-        \item
-          $c_\text{even}
-          \colonequals
-          \{a^{2i}b : 0\leq i\leq \frac{d}{2}-1\}$
-        \item
-          $c_\text{odd}
-          \colonequals
-          \{a^{2i+1}b : 0\leq i\leq \frac{d}{2}-1\}$
-      \end{itemize}
-      Note that $c_\text{even}$ and $c_\text{odd}$
-      consist of all the involutions of the group.
-      We will say that an involution has
-      \defi{even parity}
-      if it is in $c_\text{ even }$
-      and \defi{odd parity}
-      if it is in $c_\text{odd}$.
-      \par
-      Let $\rho\colon D_{2d}\to\GL_2(\CC)$ be the
-      faithful $2$-dimensional representation
-      of $D_{2d}$ defined by
-      \begin{equation}
-        \label{eqn:dihedralrepresentation}
-        a\mapsto
-        \begin{bmatrix}
-          \cos(2\pi/d)&-\sin(2\pi/d)\\
-          \sin(2\pi/d)&\cos(2\pi/d)
-        \end{bmatrix},\quad
-        b\mapsto
-        \begin{bmatrix}
-          0&1\\
-          1&0
-        \end{bmatrix}
-      \end{equation}
-      so that for $k\in \{0,\dots,d-1\}$
-      we have
-      \begin{equation}
-        \label{eqn:dihedralelts}
-        \rho(a^k)=
-        \begin{bmatrix}
-          \cos(2\pi k/d)&-\sin(2\pi k/d)\\
-          \sin(2\pi k/d)&\cos(2\pi k/d)
-        \end{bmatrix},\quad
-        \rho(a^kb)=
-        \begin{bmatrix}
-          -\sin(2\pi k/d)&\cos(2\pi k/d)\\
-          \cos(2\pi k/d)&\sin(2\pi k/d)
-        \end{bmatrix}
-      \end{equation}
-      is a complete list of elements of
-      the image of $\rho$.
-      Let $A^k$ and $A^kB$ denote the images
-      of $a^k$ and $a^kb$ in the matrix algebra.
-      Let $\alpha = \iota(1)\in D_{2d}$.
-      Then
-      \begin{equation}
-        \label{eqn:rhoofalpha}
-        \rho(\alpha)
-        =\rho(a^{d/2})
-        =A^{d/2}
-        =
-        \begin{bmatrix}
-          \cos(\pi)&-\sin(\pi)\\
-          \sin(\pi)&\cos(\pi)
-        \end{bmatrix}
-        =
-        \begin{bmatrix}
-          -1&0\\
-          0&-1
-        \end{bmatrix}
-      \end{equation}
-      Suppose that $\wt{\sigma}_s$ and
-      $\alpha\wt{\sigma}_s$ are
-      conjugate in $D_{2d}$ for
-      some $s\in \{0,1,\infty\}$.
-      Let $\charpoly(M)$ denote the
-      characteristic polynomial of $M$
-      for $M\in\GL_n(\CC)$.
-      % The constant term of $\charpoly(A)$
-      % is $\det(A)$,
-      % the second highest degree
-      % coefficient is $-\Tr(A)$,
-      % and when $\charpoly(A)$ is quadratic
-      % these determine the polynomial.
-      Then
-      \begin{equation}
-        \label{eqn:charpolysequal}
-        \charpoly(\rho(\alpha\wt{\sigma}_s))
-        =\charpoly(\rho(\wt{\sigma}_s)).
-      \end{equation}
-      Since $\rho(\alpha)=-1$,
-      \eqref{eqn:charpolysequal} becomes
-      \begin{equation}
-        \label{eqn:charpolysequalalpha}
-        \charpoly(-\rho(\wt{\sigma}_s))=
-        \charpoly(\rho(\wt{\sigma}_s))
-      \end{equation}
-      which implies that
-      $\Tr(\rho(\wt{\sigma}_s)) =
-      -\Tr(\rho(\wt{\sigma}_s))$
-      so that the trace is zero.
-      \mm{
-         the only way I see to prove these types
-         of theorems is to write down an
-         explicit representation,
-         compute the charpoly in general,
-         and then reason by cases
-         as in the original dihedral proof.
-      }
-    \end{proof}
-    \begin{proof}[Proof for $G$ Generalized Quaternion]
-    \end{proof}
+    % \begin{proof}[Proof for $\langle\sigma\rangle$ dihedral]
+      % The proof in the dihedral case
+      % follows the same outline as the abelian case.
+      % By Lemma \ref{lem:dihedralquotient},
+      % the quotient of a dihedral group is
+      % dihedral, and we use induction
+      % as in the abelian case.
+      % For the induction hypothesis we now assume
+      % that every $2$-group
+      % permutation triple of degree
+      % $d$ with $\langle\sigma\rangle$
+      % abelian or dihedral has
+      % refined passport size $1$.
+      % Let $\wt{\sigma}$
+      % be a $2$-group
+      % permutation triple of degree $2d$
+      % with $\langle\wt{\sigma}\rangle$
+      % dihedral.
+      % Using the same notation from
+      % the abelian case in
+      % \eqref{eqn:sigmasequence}
+      % we are required to show that the
+      % $4$ lifts in
+      % \eqref{eqn:preimagesto1}
+      % satisfy either
+      % \ref{itm:distinctconjclasses}
+      % or
+      % \ref{itm:thereexistsanauto}
+      % in the proof of the abelian case.
+      % Using the notation for dihedral groups
+      % from Example \ref{exm:dihedral}
+      % with $2^{n+1}$ replaced with $2d$
+      % we have the following conjugacy classes
+      % of $\langle\wt{\sigma}\rangle$.
+      % \begin{itemize}
+      %   \item
+      %     $ \{1\} $,
+      %     $ \{a^{\frac{d}{2}}\} $
+      %   \item
+      %     $c_i\colonequals \{a^i,a^{-i}\}$
+      %     for $i\in \{1,\dots,\frac{d}{2}-1\}$
+      %   \item
+      %     $c_\text{even}
+      %     \colonequals
+      %     \{a^{2i}b : 0\leq i\leq \frac{d}{2}-1\}$
+      %   \item
+      %     $c_\text{odd}
+      %     \colonequals
+      %     \{a^{2i+1}b : 0\leq i\leq \frac{d}{2}-1\}$
+      % \end{itemize}
+      % Note that $c_\text{even}$ and $c_\text{odd}$
+      % consist of all the involutions of the group.
+      % We will say that an involution has
+      % \defi{even parity}
+      % if it is in $c_\text{ even }$
+      % and \defi{odd parity}
+      % if it is in $c_\text{odd}$.
+      % \par
+      % If $\wt{\sigma}_s$ is central,
+      % then the conjugacy class of
+      % $\alpha\wt{\sigma}_s$ cannot be equal to
+      % the conjugacy class of
+      % $\wt{\sigma}_s$.
+      % Thus we can assume
+      % the conjugacy class of
+      % $\wt{\sigma}_s$
+      % is $c_i$ for some $i$,
+      % $c_\text{even}$, or
+      % $c_\text{odd}$ for every $s\in \{0,1,\infty\}$.
+      % If $\wt{\sigma}_s\in c_i$,
+      % then
+      % \begin{equation}
+      %   \label{eqn:alphaci}
+      %   \alpha\wt{\sigma}_s
+      %   =a^{d/2}a^{\pm i}=a^{\frac{d}{2}\pm i}.
+      % \end{equation}
+      % Now $a^{\frac{d}{2}\pm i}\in c_i$
+      % if and only if
+      % $i=\pm d/4$.
+      % Thus we can assume the conjugacy class of
+      % $\wt{\sigma}_s$
+      % is $c_{d/4}$,
+      % $c_\text{even}$, or
+      % $c_\text{odd}$
+      % for every $s\in \{0,1,\infty\}$.
+      % \par
+      % Now let us focus on the condition that
+      % $\wt{\sigma}_\infty\wt{\sigma}_1
+      % \wt{\sigma}_0=1$.
+      % First note that
+      % every element of
+      % $c_\text{even}\cup c_\text{odd}$
+      % is an involution, so we need
+      % at least one of $\wt{\sigma}_s\in c_{d/4}$
+      % to satisfy
+      % $\wt{\sigma}_\infty\wt{\sigma}_1
+      % \wt{\sigma}_0=1$.
+      % Without loss of generality
+      % assume that
+      % $\wt{\sigma}_\infty\in c_{d/4}$.
+      % Then since $\wt{\sigma}_\infty$ has order $4$,
+      % we must have
+      % $\wt{\sigma}_0,\wt{\sigma}_1
+      % \in c_\text{even}\cup c_\text{odd}$
+      % (again to have a chance of satisfying
+      % their product equals $1$).
+      % Let $\wt{\sigma}_1
+      % = a^kb
+      % \in c_\text{even}\cup
+      % c_\text{odd}$ be an involution.
+      % Then
+      % \begin{align}
+      %   \label{eqn:sigma1sigmaoo}
+      %   \begin{split}
+      %     \wt{\sigma}_\infty\wt{\sigma}_1
+      %     &= a^{\pm d/4}a^kb
+      %     = a^{\pm (d/4)+k}b
+      %     % \wt{\sigma}_1\wt{\sigma}_0
+      %     % &= a^kba^{\pm d/4}
+      %     % = a^{k\mp (d/4)}b.
+      %   \end{split}
+      % \end{align}
+      % The parity
+      % of the involution $\wt{\sigma}_1$
+      % is the same as the
+      % parity of the involution
+      % $\wt{\sigma}_\infty\wt{\sigma}_1$
+      % when $d\geq 8$
+      % and the parity is different for $d=4$.
+      % \begin{claim}
+      %   \label{claim:sameparitydoesnotgenerate}
+      %   Two involutions of the same parity
+      %   do not generate $D_{2d}$ for $d=2^n$
+      %   and $n\geq 2$.
+      % \end{claim}
+      % \begin{proof}[Proof of Claim]
+      %   Let $a^kb$ and $a^{k'}b$ be involutions
+      %   of $D_{2d}$ with $k$ and $k'$ the same
+      %   parity.
+      %   Since $d\geq 4$ is a power of $2$,
+      %   $\pm k, \pm k'$ all have the same parity.
+      %   Now since
+      %   $\langle a^kb,a^{k'}b\rangle$
+      %   is generated by involutions
+      %   we have
+      %   \begin{align}
+      %     \begin{split}
+      %       \label{eqn:generatedbyinvolutions}
+      %       \langle a^kb,a^{k'}b\rangle
+      %       &=
+      %       \{a^kb,a^{k'}b\}
+      %       \cup
+      %       \langle a^kba^{k'}b\rangle\\
+      %       &=
+      %       \{a^kb,a^{k'}b\}
+      %       \cup
+      %       \langle a^{k-k'}\rangle\\
+      %       &=
+      %       \{a^kb,a^{k'}b\}
+      %       \cup
+      %       \langle a^{k'-k}\rangle
+      %     \end{split}
+      %   \end{align}
+      %   which never contains $a$
+      %   since $k$ and $k'$ have the same parity.
+      % \end{proof}
+      % The claim finishes the proof
+      % for $d\geq 8$.
+      % To summarize,
+      % the condition that
+      % $\wt{\sigma}_\infty\wt{\sigma}_1
+      % \wt{\sigma}_0=1$
+      % with each $\wt{\sigma}_s\in
+      % c_{d/4}\cup c_\text{even} \cup
+      % c_\text{odd}$
+      % implies that
+      % the triple $\wt{\sigma}$
+      % consists of exactly one element from
+      % $c_{d/4}$
+      % and the other two elements
+      % are involutions with the same parity.
+      % By the claim,
+      % no such triple can generate $D_{2d}$
+      % which completes the proof for
+      % $d\geq 8$.
+      % It remains to consider $d=4$ when the $2$
+      % involutions have opposite parity.
+      % \par
+      % It remains to consider the case
+      % $d=4$ (i.e. $D_{2d} = D_8$).
+      % In this case,
+      % $c_{d/4} = c_1=\{a,a^{-1}\}$,
+      % $c_\text{even}=\{b,a^2b\}$,
+      % $c_\text{odd}=\{ab,a^3b\}$,
+      % and we are considering triples
+      % $\wt{\sigma}\in
+      % c^3$
+      % where $c=c_1\cup c_\text{even}\cup c_\text{odd}$.
+      % As discussed above,
+      % to satisfy $\wt{\sigma}_\infty
+      % \wt{\sigma}_1\wt{\sigma}_0=1$
+      % we must have exactly one of
+      % $\wt{\sigma}_s\in c_1$.
+      % Without loss of generality assume
+      % $\wt{\sigma}_\infty\in c_1$.
+      % Then from \eqref{eqn:sigma1sigmaoo}
+      % we have that $\wt{\sigma_1}$
+      % and $\wt{\sigma_0}$ are involutions with
+      % opposite parity.
+      % Without loss of generality let
+      % $\wt{\sigma}_1\in c_\text{odd}$
+      % and $\wt{\sigma}_0\in c_\text{even}$.
+      % We then have the following triples
+      % $\wt{\sigma}$ that generate
+      % $D_8$ and satisfy
+      % $\wt{\sigma}_\infty\wt{\sigma}_1
+      % \wt{\sigma}_0=1$.
+      % \begin{align}
+      %   \label{eqn:possibleD8triples}
+      %   \begin{split}
+      %     (a^2b,ab,a),
+      %     (b,a^3b,a),
+      %     (b,ab,a^{-1}),
+      %     (a^2b,a^3b,a^{-1})
+      %   \end{split}
+      % \end{align}
+      % To show that the refined passport
+      % of a $\wt{\sigma}$ taken from
+      % \eqref{eqn:possibleD8triples}
+      % has size $1$,
+      % we are required to find elements of
+      % $\Aut(D_8)$
+      % showing all $4$ of these triples are
+      % equivalent.
+      % Let $f_1\in\Aut(D_8)$ be defined by
+      % $a\mapsto a$, and
+      % $b\mapsto a^2b$.
+      % Let $f_2\in\Aut(D_8)$ be defined by
+      % $a\mapsto a^{-1}$, and
+      % $b\mapsto b$.
+      % Then $f_1$ identifies
+      % $(a^2b,ab,a)$
+      % and
+      % $(b,a^3b,a)$,
+      % $f_2$ identifies
+      % $(b,a^3b,a)$
+      % and
+      % $(b,ab,a^{-1})$,
+      % and
+      % $f_1$ identifies
+      % $(b,ab,a^{-1})$
+      % and
+      % $(a^2b,a^3b,a^{-1})$.
+      % This completes the proof for $D_8$
+      % and thus for the entire dihedral case.
+      % % \begin{equation}
+      % %   \label{eqn:dihedral8}
+      % %   D_8=
+      % %   \{1,a,a^2,a^3,b,ab,a^2b,a^3b\}
+      % % \end{equation}
+    % \end{proof}
+    % \begin{proof}[Alternate proof for $\langle\sigma\rangle$ dihedral]
+      % The proof in the dihedral case
+      % follows the same outline as the abelian case.
+      % By Lemma \ref{lem:dihedralquotient},
+      % the quotient of a dihedral group is
+      % dihedral, and we use induction
+      % as in the abelian case.
+      % For the induction hypothesis we now assume
+      % that every $2$-group
+      % permutation triple of degree
+      % $d$ with $\langle\sigma\rangle$
+      % abelian or dihedral has
+      % refined passport size $1$.
+      % Let $\wt{\sigma}$
+      % be a $2$-group
+      % permutation triple of degree $2d$
+      % with $\langle\wt{\sigma}\rangle$
+      % dihedral.
+      % Using the same notation from
+      % the abelian case in
+      % \eqref{eqn:sigmasequence}
+      % we are required to show that the
+      % $4$ lifts in
+      % \eqref{eqn:preimagesto1}
+      % satisfy either
+      % \ref{itm:distinctconjclasses}
+      % or
+      % \ref{itm:thereexistsanauto}
+      % in the proof of the abelian case.
+      % Let $\langle\wt{\sigma}\rangle\cong D_{2d}$
+      % dihedral of order $2d$.
+      % Using the notation for dihedral groups
+      % from Example \ref{exm:dihedral}
+      % with $2^{n+1}$ replaced with $2d$
+      % we have the following conjugacy classes
+      % of $\langle\wt{\sigma}\rangle\cong D_{2d}$.
+      % \begin{itemize}
+      %   \item
+      %     $ \{1\} $,
+      %     $ \{a^{\frac{d}{2}}\} $
+      %   \item
+      %     $c_i\colonequals \{a^i,a^{-i}\}$
+      %     for $i\in \{1,\dots,\frac{d}{2}-1\}$
+      %   \item
+      %     $c_\text{even}
+      %     \colonequals
+      %     \{a^{2i}b : 0\leq i\leq \frac{d}{2}-1\}$
+      %   \item
+      %     $c_\text{odd}
+      %     \colonequals
+      %     \{a^{2i+1}b : 0\leq i\leq \frac{d}{2}-1\}$
+      % \end{itemize}
+      % Note that $c_\text{even}$ and $c_\text{odd}$
+      % consist of all the involutions of the group.
+      % We will say that an involution has
+      % \defi{even parity}
+      % if it is in $c_\text{ even }$
+      % and \defi{odd parity}
+      % if it is in $c_\text{odd}$.
+      % \par
+      % Let $\rho\colon D_{2d}\to\GL_2(\CC)$ be the
+      % faithful $2$-dimensional representation
+      % of $D_{2d}$ defined by
+      % \begin{equation}
+      %   \label{eqn:dihedralrepresentation}
+      %   a\mapsto
+      %   \begin{bmatrix}
+      %     \cos(2\pi/d)&-\sin(2\pi/d)\\
+      %     \sin(2\pi/d)&\cos(2\pi/d)
+      %   \end{bmatrix},\quad
+      %   b\mapsto
+      %   \begin{bmatrix}
+      %     0&1\\
+      %     1&0
+      %   \end{bmatrix}
+      % \end{equation}
+      % so that for $k\in \{0,\dots,d-1\}$
+      % we have
+      % \begin{equation}
+      %   \label{eqn:dihedralelts}
+      %   \rho(a^k)=
+      %   \begin{bmatrix}
+      %     \cos(2\pi k/d)&-\sin(2\pi k/d)\\
+      %     \sin(2\pi k/d)&\cos(2\pi k/d)
+      %   \end{bmatrix},\quad
+      %   \rho(a^kb)=
+      %   \begin{bmatrix}
+      %     -\sin(2\pi k/d)&\cos(2\pi k/d)\\
+      %     \cos(2\pi k/d)&\sin(2\pi k/d)
+      %   \end{bmatrix}
+      % \end{equation}
+      % is a complete list of elements of
+      % the image of $\rho$.
+      % Let $A^k$ and $A^kB$ denote the images
+      % of $a^k$ and $a^kb$ in the matrix algebra.
+      % Let $\alpha = \iota(1)\in D_{2d}$.
+      % Then
+      % \begin{equation}
+      %   \label{eqn:rhoofalpha}
+      %   \rho(\alpha)
+      %   =\rho(a^{d/2})
+      %   =A^{d/2}
+      %   =
+      %   \begin{bmatrix}
+      %     \cos(\pi)&-\sin(\pi)\\
+      %     \sin(\pi)&\cos(\pi)
+      %   \end{bmatrix}
+      %   =
+      %   \begin{bmatrix}
+      %     -1&0\\
+      %     0&-1
+      %   \end{bmatrix}
+      % \end{equation}
+      % Suppose that $\wt{\sigma}_s$ and
+      % $\alpha\wt{\sigma}_s$ are
+      % conjugate in $D_{2d}$ for
+      % some $s\in \{0,1,\infty\}$.
+      % Let $\charpoly(M)$ denote the
+      % characteristic polynomial of $M$
+      % for $M\in\GL_n(\CC)$.
+      % % The constant term of $\charpoly(A)$
+      % % is $\det(A)$,
+      % % the second highest degree
+      % % coefficient is $-\Tr(A)$,
+      % % and when $\charpoly(A)$ is quadratic
+      % % these determine the polynomial.
+      % Then
+      % \begin{equation}
+      %   \label{eqn:charpolysequal}
+      %   \charpoly(\rho(\alpha\wt{\sigma}_s))
+      %   =\charpoly(\rho(\wt{\sigma}_s)).
+      % \end{equation}
+      % Since $\rho(\alpha)=-1$,
+      % \eqref{eqn:charpolysequal} becomes
+      % \begin{equation}
+      %   \label{eqn:charpolysequalalpha}
+      %   \charpoly(-\rho(\wt{\sigma}_s))=
+      %   \charpoly(\rho(\wt{\sigma}_s))
+      % \end{equation}
+      % which implies that
+      % $\Tr(\rho(\wt{\sigma}_s)) =
+      % -\Tr(\rho(\wt{\sigma}_s))$
+      % so that the trace is zero.
+      % \mm{
+      %    the only way I see to prove these types
+      %    of theorems is to write down an
+      %    explicit representation,
+      %    compute the charpoly in general,
+      %    and then reason by cases
+      %    as in the original dihedral proof.
+      % }
+    % \end{proof}
+    % \begin{proof}[Proof for $G$ Generalized Quaternion]
+    % \end{proof}
     \begin{corr}
       Every $2$-group Belyi map is defined over a cyclotomic field
       $\QQ(\zeta_{2^m})$ for some $m$.
@@ -6539,181 +6965,181 @@ end for;
     \begin{proof}
     \end{proof}
   }
-  \section{Representation theory}{\label{sec:reptheory}
-    \mm{
-      this section was just some general notes
-      to see if we could possibly prove
-      something in general
-    }
-    Let $\sigma$ be a $2$-group permutation triple
-    of degree $d$ with monodromy
-    $G=\langle\sigma\rangle$
-    and $\wt{\sigma}$ a lift of $\sigma$
-    of degree $2d$ and monodromy
-    $\wt{G}=\langle\wt{\sigma}\rangle$.
-    Recall that we have the
-    following exact sequence.
-    \begin{equation}
-      \label{eqn:reptheoryextension}
-      \begin{tikzcd}
-        1\arrow{r}&\ZZ/2\ZZ\arrow{r}{\iota}
-                  &\wt{G}\arrow{r}{\pi}
-                  &G\arrow{r}
-                  &1
-      \end{tikzcd}
-    \end{equation}
-    Let $\alpha$ be a generator of
-    $\iota(\ZZ/2\ZZ)\leq Z(\wt{G})$.
-    There are $4$ triples of permutations
-    that map to $\sigma$ under $\pi$
-    with the additional property that
-    they multiply to $1$.
-    \begin{equation}
-      \label{eqn:possiblelifts}
-      \{
-        (\wt{\sigma}_0,\wt{\sigma}_1,\wt{\sigma}_\infty),
-        (\wt{\sigma}_0,\alpha\wt{\sigma}_1,\alpha\wt{\sigma}_\infty),
-        (\alpha\wt{\sigma}_0,\wt{\sigma}_1,\alpha\wt{\sigma}_\infty),
-        (\alpha\wt{\sigma}_0,\alpha\wt{\sigma}_1,\wt{\sigma}_\infty)
-      \}
-    \end{equation}
-    Let $\mathscr{P} = \mathscr{P}(\wt{\sigma})$
-    be the refined passport of $\wt{\sigma}$
-    and $\Sigma_\mathscr{P}$ a set of
-    representatives.
-    Let $\wt{\sigma}'$ be an arbitrary lift in
-    \eqref{eqn:possiblelifts}.
-    To prove that $\#\Sigma_\mathscr{P}=1$
-    we are required to show that
-    every lift in
-    \eqref{eqn:possiblelifts}
-    satisfies at least one of the following
-    conditions.
-    \begin{enumerate}
-      \item\label{itm:distinctconjclassesreptheory}
-        The $\wt{G}$
-        conjugacy class of
-        $\wt{\sigma}_s'$ differs from
-        % the $\langle\wt{\sigma}\rangle$
-        the $\wt{G}$
-        conjugacy class of
-        $\wt{\sigma}_s$ for
-        some $s\in \{0,1,\infty\}$
-      \item\label{itm:thereexistsanautoreptheory}
-        There exists an automorphism
-        $\phi\in\Aut(\wt{G})$
-        with
-        $\phi(\wt{\sigma}_s') = \wt{\sigma}_s$
-        for all $s\in \{0,1,\infty\}$
-    \end{enumerate}
-    Suppose now that $\#\Sigma_\mathscr{P}\geq 2$.
-    According to
-    \ref{itm:distinctconjclasses}
-    it is necessary to have
-    \begin{equation}
-      \label{eqn:alphatau}
-      \wt{\sigma}_s\alpha
-      =
-      \wt{\tau}\wt{\sigma}_s\wt{\tau}^{-1}
-    \end{equation}
-    for some $s\in \{0,1,\infty\}$
-    and some $\wt{\tau}\in\wt{G}$.
-    Let $\tau = \pi(\wt{\tau})$.
-    Applying $\pi$ to
-    \eqref{eqn:alphatau}
-    we get the following.
-    \begin{align}
-      \label{eqn:taucentralizes}
-      \begin{split}
-        \pi(\wt{\sigma}_s\alpha)=
-        \pi(\wt{\tau}\wt{\sigma}_s\wt{\tau}^{-1})
-        &\implies
-        \sigma_s = \tau\sigma_s\tau^{-1}\\
-        &\implies
-        \tau\in C_G(\sigma_s)
-      \end{split}
-    \end{align}
-    \begin{remark}
-      \label{rmk:size3}
-      If we assume the more stringent condition
-      that $\#\Sigma_\mathscr{P}\geq 3$,
-      then
-      \eqref{eqn:possiblelifts}
-      implies that
-      \eqref{eqn:alphatau}
-      holds for all $s\in \{0,1,\infty\}$.
-      Then by
-      \eqref{eqn:taucentralizes}
-      we have that a centralizing element
-      $\tau_s\in C_G(\sigma_s)$ for every $s$.
-      If all these $\tau_s$ are equal to some
-      $\tau\in G$, then $\tau$ lives in the
-      center of $G$
-      and the element
-      $\wt{\tau}\in\pi^{-1}(Z(G))$
-      upstairs
-      satisfies
-      \eqref{eqn:alphatau}
-      for all $s$.
-    \end{remark}
-    Let $\rho\colon \wt{G}\to\GL(V)$ be a
-    representation
-    of $\wt{G}$ over $\CC$.
-    For $M\in\GL(V)$, let
-    $\charpoly(M)$ denote the
-    characteristic polynomial of $M$.
-    Let $A = \rho(\alpha)$.
-    Then $A^2=1$.
-    Since $\alpha\in Z(\wt{G})$,
-    we have
-    $\rho(\alpha \wt{g}) = \rho(\wt{g}\alpha)$
-    so that $A$ commutes with $\rho(\wt{g})$
-    for all $\wt{g}\in \wt{G}$.
-    If $\rho$ is faithful,
-    then $A\neq 1$.
-    In general,
-    $\rho(\wt{g})$ will have finite order
-    and thus can be diagonalized
-    over a cyclotomic field.
-    If \eqref{eqn:alphatau}
-    is satisfied for some $s$,
-    then
-    \begin{equation}
-      \label{eqn:rhoalphatau}
-      \rho(\wt{\sigma}_s\alpha)
-      =
-      \rho(\wt{\tau}\wt{\sigma}_s\wt{\tau}^{-1})
-    \end{equation}
-    which implies
-    \begin{align}
-      \label{eqn:charpoly}
-      \begin{split}
-        \charpoly(\rho(\wt{\sigma}_s\alpha))
-        &=\charpoly(\rho(\wt{\tau}\wt{\sigma}_s\wt{\tau}))\\
-        &=\charpoly(\rho(\wt{\sigma}_s)).
-      \end{split}
-    \end{align}
-    If we let $S = \rho(\wt{\sigma}_s)$
-    and $A=\rho(\alpha)$ (as above),
-    then \eqref{eqn:charpoly}
-    becomes
-    \begin{equation}
-      \label{eqn:charpoly2}
-      \charpoly(SA) = \charpoly(S).
-    \end{equation}
-    Since $A^2=1$ and $A\neq 1$,
-    we have that $A$ is a diagonal matrix
-    with $\pm 1$ along the diagonal with
-    at least one occurence of $-1$.
-    Over $\CC$,
-    we can apply Shur's Lemma
-    to get that $A$ is a scalar matrix
-    and therefore $A=-1$.
-    The eigenspaces of $A$ are $\wt{G}$-stable.
-    % two nxn matrices A,B over char(K)=0
-    % have same charpolys iff
-    % trace(A^k) = trace(A^k) for all k \ge 0
-  }
+  % \section{Representation theory}{\label{sec:reptheory}
+    % \mm{
+    %   this section was just some general notes
+    %   to see if we could possibly prove
+    %   something in general
+    % }
+    % Let $\sigma$ be a $2$-group permutation triple
+    % of degree $d$ with monodromy
+    % $G=\langle\sigma\rangle$
+    % and $\wt{\sigma}$ a lift of $\sigma$
+    % of degree $2d$ and monodromy
+    % $\wt{G}=\langle\wt{\sigma}\rangle$.
+    % Recall that we have the
+    % following exact sequence.
+    % \begin{equation}
+    %   \label{eqn:reptheoryextension}
+    %   \begin{tikzcd}
+    %     1\arrow{r}&\ZZ/2\ZZ\arrow{r}{\iota}
+    %               &\wt{G}\arrow{r}{\pi}
+    %               &G\arrow{r}
+    %               &1
+    %   \end{tikzcd}
+    % \end{equation}
+    % Let $\alpha$ be a generator of
+    % $\iota(\ZZ/2\ZZ)\leq Z(\wt{G})$.
+    % There are $4$ triples of permutations
+    % that map to $\sigma$ under $\pi$
+    % with the additional property that
+    % they multiply to $1$.
+    % \begin{equation}
+    %   \label{eqn:possiblelifts}
+    %   \{
+    %     (\wt{\sigma}_0,\wt{\sigma}_1,\wt{\sigma}_\infty),
+    %     (\wt{\sigma}_0,\alpha\wt{\sigma}_1,\alpha\wt{\sigma}_\infty),
+    %     (\alpha\wt{\sigma}_0,\wt{\sigma}_1,\alpha\wt{\sigma}_\infty),
+    %     (\alpha\wt{\sigma}_0,\alpha\wt{\sigma}_1,\wt{\sigma}_\infty)
+    %   \}
+    % \end{equation}
+    % Let $\mathscr{P} = \mathscr{P}(\wt{\sigma})$
+    % be the refined passport of $\wt{\sigma}$
+    % and $\Sigma_\mathscr{P}$ a set of
+    % representatives.
+    % Let $\wt{\sigma}'$ be an arbitrary lift in
+    % \eqref{eqn:possiblelifts}.
+    % To prove that $\#\Sigma_\mathscr{P}=1$
+    % we are required to show that
+    % every lift in
+    % \eqref{eqn:possiblelifts}
+    % satisfies at least one of the following
+    % conditions.
+    % \begin{enumerate}
+    %   \item\label{itm:distinctconjclassesreptheory}
+    %     The $\wt{G}$
+    %     conjugacy class of
+    %     $\wt{\sigma}_s'$ differs from
+    %     % the $\langle\wt{\sigma}\rangle$
+    %     the $\wt{G}$
+    %     conjugacy class of
+    %     $\wt{\sigma}_s$ for
+    %     some $s\in \{0,1,\infty\}$
+    %   \item\label{itm:thereexistsanautoreptheory}
+    %     There exists an automorphism
+    %     $\phi\in\Aut(\wt{G})$
+    %     with
+    %     $\phi(\wt{\sigma}_s') = \wt{\sigma}_s$
+    %     for all $s\in \{0,1,\infty\}$
+    % \end{enumerate}
+    % Suppose now that $\#\Sigma_\mathscr{P}\geq 2$.
+    % According to
+    % \ref{itm:distinctconjclasses}
+    % it is necessary to have
+    % \begin{equation}
+    %   \label{eqn:alphatau}
+    %   \wt{\sigma}_s\alpha
+    %   =
+    %   \wt{\tau}\wt{\sigma}_s\wt{\tau}^{-1}
+    % \end{equation}
+    % for some $s\in \{0,1,\infty\}$
+    % and some $\wt{\tau}\in\wt{G}$.
+    % Let $\tau = \pi(\wt{\tau})$.
+    % Applying $\pi$ to
+    % \eqref{eqn:alphatau}
+    % we get the following.
+    % \begin{align}
+    %   \label{eqn:taucentralizes}
+    %   \begin{split}
+    %     \pi(\wt{\sigma}_s\alpha)=
+    %     \pi(\wt{\tau}\wt{\sigma}_s\wt{\tau}^{-1})
+    %     &\implies
+    %     \sigma_s = \tau\sigma_s\tau^{-1}\\
+    %     &\implies
+    %     \tau\in C_G(\sigma_s)
+    %   \end{split}
+    % \end{align}
+    % \begin{remark}
+    %   \label{rmk:size3}
+    %   If we assume the more stringent condition
+    %   that $\#\Sigma_\mathscr{P}\geq 3$,
+    %   then
+    %   \eqref{eqn:possiblelifts}
+    %   implies that
+    %   \eqref{eqn:alphatau}
+    %   holds for all $s\in \{0,1,\infty\}$.
+    %   Then by
+    %   \eqref{eqn:taucentralizes}
+    %   we have that a centralizing element
+    %   $\tau_s\in C_G(\sigma_s)$ for every $s$.
+    %   If all these $\tau_s$ are equal to some
+    %   $\tau\in G$, then $\tau$ lives in the
+    %   center of $G$
+    %   and the element
+    %   $\wt{\tau}\in\pi^{-1}(Z(G))$
+    %   upstairs
+    %   satisfies
+    %   \eqref{eqn:alphatau}
+    %   for all $s$.
+    % \end{remark}
+    % Let $\rho\colon \wt{G}\to\GL(V)$ be a
+    % representation
+    % of $\wt{G}$ over $\CC$.
+    % For $M\in\GL(V)$, let
+    % $\charpoly(M)$ denote the
+    % characteristic polynomial of $M$.
+    % Let $A = \rho(\alpha)$.
+    % Then $A^2=1$.
+    % Since $\alpha\in Z(\wt{G})$,
+    % we have
+    % $\rho(\alpha \wt{g}) = \rho(\wt{g}\alpha)$
+    % so that $A$ commutes with $\rho(\wt{g})$
+    % for all $\wt{g}\in \wt{G}$.
+    % If $\rho$ is faithful,
+    % then $A\neq 1$.
+    % In general,
+    % $\rho(\wt{g})$ will have finite order
+    % and thus can be diagonalized
+    % over a cyclotomic field.
+    % If \eqref{eqn:alphatau}
+    % is satisfied for some $s$,
+    % then
+    % \begin{equation}
+    %   \label{eqn:rhoalphatau}
+    %   \rho(\wt{\sigma}_s\alpha)
+    %   =
+    %   \rho(\wt{\tau}\wt{\sigma}_s\wt{\tau}^{-1})
+    % \end{equation}
+    % which implies
+    % \begin{align}
+    %   \label{eqn:charpoly}
+    %   \begin{split}
+    %     \charpoly(\rho(\wt{\sigma}_s\alpha))
+    %     &=\charpoly(\rho(\wt{\tau}\wt{\sigma}_s\wt{\tau}))\\
+    %     &=\charpoly(\rho(\wt{\sigma}_s)).
+    %   \end{split}
+    % \end{align}
+    % If we let $S = \rho(\wt{\sigma}_s)$
+    % and $A=\rho(\alpha)$ (as above),
+    % then \eqref{eqn:charpoly}
+    % becomes
+    % \begin{equation}
+    %   \label{eqn:charpoly2}
+    %   \charpoly(SA) = \charpoly(S).
+    % \end{equation}
+    % Since $A^2=1$ and $A\neq 1$,
+    % we have that $A$ is a diagonal matrix
+    % with $\pm 1$ along the diagonal with
+    % at least one occurence of $-1$.
+    % Over $\CC$,
+    % we can apply Shur's Lemma
+    % to get that $A$ is a scalar matrix
+    % and therefore $A=-1$.
+    % The eigenspaces of $A$ are $\wt{G}$-stable.
+    % % two nxn matrices A,B over char(K)=0
+    % % have same charpolys iff
+    % % trace(A^k) = trace(A^k) for all k \ge 0
+  % }
 }
 \chapter{Computing equations}{\label{chapter:equations}
   In this chapter we discuss how to compute
@@ -9983,587 +10409,587 @@ end for;
   %  \mm{link to database, code, and some tables}
   %}
 % } 
-\chapter{Classifying low genus and hyperelliptic $2$-group Belyi maps}{\label{chapter:classify}
-  In this chapter we organize some results on $2$-group Belyi maps
-  with low genus.
-  The conditions that need to be satisfied for a general Belyi map
-  to be a $2$-group Belyi map are quite stringent.
-  This allows us to give a clear picture of the story
-  in these special cases.
-  % \section{Remarks on Galois Belyi maps}{\label{sec:galoisbelyimaps}
-    % We summarize some of the results on Galois Belyi maps
-    % that we use for $2$-group Belyi maps.
-    % A great deal is known about Galois Belyi maps (regular dessins) in general
-    % (see \mm{TODO: sources}).
-    % \begin{lemma}\label{lem:regular}
-    %   Let $\sigma$ be a degree $d$ permutation triple corresponding to
-    %   $\phi\colon X\to\PP^1$ a Galois Belyi map with monodromy group $G$
-    %   and
-    %   $m_s$ be the order of $\sigma_s$ for $s\in\{0,1,\infty\}$.
-    %   Then $\sigma_s$ consists of $d/m_s$ many $m_s$-cycles.
-    %   In particular,
-    %   for a $2$-group Belyi map,
-    %   $m_s$ and $\#G$ are powers of $2$.
-    % \end{lemma}
-    % \begin{proof}
-    % \end{proof}
-    % In light of Lemma \ref{lem:regular},
-    % we get a refined version of Riemann-Hurwitz for Galois Belyi maps.
-    % \begin{prop}\label{prop:riemannhurwitzgalois}
-    %   Let $\sigma$ be a degree $d$ permutation triple corresponding to
-    %   $\phi\colon X\to\PP^1$ a Galois Belyi map with monodromy group $G$.
-    %   Let $a,b,c$ be the orders of $\sigma_0,\sigma_1,\sigma_\infty$
-    %   respectively.
-    %   Then
-    %   \begin{equation}\label{eqn:riemannhurwitzgalois}
-    %     g(X) = 1+\frac{\#G}{2}\left(1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}\right).
-    %   \end{equation}
-    % \end{prop}
-    % \begin{proof}
-    % \end{proof}
-  % }
-  \section{Genus $0$}{\label{sec:genuszero}
-    Let $\phi:X\to\PP^1$ be a $2$-group Belyi map where $X$ has genus $0$.
-    Proposition \ref{prop:riemannhurwitzgalois} immediately restricts the
-    possibilities for ramification indices.
-    \begin{prop}\label{prop:genuszeroramification}
-      A $2$-group Belyi map of genus $0$ with monodromy group $G$
-      has the following possibilities for ramification indices:
-      \begin{itemize}
-        \item degenerate: $(1,\#G, \#G)$, $(\#G, 1, \#G)$, $(\#G, \#G, 1)$
-        \item
-          dihedral:
-          $\left(\frac{\#G}{2}, 2, 2\right)$,
-          $\left(2, \frac{\#G}{2}, 2\right)$,
-          $\left(2, 2, \frac{\#G}{2}\right)$
-      \end{itemize}
-    \end{prop}
-    \begin{proof}
-      Let $a,b,c$ be the ramification indices of the Belyi map.
-      Then by Lemma \ref{lem:regular},
-      $a,b,c,\#G$ are all positive powers of $2$.
-      Without loss of generality we may assume $a\le b\le c$.
-      The proof is by cases.
-      For $g(X)=0$, Proposition \ref{prop:riemannhurwitzgalois}
-      yields
-      \begin{equation}\label{eqn:riemannhurwitzgenuszero}
-        \frac{\#G}{2}\left(1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}\right) = -1.
-      \end{equation}
-      \begin{itemize}
-        \item[\underline{$a=1$}:]
-          If $a=1$, then
-          \eqref{eqn:riemannhurwitzgenuszero}
-          becomes
-          $\frac{1}{b}+\frac{1}{c}=\frac{2}{\#G}$.
-          \begin{itemize}
-            \item[\underline{$b=1$}:]
-              If $a=b=1$, then
-              \eqref{eqn:riemannhurwitzgenuszero}
-              implies $a=b=c=\#G=1$.
-            \item[\underline{$b\ge 2$}:]
-              If $a=1$ and $b\geq 2$,
-              then we can let $b=2^m$ and $c=2^n$ with $m\le n$.
-              In this case
-              \eqref{eqn:riemannhurwitzgenuszero}
-              becomes
-              \[
-                \frac{1}{2^m}+\frac{1}{2^n} = \frac{2}{\#G}
-                \implies
-                \#G\left(2^{n-m}+1\right) = 2^{n+1}.
-              \]
-              Since $\#G$ is a power of $2$, we must have
-              $2^{n-m}+1\in\{1,2\}$ which only occurs when $m=n$.
-              Therefore $m=n$ which implies $b=c=\#G$.
-          \end{itemize}
-        \item[\underline{$a=2$}:]
-          If $a=2$, then
-          \eqref{eqn:riemannhurwitzgenuszero} becomes
-          \[
-            \frac{2}{\#G} = \frac{1}{b}+\frac{1}{c}-\frac{1}{2}.
-          \]
-          \begin{itemize}
-            \item[\underline{$b=2$}:]
-              If $a=2$ and $b=2$, then
-              \eqref{eqn:riemannhurwitzgenuszero} implies
-              $c=\frac{\#G}{2}$.
-            \item[\underline{$b\ge 4$}:]
-              If $a=2$ and $b,c\geq 4$, then
-              \eqref{eqn:riemannhurwitzgenuszero} implies
-              \[
-                \frac{2}{\#G} = \frac{1}{b}+\frac{1}{c}-\frac{1}{2}
-                \implies
-                \frac{2}{\#G}\le 0
-              \]
-              which cannot occur.
-          \end{itemize}
-        \item[\underline{$a\geq 4$}:]
-          If $a,b,c\geq 4$, then
-          \eqref{eqn:riemannhurwitzgenuszero} becomes
-          \[
-            \frac{2}{\#G} = \frac{1}{b}+\frac{1}{c} - \left(1-\frac{1}{a}\right).
-          \]
-          But
-          $\left(1-\frac{1}{a}\right)\ge\frac{3}{4}$
-          and
-          $\frac{1}{b}+\frac{1}{c}\le\frac{1}{2}$
-          imply that
-          $\frac{2}{\#G}<0$
-          which cannot occur.
-      \end{itemize}
-      In summary there are $2$ possibilities:
-      \begin{itemize}
-        \item $a=1$ and $b=c=\#G$
-        \item $a=2$, $b=2$, and $c=\frac{\#G}{2}$
-      \end{itemize}
-      By reordering the ramification indices
-      we obtain the possibilities in Proposition \ref{prop:genuszeroramification}.
-    \end{proof}
-    In particular,
-    from
-    Proposition \ref{prop:genuszeroramification}
-    we see that all genus $0$ $2$-group Belyi maps
-    are degenerate or spherical dihedral.
-    The explicit maps in these cases are well understood
-    \mm{TODO: cite}\cite{turkishbelyithesis}.
-    We summarize with Proposition \ref{prop:turkishbelyithesis}.
-    \begin{prop}\label{prop:turkishbelyithesis}
-      Every possible ramification type in
-      Proposition \ref{prop:genuszeroramification}
-      corresponds to exactly one Belyi map up to isomorphism.
-      Moreover, the equations for these maps have simple formulas
-      given below.
-      In the formulas below,
-      we use the notation from Proposition \ref{prop:genuszeroramification}
-      for ramification types and write a Belyi map
-      $\phi:\PP^1\to\PP^1$ with monodromy $G$
-      as a rational function in the coordinate $x$
-      on an affine patch of the domain of $\phi$.
-      \begin{itemize}
-        \item
-          $(1,1,1)$
-          \[
-            \phi(x) = x
-          \]
-        \item
-          $(1,\#G, \#G)$, $\#G\ge 2$
-          \[
-            \phi(x) = 1-x^{\#G}
-          \]
-        \item
-          $(\#G, 1, \#G)$, $\#G\ge 2$
-          \[
-            \phi(x) = x^{\#G}
-          \]
-        \item
-          $(\#G, \#G, 1)$, $\#G\ge 2$
-          \[
-            \phi(x) = \frac{x^{\#G}}{x^{\#G}-1}
-          \]
-        \item
-          $(2, 2, 2)$, $\#G = 2$
-          \[
-            \phi(x) = -\left(\frac{x(x-1)}{x-\frac{1}{2}}\right)^2
-          \]
-        \item
-          $(2, 2, \frac{\#G}{2})$, $\#G\ge 4$
-          \[
-            \phi(x) = -\frac{1}{4}\left(x^{\#G/2}+\frac{1}{x^{\#G/2}}\right)
-            +\frac{1}{2}
-          \]
-        \item
-          $(2, \frac{\#G}{2}, 2)$, $\#G\ge 4$
-          \[
-            \phi(x) = 1-\frac{1}{1-\left(-\frac{1}{4}\left(x^{\#G/2}+\frac{1}{x^{\#G/2}}\right)
-            +\frac{1}{2}\right)}
-          \]
-        \item
-          $(\frac{\#G}{2}, 2, 2)$, $\#G\ge 4$
-          \[
-            \phi(x) = \frac{1}{-\frac{1}{4}\left(x^{\#G/2}+\frac{1}{x^{\#G/2}}\right)
-            +\frac{1}{2}}
-          \]
-      \end{itemize}
-    \end{prop}
-    \begin{proof}
-      We first address the correctness of the equations.
-      For the ramification triples containing $1$,
-      the equations are all lax isomorphic to one of the form
-      \begin{equation}\label{eqn:squaringmap}
-        \phi(x) = x^{\#G}
-      \end{equation}
-      for the ramification triple
-      $(\#G, 1, \#G)$.
-      The rational function $\phi$ in
-      \eqref{eqn:squaringmap}
-      has a root of multiplicity $\#G$ at $0$,
-      a pole of multiplicity $\#G$ at $\infty$,
-      and $\#G$ unique preimages above $1$.
-      The Belyi maps for ramification triples
-      $(1,\#G, \#G)$ and $(\#G, \#G, 1)$
-      are lax isomorphic to $\phi$ in
-      \eqref{eqn:squaringmap}
-      and similarly have the correct ramification of this
-      degenerate Belyi map.
-      \par
-      For the other ramification triples, we focus on
-      the triple $(2,2,\frac{\#G}{2})$.
-      The equation for this map is a modification
-      (pointed out to me by Sam Schiavone)
-      of the dihedral Belyi map
-      \begin{equation}\label{eqn:dihedral}
-        \phi(x) = x^d+\frac{1}{x^d}
-      \end{equation}
-      in \cite[Example 5.1.2]{turkishbelyithesis}.
-      The other dihedral maps are then lax isomorphic to
-      (the modification of) the map in
-      \eqref{eqn:dihedral}.
-      \par
-      To show that there is at most one Belyi map in each of the above cases,
-      we refer to Algorithm \ref{alg:triples}.
-      \mm{todo}
-    \end{proof}
-  }
-  \section{Genus $1$}{\label{sec:genusone}
-    Let $\phi\colon X\to\PP^1$ be a $2$-group Belyi map
-    where $X$ has genus $1$.
-    Let $(a,b,c)$ be the ramification indices of $\phi$
-    with $a\leq b\leq c$.
-    From Proposition \ref{prop:riemannhurwitzgalois},
-    we have that
-    \begin{equation}\label{eqn:genusoneramification}
-      % \frac{\#G}{2}\left(1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}\right) = 0
-      % \implies
-      % \left(1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}\right) = 0.
-      \frac{1}{a}+\frac{1}{b}+\frac{1}{c} = 0.
-    \end{equation}
-    Since $a,b,c$ are powers of $2$,
-    the only solution to
-    \eqref{eqn:genusoneramification}
-    is $a=2$ and $b=c=4$.
-    We summarize this discussion in
-    Proposition \ref{prop:genusoneramification}.
-    \begin{prop}\label{prop:genusoneramification}
-      The only possible ramification indices for
-      a $2$-group Belyi map of genus $1$
-      are $(2,4,4)$, $(4,2,4)$, or $(4,4,2)$.
-    \end{prop}
-    As was the case in genus $0$,
-    all ramification triples in
-    Proposition \ref{prop:genusoneramification}
-    have corresponding Belyi maps.
-    However, as we see in
-    Proposition \ref{prop:genusonemaps},
-    these genus $1$ Belyi maps occur in infinite families.
-    \begin{prop}\label{prop:genusonemaps}
-      Let $(a,b,c)$ be a ramification triple in
-      Proposition \ref{prop:genusoneramification}
-      and let $d = 2^m$ for $m\in\ZZ_{\geq 2}$.
-      Then there exists exactly one
-      degree $d$ $2$-group Belyi map up to isomorpism
-      with ramification $(a,b,c)$.
-      Moreover, the equations for these maps have simple formulas
-      which are described below.
-      In these equations let $E$ be the elliptic curve
-      with $j$-invariant $1728$ given by the Weierstrass equation
-      \[
-        E\colon y^2 = x^3+x.
-      \]
-      Every degree $4$ Belyi map below is of the form
-      $\phi\colon E\to\PP^1$ where $\phi$
-      (written as an element of the function field of $E$)
-      is one of the following:
-      \begin{align}\label{eqn:d4g1}
-        \begin{split}
-          \phi_{(2,4,4)} &= \frac{x^2+1}{x^2}\\
-          \phi_{(4,2,4)} &= \phi_{(2,4,4)} - 1=-\frac{1}{x^2}\\
-          \phi_{(4,4,2)} &= \frac{1}{\phi_{(2,4,4)}} = \frac{x^2}{x^2+1}
-        \end{split}
-      \end{align}
-      Every degree $d$ Belyi map
-      for $d\geq 8$ is of the form
-      \[
-        E\stackrel{\psi}{\to}E\stackrel{\phi}{\to}\PP^1
-      \]
-      where $\phi$ is a degree $4$ genus $1$ Belyi map
-      and $\psi$ is degree $d/4$ isogeny of $E$.
-      Moreover,
-      if we let $\alpha\colon E\to E$ be defined by
-      \begin{equation}\label{eqn:alpha}
-        (x,y)\mapsto
-        \left(
-          (1+\sqrt{-1})^{-2}\left(x+\frac{1}{x}\right),
-          (1+\sqrt{-1})^{-3}y\left(1-\frac{1}{x^2}\right)
-        \right)
-      \end{equation}
-      then $\psi$ is the map $\alpha$ composed with itself
-      $d/8$ times.
-    \end{prop}
-    \begin{proof}
-      For a proof that these are the only such $2$-group Belyi maps
-      we used \cite[Lemma 3.5]{triangles}.
-      This can also be seen from Algorithm \ref{alg:alltriples}.
-      The degree $4$ Belyi maps are all lax isomorphic
-      to the degree $4$ genus $1$ Belyi map with
-      ramification indices $(4,4,2)$ in
-      \cite{belyidb}.
-      For degree $d$ with $d\geq 8$
-      let $\phi$ be one of the degree $4$ maps in
-      \eqref{eqn:d4g1}.
-      We then precompose
-      $\phi$
-      with $\alpha\cdots\alpha$ ($d/8$ times)
-      where $\alpha$ is the
-      degree $2$ endomorphism of $E$
-      found in
-      \cite[Proposition 2.3.1]{advancedsilverman}.
-      Since isogenies are unramified
-      in characteristic $0$
-      (see \cite[Chapter III, Theorem 4.10]{silverman})
-      the composition $\phi\alpha^{d/8}$
-      is a degree $d$ Belyi map with the same ramification type as $\phi$.
-    \end{proof}
-  }
-  \section{Hyperelliptic}{\label{sec:hyperelliptic}
-    \begin{definition}\label{def:hyperelliptic}
-      Let $\phi\colon X\to\PP^1$ be a Belyi map
-      of genus $\geq 2$.
-      We say a Belyi map $\phi$ is \defi{hyperelliptic}
-      if $X$ is a hyperelliptic curve.
-      A hyperelliptic curve $X$ over $\CC$
-      is defined by having
-      an element $\iota\in\Aut(X)$
-      such that
-      the quotient map
-      $X\to X/\langle\iota\rangle$
-      is a degree $2$ map to $\PP^1$.
-      This element $\iota$ is known as the
-      \defi{hyperelliptic involution}.
-    \end{definition}
-    Let $\phi\colon X\to\PP^1$ be a hyperelliptic
-    $2$-group Belyi map with monodromy group
-    $H\leq G\colonequals\Aut(X)$,
-    and hyperelliptic involution $\iota\in\Aut(X)$.
-    \begin{lemma}\label{lem:hypinvolutioncentral}
-      % $G\leq\Aut(X)$ and $\iota$ is central in $G$.
-      $\langle\iota\rangle\trianglelefteq\Aut(X)$
-    \end{lemma}
-    \begin{proof}
-    \end{proof}
-    \begin{definition}\label{def:reducedautomorphismgroup}
-      The
-      \defi{reduced automorphism group} of $X$
-      is the quotient group
-      $G_{\rred}\colonequals G/\langle\iota\rangle$.
-    \end{definition}
-    % \begin{lemma}\label{lem:normalsubgroup}
-    %   $H\trianglelefteq\Aut(X)$.
-    % \end{lemma}
-    From Lemma \ref{lem:hypinvolutioncentral}
-    and the Galois condition on $\phi$,
-    we obtain the diagram in Figure \ref{fig:hyperellipticbelyi}.
-    \begin{figure}[ht]
-      \[
-        \begin{tikzcd}
-          &X\arrow[swap, Rightarrow]{dl}{\phi}\arrow[Rightarrow]{dr}{\langle\iota\rangle}
-          \arrow[Rightarrow]{dd}{\psi}\\
-          \PP^1\simeq X/H\arrow{dr}&&\PP^1\simeq X/\langle\iota\rangle\arrow[Rightarrow]{dl}{G/\langle\iota\rangle}\\
-                         &\PP^1\simeq X/G
-        \end{tikzcd}
-      \]
-      \caption{Galois theory for a hyperelliptic Belyi map}
-      \label{fig:hyperellipticbelyi}
-    \end{figure}
-    \begin{prop}\label{prop:liftbelyi}
-      Let $\phi$ and $\psi$ be the maps shown in
-      Figure \ref{fig:hyperellipticbelyi}.
-      If $\phi$ is a Belyi map,
-      then $\psi$ is a Belyi map.
-    \end{prop}
-    \begin{proof}
-      By Theorem \ref{thm:bigbijection},
-      $\phi$ corresponds to
-      a normal inclusion of triangle groups
-      $
-        \Delta_1\trianglelefteq\Delta_H
-      $
-      and the map $X / H \to X / G$
-      corresponds to an inclusion of Fuchsian groups
-      \begin{equation}\label{eqn:fuchsianinclusion}
-        \Delta_H\leq\Gamma.
-      \end{equation}
-      By a result in \cite[Page 36]{singerman},
-      the inclusion of a triangle group $\Delta_H$ in
-      a Fuchsian group $\Gamma$
-      as in \eqref{eqn:fuchsianinclusion}
-      implies that $\Gamma$ is a triangle group
-      which we denote $\Delta_G$.
-      Now we have the
-      (normal by Lemma \ref{lem:hypinvolutioncentral})
-      inclusion
-      $\Delta_1\trianglelefteq\Delta_G$
-      which (again by Theorem \ref{thm:bigbijection})
-      implies that $\psi$ is a Belyi map.
-    \end{proof}
-    Proposition \ref{prop:liftbelyi}
-    reduces the classification of these hyperelliptic $2$-group Belyi maps
-    to the situation on the right side of the diagram in
-    Figure \ref{fig:hyperellipticbelyi}.
-    The possibilities for $G_{\rred}$
-    in this setting are known
-    (see \cite[\S 1.1]{dolgachev}).
-    Moreover, since $G$ is a
-    $2$-group (\mm{$G$ only contains a $2$-group\ldots}),
-    the only possibilities for $G_{\rred}$
-    are cyclic or dihedral of order $\#G / 2$.
-    $G$ is then an extension of $G_{\rred}$
-    by $\iota$
-    (an element of order $2$ generating a normal subgroup of $G$).
-    Such groups are classified in
-    \cite{hyperelliptic} which we summarize in the
-    following theorem.
-    \begin{theorem}
-      \label{thm:hyperelliptic}
-      Let $G$ be the full automorphism group of a
-      $2$-group Belyi curve.
-      Let $\#G_{\rred} = 2^n$.
-      Then $G$ is isomorphic to one of the following groups:
-      \begin{itemize}
-        \item
-          $\ZZ/2^{n+1}\ZZ$
-        \item
-          $\ZZ / 2^n\ZZ\times\ZZ / 2\ZZ$
-        \item
-          $D_{2^{n+1}}$
-        \item
-          $D_{2^n}\times\ZZ / 2\ZZ$
-      \end{itemize}
-      where $D_m$ denotes the dihedral group of order $m$.
-    \end{theorem}
-    \begin{proof}
-      \cite[Theorem 2.1]{hyperelliptic}.
-    \end{proof}
-    \mm{
-      you get a genus zero phi0 : Belyi map
-      PP1 $\to$ PP1 and the degree 2 map on top must be ramified,
-      corresponding to the hyperelliptic involution, can only be ramified
-      along the preimages of ramification points of phi0, and in a
-      group-invariant way, so that should really give you the equations as
-      well.
-    }
-    \newline
-    \mm{
-      maybe write down explicit maps for g=2,3
-    }
-      %   \begin{theorem}\label{thm:hyperelliptic}
-      %     Let $\phi:X\to\PP^1$ be a hyperelliptic $2$-group Belyi map
-      %     with monodromy group $G$.
-      %     Let $\iota$ denote the hyperelliptic involution in $\Aut(X)$.
-      %     Then $\overline{G}\colonequals G/\langle\iota\rangle$
-      %     is a subgroup of $\Aut(\PP^1)\cong\PGL_2(\CC)$.
-      %     (see Figure \ref{fig:hyperelliptic}).
-      %     In particular,
-      %     $\overline{G}$ is either cyclic, dihedral, or exceptional.
-      %     \begin{figure}[ht]
-      %       \[
-      %         \begin{tikzcd}[ampersand replacement=\&]
-      %           X\arrow{dd}[swap]{G}\arrow{dr}{\langle\iota\rangle}\\
-      %           \&\PP^1\arrow{dl}{G/\langle\iota\rangle}\\
-      %           \PP^1
-      %         \end{tikzcd}
-      %       \]
-      %       \caption{
-      %         A hyperelliptic $2$-group Belyi map
-      %         with monodromy group $G$
-      %         factors through a degree $2$ map to $\PP^1$
-      %         and an automorphism of $\PP^1$.
-      %       }
-      %       \label{fig:hyperelliptic}
-      %     \end{figure}
-      %   \end{theorem}
-  }
-    % We start Section \ref{sec:classification} by giving a complete description of the geometry type
-    % (see Definition \ref{def:geometrytype}) of a
-    % $2$-group Belyi map in Proposition \ref{prop:geometrytype}
-    % and finish Section \ref{sec:classification}
-    % with a classification of hyperelliptic
-    % $2$-group Belyi maps in Theorem \ref{thm:hyperelliptic}.
-    % \begin{prop}\label{prop:geometrytype}
-    %   Let $\phi:X\to\PP^1$ be a $2$-group Belyi map
-    %   corresponding to a permutation triple $\sigma$
-    %   with $(a,b,c)$ the triple of orders of permutations in $\sigma$.
-    %   Then the geometry type of $\phi$ is determined by $(a,b,c)$
-    %   and is one of the following:
-    %   \begin{enumerate}
-    %     \item[(degenerate)]
-    %       $\phi$ is degenerate if $1\in(a,b,c)$.
-    %     \item[(spherical)]
-    %       $\phi$ is spherical if $(a,b,c)$ is of the form
-    %       $(2,2,c)$, $(2,b,2)$, or $(a,2,2)$.
-    %     \item[(Euclidean)]
-    %       $\phi$ is Euclidean if $(a,b,c)$ is of the form
-    %       $(2,4,4)$, $(4,2,4)$, or $(4,4,2)$.
-    %     \item[(hyperbolic)]
-    %       $\phi$ is hyperbolic (with genus at least $2$) in all other cases.
-    %   \end{enumerate}
-    % \end{prop}
-    % \begin{proof}
-    % \end{proof}
-    % \subsection{Classifying spherical $2$-group Belyi maps}{\label{subsec:elliptic}}{
-    % }
-    % \subsection{Classifying genus $1$ $2$-group Belyi maps}{\label{subsec:elliptic}}{
-    % }
-    % \subsection{Classifying hyperelliptic $2$-group Belyi maps}{\label{subsec:hyperelliptic}}{
-      % \begin{definition}
-      %   Let $K$ be a number field with algebraic closure $\overline{K}$.
-      %   Let $X$ be an irreducible smooth projective curve over $K$.
-      %   $X$ is \defi{hyperelliptic} if there exists a degree $2$ map
-      %   $\iota:X\to\PP^1$ (defined over $\overline{K}$).
-      %   The degree $2$ map $\iota$ is called the
-      %   \defi{hyperelliptic involution}.
-      % \end{definition}
-    %   \begin{definition}
-    %     A \defi{hyperelliptic Belyi map} is a Belyi map $\phi:X\to\PP^1$
-    %     where $X$ is a hyperelliptic curve.
-    %   \end{definition}
-      %   \begin{lemma}\label{lem:hypinvolutioncentral}
-      %     Let $\phi:X\to\PP^1$ be a hyperelliptic $2$-group Belyi map
-      %     with monodromy group $G$.
-      %     Let $\iota$ denote the hyperelliptic involution in $\Aut(X)$.
-      %     Then
-      %     $G\leq\Aut(X)$ and $\iota$ is central in $G$.
-      %   \end{lemma}
-    %   \begin{proof}
-    %   \end{proof}
-      %   \begin{theorem}\label{thm:hyperelliptic}
-      %     Let $\phi:X\to\PP^1$ be a hyperelliptic $2$-group Belyi map
-      %     with monodromy group $G$.
-      %     Let $\iota$ denote the hyperelliptic involution in $\Aut(X)$.
-      %     Then $\overline{G}\colonequals G/\langle\iota\rangle$
-      %     is a subgroup of $\Aut(\PP^1)\cong\PGL_2(\CC)$.
-      %     (see Figure \ref{fig:hyperelliptic}).
-      %     In particular,
-      %     $\overline{G}$ is either cyclic, dihedral, or exceptional.
-      %     \begin{figure}[ht]
-      %       \[
-      %         \begin{tikzcd}[ampersand replacement=\&]
-      %           X\arrow{dd}[swap]{G}\arrow{dr}{\langle\iota\rangle}\\
-      %           \&\PP^1\arrow{dl}{G/\langle\iota\rangle}\\
-      %           \PP^1
-      %         \end{tikzcd}
-      %       \]
-      %       \caption{
-      %         A hyperelliptic $2$-group Belyi map
-      %         with monodromy group $G$
-      %         factors through a degree $2$ map to $\PP^1$
-      %         and an automorphism of $\PP^1$.
-      %       }
-      %       \label{fig:hyperelliptic}
-      %     \end{figure}
-      %   \end{theorem}
-    %   \begin{proof}
-    %   \end{proof}
-    % }
-}
+% \chapter{Classifying low genus and hyperelliptic $2$-group Belyi maps}{\label{chapter:classify}
+%   In this chapter we organize some results on $2$-group Belyi maps
+%   with low genus.
+%   The conditions that need to be satisfied for a general Belyi map
+%   to be a $2$-group Belyi map are quite stringent.
+%   This allows us to give a clear picture of the story
+%   in these special cases.
+%   % \section{Remarks on Galois Belyi maps}{\label{sec:galoisbelyimaps}
+%     % We summarize some of the results on Galois Belyi maps
+%     % that we use for $2$-group Belyi maps.
+%     % A great deal is known about Galois Belyi maps (regular dessins) in general
+%     % (see \mm{TODO: sources}).
+%     % \begin{lemma}\label{lem:regular}
+%     %   Let $\sigma$ be a degree $d$ permutation triple corresponding to
+%     %   $\phi\colon X\to\PP^1$ a Galois Belyi map with monodromy group $G$
+%     %   and
+%     %   $m_s$ be the order of $\sigma_s$ for $s\in\{0,1,\infty\}$.
+%     %   Then $\sigma_s$ consists of $d/m_s$ many $m_s$-cycles.
+%     %   In particular,
+%     %   for a $2$-group Belyi map,
+%     %   $m_s$ and $\#G$ are powers of $2$.
+%     % \end{lemma}
+%     % \begin{proof}
+%     % \end{proof}
+%     % In light of Lemma \ref{lem:regular},
+%     % we get a refined version of Riemann-Hurwitz for Galois Belyi maps.
+%     % \begin{prop}\label{prop:riemannhurwitzgalois}
+%     %   Let $\sigma$ be a degree $d$ permutation triple corresponding to
+%     %   $\phi\colon X\to\PP^1$ a Galois Belyi map with monodromy group $G$.
+%     %   Let $a,b,c$ be the orders of $\sigma_0,\sigma_1,\sigma_\infty$
+%     %   respectively.
+%     %   Then
+%     %   \begin{equation}\label{eqn:riemannhurwitzgalois}
+%     %     g(X) = 1+\frac{\#G}{2}\left(1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}\right).
+%     %   \end{equation}
+%     % \end{prop}
+%     % \begin{proof}
+%     % \end{proof}
+%   % }
+%   \section{Genus $0$}{\label{sec:genuszero}
+%     Let $\phi:X\to\PP^1$ be a $2$-group Belyi map where $X$ has genus $0$.
+%     Proposition \ref{prop:riemannhurwitzgalois} immediately restricts the
+%     possibilities for ramification indices.
+%     \begin{prop}\label{prop:genuszeroramification}
+%       A $2$-group Belyi map of genus $0$ with monodromy group $G$
+%       has the following possibilities for ramification indices:
+%       \begin{itemize}
+%         \item degenerate: $(1,\#G, \#G)$, $(\#G, 1, \#G)$, $(\#G, \#G, 1)$
+%         \item
+%           dihedral:
+%           $\left(\frac{\#G}{2}, 2, 2\right)$,
+%           $\left(2, \frac{\#G}{2}, 2\right)$,
+%           $\left(2, 2, \frac{\#G}{2}\right)$
+%       \end{itemize}
+%     \end{prop}
+%     \begin{proof}
+%       Let $a,b,c$ be the ramification indices of the Belyi map.
+%       Then by Lemma \ref{lem:regular},
+%       $a,b,c,\#G$ are all positive powers of $2$.
+%       Without loss of generality we may assume $a\le b\le c$.
+%       The proof is by cases.
+%       For $g(X)=0$, Proposition \ref{prop:riemannhurwitzgalois}
+%       yields
+%       \begin{equation}\label{eqn:riemannhurwitzgenuszero}
+%         \frac{\#G}{2}\left(1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}\right) = -1.
+%       \end{equation}
+%       \begin{itemize}
+%         \item[\underline{$a=1$}:]
+%           If $a=1$, then
+%           \eqref{eqn:riemannhurwitzgenuszero}
+%           becomes
+%           $\frac{1}{b}+\frac{1}{c}=\frac{2}{\#G}$.
+%           \begin{itemize}
+%             \item[\underline{$b=1$}:]
+%               If $a=b=1$, then
+%               \eqref{eqn:riemannhurwitzgenuszero}
+%               implies $a=b=c=\#G=1$.
+%             \item[\underline{$b\ge 2$}:]
+%               If $a=1$ and $b\geq 2$,
+%               then we can let $b=2^m$ and $c=2^n$ with $m\le n$.
+%               In this case
+%               \eqref{eqn:riemannhurwitzgenuszero}
+%               becomes
+%               \[
+%                 \frac{1}{2^m}+\frac{1}{2^n} = \frac{2}{\#G}
+%                 \implies
+%                 \#G\left(2^{n-m}+1\right) = 2^{n+1}.
+%               \]
+%               Since $\#G$ is a power of $2$, we must have
+%               $2^{n-m}+1\in\{1,2\}$ which only occurs when $m=n$.
+%               Therefore $m=n$ which implies $b=c=\#G$.
+%           \end{itemize}
+%         \item[\underline{$a=2$}:]
+%           If $a=2$, then
+%           \eqref{eqn:riemannhurwitzgenuszero} becomes
+%           \[
+%             \frac{2}{\#G} = \frac{1}{b}+\frac{1}{c}-\frac{1}{2}.
+%           \]
+%           \begin{itemize}
+%             \item[\underline{$b=2$}:]
+%               If $a=2$ and $b=2$, then
+%               \eqref{eqn:riemannhurwitzgenuszero} implies
+%               $c=\frac{\#G}{2}$.
+%             \item[\underline{$b\ge 4$}:]
+%               If $a=2$ and $b,c\geq 4$, then
+%               \eqref{eqn:riemannhurwitzgenuszero} implies
+%               \[
+%                 \frac{2}{\#G} = \frac{1}{b}+\frac{1}{c}-\frac{1}{2}
+%                 \implies
+%                 \frac{2}{\#G}\le 0
+%               \]
+%               which cannot occur.
+%           \end{itemize}
+%         \item[\underline{$a\geq 4$}:]
+%           If $a,b,c\geq 4$, then
+%           \eqref{eqn:riemannhurwitzgenuszero} becomes
+%           \[
+%             \frac{2}{\#G} = \frac{1}{b}+\frac{1}{c} - \left(1-\frac{1}{a}\right).
+%           \]
+%           But
+%           $\left(1-\frac{1}{a}\right)\ge\frac{3}{4}$
+%           and
+%           $\frac{1}{b}+\frac{1}{c}\le\frac{1}{2}$
+%           imply that
+%           $\frac{2}{\#G}<0$
+%           which cannot occur.
+%       \end{itemize}
+%       In summary there are $2$ possibilities:
+%       \begin{itemize}
+%         \item $a=1$ and $b=c=\#G$
+%         \item $a=2$, $b=2$, and $c=\frac{\#G}{2}$
+%       \end{itemize}
+%       By reordering the ramification indices
+%       we obtain the possibilities in Proposition \ref{prop:genuszeroramification}.
+%     \end{proof}
+%     In particular,
+%     from
+%     Proposition \ref{prop:genuszeroramification}
+%     we see that all genus $0$ $2$-group Belyi maps
+%     are degenerate or spherical dihedral.
+%     The explicit maps in these cases are well understood
+%     \mm{TODO: cite}\cite{turkishbelyithesis}.
+%     We summarize with Proposition \ref{prop:turkishbelyithesis}.
+%     \begin{prop}\label{prop:turkishbelyithesis}
+%       Every possible ramification type in
+%       Proposition \ref{prop:genuszeroramification}
+%       corresponds to exactly one Belyi map up to isomorphism.
+%       Moreover, the equations for these maps have simple formulas
+%       given below.
+%       In the formulas below,
+%       we use the notation from Proposition \ref{prop:genuszeroramification}
+%       for ramification types and write a Belyi map
+%       $\phi:\PP^1\to\PP^1$ with monodromy $G$
+%       as a rational function in the coordinate $x$
+%       on an affine patch of the domain of $\phi$.
+%       \begin{itemize}
+%         \item
+%           $(1,1,1)$
+%           \[
+%             \phi(x) = x
+%           \]
+%         \item
+%           $(1,\#G, \#G)$, $\#G\ge 2$
+%           \[
+%             \phi(x) = 1-x^{\#G}
+%           \]
+%         \item
+%           $(\#G, 1, \#G)$, $\#G\ge 2$
+%           \[
+%             \phi(x) = x^{\#G}
+%           \]
+%         \item
+%           $(\#G, \#G, 1)$, $\#G\ge 2$
+%           \[
+%             \phi(x) = \frac{x^{\#G}}{x^{\#G}-1}
+%           \]
+%         \item
+%           $(2, 2, 2)$, $\#G = 2$
+%           \[
+%             \phi(x) = -\left(\frac{x(x-1)}{x-\frac{1}{2}}\right)^2
+%           \]
+%         \item
+%           $(2, 2, \frac{\#G}{2})$, $\#G\ge 4$
+%           \[
+%             \phi(x) = -\frac{1}{4}\left(x^{\#G/2}+\frac{1}{x^{\#G/2}}\right)
+%             +\frac{1}{2}
+%           \]
+%         \item
+%           $(2, \frac{\#G}{2}, 2)$, $\#G\ge 4$
+%           \[
+%             \phi(x) = 1-\frac{1}{1-\left(-\frac{1}{4}\left(x^{\#G/2}+\frac{1}{x^{\#G/2}}\right)
+%             +\frac{1}{2}\right)}
+%           \]
+%         \item
+%           $(\frac{\#G}{2}, 2, 2)$, $\#G\ge 4$
+%           \[
+%             \phi(x) = \frac{1}{-\frac{1}{4}\left(x^{\#G/2}+\frac{1}{x^{\#G/2}}\right)
+%             +\frac{1}{2}}
+%           \]
+%       \end{itemize}
+%     \end{prop}
+%     \begin{proof}
+%       We first address the correctness of the equations.
+%       For the ramification triples containing $1$,
+%       the equations are all lax isomorphic to one of the form
+%       \begin{equation}\label{eqn:squaringmap}
+%         \phi(x) = x^{\#G}
+%       \end{equation}
+%       for the ramification triple
+%       $(\#G, 1, \#G)$.
+%       The rational function $\phi$ in
+%       \eqref{eqn:squaringmap}
+%       has a root of multiplicity $\#G$ at $0$,
+%       a pole of multiplicity $\#G$ at $\infty$,
+%       and $\#G$ unique preimages above $1$.
+%       The Belyi maps for ramification triples
+%       $(1,\#G, \#G)$ and $(\#G, \#G, 1)$
+%       are lax isomorphic to $\phi$ in
+%       \eqref{eqn:squaringmap}
+%       and similarly have the correct ramification of this
+%       degenerate Belyi map.
+%       \par
+%       For the other ramification triples, we focus on
+%       the triple $(2,2,\frac{\#G}{2})$.
+%       The equation for this map is a modification
+%       (pointed out to me by Sam Schiavone)
+%       of the dihedral Belyi map
+%       \begin{equation}\label{eqn:dihedral}
+%         \phi(x) = x^d+\frac{1}{x^d}
+%       \end{equation}
+%       in \cite[Example 5.1.2]{turkishbelyithesis}.
+%       The other dihedral maps are then lax isomorphic to
+%       (the modification of) the map in
+%       \eqref{eqn:dihedral}.
+%       \par
+%       To show that there is at most one Belyi map in each of the above cases,
+%       we refer to Algorithm \ref{alg:triples}.
+%       \mm{todo}
+%     \end{proof}
+%   }
+%   \section{Genus $1$}{\label{sec:genusone}
+%     Let $\phi\colon X\to\PP^1$ be a $2$-group Belyi map
+%     where $X$ has genus $1$.
+%     Let $(a,b,c)$ be the ramification indices of $\phi$
+%     with $a\leq b\leq c$.
+%     From Proposition \ref{prop:riemannhurwitzgalois},
+%     we have that
+%     \begin{equation}\label{eqn:genusoneramification}
+%       % \frac{\#G}{2}\left(1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}\right) = 0
+%       % \implies
+%       % \left(1-\frac{1}{a}-\frac{1}{b}-\frac{1}{c}\right) = 0.
+%       \frac{1}{a}+\frac{1}{b}+\frac{1}{c} = 0.
+%     \end{equation}
+%     Since $a,b,c$ are powers of $2$,
+%     the only solution to
+%     \eqref{eqn:genusoneramification}
+%     is $a=2$ and $b=c=4$.
+%     We summarize this discussion in
+%     Proposition \ref{prop:genusoneramification}.
+%     \begin{prop}\label{prop:genusoneramification}
+%       The only possible ramification indices for
+%       a $2$-group Belyi map of genus $1$
+%       are $(2,4,4)$, $(4,2,4)$, or $(4,4,2)$.
+%     \end{prop}
+%     As was the case in genus $0$,
+%     all ramification triples in
+%     Proposition \ref{prop:genusoneramification}
+%     have corresponding Belyi maps.
+%     However, as we see in
+%     Proposition \ref{prop:genusonemaps},
+%     these genus $1$ Belyi maps occur in infinite families.
+%     \begin{prop}\label{prop:genusonemaps}
+%       Let $(a,b,c)$ be a ramification triple in
+%       Proposition \ref{prop:genusoneramification}
+%       and let $d = 2^m$ for $m\in\ZZ_{\geq 2}$.
+%       Then there exists exactly one
+%       degree $d$ $2$-group Belyi map up to isomorpism
+%       with ramification $(a,b,c)$.
+%       Moreover, the equations for these maps have simple formulas
+%       which are described below.
+%       In these equations let $E$ be the elliptic curve
+%       with $j$-invariant $1728$ given by the Weierstrass equation
+%       \[
+%         E\colon y^2 = x^3+x.
+%       \]
+%       Every degree $4$ Belyi map below is of the form
+%       $\phi\colon E\to\PP^1$ where $\phi$
+%       (written as an element of the function field of $E$)
+%       is one of the following:
+%       \begin{align}\label{eqn:d4g1}
+%         \begin{split}
+%           \phi_{(2,4,4)} &= \frac{x^2+1}{x^2}\\
+%           \phi_{(4,2,4)} &= \phi_{(2,4,4)} - 1=-\frac{1}{x^2}\\
+%           \phi_{(4,4,2)} &= \frac{1}{\phi_{(2,4,4)}} = \frac{x^2}{x^2+1}
+%         \end{split}
+%       \end{align}
+%       Every degree $d$ Belyi map
+%       for $d\geq 8$ is of the form
+%       \[
+%         E\stackrel{\psi}{\to}E\stackrel{\phi}{\to}\PP^1
+%       \]
+%       where $\phi$ is a degree $4$ genus $1$ Belyi map
+%       and $\psi$ is degree $d/4$ isogeny of $E$.
+%       Moreover,
+%       if we let $\alpha\colon E\to E$ be defined by
+%       \begin{equation}\label{eqn:alpha}
+%         (x,y)\mapsto
+%         \left(
+%           (1+\sqrt{-1})^{-2}\left(x+\frac{1}{x}\right),
+%           (1+\sqrt{-1})^{-3}y\left(1-\frac{1}{x^2}\right)
+%         \right)
+%       \end{equation}
+%       then $\psi$ is the map $\alpha$ composed with itself
+%       $d/8$ times.
+%     \end{prop}
+%     \begin{proof}
+%       For a proof that these are the only such $2$-group Belyi maps
+%       we used \cite[Lemma 3.5]{triangles}.
+%       This can also be seen from Algorithm \ref{alg:alltriples}.
+%       The degree $4$ Belyi maps are all lax isomorphic
+%       to the degree $4$ genus $1$ Belyi map with
+%       ramification indices $(4,4,2)$ in
+%       \cite{belyidb}.
+%       For degree $d$ with $d\geq 8$
+%       let $\phi$ be one of the degree $4$ maps in
+%       \eqref{eqn:d4g1}.
+%       We then precompose
+%       $\phi$
+%       with $\alpha\cdots\alpha$ ($d/8$ times)
+%       where $\alpha$ is the
+%       degree $2$ endomorphism of $E$
+%       found in
+%       \cite[Proposition 2.3.1]{advancedsilverman}.
+%       Since isogenies are unramified
+%       in characteristic $0$
+%       (see \cite[Chapter III, Theorem 4.10]{silverman})
+%       the composition $\phi\alpha^{d/8}$
+%       is a degree $d$ Belyi map with the same ramification type as $\phi$.
+%     \end{proof}
+%   }
+%   \section{Hyperelliptic}{\label{sec:hyperelliptic}
+%     \begin{definition}\label{def:hyperelliptic}
+%       Let $\phi\colon X\to\PP^1$ be a Belyi map
+%       of genus $\geq 2$.
+%       We say a Belyi map $\phi$ is \defi{hyperelliptic}
+%       if $X$ is a hyperelliptic curve.
+%       A hyperelliptic curve $X$ over $\CC$
+%       is defined by having
+%       an element $\iota\in\Aut(X)$
+%       such that
+%       the quotient map
+%       $X\to X/\langle\iota\rangle$
+%       is a degree $2$ map to $\PP^1$.
+%       This element $\iota$ is known as the
+%       \defi{hyperelliptic involution}.
+%     \end{definition}
+%     Let $\phi\colon X\to\PP^1$ be a hyperelliptic
+%     $2$-group Belyi map with monodromy group
+%     $H\leq G\colonequals\Aut(X)$,
+%     and hyperelliptic involution $\iota\in\Aut(X)$.
+%     \begin{lemma}\label{lem:hypinvolutioncentral}
+%       % $G\leq\Aut(X)$ and $\iota$ is central in $G$.
+%       $\langle\iota\rangle\trianglelefteq\Aut(X)$
+%     \end{lemma}
+%     \begin{proof}
+%     \end{proof}
+%     \begin{definition}\label{def:reducedautomorphismgroup}
+%       The
+%       \defi{reduced automorphism group} of $X$
+%       is the quotient group
+%       $G_{\rred}\colonequals G/\langle\iota\rangle$.
+%     \end{definition}
+%     % \begin{lemma}\label{lem:normalsubgroup}
+%     %   $H\trianglelefteq\Aut(X)$.
+%     % \end{lemma}
+%     From Lemma \ref{lem:hypinvolutioncentral}
+%     and the Galois condition on $\phi$,
+%     we obtain the diagram in Figure \ref{fig:hyperellipticbelyi}.
+%     \begin{figure}[ht]
+%       \[
+%         \begin{tikzcd}
+%           &X\arrow[swap, Rightarrow]{dl}{\phi}\arrow[Rightarrow]{dr}{\langle\iota\rangle}
+%           \arrow[Rightarrow]{dd}{\psi}\\
+%           \PP^1\simeq X/H\arrow{dr}&&\PP^1\simeq X/\langle\iota\rangle\arrow[Rightarrow]{dl}{G/\langle\iota\rangle}\\
+%                          &\PP^1\simeq X/G
+%         \end{tikzcd}
+%       \]
+%       \caption{Galois theory for a hyperelliptic Belyi map}
+%       \label{fig:hyperellipticbelyi}
+%     \end{figure}
+%     \begin{prop}\label{prop:liftbelyi}
+%       Let $\phi$ and $\psi$ be the maps shown in
+%       Figure \ref{fig:hyperellipticbelyi}.
+%       If $\phi$ is a Belyi map,
+%       then $\psi$ is a Belyi map.
+%     \end{prop}
+%     \begin{proof}
+%       By Theorem \ref{thm:bigbijection},
+%       $\phi$ corresponds to
+%       a normal inclusion of triangle groups
+%       $
+%         \Delta_1\trianglelefteq\Delta_H
+%       $
+%       and the map $X / H \to X / G$
+%       corresponds to an inclusion of Fuchsian groups
+%       \begin{equation}\label{eqn:fuchsianinclusion}
+%         \Delta_H\leq\Gamma.
+%       \end{equation}
+%       By a result in \cite[Page 36]{singerman},
+%       the inclusion of a triangle group $\Delta_H$ in
+%       a Fuchsian group $\Gamma$
+%       as in \eqref{eqn:fuchsianinclusion}
+%       implies that $\Gamma$ is a triangle group
+%       which we denote $\Delta_G$.
+%       Now we have the
+%       (normal by Lemma \ref{lem:hypinvolutioncentral})
+%       inclusion
+%       $\Delta_1\trianglelefteq\Delta_G$
+%       which (again by Theorem \ref{thm:bigbijection})
+%       implies that $\psi$ is a Belyi map.
+%     \end{proof}
+%     Proposition \ref{prop:liftbelyi}
+%     reduces the classification of these hyperelliptic $2$-group Belyi maps
+%     to the situation on the right side of the diagram in
+%     Figure \ref{fig:hyperellipticbelyi}.
+%     The possibilities for $G_{\rred}$
+%     in this setting are known
+%     (see \cite[\S 1.1]{dolgachev}).
+%     Moreover, since $G$ is a
+%     $2$-group (\mm{$G$ only contains a $2$-group\ldots}),
+%     the only possibilities for $G_{\rred}$
+%     are cyclic or dihedral of order $\#G / 2$.
+%     $G$ is then an extension of $G_{\rred}$
+%     by $\iota$
+%     (an element of order $2$ generating a normal subgroup of $G$).
+%     Such groups are classified in
+%     \cite{hyperelliptic} which we summarize in the
+%     following theorem.
+%     \begin{theorem}
+%       \label{thm:hyperelliptic}
+%       Let $G$ be the full automorphism group of a
+%       $2$-group Belyi curve.
+%       Let $\#G_{\rred} = 2^n$.
+%       Then $G$ is isomorphic to one of the following groups:
+%       \begin{itemize}
+%         \item
+%           $\ZZ/2^{n+1}\ZZ$
+%         \item
+%           $\ZZ / 2^n\ZZ\times\ZZ / 2\ZZ$
+%         \item
+%           $D_{2^{n+1}}$
+%         \item
+%           $D_{2^n}\times\ZZ / 2\ZZ$
+%       \end{itemize}
+%       where $D_m$ denotes the dihedral group of order $m$.
+%     \end{theorem}
+%     \begin{proof}
+%       \cite[Theorem 2.1]{hyperelliptic}.
+%     \end{proof}
+%     \mm{
+%       you get a genus zero phi0 : Belyi map
+%       PP1 $\to$ PP1 and the degree 2 map on top must be ramified,
+%       corresponding to the hyperelliptic involution, can only be ramified
+%       along the preimages of ramification points of phi0, and in a
+%       group-invariant way, so that should really give you the equations as
+%       well.
+%     }
+%     \newline
+%     \mm{
+%       maybe write down explicit maps for g=2,3
+%     }
+%       %   \begin{theorem}\label{thm:hyperelliptic}
+%       %     Let $\phi:X\to\PP^1$ be a hyperelliptic $2$-group Belyi map
+%       %     with monodromy group $G$.
+%       %     Let $\iota$ denote the hyperelliptic involution in $\Aut(X)$.
+%       %     Then $\overline{G}\colonequals G/\langle\iota\rangle$
+%       %     is a subgroup of $\Aut(\PP^1)\cong\PGL_2(\CC)$.
+%       %     (see Figure \ref{fig:hyperelliptic}).
+%       %     In particular,
+%       %     $\overline{G}$ is either cyclic, dihedral, or exceptional.
+%       %     \begin{figure}[ht]
+%       %       \[
+%       %         \begin{tikzcd}[ampersand replacement=\&]
+%       %           X\arrow{dd}[swap]{G}\arrow{dr}{\langle\iota\rangle}\\
+%       %           \&\PP^1\arrow{dl}{G/\langle\iota\rangle}\\
+%       %           \PP^1
+%       %         \end{tikzcd}
+%       %       \]
+%       %       \caption{
+%       %         A hyperelliptic $2$-group Belyi map
+%       %         with monodromy group $G$
+%       %         factors through a degree $2$ map to $\PP^1$
+%       %         and an automorphism of $\PP^1$.
+%       %       }
+%       %       \label{fig:hyperelliptic}
+%       %     \end{figure}
+%       %   \end{theorem}
+%   }
+%     % We start Section \ref{sec:classification} by giving a complete description of the geometry type
+%     % (see Definition \ref{def:geometrytype}) of a
+%     % $2$-group Belyi map in Proposition \ref{prop:geometrytype}
+%     % and finish Section \ref{sec:classification}
+%     % with a classification of hyperelliptic
+%     % $2$-group Belyi maps in Theorem \ref{thm:hyperelliptic}.
+%     % \begin{prop}\label{prop:geometrytype}
+%     %   Let $\phi:X\to\PP^1$ be a $2$-group Belyi map
+%     %   corresponding to a permutation triple $\sigma$
+%     %   with $(a,b,c)$ the triple of orders of permutations in $\sigma$.
+%     %   Then the geometry type of $\phi$ is determined by $(a,b,c)$
+%     %   and is one of the following:
+%     %   \begin{enumerate}
+%     %     \item[(degenerate)]
+%     %       $\phi$ is degenerate if $1\in(a,b,c)$.
+%     %     \item[(spherical)]
+%     %       $\phi$ is spherical if $(a,b,c)$ is of the form
+%     %       $(2,2,c)$, $(2,b,2)$, or $(a,2,2)$.
+%     %     \item[(Euclidean)]
+%     %       $\phi$ is Euclidean if $(a,b,c)$ is of the form
+%     %       $(2,4,4)$, $(4,2,4)$, or $(4,4,2)$.
+%     %     \item[(hyperbolic)]
+%     %       $\phi$ is hyperbolic (with genus at least $2$) in all other cases.
+%     %   \end{enumerate}
+%     % \end{prop}
+%     % \begin{proof}
+%     % \end{proof}
+%     % \subsection{Classifying spherical $2$-group Belyi maps}{\label{subsec:elliptic}}{
+%     % }
+%     % \subsection{Classifying genus $1$ $2$-group Belyi maps}{\label{subsec:elliptic}}{
+%     % }
+%     % \subsection{Classifying hyperelliptic $2$-group Belyi maps}{\label{subsec:hyperelliptic}}{
+%       % \begin{definition}
+%       %   Let $K$ be a number field with algebraic closure $\overline{K}$.
+%       %   Let $X$ be an irreducible smooth projective curve over $K$.
+%       %   $X$ is \defi{hyperelliptic} if there exists a degree $2$ map
+%       %   $\iota:X\to\PP^1$ (defined over $\overline{K}$).
+%       %   The degree $2$ map $\iota$ is called the
+%       %   \defi{hyperelliptic involution}.
+%       % \end{definition}
+%     %   \begin{definition}
+%     %     A \defi{hyperelliptic Belyi map} is a Belyi map $\phi:X\to\PP^1$
+%     %     where $X$ is a hyperelliptic curve.
+%     %   \end{definition}
+%       %   \begin{lemma}\label{lem:hypinvolutioncentral}
+%       %     Let $\phi:X\to\PP^1$ be a hyperelliptic $2$-group Belyi map
+%       %     with monodromy group $G$.
+%       %     Let $\iota$ denote the hyperelliptic involution in $\Aut(X)$.
+%       %     Then
+%       %     $G\leq\Aut(X)$ and $\iota$ is central in $G$.
+%       %   \end{lemma}
+%     %   \begin{proof}
+%     %   \end{proof}
+%       %   \begin{theorem}\label{thm:hyperelliptic}
+%       %     Let $\phi:X\to\PP^1$ be a hyperelliptic $2$-group Belyi map
+%       %     with monodromy group $G$.
+%       %     Let $\iota$ denote the hyperelliptic involution in $\Aut(X)$.
+%       %     Then $\overline{G}\colonequals G/\langle\iota\rangle$
+%       %     is a subgroup of $\Aut(\PP^1)\cong\PGL_2(\CC)$.
+%       %     (see Figure \ref{fig:hyperelliptic}).
+%       %     In particular,
+%       %     $\overline{G}$ is either cyclic, dihedral, or exceptional.
+%       %     \begin{figure}[ht]
+%       %       \[
+%       %         \begin{tikzcd}[ampersand replacement=\&]
+%       %           X\arrow{dd}[swap]{G}\arrow{dr}{\langle\iota\rangle}\\
+%       %           \&\PP^1\arrow{dl}{G/\langle\iota\rangle}\\
+%       %           \PP^1
+%       %         \end{tikzcd}
+%       %       \]
+%       %       \caption{
+%       %         A hyperelliptic $2$-group Belyi map
+%       %         with monodromy group $G$
+%       %         factors through a degree $2$ map to $\PP^1$
+%       %         and an automorphism of $\PP^1$.
+%       %       }
+%       %       \label{fig:hyperelliptic}
+%       %     \end{figure}
+%       %   \end{theorem}
+%     %   \begin{proof}
+%     %   \end{proof}
+%     % }
+% }
 % \chapter{Gross's conjecture for $p=2$}{\label{chapter:grossconjecture}
 %   We begin this chapter with Theorem \ref{thm:beckmann} which provides
 %   the arithmetic motivation to study $2$-group Belyi maps.
