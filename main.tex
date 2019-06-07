@@ -5929,13 +5929,17 @@ end for;
     $\sigma$
     of degree $d$
     for $d\leq 256$.
-    \begin{center}
-      \emph{
-        We observed that
-        $\#\Sigma_{\mathscr{P}(\sigma)}=1$
-        for every such permutation triple $\sigma$!
+    \begin{equation}
+      \label{eqn:theobservation}
+      \text{
+        \emph{
+          We observed that
+          $\#\Sigma_{\mathscr{P}(\sigma)}=1$
+          for every such permutation
+          triple $\sigma$!
+        }
       }
-    \end{center}
+    \end{equation}
     This observation
     % combined with Theorem
     % \ref{thm:refinedsizebounds},
@@ -6187,7 +6191,8 @@ end for;
       \eqref{eqn:leqone} and
       \eqref{eqn:geqone}
       imply
-      $\Sigma_{\mathscr{P}(\sigma)}=1$.
+      $\Sigma_{\mathscr{P}(\sigma)}=1$
+      for $\langle\sigma\rangle$ abelian.
     \end{proof}
     % \begin{proof}[Proof for $\langle\sigma\rangle$ abelian]
       % The proof is by induction on the degree of $\sigma$.
@@ -6275,7 +6280,7 @@ end for;
       % the abelian case.
     % \end{proof}
     \begin{theorem}
-      \label{lem:conjecturedihedral}
+      \label{thm:conjecturedihedral}
       Conjecture
       \ref{conj:refinedpassportsizeone}
       is true for
@@ -6283,34 +6288,133 @@ end for;
       dihedral.
     \end{theorem}
     \begin{proof}
-      The proof in the dihedral case
-      follows the same outline as the abelian case.
-      By Lemma \ref{lem:dihedralquotient},
-      the quotient of a dihedral group is
-      dihedral, and we use induction
-      as in the abelian case.
-      For the induction hypothesis we now assume
-      that every $2$-group
+      The proof is by induction on the
+      degree of $\sigma$.
+      There is a unique $2$-group permutation
+      triple of degree $1$ which
+      therefore has refined passport size $1$.
+      For induction,
+      assume that every $2$-group
+      permutation triple
+      of degree $d$
+      with $\langle\sigma\rangle$ dihedral
+      has refined passport size $1$.
+      Let $\wt{\sigma}$ be a $2$-group
       permutation triple of degree
-      $d$ with $\langle\sigma\rangle$
-      abelian or dihedral has
-      refined passport size $1$.
-      Let $\wt{\sigma}$
-      be a $2$-group
-      permutation triple of degree $2d$
-      with $\langle\wt{\sigma}\rangle$
+      $2d$ with $\langle\wt{\sigma}\rangle$
       dihedral.
-      Using the same notation from
-      the abelian case in
-      \eqref{eqn:sigmasequence}
-      we are required to show that the
-      $4$ lifts in
-      \eqref{eqn:preimagesto1}
-      satisfy either
-      \ref{itm:distinctconjclasses}
-      or
-      \ref{itm:thereexistsanauto}
-      in the proof of the abelian case.
+      We are required to show that the refined
+      passport of $\wt{\sigma}$ has size $1$.
+      \par
+      Let $\Sigma_\mathscr{P}\colonequals
+      \Sigma_{\mathscr{P}(\wt{\sigma})}$
+      be a set of refined
+      passport representatives defined in
+      \eqref{eqn:refined}.
+      By Algorithm \ref{alg:triples}
+      there exists a $2$-group permutation triple
+      $\sigma$ such that the
+      following sequence is exact.
+      \begin{equation}
+        \label{eqn:sigmasequence}
+        \begin{tikzcd}
+          1\arrow{r}&\ZZ/2\ZZ\arrow{r}{\iota}
+                    &\langle\wt{\sigma}\rangle\arrow{r}{\pi}
+                    &\langle\sigma\rangle\arrow{r}
+                    &1
+        \end{tikzcd}
+      \end{equation}
+      In other words,
+      $\wt{\sigma}$ is a lift of $\sigma$.
+      By Lemma
+      \ref{lem:dihedralquotient},
+      quotients of dihedral groups are
+      dihedral,
+      and therefore
+      $\langle\sigma\rangle$ is dihedral.
+      Thus, by induction,
+      the refined passport of $\sigma$
+      has size $1$.
+      \par
+      Since the center of a dihedral group
+      is characteristic, we can apply
+      Lemma \ref{lem:identifiedinlift}
+      to get that
+      every element of $\Sigma_\mathscr{P}$
+      must also be a lift of $\sigma$.
+      Thus, it is sufficient to prove that every
+      lift $\wt{\sigma}'$ satisfies one
+      of the following.
+      \begin{enumerate}
+        \item\label{itm:distinctconjclasses}
+          The $\langle\wt{\sigma}\rangle$
+          conjugacy class of
+          $\wt{\sigma}_s'$ differs from
+          the $\langle\wt{\sigma}\rangle$
+          conjugacy class of
+          $\wt{\sigma}_s$ for
+          some $s\in \{0,1,\infty\}$
+        \item\label{itm:thereexistsanauto}
+          There exists an automorphism
+          $\alpha\in\Aut(\langle\wt{\sigma}\rangle)$
+          with
+          $\alpha(\wt{\sigma}_s') = \wt{\sigma}_s$
+          for all $s\in \{0,1,\infty\}$
+      \end{enumerate}
+      Let $\tau\in\iota(\ZZ/2\ZZ)$
+      be the generator of the image.
+      There are $2^3 = 8$ preimages of $\sigma$
+      under the map $\pi$.
+      Since $\wt{\sigma}_\infty
+      \wt{\sigma}_1\wt{\sigma}_0=1$
+      and $\tau$ is central,
+      there are exactly $4$ preimages
+      that multiply to $1$.
+      They are as follows.
+      \begin{equation}
+        \label{eqn:preimagesto1}
+        \{
+          (\wt{\sigma}_0,\wt{\sigma}_1,\wt{\sigma}_\infty),
+          (\wt{\sigma}_0,\tau\wt{\sigma}_1,\tau\wt{\sigma}_\infty),
+          (\tau\wt{\sigma}_0,\wt{\sigma}_1,\tau\wt{\sigma}_\infty),
+          (\tau\wt{\sigma}_0,\alpha\wt{\sigma}_1,\wt{\sigma}_\infty)
+        \}
+      \end{equation}
+      % Since $\langle
+      % \wt{\sigma}\rangle$ is abelian,
+      % the lifts in \eqref{eqn:preimagesto1}
+      % all define distinct triples of conjugacy
+      % classes of $\langle\wt{\sigma}\rangle$.
+      % Thus every lift satisfies \ref{itm:distinctconjclasses} which completes the proof in
+      % the abelian case.
+      % The proof in the dihedral case
+      % follows the same outline as the abelian case.
+      % By Lemma \ref{lem:dihedralquotient},
+      % the quotient of a dihedral group is
+      % dihedral, and we use induction
+      % as in the abelian case.
+      % For the induction hypothesis we now assume
+      % that every $2$-group
+      % permutation triple of degree
+      % $d$ with $\langle\sigma\rangle$
+      % abelian or dihedral has
+      % refined passport size $1$.
+      % Let $\wt{\sigma}$
+      % be a $2$-group
+      % permutation triple of degree $2d$
+      % with $\langle\wt{\sigma}\rangle$
+      % dihedral.
+      % Using the same notation from
+      % the abelian case in
+      % \eqref{eqn:sigmasequence}
+      % we are required to show that the
+      % $4$ lifts in
+      % \eqref{eqn:preimagesto1}
+      % satisfy either
+      % \ref{itm:distinctconjclasses}
+      % or
+      % \ref{itm:thereexistsanauto}
+      % in the proof of the abelian case.
       Using the notation for dihedral groups
       from Example \ref{exm:dihedral}
       with $2^{n+1}$ replaced with $2d$
@@ -6336,13 +6440,13 @@ end for;
       consist of all the involutions of the group.
       We will say that an involution has
       \defi{even parity}
-      if it is in $c_\text{ even }$
+      if it is in $c_\text{even }$
       and \defi{odd parity}
       if it is in $c_\text{odd}$.
       \par
       If $\wt{\sigma}_s$ is central,
       then the conjugacy class of
-      $\alpha\wt{\sigma}_s$ cannot be equal to
+      $\tau\wt{\sigma}_s$ cannot be equal to
       the conjugacy class of
       $\wt{\sigma}_s$.
       Thus we can assume
@@ -6355,7 +6459,7 @@ end for;
       then
       \begin{equation}
         \label{eqn:alphaci}
-        \alpha\wt{\sigma}_s
+        \tau\wt{\sigma}_s
         =a^{d/2}a^{\pm i}=a^{\frac{d}{2}\pm i}.
       \end{equation}
       Now $a^{\frac{d}{2}\pm i}\in c_i$
@@ -6373,7 +6477,7 @@ end for;
       \wt{\sigma}_0=1$.
       First note that
       every element of
-      $c_\text{even}\cup c_\text{odd}$
+      $c_\text{even}\,\cup\,c_\text{odd}$
       is an involution, so we need
       at least one of $\wt{\sigma}_s\in c_{d/4}$
       to satisfy
@@ -6382,7 +6486,8 @@ end for;
       Without loss of generality
       assume that
       $\wt{\sigma}_\infty\in c_{d/4}$.
-      Then since $\wt{\sigma}_\infty$ has order $4$,
+      Then since $\wt{\sigma}_\infty$
+      has order $4$,
       we must have
       $\wt{\sigma}_0,\wt{\sigma}_1
       \in c_\text{even}\cup c_\text{odd}$
@@ -6467,11 +6572,20 @@ end for;
       no such triple can generate $D_{2d}$
       which completes the proof for
       $d\geq 8$.
-      It remains to consider $d=4$ when the $2$
-      involutions have opposite parity.
+      % It remains to consider $d=4$ when the $2$
+      % involutions have opposite parity.
       \par
       It remains to consider the case
-      $d=4$ (i.e. $D_{2d} = D_8$).
+      $d=4$ (i.e. $D_{2d} = D_8$)
+      when the $2$ involutions have
+      opposite parity.
+      At this point we could simply appeal
+      to the explicit computation of
+      this refined passport in observation
+      \eqref{eqn:theobservation},
+      but we also provide a proof in
+      this specific case for completeness.
+      \par
       In this case,
       $c_{d/4} = c_1=\{a,a^{-1}\}$,
       $c_\text{even}=\{b,a^2b\}$,
@@ -6479,7 +6593,8 @@ end for;
       and we are considering triples
       $\wt{\sigma}\in
       c^3$
-      where $c=c_1\cup c_\text{even}\cup c_\text{odd}$.
+      where $c=c_1\cup c_\text{even}
+      \cup c_\text{odd}$.
       As discussed above,
       to satisfy $\wt{\sigma}_\infty
       \wt{\sigma}_1\wt{\sigma}_0=1$
@@ -6958,12 +7073,46 @@ end for;
     % \end{proof}
     % \begin{proof}[Proof for $G$ Generalized Quaternion]
     % \end{proof}
-    \begin{corr}
-      Every $2$-group Belyi map is defined over a cyclotomic field
-      $\QQ(\zeta_{2^m})$ for some $m$.
-    \end{corr}
-    \begin{proof}
-    \end{proof}
+    \begin{remark}
+      \label{rmk:othermaxnilpotency}
+      It is reasonable to expect that a similar
+      direct approach in the proof of
+      Theorem \ref{thm:conjecturedihedral}
+      could succeed for other families
+      of $2$-groups that satisfy
+      Theorem
+      \ref{lem:dihedralquotient},
+      namely generalized quaternion groups
+      and semi-dihedral groups.
+      These families also have characteristic
+      centers so that
+      Lemma
+      \ref{lem:identifiedinlift}
+      can be applied.
+      However,
+      a different technique is required for a
+      general proof,
+      since experimental evidence in
+      Section
+      \ref{sec:grouptheorycomputations}
+      suggests that $2$-groups
+      of all nilpotency classes
+      appear as monodromy groups
+      of $2$-group permutation triples.
+    \end{remark}
+    Conjecture \ref{conj:refinedpassportsizeone},
+    together with refined field of definition
+    equal to field of moduli for
+    Galois Belyi maps
+    and a strong version of
+    Beckmann's theorem would imply the following.
+    \begin{conj}
+      \label{conj:fieldofdefinitionofbelyimap}
+      Every $2$-group Belyi map is
+      defined over an abelian extension of $\QQ$.
+      % defined over a cyclotomic field
+      % $\QQ(\zeta_{2^m})$ for some $m$.
+    \end{conj}
   }
   % \section{Representation theory}{\label{sec:reptheory}
     % \mm{
