@@ -2054,7 +2054,7 @@ Preface and Acknowledgments go here!
       field automorphisms
       \begin{equation}
         \label{eqn:fixedfield}
-        \{\tau\in\Aut(\CC) : X^\tau\simeq X\}
+        \{\tau\in\Aut(\CC) : \tau(X)\simeq X\}
       \end{equation}
       where $\tau\in\Aut(\CC)$ acts on
       the defining equations of $X$.
@@ -2068,7 +2068,7 @@ Preface and Acknowledgments go here!
       field automorphisms
       \begin{equation}
         \label{eqn:fixedfieldphi}
-        \{\tau\in\Aut(\CC) : \phi^\tau\cong \phi\}
+        \{\tau\in\Aut(\CC) : \tau(\phi)\cong \phi\}
       \end{equation}
       where $\tau\in\Aut(\CC)$ acts on the
       defining equations of $\phi$
@@ -2104,10 +2104,11 @@ Preface and Acknowledgments go here!
     \begin{proof}
       Let $\tau\in G_\QQ$ and consider the
       conjugated map
-      $\phi^\tau\colon X^\tau\to\PP^1$.
+      $\tau(\phi)\colon \tau(X)\to\PP^1$.
       By \cite[Appendix]{jones_streit_manfred}
-      $\phi^\tau$ is a Belyi map with
-      $\mathcal{P}(\phi) = \mathcal{P}(\phi^\tau)$.
+      $\tau(\phi)$ is a Belyi map with
+      $\mathcal{P}(\phi) =
+      \mathcal{P}(\tau(\phi))$.
       Thus $G_\QQ$ acts on the set
       of (isomorphism classes of) Belyi maps with
       a given passport.
@@ -7316,23 +7317,28 @@ end for;
   The algorithms to compute
   equations for
   $2$-group Belyi maps
-  (modulo $q$)
-  are then described in
-  Section
+  (over $\FF_q$)
+  are described in Section
   \ref{sec:functionfieldalgorithm},
+  the implementation in characteristic zero
+  is detailed in Section
+  \ref{sec:characteristiczero},
   and the results of these computations
   can be found in
   Section
   \ref{sec:resultsequations}.
-  \section{Quadratic extensions of number fields}{\label{sec:numberfields}
-    Let $F$ be a number field
+  \section{Quadratic extensions of number fields}{
+    \label{sec:numberfields}
+    By way of motivation,
+    let $F$ be a number field
     and let $\ZZ_F$ denote the ring of integers
     of $F$.
     Kummer theory tells us that quadratic
     extensions of $F$ are in bijection with
-    nontrivial cosets $dF^{\times 2}$ of 
-    $F^\times/F^{\times 2}$.
-    Such a $d$ defines a
+    nontrivial cosets $dF^{\times 2}$
+    in the quotient
+    $F^\times/F^{\times 2}$;
+    such a coset defines a
     quadratic extension
     $F(\sqrt{d})$.
     Conversely,
@@ -7369,6 +7375,7 @@ end for;
       %   % \draw[<->] (dessins) to node [above,rotate=35] {$\sim$} node {} (fields);
       % \end{tikzpicture}
     % \end{equation}
+    \par
     Let $\Pl(F)$ denote the set of places of $F$
     and let $S_\infty$ denote the archimedean
     places.
@@ -7377,7 +7384,9 @@ end for;
     be the prime ideal of $\ZZ_F$ corresponding
     to $v$.
     Let $S\subset\Pl(F)\setminus S_\infty$
-    be a finite set of nonarchimedean places.
+    be a finite set of nonarchimedean places,
+    and further suppose that each place of $S$
+    has odd residue field.
     We aim to answer the following question.
     \begin{question}
       \label{ques:construct}
@@ -7405,8 +7414,8 @@ end for;
         It is possible that no such
         extension exists.
       \item
-        If $\mathfrak{a}$ is principal
-        we have $\mathfrak{a} = (d)$,
+        $\mathfrak{a}=(d)$ is principal
+        % we have $\mathfrak{a} = (d)$,
         and the extension
         $F(\sqrt{d})$ is a quadratic extension
         ramified exactly at each $\mathfrak{p}_v$,
@@ -7430,7 +7439,7 @@ end for;
     Let us consider the last case more closely.
     Let $\Cl_F$ denote the class group of $F$
     and for a fractional ideal
-    $\mathfrak{i}$ let $[\mathfrak{i}]$
+    $\mathfrak{c}$ let $[\mathfrak{c}]$
     denote its ideal class in $\Cl_F$.
     The equation $\mathfrak{a}\mathfrak{b}^2=(d)$
     means that $[\mathfrak{a}] = [\mathfrak{b}^{-2}]$
@@ -7443,7 +7452,8 @@ end for;
     \begin{equation}
       \label{eqn:twotorsionintheclassgroup}
       [\mathfrak{a}\mathfrak{b}^2]
-      =[\mathfrak{a}\mathfrak{b}^2][(1)]
+      % =[\mathfrak{a}\mathfrak{b}^2][(1)]
+      =[\mathfrak{a}\mathfrak{b}^2]
       =[\mathfrak{a}\mathfrak{b}^2][\mathfrak{c}^2]
       =[\mathfrak{a}(\mathfrak{bc})^2].
     \end{equation}
@@ -7455,8 +7465,8 @@ end for;
     we have
     $[\mathfrak{a}]\in\Cl_F^2$ and
     $[\mathfrak{b}]$ is unique up to
-    multiplication by $[\mathfrak{c}]$
-    an order $2$ element in $\Cl_F$.
+    multiplication by $[\mathfrak{c}]\in\Cl_F[2]$.
+    % an order $2$ element in $\Cl_F$.
     \par
     We can now formulate our precise goal.
     Given $\mathfrak{a}$
@@ -7466,7 +7476,7 @@ end for;
     In the following sections we will rephrase this
     problem in the function field setting.
   }
-  \section{Algebraic function fields}{
+  \section{Curves and algebraic function fields}{
     \label{sec:algebraicfunctionfields}
     \mm{
       I haven't quite decided how I want to organize
@@ -7643,7 +7653,8 @@ end for;
     \end{proof}
     \mm{divisors, principal divisors, and Picard}
   }
-  \section{Quadratic extensions of function fields}{\label{sec:functionfieldextensions}
+  \section{Quadratic extensions of function fields}{
+    \label{sec:functionfieldextensions}
     We now address two tasks concerning
     quadratic extensions of function fields
     that we need for the algorithms
@@ -7661,7 +7672,7 @@ end for;
     By Proposition
     \ref{prop:kummerramification},
     we can take all nonzero coefficients
-    of $R$ to be $1$.
+    of $R$ to have absolute value $1$.
     As was the case for number fields,
     there are three possibilities.
     \par
@@ -7670,7 +7681,7 @@ end for;
     there is nothing to do.
     The other easy case occurs when $R$ is
     a principal divisor so that
-    $R = \ddiv(f)$ for some $f\in F$.
+    $R = \ddiv(f)$ for some $f\in F^\times$.
     In this case, the extension
     $F(\sqrt{f})$ has the desired ramification
     determined by $R$.
@@ -7689,11 +7700,11 @@ end for;
     For $D\in\Div(F)$,
     let $[D]$ denote the class of $D$
     in $\Pic(F)$.
-    Since $[R-2D]=[0]$,
+    Since $[R-2D]=0\in\Pic^0(F)$,
     we have that $R\in 2\Pic(F)$.
     Moreover,
-    if we let $[T]$ be an element of order
-    $2$ in $\Pic(F)$, then
+    if we let $[T]\in\Pic^0(F)[2]$,
+    then
     \begin{equation}
       \label{eqn:twotorsionpoint}
       [R-2D] = [R-2D]-[2T] = [R-2(D+T)].
@@ -7711,12 +7722,15 @@ end for;
     where Picard group computations
     are implemented.
     \par
-    The second task is to determine
+    The other task is to determine
     when the quadratic extension
     $F(\sqrt{f})$ over $F$ is Galois
     (as an absolute extension of $\FF_q(x)$)
     given that $F$ is Galois
     over $\FF_q(x)$.
+    Kummer theory tells us precisely when
+    such an extension is Galois in the following
+    Lemma.
     \begin{lemma}
       \label{lem:isgalois}
       Let $F$ be a Galois extension of
@@ -7731,33 +7745,40 @@ end for;
       in $F$
       for every $\sigma\in G$.
     \end{lemma}
-    \begin{proof}
-      \mm{Kummer theory}
-    \end{proof}
+    We can now formulate these concepts
+    into an algorithm over $\FF_q$.
   }
-  \section{An iterative algorithm over $\FF_q$}{\label{sec:functionfieldalgorithm}
+  \section{An algorithm over $\FF_q$}{
+    \label{sec:functionfieldalgorithm}
     Let $F$ be function field
     with field of constants
     $\FF_q$ with $q=p^r$ and $p\neq 2$.
     Let $\FF_q(x)$ denote the rational
-    function field.
+    function field in the variable $x$.
     \begin{definition}
       \label{def:pgroupbelyimapmodq}
       A \defi{$2$-group Belyi map modulo $q$}
-      is a finite Galois extension of
+      is a Galois extension of
       function fields
-      $F/\FF_q(x)$ with
+      $\FF_q(x)\hookrightarrow F$ with
       $[F:\FF_q(x)]=2^m$
-      and $\phi\in F$
       unramified outside of
       all places above $\{0,1,\infty\}$.
-      The \defi{degree} of $\phi$
-      is $2^m$.
     \end{definition}
+    \begin{remark}
+      \label{rmk:tamebelyi}
+      A Belyi map
+      $\phi\colon X\to\PP^1$ over a
+      field of characteristic $p$
+      where $p\nmid\Mon(\phi)$
+      is called \defi{tame}.
+      The theory of tame Belyi maps is
+      the same as in characteristic zero.
+    \end{remark}
     \begin{definition}\label{def:belyiisomodq}
-      Two Belyi maps modulo $q$,
-      $F_1$ and
-      $F_2$,
+      Two Belyi maps
+      $\FF_q(x)\hookrightarrow F_1$ and
+      $\FF_q(x)\hookrightarrow F_2$,
       are \defi{isomorphic}
       if there exists an isomorphism
       $\varphi\colon F_1\to F_2$
@@ -7776,38 +7797,85 @@ end for;
       \end{equation}
       commutes.
     \end{definition}
-    \mm{
-      Theorem that establishes precisely
-      the connection between
-      $2$-group Belyi maps
-      and $2$-group Belyi maps mod $q$.
-    }
+    % \mm{
+    %   Theorem that establishes precisely
+    %   the connection between
+    %   $2$-group Belyi maps
+    %   and $2$-group Belyi maps mod $q$.
+    % }
     We now describe the algorithms
     to iteratively compute $2$-group Belyi maps
     modulo $q$.
+    The basic idea is to compute a tower
+    of quadratic extensions
+    by extracting square roots
+    to work our way up the tower.
+    Since we are concerned with Galois
+    Belyi maps,
+    we want to make sure
+    that each intermediate field
+    is Galois as an absolute extension
+    of $\FF_q(x)$.
+    To start,
+    we describe
+    the degree $2$ Belyi maps.
     % Algorithm
     % \ref{alg:degree2FF}
     % details the degree $2$ case,
     % and
     % Algorithm
-    %\ref{alg:getcandidates} describes the iteration.
-    \begin{alg}
-      \label{alg:degree2FF}
-      Let the notation be
-      as above in the beginning of
-      Section
-      \ref{sec:functionfieldalgorithm}.
-      Let $d=2$.
-      \mm{degree 2 Belyi maps mod q up to iso}
-    \end{alg}
-    \begin{proof}[Proof of correctness]
+    % \ref{alg:getcandidates}
+    % describes the iteration.
+    \begin{lemma}
+      \label{lem:degree2FF}
+      % Let the notation be
+      % as above in the beginning of
+      % Section
+      % \ref{sec:functionfieldalgorithm}.
+      % Let $d=2$.
+      % \mm{degree 2 Belyi maps mod q up to iso}
+      The three degree $2$ Belyi maps
+      modulo $q$ up to isomorphism
+      are a
+      \begin{equation}
+        \label{eqn:degree2FF}
+        F_{(1,2,2)} =
+        \frac{\FF_q(x)[y]}{(y^2 + x - 1)},\;
+        F_{(2,1,2)} =
+        \frac{\FF_q(x)[y]}{(y^2 - x)},
+        \text{ and }
+        F_{(2,2,1)} =
+        \frac{\FF_q(x)[y]}{(y^2 - x^2 + x)}.
+      \end{equation}
+    \end{lemma}
+    \begin{proof}
+      All three degree $2$ passports
+      $(0,\ZZ/2\ZZ,(1,2,2))$,
+      $(0,\ZZ/2\ZZ,(2,1,2))$, and
+      \newline
+      $(0,\ZZ/2\ZZ,(2,2,1))$
+      have size $1$ by
+      Theorem
+      \ref{thm:isoclasses}
+      and Theorem
+      \ref{thm:passports}.
+      Since each field is a
+      $2$-group Belyi map
+      with passport specified
+      by its subscript
+      with no two isomorphic,
+      this is an exhaustive list.
     \end{proof}
-    \begin{alg}
+    Next, we discuss the algorithms
+    to test when a quadratic extension
+    is Galois (over the rational function field).
+    \begin{alg}[IsGalois]
       \label{alg:isgalois}
-      Let the notation be
-      as above in the beginning of
-      Section
-      \ref{sec:functionfieldalgorithm}.
+      % Let the notation be
+      % as above in the beginning of
+      % Section
+      % \ref{sec:functionfieldalgorithm}.
+      \,
       \newline
       \textbf{Input}:
       \begin{itemize}
@@ -7815,42 +7883,46 @@ end for;
           $F$ a Galois extension of
           $\FF_q(x)$
         \item
-          $\Gal(F/\FF_q(x))$
+          $\Gal(F\,|\,\FF_q(x))$
           explicitly given
           as automorphisms of $F$
         \item
           $f\in F$
       \end{itemize}
       \textbf{Output}:
-      True if the quadratic extension
+      \textsf{True} if the quadratic extension
       $F(\sqrt{f})$ of $F$
       is a Galois extension over $\FF_q(x)$
-      and False otherwise
+      and \textsf{False} otherwise
       \begin{enumerate}
         \item
-          For each $\sigma\in\Gal(F/\FF_q(x))$
+          For each generator
+          $\sigma$ of $\Gal(F\,|\,\FF_q(x))$
           test if $\sigma(f)/f$ is a square
           in $F$.
         \item
           If $\sigma(f)/f$ is a square in $F$
-          for all $\sigma\in\Gal(F/\FF_q(x))$
-          then return True
-          otherwise return False.
+          for all generators $\sigma$,
+          then return \textsf{True}
+          otherwise return \textsf{False}.
       \end{enumerate}
     \end{alg}
     \begin{proof}[Proof of correctness]
       The correctness of this algorithm
       follows from Kummer theory
       as discussed in
-      Lemma
-      \ref{lem:isgalois}.
+      Lemma \ref{lem:isgalois}.
+      It suffices to test on generators
+      since the property of being a square
+      is multiplicative.
     \end{proof}
-    \begin{alg}
+    \begin{alg}[IsGaloisOverExtension]
       \label{alg:isgaloisoverextension}
-      Let the notation be
-      as above in the beginning of
-      Section
-      \ref{sec:functionfieldalgorithm}.
+      % Let the notation be
+      % as above in the beginning of
+      % Section
+      % \ref{sec:functionfieldalgorithm}.
+      \,
       \newline
       \textbf{Input}:
       \begin{itemize}
@@ -7858,7 +7930,7 @@ end for;
           $F$ a Galois extension of
           $\FF_q(x)$
         \item
-          $\Gal(F/\FF_q(x))$
+          $\Gal(F\,|\,\FF_q(x))$
           explicitly given
           as automorphisms of $F$
         \item
@@ -7869,38 +7941,67 @@ end for;
       extended
       from $\FF_q$ to $\FF_{q^2}$.
       \textbf{Output}:
-      True if the quadratic extension
-      $F'(\sqrt{f})$ of $F'$
-      is a Galois extension over $\FF_{q^2}(x)$
-      and False otherwise
+      \textsf{True} if the quadratic extension
+      $F(\sqrt{f})$ of $F$
+      is a Galois extension over $\FF_{q^m}(x)$
+      after extending the field of constants
+      from $\FF_q$ to $\FF_{q^m}$
+      (for some positive integer $m$)
+      and \textsf{False} otherwise
       \begin{enumerate}
         \item
-          For each $\sigma\in\Gal(F'/\FF_{q^2}(x))$
+          For each generator
+          $\sigma$ of $\Gal(F'\,|\,\FF_{q^2}(x))$
           test if $\sigma(f)/f$ is a square
           in $F'$.
         \item
           If $\sigma(f)/f$ is a square in $F'$
-          for all $\sigma\in\Gal(F'/\FF_{q^2}(x))$
-          then return True
-          otherwise return False.
+          for all generators $\sigma$,
+          then return \textsf{True}
+          otherwise return \textsf{False}.
       \end{enumerate}
     \end{alg}
     \begin{proof}[Proof of correctness]
-      The proof is the same
-      as for the previous algorithm.
+      The proof is similar to the previous
+      algorithm.
+      The proof that
+      it is sufficient to check if
+      elements are square
+      over $\FF_{q^2}$
+      can be found in
+      \cite[Corollary 3.7.4]{stick}.
     \end{proof}
-    \mm{$q^2$ is good enough to lift auts but not for field of definition}
-    \begin{alg}
+    % \begin{lemma}
+    %   \label{lem:q2isgoodenough}
+    %   Let $g\in F^{\times 2}$
+    %   where $F$ is
+    %   an algebraic function
+    %   field over $\FFqal(x)$
+    %   and $q$ is odd.
+    %   Then $g$ is also a square in
+    %   some algebraic function
+    %   field over $\FF_{q^2}(x)$.
+    % \end{lemma}
+    % \mm{$q^2$ is good enough to
+    % lift auts but not for field of definition}
+    The next algorithm details the process
+    of finding
+    the appropriate
+    candidate function to obtain
+    a quadratic extension by extracting
+    a square root.
+    \begin{alg}[GetCandidateFunctions]
       \label{alg:getcandidates}
-      Let the notation be
-      as above in the beginning of
-      Section
-      \ref{sec:functionfieldalgorithm}.
+      % Let the notation be
+      % as above in the beginning of
+      % Section
+      % \ref{sec:functionfieldalgorithm}.
+      \,
       \newline
       \textbf{Input}:
       \begin{itemize}
         \item 
-          $\phi\in F$
+          $F$
           a $2$-group Belyi map modulo $q$
           of degree $d=2^m$
           corresponding to a $2$-group
@@ -7917,7 +8018,7 @@ end for;
           that is a lift of
           $\sigma$
         \item
-          $\Gal(F/\FF_q(x))\cong
+          $\Gal(F\,|\,\FF_q(x))\cong
           \langle\sigma\rangle$
           explicitly given
           as automorphisms of $F$
@@ -7975,9 +8076,12 @@ end for;
           $R_0,R_1,R_\infty$
           are defined to be the supports
           of
-          $\ddiv(\phi)$,
-          $\ddiv(\phi-1)$,
-          and $\ddiv(1/\phi)$
+          % $\ddiv(\phi)$,
+          % $\ddiv(\phi-1)$,
+          % and $\ddiv(1/\phi)$
+          $\ddiv(x)$,
+          $\ddiv(x-1)$,
+          and $\ddiv(1/x)$
           respectively.
         \item\label{alg:getcandidates_Pic}
           Compute the abelian group
@@ -8009,7 +8113,7 @@ end for;
             \item\label{alg:getcandidates_isgalois}
               Apply Algorithm \ref{alg:isgalois}
               to $F$,
-              $\Gal(F/\FF_q(x))$,
+              $\Gal(F\,|\,\FF_q(x))$,
               and $f_a$
               from Step
               \ref{alg:getcandidates_dimLDa}
@@ -8030,7 +8134,7 @@ end for;
               constants $\FF_q$ to $\FF_{q^2}$.
               Apply Algorithm \ref{alg:isgaloisoverextension}
               to $F'$,
-              $\Gal(F'/\FF_{q^2}(x))$,
+              $\Gal(F'\,|\,\FF_{q^2}(x))$,
               and $f_a$
               (viewed as an element of $F'$)
               from Step
@@ -8057,8 +8161,9 @@ end for;
             for each $f_a\in S$
             compute
             $F(\sqrt{f_a})$,
-            $G_a\cong\Gal(F(\sqrt{f_a})/
-            \FF_q(x))$,
+            \[
+              G_a\cong\Gal(F(\sqrt{f_a})\,|\,\FF_q(x)),
+            \]
             and let
             $S''=
             \{f_a\in S:G_a\cong\wt{G}\}$.
@@ -8068,8 +8173,9 @@ end for;
             for each $f_a\in S'$
             compute
             $F'(\sqrt{f_a})$,
-            $G_a\cong\Gal(F'(\sqrt{f_a})/
-            \FF_{q^2}(x))$,
+            \[
+              G_a\cong\Gal(F'(\sqrt{f_a})\,|\,\FF_{q^2}(x)),
+            \]
             and let
             $S''=
             \{f_a\in S':G_a\cong\wt{G}\}$.
@@ -8191,23 +8297,37 @@ end for;
       to the group
       $\wt{G}$ specified by the passport
       $\mathcal{P}$.
-      \mm{
-        need to address why there is no reason
-        to consider constant extension
-        beyond $q^2$...
-        if $F(\sqrt{f_a})$ is not Galois over
-        $\FF_{q^2}(x)$, is it possible
-        for $F(\sqrt{f_a})$ to be Galois
-        after extending the constants to
-        $\FF_{q^3}$ or higher?
-      }
+      Algorithm
+      \ref{alg:isgalois}
+      and Algorithm
+      \ref{alg:isgaloisoverextension}
+      guarantee that that no
+      further constant field extension is
+      required.
+      % \mm{
+      %   need to address why there is no reason
+      %   to consider constant extension
+      %   beyond $q^2$...
+      %   if $F(\sqrt{f_a})$ is not Galois over
+      %   $\FF_{q^2}(x)$, is it possible
+      %   for $F(\sqrt{f_a})$ to be Galois
+      %   after extending the constants to
+      %   $\FF_{q^3}$ or higher?
+      % }
     \end{proof}
-    \begin{alg}
+    The next algorithm details
+    the process of extracting a square root
+    of a candidate function
+    (obtained from the output of
+    Algorithm \ref{alg:getcandidates})
+    and lifting automorphisms.
+    \begin{alg}[LiftBelyiMap]
       \label{alg:liftbelyimap}
-      Let the notation be
-      as above in the beginning of
-      Section
-      \ref{sec:functionfieldalgorithm}.
+      % Let the notation be
+      % as above in the beginning of
+      % Section
+      % \ref{sec:functionfieldalgorithm}.
+      \,
       \newline
       \textbf{Input}:
       \begin{itemize}
@@ -8286,16 +8406,24 @@ end for;
       $\deg(\wt{F})$ automorphisms of $\wt{F}$
       over $\FF_q(x)$.
     \end{proof}
-    \mm{
-      by construction the $\phi\in F$
-      defining the Belyi map is always $x$.
-    }
-    \begin{alg}
+    % \mm{
+    %   by construction the $\phi\in F$
+    %   defining the Belyi map is always $x$.
+    % }
+    With
+    Algorithm \ref{alg:getcandidates}
+    and Algorithm \ref{alg:liftbelyimap}
+    at our disposal,
+    we can now explain how to
+    compute \emph{all} $2$-group Belyi maps
+    with a given passport.
+    \begin{alg}[ComputePassport]
       \label{alg:computepassport}
-      Let the notation be
-      as above in the beginning of
-      Section
-      \ref{sec:functionfieldalgorithm}.
+      % Let the notation be
+      % as above in the beginning of
+      % Section
+      % \ref{sec:functionfieldalgorithm}.
+      \,
       \newline
       \textbf{Input}:
       \begin{itemize}
@@ -8329,12 +8457,23 @@ end for;
               permutation triple with passport
               $\mathcal{P}_i$
             \item
-              There exists a $2$-group
-              permutation triple $\wt{\sigma}_i^j$
+              There exists
+              a $2$-group
+              permutation triple
+              $\wt{\sigma}_i^j$
               with passport
               $\mathcal{P}_\text{above}$
               that is a lift
               of $\sigma_i^j$
+              % for every $k$
+              % There exists a list of $2$-group
+              % permutation triples
+              % $\wt{\sigma_i^{j,k}}$
+              % with passport
+              % $\mathcal{P}_\text{above}$
+              % that are lifts
+              % of $\sigma_i^j$
+              % for every $k$
             \item
               $F_i^j$ is a $2$-group Belyi map
               modulo $q$
@@ -8347,47 +8486,125 @@ end for;
       \end{itemize}
       \textbf{Output}:
       A list of triples of data
-      $(\wt{\sigma}^1,\wt{F}^1,\wt{G}^1),
-      \dots
-      (\wt{\sigma}^{\#\mathcal{P}_\text{above}},
-      \wt{F}^{\#\mathcal{P}_\text{above}},
+      % $(\wt{\sigma}^1,\wt{F}^1,\wt{G}^1),
+      $(\wt{F}^1,\wt{G}^1),
+      \dots,
+      % (\wt{\sigma}^{\#\mathcal{P}_\text{above}},
+      (\wt{F}^{\#\mathcal{P}_\text{above}},
       \wt{G}^{\#\mathcal{P}_\text{above}})$
       with
-      $\wt{\sigma}^j$
-      a $2$-group permutation triple
-      with passport $\mathcal{P}$,
+      % $\wt{\sigma}^j$
+      % a $2$-group permutation triple
+      % with passport $\mathcal{P}$,
       $\wt{F}^j$
       a $2$-group Belyi map modulo $q'$
       (with $q'$ a power of $q$),
       $\wt{G}^j$
-      the Galois group explicitly given
+      the Galois group
+      of $F_i^j$
+      explicitly given
       as automorphisms of $\wt{F}^j$,
       and the $\wt{F}^j$ pairwise
       non-isomorphic.
-      \newline
-      \mm{
-        Rough steps of the algorithm
-        \begin{enumerate}
-          \item
-            Apply Algorithm
-            \ref{alg:getcandidates}
-            to every triple of data downstairs
-            (this tells us
-            if we get any candidates mod $q$
-            or as a twist)
-          \item
-            Look at all candidate functions
-            obtained mod $q$ or as twists
-          \item
-            Lift using all candidate functions
-            and Algorithm
-            \ref{alg:liftbelyimap}
-          \item
-            Isomorphism test to see if we have
-            enough distinct isomorphism classes
-            to fill out the passport
-        \end{enumerate}
-      }
+      \begin{enumerate}
+        \item
+          \label{alg:computepassport_alldownstairs}
+          Apply Algorithm
+          \ref{alg:getcandidates}
+          to every triple of data
+          $(\sigma_i^j,F_i^j,G_i^j)$
+          downstairs
+          (along with the passport
+          $\mathcal{P}_\text{above}$)
+          to obtain a list of candidate functions
+          $\mathrm{CFS}_q
+          \colonequals\{f_i^{j,k}\}$ with
+          $f_i^{j,k}\in F_i^j$ for each $k$.
+        \item
+          \label{alg:computepassport_lift}
+          For each $f_i^{j,k}\in\mathrm{CFS}_q$,
+          apply Algorithm
+          \ref{alg:liftbelyimap}
+          with input
+          $(\sigma_i^j,F_i^j,G_i^j)$
+          and $f_i^{j,k}$
+          to obtain
+          % $(\wt{\sigma_i^{j,k}},
+          % $(\wt{F_i^{j,k}}, \wt{G_i^{j,k}})$
+          % with
+          $\wt{F_i^{j,k}}$ a $2$-group
+          Belyi map modulo $q$ with
+          passport $\mathcal{P}$ and
+          Galois group
+          $\wt{G_i^{j,k}}$.
+          Let $\mathrm{BELYI}_q$
+          denote the list of
+          all pairs
+          $(\wt{F_i^{j,k}}, \wt{G_i^{j,k}})$
+          obtained in this step.
+        \item
+          \label{alg:computepassport_testiso}
+          Test isomorphism of fields
+          $\wt{F_i^{j,k}}$
+          and $\wt{F_i^{j,k'}}$
+          over $\FF_q(x)$
+          for each pair of fields
+          in $\mathrm{BELYI}_q$.
+          Keep exactly one
+          representative of each isomorphism
+          class from $\mathrm{BELYI}_q$
+          and store this data
+          (including the Galois group)
+          in $\mathrm{BELYIISO}_q$.
+        \item
+          If $\#\mathrm{BELYIISO}_q=
+          \#\mathcal{P}_\text{above}$
+          then return
+          $\mathrm{BELYIISO}_q$.
+          Otherwise,
+          extend the constant field
+          from $\FF_q$ to $\FF_{q^2}$
+          and repeat Steps
+          \ref{alg:computepassport_alldownstairs},
+          \ref{alg:computepassport_lift},
+          and
+          \ref{alg:computepassport_testiso}
+          to obtain lists
+          $\mathrm{CFS}_{q^2}$,
+          $\mathrm{BELYI}_{q^2}$,
+          and
+          $\mathrm{BELYIISO}_{q^2}$.
+          Continue this process for
+          $q,q^2,q^3,\dots$
+          and return
+          $\mathrm{BELYIISO}_{q^m}$
+          for the first $m\in\{1,2,\dots\}$
+          with the same cardinality
+          as $\mathcal{P}_\text{above}$.
+      \end{enumerate}
+      % \mm{
+        % Rough steps of the algorithm
+        % \begin{enumerate}
+        %   \item
+        %     Apply Algorithm
+        %     \ref{alg:getcandidates}
+        %     to every triple of data downstairs
+        %     (this tells us
+        %     if we get any candidates mod $q$
+        %     or as a twist)
+        %   \item
+        %     Look at all candidate functions
+        %     obtained mod $q$ or as twists
+        %   \item
+        %     Lift using all candidate functions
+        %     and Algorithm
+        %     \ref{alg:liftbelyimap}
+        %   \item
+        %     Isomorphism test to see if we have
+        %     enough distinct isomorphism classes
+        %     to fill out the passport
+        % \end{enumerate}
+      % }
     \end{alg}
     \begin{proof}[Proof of correctness]
       This algorithm is largely bookkeeping
@@ -8395,10 +8612,6 @@ end for;
       \ref{alg:getcandidates}
       and Algorithm
       \ref{alg:liftbelyimap}.
-      Besides explaining the bookkeeping,
-      the one subtle point will be
-      explaining how to obtain
-      the $q'$.
       The triples of data downstairs
       enumerate the isomorphism classes
       of $2$-group Belyi maps modulo $q$
@@ -8433,53 +8646,378 @@ end for;
       (obtained from the algorithms in Section
       \ref{sec:triplesalgorithm})
       are simply a bookkeeping tool.
-      \mm{
-        finish the proof..
-      }
+      \par
+      The one subtle point is
+      explaining how to obtain
+      the $q'$.
+      After each round of computing
+      the lists
+      $\mathrm{CFS}_{q^i}$,
+      $\mathrm{BELYI}_{q^i}$,
+      and
+      $\mathrm{BELYIISO}_{q^i}$
+      it is possible that
+      we failed to find all candidate functions
+      over the constant field
+      $\FF_{q^i}$.
+      The enumeration of isomorphism classes
+      in Section
+      \ref{sec:triplesalgorithm}
+      ensures that this process of
+      extending the constant field will
+      terminate,
+      but does not provide an
+      a priori bound on the $q'$
+      required.
     \end{proof}
-    \mm{
-      maybe another wrapper on top
-      to explain how the iteration works...
-    }
+    Applying Algorithm
+    \ref{alg:computepassport}
+    to every degree $d$ passport
+    allows us to enumerate all
+    $2$-group Belyi maps modulo $q$
+    \emph{one degree at a time}.
+    Section \ref{sec:resultsequations}
+    details how far we were able to push
+    these computations in practice
+    using \cite{twogroupdessins}.
+    % \mm{
+    %   maybe another wrapper on top
+    %   to explain how the iteration works...
+    % }
     \begin{remark}
       \label{rmk:computationalremarks}
-      \mm{class group, galois group,
-      RiemannRoch algorithms in Magma}
+      The algorithms in this section rely
+      on the \textsf{Magma}
+      implementations to compute
+      class groups $\Pic(F)$
+      for global function fields,
+      and the implementations
+      to compute Riemann-Roch spaces
+      $\mathscr{L}(D)$.
+      % \mm{class group, galois group,
+      % RiemannRoch algorithms in Magma}
     \end{remark}
+    We conclude this section
+    with an example of how these
+    algorithms are applied in a specific
+    example.
     \begin{example}
       \label{exm:equationsinmagma}
-      \mm{
-        full example with magma code...
-        there is a size 3 passport
-        in degree 16 with 3 passports below
-        and one unramified cover
-        with ramification $(4,4,4)$...
-      }
+      In this example we use the algorithms
+      in this section to compute
+      all three
+      $2$-group Belyi maps modulo $3$
+      with passport $(3,G,(4,4,4))$
+      where $G = (\ZZ/4\ZZ) : (\ZZ/4\ZZ)$
+      is the Galois group described
+      at the following link.
+      \begin{center}
+        \url{http://www.lmfdb.org/GaloisGroup/16T8}
+      \end{center}
+      The \textsf{Magma} script can be run
+      using the following command
+      from the repository \cite{twogroupdessins}.
+      \begin{code}
+magma thesis_examples/compute_passport_16T8_444_g3.m
+      \end{code}
+      The source code in this file is
+      as follows.
+      \begin{magma}
+load "config.m";
+SetVerbose("TwoDBPassport", 3);
+SetVerbose("TwoDB", 1);
+objs := GetPassportObjects(16);
+s := objs[#objs-2];
+ComputeBelyiMaps(s : optimized := false);
+      \end{magma}
+      This example has $7$ size $1$ passports
+      $\mathcal{P}_i$ as in
+      Algorithm \ref{alg:computepassport}.
+      Each isomorphism class downstairs
+      yields a candidate Belyi map upstairs,
+      and the isomorphism
+      checking in
+      Algorithm
+      \ref{alg:computepassport}
+      Step
+      \ref{alg:computepassport_testiso}
+      correctly identifies the
+      $3$ distinct isomorphism classes
+      out of $7$.
+      % \mm{
+      %   full example with magma code...
+      %   there is a size 3 passport
+      %   in degree 16 with 3 passports below
+      %   and one unramified cover
+      %   with ramification $(4,4,4)$...
+      % }
     \end{example}
   }
   \section{An implementation over $\QQal$}{
     \label{sec:characteristiczero}
+    We now discuss the situation in
+    characteristic zero.
+    The procedure has the same broad strokes as
+    that in characteristic $p\neq 2$,
+    but there is a key difference
+    in the technique to
+    get candidate functions
+    to extract a square root of in
+    Algorithm
+    \ref{alg:getcandidates}.
+    \par
+    In characteristic zero
+    there is no implementation
+    to compute $\Pic(F)$
+    (for general $F$).
+    To show how we can get around
+    this (in some cases),
+    we now rewrite
+    Algorithm
+    \ref{alg:getcandidates}
+    in the characteristic zero setting.
     \begin{alg}
-      \label{alg:characteristiczero}
-      char0 implementation
+      \label{alg:charzero}
+      \,
       \newline
       \textbf{Input}:
       \begin{itemize}
+        \item 
+          $K(x)\hookrightarrow F\colonequals K(X)$
+          a $2$-group Belyi map
+          of degree $d=2^m$
+          corresponding to a $2$-group
+          permutation triple $\sigma$
         \item
+          A passport
+          $\mathcal{P}=(\wt{G},(a,b,c))$
+          with $\wt{G}$ a $2$-group of order
+          $2d$ such that there
+          exists a
+          $2$-group permutation triple
+          $\wt{\sigma}$ with passport
+          $\mathcal{P}$
+          that is a lift of
+          $\sigma$
+        \item
+          $\Gal(F\,|\,K(x))\cong
+          \langle\sigma\rangle$
+          explicitly given
+          as automorphisms of $F$
       \end{itemize}
       \textbf{Output}:
+      A list of candidate functions
+      $\{f_i\}$ with each $f_i\in F$
+      such that
+      $K(x)\hookrightarrow F(\sqrt{f_i})$
+      is a $2$-group Belyi map
+      with passport $\mathcal{P}$.
       \begin{enumerate}
-        \item 
+        \item\label{alg:charzero_setup}
+          For $s\in\{0,1,\infty\}$
+          compute
+          \begin{align}
+            \label{eqn:ramcoeffs}
+            r_s\colonequals
+            \begin{cases}
+              0&
+              \text{ if }
+              \order(\sigma_s)=
+              \order(\wt{\sigma}_s)\\
+              1&
+              \text{ if }
+              \order(\sigma_s)<
+              \order(\wt{\sigma}_s)\\
+            \end{cases}
+          \end{align}
+        \item\label{alg:charzero_getram}
+          Compute
+          \begin{equation}
+            \label{eqn:ramdivisor}
+            R\colonequals
+            \sum_{s\in\{0,1,\infty\}}r_sR_s
+            \in\Div(F)
+          \end{equation}
+          where
+          $R_0,R_1,R_\infty$
+          are defined to be the supports
+          of
+          $\ddiv(x)$,
+          $\ddiv(x-1)$,
+          and $\ddiv(1/x)$
+          respectively.
+        \item
+          \label{alg:charzero_alldegreezero}
+          Let $M$ denote the set
+          $(R+2\ZZ R)\,\cap\,\Div^0(F)$
+          and for $B\in\ZZ_{\geq 1}$
+          let $M_B=
+          \Big\{R+2nR : n\in 
+          \{-B,-B+1,\dots,B-1,B\}\Big\}
+          \cap\Div^0(F)$.
+        \item
+          For each $D\in M$ compute the
+          following:
+          \begin{enumerate}
+            \item
+              Compute $\mathscr{L}(D)$.
+            \item
+              If $\mathscr{L}(D)$
+              has dimension
+              $1$, then compute
+              $f_D\in F$ with $\ddiv(f_D)$
+              generating $\mathscr{L}(D)$
+              and go to the next step.
+              Otherwise,
+              go to the next $D\in M$.
+            \item\label{alg:charzero_isgal}
+              Check to see if
+              $F(\sqrt{f_D})$ is Galois.
+              If $F(\sqrt{f_D})$ is Galois,
+              then save $f_D$.
+              and go to the next $D\in M$.
+              If $F(\sqrt{f_D})$ is not Galois,
+              then go to the next Step
+            \item\label{alg:charzero_isgalext}
+              Let $F'$ be the function field
+              $F$ after extending the field of
+              constants to the compositum
+              of the residue fields of
+              all places in the support of $D$.
+              Check to see if
+              $F'(\sqrt{f_D})$ is Galois.
+              If $F'(\sqrt{f_D})$ is Galois,
+              then save $f_D$.
+              Go to the next $D\in M$.
+          \end{enumerate}
+        \item\label{alg:charzero_overext}
+          Let $S$ be the set of $f_D$
+          saved in Step
+          \ref{alg:charzero_isgal}.
+          Let $S'$ be the set of $f_a$
+          saved in Step
+          \ref{alg:charzero_isgalext}.
+        \item\label{alg:charzero_throwaway}
+        \begin{itemize}
+          \item
+            If $S$ is nonempty,
+            then
+            for each $f_D\in S$
+            compute
+            $F(\sqrt{f_D})$,
+            \[
+              G_D\cong\Gal(F(\sqrt{f_a})\,|\,K(x)),
+            \]
+            and let
+            $S''=
+            \{f_D\in S:G_D\cong\wt{G}\}$.
+          \item
+            If $S$ is empty,
+            then
+            for each $f_D\in S'$
+            compute
+            $F'(\sqrt{f_D})$,
+            \[
+              G_D\cong\Gal(F'(\sqrt{f_D})\,|\,K(x)),
+            \]
+            and let
+            $S''=
+            \{f_D\in S':G_D\cong\wt{G}\}$.
+        \end{itemize}
+        \item\label{alg:charzero_return}
+          Return the list $S''$ from
+          Step
+          \ref{alg:charzero_throwaway}.
       \end{enumerate}
     \end{alg}
+    Although Algorithm
+    \ref{alg:charzero}
+    in characteristic zero
+    resembles
+    Algorithm
+    \ref{alg:getcandidates} over $\FF_q$,
+    the characteristic zero algorithm
+    is unfortunately not guaranteed to
+    find any candidate functions!
+    This is due to the fact that
+    we are not computing representatives
+    of $\Pic^0(F)[2]$.
+    \par
+    Without enumerating representatives
+    of $\Pic^0(F)[2]$,
+    the approach in characteristic zero
+    will always be ad hoc
+    in the sense that in Step
+    \ref{alg:charzero_alldegreezero}
+    we are blindly looking at all combinations
+    of points that yield the desired ramification.
+    This process is guaranteed to succeed
+    when $F$ has class number $1$,
+    but this condition is not often satisfied.
+    \par
+    This ad hoc approach does, however,
+    allow us to compute some $2$-group
+    Belyi maps in characteristic zero.
+    We conclude this section by describing
+    the results of these computations
+    along with those in
+    positive characteristic.
   }
   \section{Results of computations}{
     \label{sec:resultsequations}
+    In this section we summarize
+    the computations carried
+    out in \cite{twogroupdessins}
+    based on the algorithms
+    discussed in Section
+    \ref{sec:functionfieldalgorithm}
+    and
+    Section
+    \ref{sec:characteristiczero}.
+    \par
+    In characteristic $3$
+    we were able to compute
+    all $2$-group Belyi maps modulo $3$
+    up to degree $32$.
+    The results of these computations can
+    be accessed in \textsf{Magma}
+    (with working directory the
+    repository \cite{twogroupdessins})
+    using
+    the following code.
+    \begin{magma}
+load "config.m";
+d := 16;
+objs := [ReadTwoDBPassport(f) : f in PassportFilenames(d)];
+    \end{magma}
+    The information for a given passport can
+    be accessed using the following code.
+    \begin{magma}
+s := Random(objs);
+FunctionFields(s);
+BelyiMaps(s);
+FunctionFieldAutomorphisms(s);
+    \end{magma}
+    In addition to the systematic
+    computation of $2$-group
+    Belyi maps modulo $3$,
+    we were also able to apply the
+    implementation in
+    Section
+    \ref{sec:characteristiczero}
+    to compute hundreds
+    of $2$-group Belyi maps
+    in characteristic zero
+    with degrees up to $256$.
+    \newline
     \mm{
-      how far did we get?
-      how long did it take?
-      anything interesting?
+      update before sending to committee!
     }
+    % \mm{
+    %   how far did we get?
+    %   how long did it take?
+    %   anything interesting?
+    % }
   }
 }
 %\chapter{Background}{\label{chapter:background}
