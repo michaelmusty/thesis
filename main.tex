@@ -268,7 +268,7 @@ $2$-group Belyi maps
 comes from
 Beckmann's theorem
 \cite{beckmann}
-which relates the primes of good
+which relates the primes of bad
 reduction of the algebraic curve
 $X$ to the primes
 dividing the monodromy group of $\phi$.
@@ -282,7 +282,7 @@ Belyi map is defined over an abelian
 extension of $\QQ$,
 and motivates a partial proof to the
 conjecture for dihedral monodromy groups.
-The second part is an explicit computation
+The second part is an explicit algorithm
 to compute equations for the curve
 $X$.
 All computations are carried out using
@@ -295,8 +295,18 @@ is available at
 
 \chapter*{Preface}
 \addcontentsline{toc}{section}{Preface}
-Preface and Acknowledgments go here!
-\mm{what is a preface?}
+% Preface and Acknowledgments go here!
+% \mm{what is a preface?}
+\mm{
+  Acknowledgments
+}
+% Jim, Mary, Matt
+% Nicole
+% committee
+% Richard Foote, Jeroen Sijsling, Florian Hess
+% Sam Schiavone
+% JV
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Table of Contents
@@ -339,13 +349,13 @@ Preface and Acknowledgments go here!
     which states that an algebraic curve
     $X$
     over the complex numbers
-    (equivalently a compact Riemann surface)
+    % (equivalently a compact Riemann surface)
     can be defined by equations with
     coefficients in a number field
     if and only if
     $X$ admits a \defi{Belyi map}
-    (a finite cover $\phi\colon X\to\PP^1$
-    unramified outside three points).
+    a finite cover $\phi\colon X\to\PP^1$
+    unramified outside three points.
     The way in which Belyi maps
     capture precisely when a transcendental
     object is also an algebraic object
@@ -537,6 +547,9 @@ Preface and Acknowledgments go here!
     \end{equation}
     The first main result of this thesis
     is an explicit algorithm
+    (see Algorithm
+    \ref{alg:alltriplesiteration}
+    in Section \ref{sec:triplesalgorithm})
     to compute permutation triples
     corresponding to all $2$-group Belyi
     maps up to a given degree.
@@ -544,6 +557,10 @@ Preface and Acknowledgments go here!
     \textsf{Magma} \cite{magma})
     all such permutation triples up to
     degree $256$.
+    The algorithms in Section
+    \ref{alg:triplesalgorithm}
+    are used to prove results such as
+    the following theorem.
     \begin{theorem}\label{thm:isoclasses_results}
       The following table lists
       the number of isomorphism classes of
@@ -561,6 +578,9 @@ Preface and Acknowledgments go here!
         \end{tabular}
       \end{equation}
     \end{theorem}
+    Other results of this type are
+    detailed in
+    Section \ref{sec:grouptheorycomputations}.
     Having explicit permutation triples
     allows us to apply techniques from
     \cite{belyidb}
@@ -571,8 +591,10 @@ Preface and Acknowledgments go here!
       of degree $d\leq 256$ is defined over
       an abelian number field.
     \end{theorem}
-    This leads us to tentatively make the
-    following conjecture.
+    The beginning of
+    Section \ref{sec:conjecture}
+    explains the above theorem and then
+    pivots to the following conjecture.
     \begin{conj}
       \label{conj:conjecture_results}
       Every $2$-group Belyi map
@@ -582,7 +604,10 @@ Preface and Acknowledgments go here!
     for $d\leq 256$,
     we were able to prove this conjecture
     for $2$-group Belyi maps
-    with monodromy group abelian or dihedral.
+    with monodromy group abelian
+    (Lemma \ref{lem:conjectureabelian})
+    or dihedral
+    (Theorem \ref{thm:conjecturedihedral}).
     \par
     The rest of the results of this thesis
     pertain to computing equations
@@ -590,7 +615,8 @@ Preface and Acknowledgments go here!
     The first of these is an algorithm
     to compute $2$-group Belyi maps
     over a finite field $\FF_q$
-    where $q=p^k$ and $p\neq 2$.
+    where $q=p^k$ and $p\neq 2$
+    (see Section \ref{sec:functionfieldalgorithm}).
     This algorithm has been implemented in
     \textsf{Magma}
     and used to construct a database
@@ -598,12 +624,14 @@ Preface and Acknowledgments go here!
     (up to isomorphism)
     over
     $\FF_3^\textup{al}$
-    up to degree $64$.
+    up to degree $32$.
     \par
     The other main result is an implementation
     (similar to the algorithm over 
     $\FF_q$)
-    in characteristic zero.
+    in characteristic zero
+    (see Section
+    \ref{sec:characteristiczero}).
     Although the characteristic zero
     implementation does not succeed in all cases,
     it does work well in practice.
@@ -611,6 +639,11 @@ Preface and Acknowledgments go here!
     the \textsf{Magma} implementation succeeded
     to compute hundreds of $2$-group Belyi maps
     over $\QQal$ up to degree $256$.
+    \par
+    The rest of Chapter \ref{chapter:equations}
+    is devoted to describing the computations
+    along with interesting examples
+    encountered along the way.
   }
   % \section{Explicit computations}{
   %   \label{sec:mainresults}
@@ -7791,7 +7824,7 @@ end for;
       the extension is quadratic.
       Suppose $\ord_P(a)$ is odd
       and let $\mathfrak{p}$ be
-      a prime above $P$ in $K$.
+      a place above $P$ in $K$.
       Then we have
       \begin{equation}
         \label{eqn:sqrtsquared}
@@ -7806,7 +7839,22 @@ end for;
       $P$ is ramified in $K$.
       Moreover, this says that
       $e(\mathfrak{p}/P) = 2$.
-      \mm{converse}
+      \par
+      For the converse
+      we check ramification locally
+      at the place $P$.
+      Suppose $e\colonequals\ord_P(a)$ is even.
+      Choose a uniformizer $t$ at $P$
+      and let $b = a/t^{(e/2)}$.
+      Then $F(\sqrt{a}) = F(\sqrt{b})$,
+      and $\ord_P(b) = 0$ implies
+      that $F(\sqrt{b}) = F(\sqrt{a})$
+      is unramified at $P$.
+      \par
+      For a more general proof
+      of this in
+      arbitrary Kummer extensions
+      see \cite[Proposition 10.3]{rosen}.
     \end{proof}
     % \mm{
     %   I haven't quite decided how I want to organize
@@ -9306,17 +9354,23 @@ FunctionFieldAutomorphisms(s);
     of $2$-group Belyi maps
     in characteristic zero
     with degrees up to $256$.
-    \newline
-    \mm{
-      update before sending to committee!
-    }
-    % \mm{
-    %   how far did we get?
-    %   how long did it take?
-    %   anything interesting?
-    % }
+    \par
+    We conclude this chapter
+    with interesting examples
+    encountered during these computations.
+    First,
+    in Section
+    \ref{sec:labels}
+    we set up some notation to
+    help with the description of these
+    examples.
   }
-}
+  \section{Naming conventions for database examples}{
+    \label{sec:labels}
+  }
+  \section{Example \texttt{265S100-4,4,4-g57}}{
+    \label{sec:265S100-4,4,4-g57}
+  }
 %\chapter{Background}{\label{chapter:background}
   %  \section{What is a Belyi map?}{\label{sec:belyimaps}
   %    % \subsection{Complex manifolds, Riemann surfaces, and branched covers}{\label{subsec:riemannsurfaces}
