@@ -6121,8 +6121,9 @@ end for;
       We say that $\wt{\sigma}$
       is a
       \defi{characteristic lift}
-      of $\sigma$ if the center of
-      $\wt{G}$ is a characteristic subgroup.
+      of $\sigma$ if $\iota(\ZZ/2\ZZ)$
+      is a characteristic subgroup
+      of $\wt{G}$.
     \end{definition}
     \begin{lemma}
       \label{lem:identifiedinlift}
@@ -6410,8 +6411,17 @@ end for;
       the refined passport of $\sigma$
       has size $1$.
       \par
-      Since the center of a dihedral group
-      is characteristic, we can apply
+      First note that
+      for $\langle\wt{\sigma}\rangle$
+      dihedral we have
+      $Z(\langle\wt{\sigma}\rangle)
+      =\ZZ/2\ZZ$.
+      Now, since $\iota(\ZZ/2\ZZ)$ is contained
+      in the center of
+      $\langle\wt{\sigma}\rangle$,
+      we have that
+      $\iota(\ZZ/2\ZZ) = \ZZ/2\ZZ$.
+      Thus, we can apply
       Lemma \ref{lem:identifiedinlift}
       to get that
       every element of $\Sigma_\mathscr{P}$
@@ -9367,9 +9377,15 @@ FunctionFieldAutomorphisms(s);
   }
   \section{Naming conventions for database examples}{
     \label{sec:labels}
+    In this section we explain the conventions
+    used for filenames in
+    \cite{twogroupdessins}.
+    This will be useful for the rest of
+    this chapter when referring to
+    specific examples.
   }
-  \section{Example \texttt{265S100-4,4,4-g57}}{
-    \label{sec:265S100-4,4,4-g57}
+  \section{Example \texttt{256S100-4,4,4-g57}}{
+    \label{sec:256S100-4,4,4-g57}
   }
 %\chapter{Background}{\label{chapter:background}
   %  \section{What is a Belyi map?}{\label{sec:belyimaps}
