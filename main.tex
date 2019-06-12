@@ -9308,7 +9308,9 @@ ComputeBelyiMaps(s : optimized := false);
     of points that yield the desired ramification.
     This process is guaranteed to succeed
     when $F$ has class number $1$,
-    but this condition is not often satisfied.
+    but this condition is not often satisfied
+    (in fact there are only $8$ such non-rational function fields
+    over $\FF_q$).
     \par
     This ad hoc approach does, however,
     allow us to compute some $2$-group
@@ -9383,10 +9385,151 @@ FunctionFieldAutomorphisms(s);
     This will be useful for the rest of
     this chapter when referring to
     specific examples.
+    \par
+    The first point to explain is how we deal
+    with isomorphism classes of $2$-group
+    Belyi maps
+    as opposed to passports.
+    As discussed in Chapter
+    \ref{chapter:grouptheory},
+    isomorphism classes of $2$-group Belyi maps
+    correspond to $2$-group permutation triples
+    each with a unique filename of the form
+    \begin{equation}
+      \label{eqn:galmapfilename}
+      \texttt{DNG-a,b,c-gE-H}
+    \end{equation}
+    where
+    \begin{align}
+      \label{eqn:galmapfilenameparts}
+      \begin{split}
+        \texttt{D} &:\text{ degree in }
+        \{2,4,8,16,32,64,128,256\}\\
+        \texttt{N} &:\text{ either \texttt{T}
+        or \texttt{S} identifying group
+        database}\\
+        \texttt{G} &:\text{ a positive integer
+        identifying the group}\\
+        \texttt{a} &:\text{ ramification index
+        of $0$ in }
+        \{2,4,8,16,32,64,128,256\}\\
+        \texttt{b} &:\text{ ramification index
+        of $1$ in }
+        \{2,4,8,16,32,64,128,256\}\\
+        \texttt{c} &:\text{ ramification index
+        of $\infty$ in }
+        \{2,4,8,16,32,64,128,256\}\\
+        \texttt{g} &:\text{ just the letter 
+        \texttt{g}}\\
+        \texttt{E} &:\text{ the genus in }
+        \ZZ_{\geq 0}\\
+        \texttt{H} &:\text{ the hash
+        of the $2$-group permutation triple 
+        a positive integer}
+      \end{split}
+    \end{align}
+    For example,
+    the filename
+    \texttt{16T12-4,8,2-g2-1396531181}
+    corresponds to a degree $16$
+    Belyi map with monodromy group
+    identified in the
+    transitive group database
+    (\texttt{T} for transitive)
+    \begin{center}
+      \url{http://magma.maths.usyd.edu.au/magma/handbook/text/753}
+    \end{center}
+    by \texttt{16T12}.
+    The \texttt{4,8,2} encodes the ramification
+    above $0,1,\infty$ respectively,
+    the \texttt{g2} indicates that this
+    Belyi map has genus $2$,
+    and the \texttt{1396531181}
+    is the hash of the permutation triple
+    corresponding to this Belyi map.
+    \par
+    Another example,
+    \texttt{64S7-8,8,4-g17-1653847134}
+    corresponds to a degree $16$
+    Belyi map with monodromy group
+    identified in the
+    small group database
+    (\texttt{S} for small)
+    \begin{center}
+      \url{http://magma.maths.usyd.edu.au/magma/handbook/text/748}
+    \end{center}
+    by \texttt{64S7}.
+    The \texttt{8,8,4} encodes the ramification
+    above $0,1,\infty$ respectively,
+    the \texttt{g17} indicates that this
+    Belyi map has genus $17$,
+    and the \texttt{1653847134}
+    is the hash of the permutation triple
+    corresponding to this Belyi map.
+    In this example,
+    the hash is necessary to distinguish
+    this example from
+    \texttt{64S7-8,8,4-g17-2483683244},
+    \texttt{64S7-8,8,4-g17-623082418},
+    and
+    \texttt{64S7-8,8,4-g17-964508325}.
+    \par
+    A passport is given a similar filename.
+    The only difference for a passport is that
+    the hash is no longer required.
+    For example,
+    the Belyi maps with filenames
+    \texttt{64S7-8,8,4-g17-1653847134}
+    \texttt{64S7-8,8,4-g17-2483683244},
+    \texttt{64S7-8,8,4-g17-623082418},
+    and
+    \texttt{64S7-8,8,4-g17-964508325}
+    all have passport the same passport
+    \texttt{64S7-8,8,4-g17}.
+    \par
+    The reason for this
+    distinction is that the algorithms
+    for computing equations in this chapter
+    are designed for passports.
+    Now that we have a concise way of
+    talking about example,
+    we use this in the rest of the chapter
+    to discuss examples.
   }
-  \section{Example \texttt{256S100-4,4,4-g57}}{
-    \label{sec:256S100-4,4,4-g57}
+  \section{Degree $2$}{
+    \label{sec:d2}
+    In degree $2$,
+    there are three $2$-group Belyi
+    maps up to isomorphism over $\QQ$
+    (or for any $\FF_q$ for that matter).
+    They are
+    \begin{equation}
+      \label{eqn:d2}
+      F_{(1,2,2)} =
+      \frac{\QQ(x)[y]}{(y^2 + x - 1)},\;
+      F_{(2,1,2)} =
+      \frac{\QQ(x)[y]}{(y^2 - x)},
+      \text{ and }
+      F_{(2,2,1)} =
+      \frac{\QQ(x)[y]}{(y^2 - x^2 + x)}
+    \end{equation}
+    and each is the unique
+    Belyi map with passport
+    \texttt{2T1-1,2,2-g0},
+    \texttt{2T1-2,1,2-g0},
+    and
+    \texttt{2T1-2,2,1-g0},
+    respectively.
   }
+  \section{Degree $4$}{
+    \label{sec:d4}
+  }
+  \section{Degree $8$}{
+    \label{sec:d8}
+  }
+  % \section{Example \texttt{256S100-4,4,4-g57}}{
+  %   \label{sec:256S100-4,4,4-g57}
+  % }
 %\chapter{Background}{\label{chapter:background}
   %  \section{What is a Belyi map?}{\label{sec:belyimaps}
   %    % \subsection{Complex manifolds, Riemann surfaces, and branched covers}{\label{subsec:riemannsurfaces}
