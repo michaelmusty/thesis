@@ -1,5 +1,7 @@
-s := Random(objs);
-FunctionFields(s);
-BelyiMaps(s);
-FunctionFieldAutomorphisms(s);
+load "config.m";
+objs := [ReadTwoDBPassport(f) : f in PassportFilenames(16)];
+fields := [* *];
+for s in objs do
+  fields cat:= FunctionFields(s);
+end for;
     

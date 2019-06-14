@@ -9431,7 +9431,7 @@ FunctionFieldAutomorphisms(s);
     For example,
     the filename
     \texttt{16T12-4,8,2-g2-1396531181}
-    corresponds to a degree $16$
+    corresponds to a degree $64$
     Belyi map with monodromy group
     identified in the
     transitive group database
@@ -9499,18 +9499,19 @@ FunctionFieldAutomorphisms(s);
   \section{Degree $2$}{
     \label{sec:d2}
     In degree $2$,
-    there are three $2$-group Belyi
-    maps up to isomorphism over $\QQ$
-    (or for any $\FF_q$ for that matter).
-    They are
+    there are $3$
+    isomorphism classes of
+    $2$-group Belyi maps.
+    In characteristic zero they are
+    represented by
     \begin{equation}
       \label{eqn:d2}
-      F_{(1,2,2)} =
+      % F_{(1,2,2)} =
       \frac{\QQ(x)[y]}{(y^2 + x - 1)},\;
-      F_{(2,1,2)} =
+      % F_{(2,1,2)} =
       \frac{\QQ(x)[y]}{(y^2 - x)},
       \text{ and }
-      F_{(2,2,1)} =
+      % F_{(2,2,1)} =
       \frac{\QQ(x)[y]}{(y^2 - x^2 + x)}
     \end{equation}
     and each is the unique
@@ -9523,9 +9524,350 @@ FunctionFieldAutomorphisms(s);
   }
   \section{Degree $4$}{
     \label{sec:d4}
+    In degree $4$ there are $7$
+    isomorphism classes of
+    $2$-group Belyi maps
+    and each has
+    passport size $1$.
+    \par
+    All function fields are of the form
+    $\QQ(x)[y]/(f(x,y))$
+    with $f$ one of the polynomials in
+    \eqref{eqn:d4}.
+    The subscripts indicate the passport.
+    \begin{align}
+      \label{eqn:d4}
+      \begin{split}
+        f_{\texttt{4T1-1,4,4-g0}}
+        &= y^4 + x - 1\\
+        f_{\texttt{4T1-2,4,4-g1}}
+        &= y^4 + x^3 - x^2\\
+        f_{\texttt{4T1-4,1,4-g0}}
+        &= y^4 - x\\
+        f_{\texttt{4T1-4,2,4-g1}}
+        &= y^4 - x^3 + 2x^2 - x\\
+        f_{\texttt{4T1-4,4,1-g0}}
+        &= y^4 - x^4 + x^3\\
+        f_{\texttt{4T1-4,4,2-g1}}
+        &= y^4 - x^2 + x\\
+        f_{\texttt{4T2-2,2,2-g0}}
+        &= y^4 + (4x - 2)y^2 + 1\\
+      \end{split}
+    \end{align}
+    Although every function field has
+    constant field $\QQ$,
+    lifting the automorphisms
+    requires extending the constant
+    field to $\QQ(\zeta_{4})$
+    in all examples except for the
+    Belyi map defined by
+    $f_{\texttt{4T2-2,2,2-g0}}$.
+    \par
+    Use the following code from
+    \cite{twogroupdessins}
+    to obtain a list of these
+    function fields in \textsf{Magma}.
+    \begin{magma}
+load "config.m";
+objs := [ReadTwoDBPassportChar0(f) : f in PassportFilenames(4)];
+fields := [FunctionFields(s)[1] : s in objs];
+    \end{magma}
   }
   \section{Degree $8$}{
     \label{sec:d8}
+    In degree $8$ there are $13$
+    isomorphism classes of $2$-group Belyi maps
+    that have size $1$ passports
+    and there are $3$ size $2$ passports.
+    \par
+    All function fields are of the form
+    $\QQ(x)[y]/(f(x,y))$
+    with $f$ one of the polynomials in
+    \eqref{eqn:d8_188},
+    \eqref{eqn:d8_288},
+    \eqref{eqn:d8_244},
+    \eqref{eqn:d8_224},
+    \eqref{eqn:d8_444}, for size $1$ passports,
+    or
+    \eqref{eqn:d8size2},
+    for size $2$ passports.
+    The subscripts indicate the passport.
+    \begin{align}
+      \label{eqn:d8_188}
+      \begin{split}
+        f_{\texttt{8T1-1,8,8-g0}}
+        &= y^8 + x - 1\\
+        f_{\texttt{8T1-8,1,8-g0}}
+        &= y^8 - x\\
+        f_{\texttt{8T1-8,8,1-g0}}
+        &= y^8 - x^8 + x^7
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d8_288}
+      \begin{split}
+        f_{\texttt{8T1-2,8,8-g2}}
+        &= y^8 + x^5 - x^4\\
+        f_{\texttt{8T1-8,2,8-g2}}
+        &= y^8 - x^5 + 4x^4 - 6x^3 + 4x^2 - x\\
+        f_{\texttt{8T1-8,8,2-g2}}
+        &= y^8 - x^4 + 3x^3 - 3x^2 + x
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d8_224}
+      \begin{split}
+        f_{\texttt{8T4-2,2,4-g0}}
+        &= y^8 + (4x - 2)y^4 + 1\\
+        f_{\texttt{8T4-2,4,2-g0}}
+        &= y^8 + (8x^4 - 16x^3 + 16x - 8)y^4 + 16x^8 - 128x^7 + 448x^6\\
+        &- 896x^5 + 1120x^4 - 896x^3 + 448x^2 - 128x + 16\\
+        f_{\texttt{8T4-4,2,2-g0}}
+        &= y^8 + (-8x^4 + 16x^3)y^4 + 16x^8\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d8_444}
+      \begin{split}
+        f_{\texttt{8T5-4,4,4-g2}}
+        &= y^8 + (1/2x^3 - 3/2x^2 + x)y^4 + 1/16x^6 - 1/8x^5 + 1/16x^4\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d8_244}
+      \begin{split}
+        f_{\texttt{8T2-2,4,4-g1}}
+        &= y^8 + (8x - 4)y^6 + (4x - 4)y^5
+        + (16x^2 - 31/2x + 11/2)y^4\\
+        &+ (-8x + 8)y^3
+        + (2x^2 + x + 1)y^2
+        + (-15x^2 + 18x - 3)y\\
+        &+ 4x^3 - 127/16x^2 + 35/8x + 9/16\\
+        f_{\texttt{8T2-4,2,4-g1}}
+        &= y^8 + (1/16x^3 - 1/16x^2 + 1/128x)y^4 + 1/65536x^2\\
+        f_{\texttt{8T2-4,4,2-g1}}
+        &= y^8 + (8x - 4)y^6 + (-1/2x^4 - 23/2x^3 + 28x^2 - 16x + 6)y^4\\
+        &+ (6x^5 - 25x^4 + 27x^3 - 8x^2 + 8x - 4)y^2 + 1/16x^8 - 9/8x^7\\
+        &+ 97/16x^6 - 9x^5 + 7/2x^4 + 9/2x^3 - 4x^2 + 1
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d8size2}
+      \begin{split}
+        f_{\texttt{8T1-4,8,8-g3}}
+        &= y^8 + x^5 - 3x^4 + 3x^3 - x^2\\
+        f_{\texttt{8T1-8,4,8-g3}}
+        &= y^8 - x^5 + 2x^4 - x^3\\
+        f_{\texttt{8T1-8,8,4-g3}}
+        &= y^8 - x^2 + x
+      \end{split}
+    \end{align}
+    Although every function field has
+    constant field $\QQ$,
+    lifting the automorphisms
+    requires extending the constant
+    field to $\QQ(\zeta_{8})$
+    in all examples except for the
+    those that are covers of the
+    Belyi map defined by
+    $f_{\texttt{4T2-2,2,2-g0}}$
+    in Section \ref{sec:d4}.
+    \par
+    Use the following code from
+    \cite{twogroupdessins}
+    to obtain a list of these
+    function fields in \textsf{Magma}.
+    \begin{magma}
+load "config.m";
+objs := [ReadTwoDBPassportChar0(f) : f in PassportFilenames(8)];
+fields := [FunctionFields(s)[1] : s in objs];
+    \end{magma}
+    \par
+    Perhaps the most interesting note to make
+    in degree $8$ is that it is
+    the lowest degree where the
+    characteristic zero approach
+    appears to fail.
+    Indeed, the genus $3$ passports
+    represented in
+    \eqref{eqn:d8size2}
+    have size $2$, but only a single
+    representative Belyi map for each.
+    In these examples,
+    all candidate functions obtained from
+    the adhoc approach in
+    Algorithm
+    \ref{alg:charzero}
+    yield isomorphic function fields
+    over $\QQ(x)$,
+    so we know we are missing a
+    Belyi map in each one of these passports.
+    \par
+    The techniques in
+    Section \ref{sec:functionfieldalgorithm},
+    however,
+    do manage to succeed for these
+    size $2$ passports.
+    Working over $\FF_3$,
+    using Algorithm
+    \ref{alg:computepassport},
+    we obtain the
+    function fields
+    \begin{equation}
+      \label{eqn:d8_884_FF3}
+      \frac{\FF_3(x)[y]}{(y^8 + 2x^6 + 2x^5 + 2x^4 + x^3 + x^2 + x)}\quad\text{ and }\quad
+      \frac{\FF_3(x)[y]}{(y^8 + x^6 + 2x^3)}
+    \end{equation}
+    for the passport \texttt{8T1-8,8,4-g3},
+    and one can check that the
+    fields in \eqref{eqn:d8_884_FF3}
+    are not isomorphic.
+    \par
+    To obtain a list of degree $8$
+    function fields corresponding to
+    $2$-group Belyi maps
+    in characteristic $3$,
+    use the following code from
+    \cite{twogroupdessins}.
+    \begin{magma}
+load "config.m";
+objs := [ReadTwoDBPassport(f) : f in PassportFilenames(8)];
+fields := [* *];
+for s in objs do
+  fields cat:= FunctionFields(s);
+end for;
+    \end{magma}
+  }
+  \section{Degree $16$}{
+    \label{sec:d16}
+    In degree $16$ there are $55$
+    isomorphism classes of $2$-group Belyi maps
+    with $41$ distinct passports.
+    Algorithm
+    \ref{alg:computepassport}
+    succeeds in characteristic $3$,
+    but the equations are too large to write here.
+    To obtain a list of degree $16$
+    function fields corresponding to
+    $2$-group Belyi maps
+    in characteristic $3$,
+    use the following code from
+    \cite{twogroupdessins}.
+    \begin{magma}
+load "config.m";
+objs := [ReadTwoDBPassport(f) : f in PassportFilenames(16)];
+fields := [* *];
+for s in objs do
+  fields cat:= FunctionFields(s);
+end for;
+    \end{magma}
+    In characteristic zero,
+    we list $14$ function fields
+    corresponding to $2$-group Belyi maps
+    over $\QQ(x)$.
+    As indicated in Theorem
+    \ref{thm:laxpassports},
+    each of the $14$ Belyi maps we list below
+    is lax isomorphic to a Belyi map
+    in all $41$ passports of degree $16$.
+    \begin{align}
+      \label{eqn:d16t5_488}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d16t6_288}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d16t1_11616}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d16t5_288}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d16t1_81616}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d16t4_444}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d16t14_448}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d16t10_244}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d16t13_228}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d16t1_21616}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d16t1_41616}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d16t12_248}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d16t6_488}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
+    \begin{align}
+      \label{eqn:d16t8_444}
+      \begin{split}
+        f_{\texttt{}}
+        &=\\
+      \end{split}
+    \end{align}
   }
   % \section{Example \texttt{256S100-4,4,4-g57}}{
   %   \label{sec:256S100-4,4,4-g57}
