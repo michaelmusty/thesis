@@ -1,5 +1,5 @@
 load "config.m";
-objs := [ReadTwoDBPassport(f) : f in PassportFilenames(16)];
+objs := [ReadTwoDBPassport(f) : f in PassportFilenames(32)];
 fields := [* *];
 for s in objs do
   fields cat:= FunctionFields(s);
