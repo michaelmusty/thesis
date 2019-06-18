@@ -1,0 +1,69 @@
+% arara: pdflatex
+% arara: bibtex
+% arara: bibtex
+% arara: pdflatex
+
+\documentclass[12pt]{article}
+\usepackage{amsmath,amssymb,amsthm,amsxtra}
+\usepackage{hyperref}
+
+\begin{document}
+\thispagestyle{empty}
+\begin{center}
+ \Large $2$-group Belyi Maps\\
+\large Michael Musty
+\bigskip
+
+\normalsize \textit{Abstract}
+\end{center}
+This thesis concerns the explicit computation
+of Galois Belyi maps
+$\phi\colon X\to\mathbb{P}^1$
+with monodromy group
+a $2$-group.
+The motivation behind computing
+these so-called
+\emph{
+$2$-group Belyi maps
+}
+comes from
+Beckmann's theorem
+% \cite{beckmann}
+which relates the primes of bad
+reduction of the algebraic curve
+$X$ to the primes
+dividing the
+order of the
+monodromy group of $\phi$.
+The computation has two parts.
+The first is a combinatorial computation
+to enumerate the isomorphism classes
+of $2$-group Belyi maps.
+This computation provides evidence to
+a conjecture that every $2$-group
+Belyi map is defined over an abelian
+extension of $\mathbb{Q}$.
+A partial proof of the
+conjecture for certain $2$-groups is given.
+The second part is an explicit algorithm
+to compute equations for the curve
+$X$.
+All computations are carried out using
+\textsf{Magma}.
+% \cite{magma}
+The source code
+for these implementations
+is available at the following link.
+\begin{center}
+  \url{https://github.com/michaelmusty/2groupdessins}
+\end{center}
+
+% \bibliographystyle{amsplain}
+% \bibliography{references}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
