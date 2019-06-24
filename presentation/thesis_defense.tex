@@ -1,0 +1,110 @@
+% arara: pdflatex
+% arara: pdflatex
+\documentclass[xcolor=dvipsnames]{beamer}
+\usetheme[
+  numbering=fraction,
+  numbering=none,
+  sectionpage=progressbar,
+  subsectionpage=none,
+  % block=fill,
+  progressbar=foot,
+]{metropolis}
+\definecolor{DartGreen}{cmyk}{0.95,0,1,0.50}
+\setbeamercolor{progress bar}{fg=DartGreen}
+\makeatletter
+  \setlength{\metropolis@titleseparator@linewidth}{5pt}
+  \setlength{\metropolis@progressonsectionpage@linewidth}{5pt}
+  \setlength{\metropolis@progressinheadfoot@linewidth}{5pt}
+\makeatother
+\usepackage{appendixnumberbeamer}
+\usepackage{tikz}
+\usetikzlibrary{arrows,calc,automata,shadows,backgrounds,positioning,intersections,fadings,decorations.pathreplacing,shapes,snakes, matrix}
+\usepackage{tikz-cd}
+\tikzset{commutative diagrams/.cd, arrow style = tikz, diagrams = {>=latex}}
+\tikzset{>=latex}
+\usepackage{marvosym}
+\usepackage[marvosym]{tikzsymbols}
+\theoremstyle{plain}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{lem}{Lemma}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ques}{Question}
+\newtheorem*{conj}{Conjecture}
+\newtheorem*{cor}{Corollary}
+\usecolortheme[snowy]{owl}
+% \usecolortheme{owl}
+\DeclareMathOperator{\disc}{disc}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Mon}{Mon}
+\DeclareMathOperator{\rad}{rad}
+\DeclareMathOperator{\Aut}{Aut}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\wt}[1]{\widetilde{#1}}
+\title{$2$-group Belyi maps}
+\author{Michael Musty}
+\date{July 9, 2019}
+\institute{Dartmouth College}
+\begin{document}
+  \maketitle
+  \begin{frame}{Outline}
+    \tableofcontents
+  \end{frame}
+  \section{Motivation}{
+    \begin{frame}{Belyi's theorem}
+      asdf
+    \end{frame}
+    \begin{frame}{Gross's conjecture}
+      asdf
+    \end{frame}
+    \begin{frame}{Beckmann's theorem}
+      asdf
+    \end{frame}
+  }
+  \section{Background}{
+    \begin{frame}{Belyi maps}
+      some stuff about Belyi maps in general
+    \end{frame}
+    \begin{frame}{Function fields}
+      some stuff about function fields
+    \end{frame}
+  }
+  \section{Computing permutation triples}{
+    \begin{frame}{2-groups}
+      some stuff about $2$-groups
+    \end{frame}
+  }
+  \section{Computing equations}{
+    \subsection{Main idea}{
+      \begin{frame}{Main idea}
+        some stuff about how to compute equations
+      \end{frame}
+    }
+    \subsection{Characteristic $p\geq 3$}{
+      \begin{frame}{Characteristic $p\geq 3$}
+        some stuff about positive char
+      \end{frame}
+    }
+    \subsection{Characteristic zero}{
+      \begin{frame}{Characteristic $0$}
+        some stuff about char $0$
+      \end{frame}
+    }
+  }
+  \section{A refined conjecture}{
+    \begin{frame}{Conjecture}
+      some stuff about the conjecture
+    \end{frame}
+  }
+  \section{Examples}{
+    \begin{frame}{Notation}
+      \texttt{4T1-4,1,4-g0}
+    \end{frame}
+    \begin{frame}{An}
+      \texttt{4T1-4,1,4-g0}
+    \end{frame}
+  }
+  \appendix
+  \begin{frame}{Backup slides}
+  \end{frame}
+\end{document}
