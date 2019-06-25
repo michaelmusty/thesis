@@ -1,5 +1,6 @@
-% arara: pdflatex
-% arara: pdflatex
+% arara: xelatex
+% arara: xelatex
+
 \documentclass[xcolor=dvipsnames]{beamer}
 \usetheme[
   numbering=fraction,
@@ -16,7 +17,15 @@
   \setlength{\metropolis@progressonsectionpage@linewidth}{5pt}
   \setlength{\metropolis@progressinheadfoot@linewidth}{5pt}
 \makeatother
+
 \usepackage{appendixnumberbeamer}
+
+\usepackage{stmaryrd}
+\usepackage{soul}
+\usepackage{amssymb,amsthm,amsmath,amsxtra}
+% \usepackage[all]{xy}
+% \usepackage{xfrac}
+% \usepackage{calc}
 \usepackage{tikz}
 \usetikzlibrary{arrows,calc,automata,shadows,backgrounds,positioning,intersections,fadings,decorations.pathreplacing,shapes,snakes, matrix}
 \usepackage{tikz-cd}
@@ -24,6 +33,8 @@
 \tikzset{>=latex}
 \usepackage{marvosym}
 \usepackage[marvosym]{tikzsymbols}
+\usepackage{colonequals}
+
 \theoremstyle{plain}
 \newtheorem*{thm}{Theorem}
 \newtheorem*{lem}{Lemma}
@@ -31,69 +42,359 @@
 \newtheorem*{ques}{Question}
 \newtheorem*{conj}{Conjecture}
 \newtheorem*{cor}{Corollary}
-\usecolortheme[snowy]{owl}
-% \usecolortheme{owl}
-\DeclareMathOperator{\disc}{disc}
-\DeclareMathOperator{\Gal}{Gal}
-\DeclareMathOperator{\id}{id}
-\DeclareMathOperator{\Mon}{Mon}
-\DeclareMathOperator{\rad}{rad}
-\DeclareMathOperator{\Aut}{Aut}
+
+\usecolortheme{owl}
+
+\newcommand{\OO}{\mathcal O}
+\newcommand{\PP}{\mathbb P}
 \newcommand{\CC}{\mathbb C}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\ZZ}{\mathbb Z}
+\renewcommand{\AA}{\mathbb A}
+\newcommand{\defi}[1]{\textsf{#1}}
+\newcommand{\jv}[1]{{\color{red} \sf JV: [#1]}}
+\newcommand{\mm}[1]{{\color{blue} \sf MM: [#1]}}
 \newcommand{\wt}[1]{\widetilde{#1}}
+\newcommand{\QQal}{{\mathbb Q}^{\textup{al}}}
+\newcommand{\FFqal}{{\mathbb F}_q^{\textup{al}}}
+\newcommand{\QQab}{{\mathbb Q}^{\textup{ab}}}
+\newcommand{\QQbar}{{\mathbb Q}^{\textup{al}}}
+\newcommand{\Kal}{{{K}^{\textup{al}}}}
+\newcommand{\Kab}{{K}^{\textup{ab}}}
+\newcommand{\kbar}{\overline{k}}
+\newcommand{\Kbar}{\overline{K}}
+\newcommand{\LL}{\mathscr L}
+\newcommand{\sm}{\setminus}
+\newcommand{\FF}{\mathbb{F}}
+\renewcommand{\ker}{\operatorname{ker}}
+
+\DeclareMathOperator{\con}{con}
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\Princ}{Princ}
+\DeclareMathOperator{\Pic}{Pic}
+\DeclareMathOperator{\ddiv}{div}
+\DeclareMathOperator{\sat}{sat}
+\DeclareMathOperator{\ddeg}{deg}
+\DeclareMathOperator{\ddim}{dim}
+\DeclareMathOperator{\rred}{red}
+% \renewcommand{\rred}{\operatorname{red}}
+\DeclareMathOperator{\Lifts}{Lifts}
+\DeclareMathOperator{\order}{order}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\PGL}{PGL}
+\DeclareMathOperator{\Mon}{Mon}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\ord}{ord}
+\DeclareMathOperator{\mult}{mult}
+\DeclareMathOperator{\stab}{stab}
+\DeclareMathOperator{\orb}{orb}
+\DeclareMathOperator{\id}{id}
+% \DeclareMathOperator{\ker}{ker}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\charpoly}{charpoly}
+% \DeclareMathOperator{\det}{det}
+\DeclareMathOperator{\Tr}{tr}
+\DeclareMathOperator{\Pl}{Pl}
+\DeclareMathOperator{\Cl}{Cl}
+\DeclareMathOperator{\Jac}{Jac}
+
+
 \title{$2$-group Belyi maps}
 \author{Michael Musty}
 \date{July 9, 2019}
 \institute{Dartmouth College}
 \begin{document}
   \maketitle
+  \begin{frame}{Acknowledgements}
+    \begin{itemize}
+      \item
+        Committee: Dave, Tom, Carl, and John
+      \item
+        Family: Mary, Jim, Matt, and Nicole
+      \item
+        Others: Sam, Jeroen, Edgar, Florian, and Richard
+    \end{itemize}
+  \end{frame}
   \begin{frame}{Outline}
     \tableofcontents
   \end{frame}
   \section{Motivation}{
-    \begin{frame}{Belyi's theorem}
-      asdf
+    \begin{frame}{Galois representations}
+      Let $X$ be an irreducible, smooth
+      projective algebraic curve of genus $g\geq 1$
+      over a number field $K$.
+      Let $G_K\colonequals\Gal(\Kal\,|\,K)$ be
+      the absolute Galois group of $K$ and
+      let $\ell\in\ZZ$ be prime.
+      \pause\newline
+      Let $J\colonequals\Jac(X)$ be the
+      \textbf{Jacobian variety} of $X$.
+      $J$ is an abelian variety of dimension $g$.
+      \pause\newline
+      $G_K$ acts on the $\ell$-torsion points
+      $J[\ell](\Kal)\cong(\ZZ/\ell\ZZ)^{2g}$ of $X$.
+      \pause\newline
+      This action determines a
+      \textbf{mod-$\ell$ Galois representation}
+      \[
+        \rho\colon G_K\to\Aut(J[\ell])\cong\GL_{2g}(\ZZ/\ell\ZZ).
+      \]
+      \pause
+      The geometry of $X$ and the arithmetic of
+      $\rho$ are inimately related.
+      \pause
+      For example,
+      if $X$ has good reduction at a prime
+      $\mathfrak{p}$ above
+      $p\neq\ell$,
+      then $\mathfrak{p}$
+      will be unramified in the
+      \textbf{$\ell$-torsion field}
+      $K(J[\ell])$.
     \end{frame}
-    \begin{frame}{Gross's conjecture}
-      asdf
+    \begin{frame}{Belyi's theorem}
+      A \textbf{Belyi map}
+      is a morphism
+      $\phi\colon X\to\PP^1$
+      of smooth projective algebraic curves
+      over $\CC$
+      that is unramified outside of
+      $\{0,1,\infty\}$.
+      \pause
+      \begin{thm}[Belyi 1979]
+        \vspace{1pt}
+        An algebraic curve (smooth projective)
+        over $\CC$ can be defined over a number
+        field if and only if $X$ admits a
+        Belyi map.
+      \end{thm}
+    \end{frame}
+    \begin{frame}{Some definitions}
+      Let $\phi\colon X\to\PP^1$ be a Belyi map
+      defined over $K$.
+      \pause\newline
+      The \textbf{genus} of $\phi$ is the genus
+      of the curve $X$.
+      \pause\newline
+      The \textbf{degree} of $\phi$
+      is the degree of the field extension
+      \[
+        K(\PP^1)\hookrightarrow K(X).
+      \]
+      \pause
+      $\phi$ is \textbf{geometrically Galois}
+      if $\Kal(X)$ is a Galois extension.
+      \pause\newline
+      The \textbf{monodromy group of $\phi$},
+      $\Mon(\phi)$,
+      is the image of the map
+      \[
+        \pi_1(\PP^1\setminus\{0,1,\infty\},\star)
+        \to S_d
+      \]
+      obtained by path lifting.
+      \pause\newline
+      When $\phi$ is Galois we
+      can identify $\Mon(\phi)$ with
+      $\Gal(\Kal(X)\,|\,\Kal(\PP^1))$.
+      \pause\newline
+      We can now state Beckmann's theorem.
     \end{frame}
     \begin{frame}{Beckmann's theorem}
-      asdf
+      \begin{thm}[Beckmann 1989]
+        \vspace{1pt}
+        Let $\phi\colon X\to\PP^1$ be a Galois
+        Belyi map with monodromy group $G$.
+        Let $p$ be a prime not dividing
+        $\#G$.
+        \pause\newline
+        Then there exists a number field $M$
+        satisfying the following properties.
+        \pause
+        \begin{itemize}
+          \item
+            $p$ is unramified in $M$
+          \item
+            $\phi$ is defined over $M$
+          \item
+            $X$ is defined over $M$
+          \item
+            $X$ has good reduction at all
+            primes $\mathfrak{p}$ of $M$
+            above $p$
+        \end{itemize}
+      \end{thm}
+    \end{frame}
+    \begin{frame}{Why $p=2$?}
+      \begin{conj}[Gross 1998]
+        \vspace{1pt}
+        For every prime $p$,
+        there exists a nonsolvable Galois number field
+        ramified only at $p$.
+      \end{conj}
+      \pause
+      $p\geq 11$ : existence (Serre), explicit (Edixhoven, Mascot)
+      \par
+      $p=7$ : existence (Dieulefait)
+      \par
+      $p=5$ : existence (Demb\'{e}l\'{e}, Greenberg, Voight), explicit (Roberts)
+      \par
+      $p=3$ : existence (Demb\'{e}l\'{e}, Greenberg, Voight)
+      \par
+      $p=2$ : existence (Demb\'{e}l\'{e})
+      \pause
+      \par
+      The hope is that an explicit nonsolvable field ramified only at $2$
+      can be obtained as $K(\Jac(X)[2])$ where
+      $X$ is the domain of a Galois Belyi map
+      with monodromy group a $2$-group.
+      \pause\newline
+      We call these Belyi maps
+      \textbf{$2$-group Belyi maps}.
+    \end{frame}
+    \begin{frame}{Main results}
+      Motivated by the applications of
+      $2$-group Belyi maps to arithmetic geometry,
+      we now state the main results.
+      \pause
+      \begin{itemize}
+        \item
+          implementation of an algorithm to
+          enumerate isomorphism classes
+          of $2$-group Belyi maps
+          \pause
+        \item
+          implementation of an algorithm to
+          compute equations for
+          $2$-group Belyi maps
+          over finite fields
+          \pause
+        \item
+          implementation of a \emph{method}
+          to compute equations for
+          $2$-group Belyi maps
+          over number fields
+          \pause
+        \item
+          computational and theoretical evidence
+          supporting a conjecture that
+          every $2$-group Belyi map
+          is defined over an
+          abelian extension of the rationals
+      \end{itemize}
     \end{frame}
   }
   \section{Background}{
-    \begin{frame}{Belyi maps}
-      some stuff about Belyi maps in general
+    \begin{frame}[fragile]{Isomorphism of Belyi maps}
+      Let $\phi\colon X\to\PP^1$
+      and
+      $\phi'\colon X\,'\to\PP^1$
+      be Belyi maps of degree $d$.
+      \pause\newline
+      $\phi$ and $\phi'$ are
+      \textbf{isomorphic}
+      (respectively \textbf{lax isomorphic})
+      if the diagrams
+      \[
+        \begin{tikzcd}
+          X\arrow{rr}{\sim}\arrow{dr}[swap]{\phi}
+          &
+          &X\,'\arrow{dl}{\phi'}\\
+          &\PP^1
+        \end{tikzcd},
+        \text{ respectively }
+        \begin{tikzcd}
+          X\arrow{r}{\sim}\arrow{d}[swap]{\phi}&X\,'\arrow{d}{\phi'}\\
+          \PP^1\arrow{r}{\sim}[swap]{\beta}&\PP^1
+        \end{tikzcd}
+      \]
+      commute
+      where $\beta(\{0,1,\infty\}) = \{0,1,\infty\}$.
+    \end{frame}
+    \begin{frame}{Permutation Triples}
+      A \textbf{transitive permutation triple of degree $d$} is a triple
+      \[
+        \sigma = (\sigma_0, \sigma_1, \sigma_\infty)\in S_d^3
+      \]
+      such that
+      \begin{itemize}
+        \item
+          $\sigma_\infty\sigma_1\sigma_0=1$
+        \item
+          $\sigma$ generates a transitive subgroup of $S_d$
+      \end{itemize}
+      \pause
+      The set of degree $d$ Belyi maps up to isomorphism is in bijection with the
+      set of degree $d$ transitive permutation triples up to
+      \textbf{simultaneous conjugation} and
+      the group $\langle\sigma\rangle$ is the monodromy group of $\phi$.
+    \end{frame}
+    \begin{frame}{Passports}
+      A \textbf{passport} $\mathcal{P}$ consists of the data
+      $(g,G,\lambda)$ where $g\geq 0$ is an integer,
+      $G\leq S_d$ is a transitive subgroup,
+      and $\lambda = (\lambda_0,\lambda_1,\lambda_\infty)$
+      is a triple of partitions of $d$.
+      \pause
+      \par
+      The \textbf{passport of a Belyi map} $\phi:X\to\PP^1$
+      is $(g(X), \Mon(\phi), (\lambda_0,\lambda_1,\lambda_\infty))$
+      with $g(X)$ the genus of $X$,
+      $\Mon(\phi)$ the monodromy group of $\phi$,
+      and the partitions specified by ramification.
+      \pause
+      \par
+      The \textbf{passport of a permutation triple} $\sigma$ is
+      $(g(\sigma), \langle\sigma\rangle, \lambda(\sigma))$
+      where
+      $$
+      g(\sigma) = 1-d+(e(\sigma_0)-e(\sigma_1)-e(\sigma_\infty))/2
+      $$
+      with
+      $$
+      e(\tau) = d-\#\text{cycles of }\tau,
+      $$
+      and $\lambda(\sigma)$ is specified by cycle structures.
+      % \pause
+      % \par
+      % The \textbf{size of a passport} $\mathcal{P}$ is the number of
+      % simultaneous conjugacy classes of transitive permutation triples
+      % with passport $\mathcal{P}$.
     \end{frame}
     \begin{frame}{Function fields}
-      some stuff about function fields
+      Let $\phi\colon X\to\PP^1$ be
+      a Belyi map
+    \end{frame}
+    \begin{frame}{Fields of moduli and fields of definition}
+    \end{frame}
+    \begin{frame}{The Galois setting}
     \end{frame}
   }
   \section{Computing permutation triples}{
-    \begin{frame}{2-groups}
-      some stuff about $2$-groups
+    \begin{frame}{General idea}
+    \end{frame}
+    \begin{frame}{Outline of algorithm}
+    \end{frame}
+    \begin{frame}{Results}
     \end{frame}
   }
   \section{Computing equations}{
-    \subsection{Main idea}{
-      \begin{frame}{Main idea}
-        some stuff about how to compute equations
-      \end{frame}
-    }
-    \subsection{Characteristic $p\geq 3$}{
-      \begin{frame}{Characteristic $p\geq 3$}
-        some stuff about positive char
-      \end{frame}
-    }
-    \subsection{Characteristic zero}{
-      \begin{frame}{Characteristic $0$}
-        some stuff about char $0$
-      \end{frame}
-    }
+    \begin{frame}{A motivating example}
+      % number fields
+    \end{frame}
+    \begin{frame}{Algorithm in characteristic $p\geq 3$}
+    \end{frame}
+    \begin{frame}{Implementation in characteristic zero}
+    \end{frame}
+    \begin{frame}{Results}
+    \end{frame}
   }
   \section{A refined conjecture}{
-    \begin{frame}{Conjecture}
-      some stuff about the conjecture
+    \begin{frame}{Refined passports}
+    \end{frame}
+    \begin{frame}{A refined conjecture}
     \end{frame}
   }
   \section{Examples}{
