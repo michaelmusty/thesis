@@ -1,10 +1,10 @@
-% arara: xelatex
-% arara: xelatex
+% arara: pdflatex
+% arara: pdflatex
 
 \documentclass[xcolor=dvipsnames]{beamer}
 \usetheme[
   numbering=fraction,
-  numbering=none,
+  % numbering=none,
   sectionpage=progressbar,
   subsectionpage=none,
   % block=fill,
@@ -22,7 +22,7 @@
 
 \usepackage{stmaryrd}
 \usepackage{soul}
-\usepackage{amssymb,amsthm,amsmath,amsxtra}
+\usepackage{amssymb,amsthm,amsmath,amsxtra,mathrsfs}
 % \usepackage[all]{xy}
 % \usepackage{xfrac}
 % \usepackage{calc}
@@ -31,6 +31,11 @@
 \usepackage{tikz-cd}
 \tikzset{commutative diagrams/.cd, arrow style = tikz, diagrams = {>=latex}}
 \tikzset{>=latex}
+
+\usepackage{filecontents}
+\usepackage{pgfplots, pgfplotstable}
+\usepgfplotslibrary{statistics}
+
 \usepackage{marvosym}
 \usepackage[marvosym]{tikzsymbols}
 \usepackage{colonequals}
@@ -43,7 +48,8 @@
 \newtheorem*{conj}{Conjecture}
 \newtheorem*{cor}{Corollary}
 
-\usecolortheme{owl}
+% \usecolortheme{owl}
+\usecolortheme[snowy]{owl}
 
 \newcommand{\OO}{\mathcal O}
 \newcommand{\PP}{\mathbb P}
@@ -99,6 +105,7 @@
 \DeclareMathOperator{\Pl}{Pl}
 \DeclareMathOperator{\Cl}{Cl}
 \DeclareMathOperator{\Jac}{Jac}
+\DeclareMathOperator{\minpoly}{minpoly}
 
 
 \title{$2$-group Belyi maps}
@@ -110,11 +117,11 @@
   \begin{frame}{Acknowledgements}
     \begin{itemize}
       \item
-        Committee: Dave, Tom, Carl, and John
+        Dave, Tom, Carl, and John
       \item
-        Family: Mary, Jim, Matt, and Nicole
+        Sam, Anna, Jeroen, Edgar, Florian, and Richard
       \item
-        Others: Sam, Jeroen, Edgar, Florian, and Richard
+        Mary, Jim, Matt, and Nicole
     \end{itemize}
   \end{frame}
   \begin{frame}{Outline}
@@ -166,7 +173,7 @@
       \begin{thm}[Belyi 1979]
         \vspace{1pt}
         An algebraic curve (smooth projective)
-        over $\CC$ can be defined over a number
+        $X$ over $\CC$ can be defined over a number
         field if and only if $X$ admits a
         Belyi map.
       \end{thm}
@@ -200,7 +207,9 @@
       can identify $\Mon(\phi)$ with
       $\Gal(\Kal(X)\,|\,\Kal(\PP^1))$.
       \pause\newline
-      We can now state Beckmann's theorem.
+      We can now state Beckmann's theorem
+      to relate Belyi maps to our original
+      motivation.
     \end{frame}
     \begin{frame}{Beckmann's theorem}
       \begin{thm}[Beckmann 1989]
@@ -285,6 +294,36 @@
           abelian extension of the rationals
       \end{itemize}
     \end{frame}
+    \begin{frame}[fragile]{$2$-group Belyi maps as iterated quadratic extensions}
+      \begin{center}
+        \begin{tikzpicture}[scale=1]
+          \node at (0,0) (X0) {$X_0 = \PP^1$};
+          \node [above left=of X0] (X1) {$X_1$};
+          \node [above =of X1] (X2) {$X_2$};
+          \node [above =of X2] (dots) {$\vdots$};
+          \node [above =of dots] (Xr) {$X_r$};
+          %\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
+          \draw[->] (X1) to node [below] {$2$} node {} (X0);
+          \draw[->] (X2) to node [left] {$2$} node {} (X1);
+          \draw[->, bend left] (X2) to node [below, left] {} node {} (X0);
+          \draw[->] (dots) to node [left] {$2$} node {} (X2);
+          \draw[->] (Xr) to node [left] {$2$} node {} (dots);
+          \draw[->, bend left] (Xr) to node [below, left] {} node {} (X0);
+          \node at (6,0) (KX0) {$K(X_0) = K(\PP^1)$};
+          \node [above left=of KX0] (KX1) {$K(X_1)$};
+          \node [above =of KX1] (KX2) {$K(X_2)$};
+          \node [above =of KX2] (dots) {$\vdots$};
+          \node [above =of dots] (KXr) {$K(X_r)$};
+          %\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
+          \draw[-] (KX1) to node [below] {$2$} node {} (KX0);
+          \draw[-] (KX2) to node [left] {$2$} node {} (KX1);
+          \draw[-, bend left] (KX2) to node [below, left] {} node {} (KX0);
+          \draw[-] (dots) to node [left] {$2$} node {} (KX2);
+          \draw[-] (KXr) to node [left] {$2$} node {} (dots);
+          \draw[-, bend left] (KXr) to node [below, left] {} node {} (KX0);
+        \end{tikzpicture}
+      \end{center}
+    \end{frame}
   }
   \section{Background}{
     \begin{frame}[fragile]{Isomorphism of Belyi maps}
@@ -343,7 +382,8 @@
       is $(g(X), \Mon(\phi), (\lambda_0,\lambda_1,\lambda_\infty))$
       with $g(X)$ the genus of $X$,
       $\Mon(\phi)$ the monodromy group of $\phi$,
-      and the partitions specified by ramification.
+      % and the partitions specified by ramification.
+      and the partitions from ramification.
       \pause
       \par
       The \textbf{passport of a permutation triple} $\sigma$ is
@@ -357,27 +397,875 @@
       e(\tau) = d-\#\text{cycles of }\tau,
       $$
       and $\lambda(\sigma)$ is specified by cycle structures.
+      \pause
+      \par
+      We now discuss the importance of organizing triples by passport.
       % \pause
       % \par
       % The \textbf{size of a passport} $\mathcal{P}$ is the number of
       % simultaneous conjugacy classes of transitive permutation triples
       % with passport $\mathcal{P}$.
     \end{frame}
-    \begin{frame}{Function fields}
-      Let $\phi\colon X\to\PP^1$ be
-      a Belyi map
-    \end{frame}
-    \begin{frame}{Fields of moduli and fields of definition}
+    \begin{frame}{Fields of moduli, fields of definition, and passports}
+      Let $\phi\colon X\to\PP^1$ be a Belyi map.
+      \pause\par
+      A number field $K$ is a
+      \textbf{field of definition} of $X$
+      if $X$ can be defined by polynomial
+      equations over $K$.
+      Similarly for $\phi$.
+      \pause\par
+      The \textbf{field of moduli}
+      $M(X)$
+      of $X$ is
+      the fixed field of the field
+      automorphisms
+      $\{\tau\in\Aut(\CC) : \tau(X)\simeq X\}$.
+      Similarly for $\phi$, $M(\phi)$.
+      \pause\par
+      The \textbf{size} of a passport $\mathcal{P}$
+      is the number of simultaneous conjugacy classes
+      of permutation triples $\sigma$ with passport
+      $\mathcal{P}$.
+      \pause
+      \begin{theorem}
+        Let $\phi\colon X\to\PP^1$ be a
+        Belyi map with passport $\mathcal{P}$.
+        Then the degree of $M(\phi)$ is
+        bounded by the size of $\mathcal{P}$.
+      \end{theorem}
+      \pause
+      A Belyi map need not be defined
+      over its field of moduli
+      \rWalley
+      \pause\par
+      The situation improves, however,
+      in the Galois setting...
     \end{frame}
     \begin{frame}{The Galois setting}
+      Let $\phi\colon X\to\PP^1$ be a
+      \emph{Galois} Belyi map of degree $d$
+      with monodromy group $G$
+      corresponding to the permutation triple
+      $\sigma$.
+      \pause\par
+      Then
+      \begin{itemize}
+        \item
+          $\phi$ and $X$ are defined over $M(\phi)$,
+        \item
+          $\#G = d$,
+        \item
+          all cycles of $\sigma_s$ have the same
+          length for $s\in\{0,1,\infty\}$,
+        \item
+          and if we let $a,b,c$ be the orders
+          of $\sigma_0,\sigma_1,\sigma_\infty$
+          respectively,
+          we have
+          \[
+            g(X) = 1+\frac{\#G}{2}
+            \left(
+              1-\frac{1}{a}
+              -\frac{1}{b}
+              -\frac{1}{c}
+            \right).
+          \]
+      \end{itemize}
+    \end{frame}
+    \begin{frame}{Function fields}
+      Let $\phi\colon X\to\PP^1$ be
+      a degree $d$ Belyi map defined over $K$.
+      \pause\par
+      This corresponds to a degree $d$
+      extension
+      $K(\PP^1)\hookrightarrow K(X)$.
+      \pause\par
+      $K(\PP^1)\cong K(x)$
+      the
+      \textbf{rational function field}
+      of $K$ in one variable.
+      \pause\par
+      For $K$ perfect,
+      $K(X)$ has a primitive element
+      and can be written as
+      \[
+        K(x)(\alpha) = \frac{K(x)[y]}{(\minpoly_{\alpha,K(x)}(y))}
+      \]
+      \pause\par
+      Ramification in this setting corresponds
+      to the factorization of ideals
+      $(x),(x-1),(1/x)$
+      in maximal orders of $K(X)$.
+      \pause\par
+      The monodromy group in this setting
+      corresponds to field automorphisms
+      of the Galois closure of $K(X)$
+      fixing $K(x)$.
     \end{frame}
   }
   \section{Computing permutation triples}{
-    \begin{frame}{General idea}
+    \begin{frame}{Setup}
+      We first define some terminology for
+      permutation triples corresponding
+      to $2$-group Belyi maps.
+      \pause\par
+      A \textbf{$2$-group permutation triple}
+      of degree $d\in\ZZ_{\geq 1}$ is a triple
+      of permutations
+      $\sigma\colonequals(\sigma_0,\sigma_1,\sigma_\infty)
+      \in S_d^3$ satisfying
+      \begin{itemize}
+        \item
+          $\sigma_\infty\sigma_1\sigma_0=\id$;
+        \item
+          $G\colonequals\langle\sigma_0,\sigma_1\rangle$
+          is a transitive subgroup of $S_d$; and
+        \item
+          $G$ is a $2$-group of order $d$
+          embedded in $S_d$
+          via its left regular representation.
+      \end{itemize}
+      \pause
+      $G$ is called the \textbf{monodromy group of $\sigma$}.
+      \pause\par
+      We say two degree $d$
+      $2$-group permutation triples $\sigma,\sigma'$
+      are \textbf{simultaneously conjugate} if there exists
+      $\tau\in S_d$ such that
+      \[
+        \sigma^\tau\colonequals
+        (
+          \tau^{-1}\sigma_0\tau,
+          \tau^{-1}\sigma_1\tau,
+          \tau^{-1}\sigma_\infty\tau,
+        )
+        =\sigma'
+      \]
     \end{frame}
-    \begin{frame}{Outline of algorithm}
+    \begin{frame}[fragile]{Lifting permutation triples}
+      Let $\sigma$ be a $2$-group permutation triple.
+      \pause\par
+      A \textbf{lift} of $\sigma$ is
+      a $2$-group permutation triple
+      $\wt{\sigma}\in S_{2d}^3$
+      such that
+      $\langle\wt{\sigma}\rangle$
+      is isomorphic to some extension
+      $\wt{G}$
+      of $\ZZ/2\ZZ$ by $G$
+      as in the exact sequence below.
+      \[
+        \begin{tikzcd}
+          1\arrow{r}&\ZZ/2\ZZ\arrow{r}{\iota}
+                    &\wt{G}\arrow{r}{\pi}
+                    &\langle\sigma\rangle\arrow{r}
+                    &1
+        \end{tikzcd}
+      \]
+      \pause
+      For a $2$-group permutation triple
+      $\sigma$, we denote the set of lifts
+      of $\sigma$ by $\Lifts(\sigma)$
+      and $\Lifts(\sigma)/\!\!\sim$
+      denotes the set of lifts up
+      to simultaneous conjugation.
     \end{frame}
-    \begin{frame}{Results}
+    \begin{frame}[fragile]{Algorithm to compute $\Lifts(\sigma)/\!\!\sim$}
+      \textbf{Input}:
+      $\sigma$ a $2$-group permutation triple of degree $d$
+      \newline
+      \textbf{Output}:
+      $\Lifts(\sigma)/\!\!\sim$
+      \pause\par
+      \begin{enumerate}
+        \item
+          Let $G = \langle\sigma\rangle$
+          and compute representatives
+          of $H^2(G,A)$
+          where $A\colonequals\ZZ/2\ZZ$
+          with the trivial $G$-module structure
+        \item\pause
+          For each $f\in H^2(G,A)$
+          compute the corresponding
+          extension
+          \[
+            \begin{tikzcd}
+              1\arrow{r}&A\arrow{r}{\iota_f}
+                        &\wt{G}_f\arrow{r}{\pi_f}
+                        &G\arrow{r}&1
+            \end{tikzcd}
+          \]
+        \item\pause
+          For each extension
+          $\wt{G}_f$
+          compute the set
+          $\Lifts(\sigma,f)$ defined by
+          \[
+            % \Lifts(\sigma, f)
+            % \colonequals
+            \Big\{
+              \wt{\sigma}
+              % =(\wt{\sigma}_0,
+              % \wt{\sigma}_1,
+              % \wt{\sigma}_\infty)
+              :
+              \wt{\sigma}_s\in\pi_f^{-1}
+              (\sigma_s)\text{ for }
+              s\in\{0,1,\infty\},\;
+              \wt{\sigma}_\infty
+              \wt{\sigma}_1
+              \wt{\sigma}_0=1,\;
+              \langle\wt{\sigma}\rangle
+              =\wt{G}_f
+            \Big\}
+          \]
+        \item\pause
+          \[
+            \Lifts(\sigma)
+            \colonequals
+            \bigcup_{f\in H^2(G,A)}
+            \Lifts(\sigma, f)
+          \]
+        \item\pause
+          Quotient $\Lifts(\sigma)$
+          by simultaneous conjugation
+          % by the equivalence relation
+          % $\sim$ identifying triples
+          % in $\Lifts(\sigma)$ that
+          % are simultaneously conjugate,
+          % to obtain representatives of
+          % $\Lifts(\sigma)/\!\!\sim$.
+      \end{enumerate}
+    \end{frame}
+    \begin{frame}[fragile]{Example computing $\Lifts(\sigma)/\!\!\sim$ : setup}
+      % for $\sigma =\big((1\,2),\id,(1\,2)\big)$
+      Let $\sigma = \big((1\,2),\id,(1\,2)\big)$.
+      Then $G = \langle\sigma\rangle = \ZZ/2\ZZ$.
+      \pause\par
+      $\wt{G}_1\cong\ZZ/2\ZZ\times\ZZ/2\ZZ$
+      and
+      $\wt{G}_2\cong\ZZ/4\ZZ$ with
+      \begin{align*}
+        \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+          1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota_1}\&\wt{G}_1\arrow{r}{\pi_1}\&G\arrow{r}\&1
+        \end{tikzcd}
+        \\
+        \begin{tikzcd}[ampersand replacement=\&, row sep = small]
+          1\arrow{r}\&\ZZ/2\ZZ\arrow{r}{\iota_2}\&\wt{G}_2\arrow{r}{\pi_2}\&G\arrow{r}\&1
+        \end{tikzcd}
+      \end{align*}
+      \pause
+      Each map $\pi_1,\pi_2$ pulls back to
+      $4$ triples that multiply to $\id$:
+      \pause
+      % $\Lifts(\sigma,\wt{G}_1) =
+      $T_1=
+      \Big\{((1\,2)(3\,4), \id, (1\,2)(3\,4)),
+      ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,3)),$
+      $((1\,4)(2\,3), \id, (1\,4)(2\,3)),
+      ((1\,4)(2\,3), (1\,3)(2\,4), (1\,2)(3\,4))
+      \Big\}$
+      \pause
+      % $\Lifts(\sigma,\wt{G}_2) =
+      $T_2=
+      \Big\{
+      ((1\,4\,3\,2), \id, (1\,2\,3\,4)),
+      ((1\,2\,3\,4), (1\,3)(2\,4), (1\,2\,3\,4)),$
+      $((1\,2\,3\,4), \id, (1\,4\,3\,2)),
+      ((1\,4\,3\,2), (1\,3)(2\,4), (1\,4\,3\,2))
+      \Big\}$
+    \end{frame}
+    \begin{frame}{Example computing $\Lifts(\sigma)/\!\!\sim$ : action on blocks}
+      % for $\sigma =\big((1\,2),\id,(1\,2)\big)$
+      Choose $\alpha=(1\,3)(2\,4)$ to be
+      the generator of $\iota_1(\ZZ/2\ZZ)$
+      in $\wt{G}_1$.
+      \pause\par
+      Each triple in
+      $T_1$ must act on the
+      \emph{blocks}
+      $\left\{\boxed{1\,3},\boxed{2\,4}\right\}$
+      corresponding to the permutations in
+      $\sigma$.
+      \pause\par
+      Let
+      $(\wt{\sigma}_0,\wt{\sigma}_1,\wt{\sigma}_\infty)=
+      ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,4))$.
+      \pause\par
+      Note that
+      $\wt{\sigma}_0\Big(\boxed{1\,3}\Big) = \boxed{2\,4}$
+      and
+      $\wt{\sigma}_0\Big(\boxed{2\,4}\Big) = \boxed{1\,3}$.
+      \pause\par
+      The induced permutation
+      of $\wt{\sigma}_0$ on blocks is
+      $\left(\boxed{1\,3},\boxed{2\,4}\right)$
+      which is the same as the
+      permutation $\sigma_0 = (1\,2)$
+      \pause\par
+      Choosing
+      \[
+        \alpha\colonequals
+        (1\;d+1)(2\;d+2)\dots
+        (d-1\;2d-1)(d\;2d)
+      \]
+      allows us to label blocks by reducing modulo $d$.
+    \end{frame}
+    \begin{frame}{Example computing $\Lifts(\sigma)/\!\!\sim$ : conclude}
+      % for $\sigma =\big((1\,2),\id,(1\,2)\big)$
+      We currently have triples that multiply to $\id$
+      and have the correct action on blocks,
+      but we only want triples that
+      generate the correct group.
+      \pause\par
+      $\Lifts(\sigma,\wt{G}_1\cong\ZZ/2\ZZ\times\ZZ/2\ZZ)=$
+      $\Big\{ ((1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,3)),
+      ((1\,4)(2\,3), (1\,3)(2\,4), (1\,2)(3\,4)) \Big\}$
+      \pause\par
+      $\Lifts(\sigma,\wt{G}_2\cong\ZZ/4\ZZ)=T_2=$
+      $\Big\{ ((1\,4\,3\,2), \id, (1\,2\,3\,4)),
+      ((1\,2\,3\,4), (1\,3)(2\,4), (1\,2\,3\,4)),$
+      $((1\,2\,3\,4), \id, (1\,4\,3\,2)),
+      ((1\,4\,3\,2), (1\,3)(2\,4), (1\,4\,3\,2)) \Big\}$
+      \pause\par
+      Lastly, we quotient by simultaneous conjugation to obtain
+      $\Lifts(\sigma)/\!\!\sim \;=\Big\{
+      ((1\,2)(3\,4),(1\,3)(2\,4),(1\,4)(2\,3)),$
+      $((1\,4\,3\,2),\id,(1\,2\,3\,4)),
+      ((1\,2\,3\,4),(1\,3)(2\,4),(1\,2\,3\,4)) \Big\}$
+    \end{frame}
+    \begin{frame}{Bipartite graphs of permutation triples}
+      Now that we can lift permutation triples,
+      we now describe some notation for the bipartite
+      graphs that organize these triples.
+      \pause\par
+      For $i\in\ZZ_{\geq 1}$ we define the bipartite
+      graph denoted $\mathscr{G}_{2^i}$ with the following
+      node sets.
+      \begin{itemize}
+        \item
+          $\mathscr{G}_{2^i}^\text{above}$ :
+          the set of isomorphism classes of $2$-group Belyi maps
+          of degree $2^i$
+          indexed by $2$-group permutation triples
+          $\wt{\sigma}$ up to simultaneous conjugation
+          in $S_{2^i}$
+        \item
+          $\mathscr{G}_{2^i}^\text{below}$ :
+          the set of isomorphism classes of $2$-group Belyi maps
+          of degree $2^{i-1}$
+          indexed by $2$-group permutation triples
+          $\sigma$ up to simultaneous conjugation
+          in $S_{2^{i-1}}$
+      \end{itemize}
+      \pause
+      For every pair of nodes
+      $(\wt{\sigma},\sigma)\in
+      \mathscr{G}_{2^i}^\text{above}\times
+      \mathscr{G}_{2^i}^\text{below}$
+      there is an edge between
+      $\sigma$ and $\wt{\sigma}$
+      if and only if $\wt{\sigma}$ is
+      simultaneously conjugate to a lift of
+      $\sigma$.
+    \end{frame}
+    \begin{frame}{Algorithm to compute $\mathscr{G}_{2^i}$}
+      \textbf{Input}:
+      The bipartite graph $\mathscr{G}_{2^{i-1}}$
+      \newline
+      \textbf{Output}:
+      The bipartite graph $\mathscr{G}_{2^{i}}$
+      \pause\par
+      \begin{enumerate}
+        \item
+          \[
+            \Lifts(\mathscr{G}_{2^{i-1}})
+            \colonequals
+            \bigcup_{\sigma\in\mathscr{G}_{2^{i-1}}^\text{above}}\Lifts(\sigma)/\!\!\sim
+          \]
+        \item\pause
+          Quotient
+          $\Lifts(\mathscr{G}_{2^{i-1}})$
+          by simultaneous conjugation in $S_{2^i}$
+          to obtain
+          $\Lifts(\mathscr{G}_{2^{i-1}})/\!\!\sim$
+        \item\pause
+          Define $\mathscr{G}_{2^i}^\text{below}\colonequals
+          \mathscr{G}_{2^{i-1}}^\text{above}$
+          and define
+          $\mathscr{G}_{2^i}^\text{above}$
+          by representatives of
+          $\Lifts(\mathscr{G}_{2^{i-1}})/\!\!\sim$
+        \item\pause
+          For every pair
+          $(\wt{\sigma},\sigma)\in
+          \mathscr{G}_{2^i}^\text{above}
+          \times
+          \mathscr{G}_{2^i}^\text{below}$
+          place an edge between
+          $\wt{\sigma}$ and $\sigma$
+          if and only if there is a triple in
+          the equivalence class
+          $[\wt{\sigma}]\in
+          \Lifts(\mathscr{G}_{2^{i-1}})/\!\!\sim$
+          that is a lift of $\sigma$
+      \end{enumerate}
+    \end{frame}
+    \begin{frame}{Results : number of triples and passports}
+      \begin{theorem}[M.]
+        \vspace{1pt}
+        The following tables list
+        the number of isomorphism classes of
+        $2$-group Belyi maps,
+        the number of passports, and number of
+        lax passports respectively
+        up to degree $256$.
+        \begin{equation*}
+          \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|}
+            \hline
+            $d$ & $1$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
+            \hline
+            \#\text{ triples } & $1$ & $3$ & $7$ & $19$ & $55$ & $151$ & $503$ & $1799$ & $7175$\\
+            \hline
+          \end{tabular}
+        \end{equation*}
+        \begin{equation*}
+          \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|}
+            \hline
+            $d$ & $1$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
+            \hline
+            \# passports & $1$ & $3$ & $7$ & $16$ & $41$ & $96$ & $267$ & $834$ & $2893$\\
+            \hline
+          \end{tabular}
+        \end{equation*}
+        \begin{equation*}
+          \begin{tabular}{|c||c|c|c|c|c|c|c|c|c|}
+            \hline
+            $d$ & $1$ & $2$ & $4$ & $8$ & $16$ & $32$ & $64$ & $128$ & $256$\\
+            \hline
+            \# lax passports & $1$ & $1$ & $3$ & $6$ & $14$ & $31$ & $85$ & $257$ & $882$\\
+            \hline
+          \end{tabular}
+        \end{equation*}
+      \end{theorem}
+    \end{frame}
+    \begin{frame}[fragile]{Results : distribution of genera}
+      \begin{figure}[ht]
+        \centering
+        \begin{tikzpicture}[scale=1]
+          \begin{axis}[
+            % title=Distribution of $g$,
+            xlabel=$g$,
+            ylabel=\# triples,
+            ybar,
+            ymin=0,
+            xmin=-0.5,
+            height=0.95\textheight,
+            width=0.95\textwidth,
+            % enlarge x limits=0.1,
+            % enlarge y limits=0.05,
+            % xtick=data,
+            % ytick={100, 500, 1000},
+            % x tick label style={
+            %   rotate=45,
+            %   anchor=east
+            % }
+          ]
+            \addplot +[
+              draw=black,
+              hist={
+                bins=131,
+                data min=-0.5,
+                data max=130.5
+              }
+            ]
+            % table [x index=0, y index=0] {data.csv};
+            table [y index = 0] {genus_up_to_d256.csv};
+          \end{axis}
+        \end{tikzpicture}
+        % \label{fig:tikzplot}
+        % \caption{Distribution of genera
+        % up to degree $256$}
+      \end{figure}
+    \end{frame}
+    \begin{frame}[fragile]{Results : groups by nilpotency class}
+      \begin{figure}[ht]
+        \centering
+        % \begin{tikzpicture}[scale=1]
+        %   \begin{axis}[
+        %     ybar stacked,
+        %     % scale only axis=true,
+        %     height=0.9\textheight,
+        %     width=0.45\textwidth,
+        %     enlarge x limits=0.1,
+        %     enlarge y limits=0.05,
+        %     legend style={
+        %       % at={(0.5,-0.30)},
+        %       % at={(0.1,0.9)},
+        %       at={(0,1)},
+        %       anchor=north west,
+        %       % legend columns=-1
+        %     },
+        %     ylabel={\# triples},
+        %     xlabel={degree},
+        %     symbolic x coords={
+        %       $1$,$2$,$4$,
+        %       $8$,$16$,$32$,
+        %       $64$,$128$,$256$
+        %     },
+        %     xtick=data,
+        %     % ytick={100, 500, 1000},
+        %     x tick label style={
+        %       rotate=45,
+        %       anchor=east
+        %     }
+        %   ]
+        %   \addplot+[ybar] plot coordinates {
+        %     ($1$,1)
+        %     ($2$,3)
+        %     ($4$,7)
+        %     ($8$,15)
+        %     ($16$,31)
+        %     ($32$,63)
+        %     ($64$,127)
+        %     ($128$,255)
+        %     ($256$,511)
+        %   };
+        %   \addplot+[ybar] plot coordinates {
+        %     ($1$,0)
+        %     ($2$,0)
+        %     ($4$,0)
+        %     ($8$,4)
+        %     ($16$,24)
+        %     ($32$,88)
+        %     ($64$,376)
+        %     ($128$,1544)
+        %     ($256$,6664)
+        %   };
+        %   \legend{abelian, nonabelian}
+        %   \end{axis}
+        % \end{tikzpicture}
+        \begin{tikzpicture}[scale=1]
+          \begin{axis}[
+            ybar stacked,
+            % scale only axis=true,
+            height=0.95\textheight,
+            width=0.95\textwidth,
+            enlarge x limits=0.1,
+            enlarge y limits=0.05,
+            legend style={
+              % at={(0.5,-0.30)},
+              % at={(0.1,0.9)},
+              at={(0,1)},
+              anchor=north west,
+              % legend columns=-1
+            },
+            ylabel={\# triples},
+            xlabel={degree},
+            symbolic x coords={
+              $1$,$2$,$4$,
+              $8$,$16$,$32$,
+              $64$,$128$,$256$
+            },
+            xtick=data,
+            % ytick={100, 500, 1000},
+            x tick label style={
+              rotate=45,
+              anchor=east
+            }
+          ]
+          % nc1
+          \addplot+[ybar] plot coordinates {
+            ($1$,1)
+            ($2$,3)
+            ($4$,7)
+            ($8$,15)
+            ($16$,31)
+            ($32$,63)
+            ($64$,127)
+            ($128$,255)
+            ($256$,511)
+          };
+          % nc2
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,4)
+            ($16$,12)
+            ($32$,28)
+            ($64$,76)
+            ($128$,172)
+            ($256$,364)
+          };
+          % nc3
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,12)
+            ($32$,48)
+            ($64$,168)
+            ($128$,472)
+            ($256$,1288)
+          };
+          % nc4
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,0)
+            ($32$,12)
+            ($64$,120)
+            ($128$,624)
+            ($256$,2288)
+          };
+          % nc5
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,0)
+            ($32$,0)
+            ($64$,12)
+            ($128$,264)
+            ($256$,2160)
+          };
+          % nc6
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,0)
+            ($32$,0)
+            ($64$,0)
+            ($128$,12)
+            ($256$,552)
+          };
+          % nc7
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,0)
+            ($32$,0)
+            ($64$,0)
+            ($128$,0)
+            ($256$,12)
+          };
+          \legend{
+            class $1$,
+            class $2$,
+            class $3$,
+            class $4$,
+            class $5$,
+            class $6$,
+            class $7$,
+          }
+          \end{axis}
+        \end{tikzpicture}
+        % \label{fig:groupsbydegree}
+        % \caption{
+        %   \# permutation triples by degree
+        %   with abelian and nonabelian monodromy
+        %   groups (left)
+        %   and
+        %   \# permutation triples by degree
+        %   with monodromy groups of
+        %   various nilpotency classes (right).
+        % }
+      \end{figure}
+    \end{frame}
+    \begin{frame}[fragile]{Results : passport sizes}
+      \begin{figure}[ht]
+        \centering
+        \begin{tikzpicture}[scale=1]
+          \begin{axis}[
+            ybar stacked,
+            % scale only axis=true,
+            height=0.95\textheight,
+            width=0.95\textwidth,
+            enlarge x limits=0.1,
+            enlarge y limits=0.05,
+            legend style={
+              % at={(0.5,-0.30)},
+              % at={(0.1,0.9)},
+              at={(0,1)},
+              anchor=north west,
+              % legend columns=-1
+            },
+            ylabel={\# passports},
+            xlabel={degree},
+            symbolic x coords={
+              $1$,$2$,$4$,
+              $8$,$16$,$32$,
+              $64$,$128$,$256$
+            },
+            xtick=data,
+            % ytick={100, 500, 1000},
+            x tick label style={
+              rotate=45,
+              anchor=east
+            }
+          ]
+          % size1
+          \addplot+[ybar] plot coordinates {
+            ($1$,1)
+            ($2$,3)
+            ($4$,7)
+            ($8$,13)
+            ($16$,34)
+            ($32$,70)
+            ($64$,149)
+            ($128$,402)
+            ($256$,1065)
+          };
+          % size2
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,3)
+            ($16$,3)
+            ($32$,18)
+            ($64$,84)
+            ($128$,271)
+            ($256$,1123)
+          };
+          % size3
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,1)
+            ($32$,1)
+            ($64$,4)
+            ($128$,11)
+            ($256$,52)
+          };
+          % size4
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,3)
+            ($32$,3)
+            ($64$,21)
+            ($128$,117)
+            ($256$,462)
+          };
+          % size6
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,0)
+            ($32$,1)
+            ($64$,3)
+            ($128$,11)
+            ($256$,62)
+          };
+          % size8
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,0)
+            ($32$,3)
+            ($64$,3)
+            ($128$,12)
+            ($256$,84)
+          };
+          % size12
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,0)
+            ($32$,0)
+            ($64$,0)
+            ($128$,4)
+            ($256$,26)
+          };
+          % size16
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,0)
+            ($32$,0)
+            ($64$,3)
+            ($128$,3)
+            ($256$,12)
+          };
+          % size24
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,0)
+            ($32$,0)
+            ($64$,0)
+            ($128$,0)
+            ($256$,1)
+          };
+          % size32
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,0)
+            ($32$,0)
+            ($64$,0)
+            ($128$,3)
+            ($256$,3)
+          };
+          % size64
+          \addplot+[ybar] plot coordinates {
+            ($1$,0)
+            ($2$,0)
+            ($4$,0)
+            ($8$,0)
+            ($16$,0)
+            ($32$,0)
+            ($64$,0)
+            ($128$,0)
+            ($256$,3)
+          };
+          \legend{
+            size $1$,
+            size $2$,
+            size $3$,
+            size $4$,
+            size $6$,
+            size $8$,
+            size $12$,
+            size $16$,
+            size $24$,
+            size $32$,
+            size $64$,
+          }
+          \end{axis}
+        \end{tikzpicture}
+        % \label{fig:passportsizes}
+        % \caption{
+        %   \# passports of various sizes by degree
+        % }
+      \end{figure}
     \end{frame}
   }
   \section{Computing equations}{
@@ -392,9 +1280,98 @@
     \end{frame}
   }
   \section{A refined conjecture}{
+    \begin{frame}{Passports}
+      Recall that a passport $\mathcal{P}$
+      consists of the data
+      $(g,G,\lambda)$
+      where $g\in\ZZ_{\geq 0}$,
+      $G$ is a transitive subgroup of $S_d$
+      and $\lambda = (\lambda_0,\lambda_1,\lambda_\infty)$
+      is a triple of partitions of $d$
+      corresponding to conjugacy classes $(C_0,C_1,C_\infty)$
+      of $S_d$.
+      \pause\par
+      The size of
+      $\mathcal{P}$ is the cardinality of the
+      set
+      $\Sigma_\mathcal{P}$
+      defined by
+      \[
+        \Big\{
+          (\sigma_0,\sigma_1,\sigma_\infty)\in C_0\times C_1\times C_\infty :
+          \sigma_\infty\sigma_1\sigma_0=1
+          \text{ and }
+          \langle\sigma_0,\sigma_1\rangle=G
+        \Big\}/\!\!\sim
+      \]
+      where $\sim$ denotes simultaneous conjugation in $S_d$.
+      \pause\par
+      As a result of the action of
+      $G_\QQ$ on $\mathcal{P}$,
+      the size of $\mathcal{P}$ bounds the degree of the field
+      of moduli of any Belyi map with passport
+      $\mathcal{P}$.
+      \pause\par
+      To instead analyze
+      $\Gal(\QQal\,|\,\QQab)$
+      we \emph{refine} the notion of a passport.
+    \end{frame}
     \begin{frame}{Refined passports}
+      A \textbf{refined passport} $\mathscr{P}$
+      consists of the data
+      $(g,G,c)$
+      where $g\in\ZZ_{\geq 0}$,
+      $G$ is a transitive subgroup of $S_d$
+      and $c = (c_0,c_1,c_\infty)$
+      is a triple of conjugacy classes
+      of $G$.
+      \pause\par
+      The size of
+      $\mathscr{P}$ is the cardinality of the
+      set
+      $\Sigma_\mathscr{P}$
+      defined by
+      \[
+        \Big\{
+          (\sigma_0,\sigma_1,\sigma_\infty)\in c_0\times c_1\times c_\infty :
+          \sigma_\infty\sigma_1\sigma_0=1
+          \text{ and }
+          \langle\sigma_0,\sigma_1\rangle=G
+        \Big\}/\!\!\sim
+      \]
+      where
+      $(\sigma_0,\sigma_1,\sigma_\infty)\sim
+      (\sigma_0',\sigma_1',\sigma_\infty')$
+      if there exists $\alpha\in\Aut(G)$
+      with $\alpha(\sigma_s) = \sigma_s'$ for
+      every $s\in\{0,1,\infty\}$.
+      \pause\par
+      As was the case with passport,
+      every permutation triple $\sigma$
+      determines a refined passport
+      $\mathscr{P}(\sigma)$.
     \end{frame}
     \begin{frame}{A refined conjecture}
+      \begin{thm}[M.]
+        \vspace{1pt}
+        The size of $\mathscr{P}(\sigma)$ is
+        equal to $1$ for every
+        $2$-group permutation triple
+        $\sigma$ with degree $\leq 256$.
+      \end{thm}
+      \pause\par
+      \begin{conj}[ARC]
+        \vspace{1pt}
+        The size of $\mathscr{P}(\sigma)$ is
+        equal to $1$ for every
+        $2$-group permutation triple.
+      \end{conj}
+      \pause\par
+      \begin{thm}[M.]
+        \vspace{1pt}
+        ARC is true for $2$-group permutation triples $\sigma$
+        with $\langle\sigma\rangle$ dihedral.
+      \end{thm}
     \end{frame}
   }
   \section{Examples}{
