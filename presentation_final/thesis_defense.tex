@@ -118,113 +118,77 @@
     \tableofcontents
   \end{frame}
   \section{Motivation}{
-    \begin{frame}{Galois representations}
-      Let $X$ be an irreducible, smooth
-      projective algebraic curve of genus $g\geq 1$
-      over a number field $K$.
-      Let $G_K\colonequals\Gal(\Kal\,|\,K)$ be
-      the absolute Galois group of $K$ and
-      let $\ell\in\ZZ$ be prime.
-      \pause\newline
-      Let $J\colonequals\Jac(X)$ be the
-      \textbf{Jacobian variety} of $X$.
-      $J$ is an abelian variety of dimension $g$.
-      \pause\newline
-      $G_K$ acts on the $\ell$-torsion points
-      $J[\ell](\Kal)\cong(\ZZ/\ell\ZZ)^{2g}$ of $X$.
-      \pause\newline
-      This action determines a
-      \textbf{mod-$\ell$ Galois representation}
+    \begin{frame}[fragile]{Factoring in number fields}
+      Let $F$ be a number field with ring
+      of integers $\ZZ_F$.
+      \begin{align*}
+        \begin{tikzcd}[ampersand replacement=\&]
+          \&F\arrow[dash]{dl}\\
+          \ZZ_F\arrow[dash]{d}\&\QQ\arrow[dash]{u}\\
+          \ZZ\arrow[dash]{ur}
+        \end{tikzcd}
+        % \quad
+        % \quad\quad\quad\quad
+        % \begin{tikzcd}[ampersand replacement=\&]
+        %   \&\left\{x+y\sqrt{7}:x,y\in\QQ\right\}\arrow[dash]{dl}\\
+        %   \left\{a+b\sqrt{7}:a,b\in\ZZ\right\}\arrow[dash]{d}\&\QQ\arrow[dash]{u}\\
+        %   \ZZ\arrow[dash]{ur}
+        % \end{tikzcd}
+      \end{align*}
+      \pause
       \[
-        \rho\colon G_K\to\Aut(J[\ell])\cong\GL_{2g}(\ZZ/\ell\ZZ).
+        p\ZZ_F = \mathfrak{p}_1^{e_1}\cdots\mathfrak{p}_g^{e_g}
       \]
       \pause
-      The geometry of $X$ and the arithmetic of
-      $\rho$ are inimately related.
+      A prime $p\in\ZZ$ is \textbf{ramified} in $F$ if
+      $e_i\geq 2$ for some $i$.
+      \pause\par
+      Does there exist a number field
+      where $2$ is the \emph{only} ramified prime?
       \pause
-      For example,
-      if $X$ has good reduction at a prime
-      $\mathfrak{p}$ above
-      $p\neq\ell$,
-      then $\mathfrak{p}$
-      will be unramified in the
-      \textbf{$\ell$-torsion field}
-      $K(J[\ell])$.
+      Nonsolvable?
     \end{frame}
-    \begin{frame}{Belyi's theorem}
-      A \textbf{Belyi map}
-      is a morphism
-      $\phi\colon X\to\PP^1$
-      of smooth projective algebraic curves
-      over $\CC$
-      that is unramified outside of
-      $\{0,1,\infty\}$.
-      \pause
-      \begin{thm}[Belyi 1979]
-        \vspace{1pt}
-        An algebraic curve (smooth projective)
-        $X$ over $\CC$ can be defined over a number
-        field if and only if $X$ admits a
-        Belyi map.
-      \end{thm}
-    \end{frame}
-    \begin{frame}{Some definitions}
-      Let $\phi\colon X\to\PP^1$ be a Belyi map
-      defined over $K$.
-      \pause\newline
-      The \textbf{genus} of $\phi$ is the genus
-      of the curve $X$.
-      \pause\newline
-      The \textbf{degree} of $\phi$
-      is the degree of the field extension
-      \[
-        K(\PP^1)\hookrightarrow K(X).
-      \]
-      \pause
-      $\phi$ is \textbf{geometrically Galois}
-      if $\Kal(X)$ is a Galois extension.
-      \pause\newline
-      The \textbf{monodromy group of $\phi$},
-      $\Mon(\phi)$,
-      is the image of the map
-      \[
-        \pi_1(\PP^1\setminus\{0,1,\infty\},\star)
-        \to S_d
-      \]
-      obtained by path lifting.
-      \pause\newline
-      When $\phi$ is Galois we
-      can identify $\Mon(\phi)$ with
-      $\Gal(\Kal(X)\,|\,\Kal(\PP^1))$.
-      \pause\newline
-      We can now state Beckmann's theorem
-      to relate Belyi maps to our original
-      motivation.
-    \end{frame}
-    \begin{frame}{Beckmann's theorem}
-      \begin{thm}[Beckmann 1989]
-        \vspace{1pt}
-        Let $\phi\colon X\to\PP^1$ be a Galois
-        Belyi map with monodromy group $G$.
-        Let $p$ be a prime not dividing
-        $\#G$.
-        \pause\newline
-        Then there exists a number field $M$
-        satisfying the following properties.
-        \pause
-        \begin{itemize}
-          \item
-            $p$ is unramified in $M$
-          \item
-            $\phi$ is defined over $M$
-          \item
-            $X$ is defined over $M$
-          \item
-            $X$ has good reduction at all
-            primes $\mathfrak{p}$ of $M$
-            above $p$
-        \end{itemize}
-      \end{thm}
+    \begin{frame}[fragile]{Why $2$-group Belyi maps?}
+      \begin{center}
+        \begin{tikzpicture}[scale=1]
+          \node at (4,0) (fieldramifiedonlyattwo)
+          {
+            $
+              % \left\{
+                \begin{minipage}{13ex}
+                  number fields
+                  ramified at $2$
+                \end{minipage}
+              % \right\}
+            $
+          };
+          \node at (-4,0) (twogroupbelyis)
+          {
+            $
+              % \left\{
+                \begin{minipage}{18ex}
+                  $2$-group Belyi maps
+                \end{minipage}
+              % \right\}
+            $
+          };
+          \node at (0,-6) (curveswithgoodreduction)
+          {
+            $
+              % \left\{
+                \begin{minipage}{25ex}
+                  curves with good reduction
+                  away from $p=2$
+                \end{minipage}
+              % \right\}
+            $
+          };
+          % \draw[->] (twogroupbelyis) to node [above,rotate=35] {Beckmann's theorem} node {} (curveswithgoodreduction);
+          \draw[->] (twogroupbelyis) to node [above,rotate=-55.5,blue] {Beckmann's theorem} node {} (curveswithgoodreduction);
+          \draw[->] (curveswithgoodreduction) to node [above,rotate=55.5,blue] {N\'{e}ron-Ogg-Shafaravich} node {} (fieldramifiedonlyattwo);
+          \draw[dashed,->] (twogroupbelyis) to node [above] {} node {} (fieldramifiedonlyattwo);
+        \end{tikzpicture}
+      \end{center}
     \end{frame}
     \begin{frame}{Why $p=2$?}
       \begin{conj}[Gross 1998]
@@ -236,7 +200,7 @@
       \pause
       $p\geq 11$ : existence (Serre), explicit (Edixhoven, Mascot)
       \par
-      $p=7$ : existence (Dieulefait)
+      $p=7$ : existence (Dieulefait, Roberts)
       \par
       $p=5$ : existence (Demb\'{e}l\'{e}, Greenberg, Voight), explicit (Roberts)
       \par
@@ -247,11 +211,9 @@
       \par
       The hope is that an explicit nonsolvable field ramified only at $2$
       can be obtained as $K(\Jac(X)[2])$ where
-      $X$ is the domain of a Galois Belyi map
-      with monodromy group a $2$-group.
-      \pause\newline
-      We call these Belyi maps
-      \textbf{$2$-group Belyi maps}.
+      $X$ is the domain of a
+      \textbf{$2$-group Belyi map}
+      (which we will define shortly).
     \end{frame}
     \begin{frame}{Main results}
       Motivated by the applications of
@@ -284,63 +246,82 @@
           abelian extension of the rationals
       \end{itemize}
     \end{frame}
-    \begin{frame}[fragile]{$2$-group Belyi maps as iterated quadratic extensions}
-      \begin{center}
-        \begin{tikzpicture}[scale=1]
-          \node at (0,0) (X0) {$X_0 = \PP^1$};
-          \node [above left=of X0] (X1) {$X_1$};
-          \node [above =of X1] (X2) {$X_2$};
-          \node [above =of X2] (dots) {$\vdots$};
-          \node [above =of dots] (Xr) {$X_r$};
-          %\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
-          \draw[->] (X1) to node [below] {$2$} node {} (X0);
-          \draw[->] (X2) to node [left] {$2$} node {} (X1);
-          \draw[->, bend left] (X2) to node [below, left] {} node {} (X0);
-          \draw[->] (dots) to node [left] {$2$} node {} (X2);
-          \draw[->] (Xr) to node [left] {$2$} node {} (dots);
-          \draw[->, bend left] (Xr) to node [below, left] {} node {} (X0);
-          \node at (6,0) (KX0) {$K(X_0) = K(\PP^1)$};
-          \node [above left=of KX0] (KX1) {$K(X_1)$};
-          \node [above =of KX1] (KX2) {$K(X_2)$};
-          \node [above =of KX2] (dots) {$\vdots$};
-          \node [above =of dots] (KXr) {$K(X_r)$};
-          %\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
-          \draw[-] (KX1) to node [below] {$2$} node {} (KX0);
-          \draw[-] (KX2) to node [left] {$2$} node {} (KX1);
-          \draw[-, bend left] (KX2) to node [below, left] {} node {} (KX0);
-          \draw[-] (dots) to node [left] {$2$} node {} (KX2);
-          \draw[-] (KXr) to node [left] {$2$} node {} (dots);
-          \draw[-, bend left] (KXr) to node [below, left] {} node {} (KX0);
-        \end{tikzpicture}
-      \end{center}
-    \end{frame}
   }
   \section{Background}{
-    \begin{frame}[fragile]{Isomorphism of Belyi maps}
-      Let $\phi\colon X\to\PP^1$
-      and
-      $\phi'\colon X\,'\to\PP^1$
-      be Belyi maps of degree $d$.
+    \begin{frame}{Belyi's theorem}
+      A \textbf{Belyi map}
+      is a morphism
+      $\phi\colon X\to\PP^1$
+      of smooth projective algebraic curves
+      over $\CC$
+      that is unramified outside of
+      $\{0,1,\infty\}$.
+      \pause
+      \begin{thm}[Belyi 1979]
+        \vspace{1pt}
+        An algebraic curve (smooth projective)
+        $X$ over $\CC$ can be defined over a number
+        field if and only if $X$ admits a
+        Belyi map.
+      \end{thm}
+    \end{frame}
+    \begin{frame}{$2$-group Belyi maps}
+      Let $\phi\colon X\to\PP^1$ be a Belyi map
+      defined over $K$.
       \pause\newline
-      $\phi$ and $\phi'$ are
-      \textbf{isomorphic}
-      (respectively \textbf{lax isomorphic})
-      if the diagrams
+      The \textbf{genus} of $\phi$ is the genus
+      of the curve $X$.
+      \pause\newline
+      The \textbf{degree} of $\phi$
+      is the degree of the field extension
       \[
-        \begin{tikzcd}
-          X\arrow{rr}{\sim}\arrow{dr}[swap]{\phi}
-          &
-          &X\,'\arrow{dl}{\phi'}\\
-          &\PP^1
-        \end{tikzcd},
-        \text{ respectively }
-        \begin{tikzcd}
-          X\arrow{r}{\sim}\arrow{d}[swap]{\phi}&X\,'\arrow{d}{\phi'}\\
-          \PP^1\arrow{r}{\sim}[swap]{\beta}&\PP^1
-        \end{tikzcd}
+        K(\PP^1)\hookrightarrow K(X).
       \]
-      commute
-      where $\beta(\{0,1,\infty\}) = \{0,1,\infty\}$.
+      \pause
+      $\phi$ is \textbf{geometrically Galois}
+      if $\Kal(X)$ is a Galois extension.
+      \pause\newline
+      The \textbf{monodromy group of $\phi$},
+      $\Mon(\phi)$,
+      is the image of the map
+      \[
+        \pi_1(\PP^1\setminus\{0,1,\infty\},\star)
+        \to S_d
+      \]
+      obtained by path lifting.
+      \pause\newline
+      When $\phi$ is Galois we
+      can identify $\Mon(\phi)$ with
+      $\Gal(\Kal(X)\,|\,\Kal(\PP^1))$.
+      \pause\newline
+      A \textbf{$2$-group Belyi map} is a
+      Galois Belyi map with monodromy group
+      a $2$-group.
+    \end{frame}
+    \begin{frame}{Beckmann's theorem}
+      \begin{thm}[Beckmann 1989]
+        \vspace{1pt}
+        Let $\phi\colon X\to\PP^1$ be a Galois
+        Belyi map with monodromy group $G$.
+        Let $p$ be a prime not dividing
+        $\#G$.
+        \pause\newline
+        Then there exists a number field $M$
+        satisfying the following properties.
+        \pause
+        \begin{itemize}
+          \item
+            $p$ is unramified in $M$
+          \item
+            $\phi$ is defined over $M$
+          \item
+            $X$ is defined over $M$
+          \item
+            $X$ has good reduction at all
+            primes $\mathfrak{p}$ of $M$
+            above $p$
+        \end{itemize}
+      \end{thm}
     \end{frame}
     \begin{frame}{Permutation Triples}
       A \textbf{transitive permutation triple of degree $d$} is a triple
@@ -426,11 +407,11 @@
       \end{theorem}
       \pause
       A Belyi map need not be defined
-      over its field of moduli
-      \rWalley
+      over its field of moduli!
+      % \rWalley
       \pause\par
       The situation improves, however,
-      in the Galois setting...
+      in the Galois setting.
     \end{frame}
     \begin{frame}{The Galois setting}
       Let $\phi\colon X\to\PP^1$ be a
@@ -476,9 +457,9 @@
       \textbf{rational function field}
       of $K$ in one variable.
       \pause\par
-      For $K$ perfect,
-      $K(X)$ has a primitive element
-      and can be written as
+      For
+      $K(X)$ separable,
+      we can write
       \[
         K(x)(\alpha) = \frac{K(x)[y]}{(\minpoly_{\alpha,K(x)}(y))}
       \]
@@ -492,6 +473,36 @@
       corresponds to field automorphisms
       of the Galois closure of $K(X)$
       fixing $K(x)$.
+    \end{frame}
+    \begin{frame}[fragile]{$2$-group Belyi maps as iterated quadratic extensions}
+      \begin{center}
+        \begin{tikzpicture}[scale=1]
+          \node at (0,0) (X0) {$X_0 = \PP^1$};
+          \node [above left=of X0] (X1) {$X_1$};
+          \node [above =of X1] (X2) {$X_2$};
+          \node [above =of X2] (dots) {$\vdots$};
+          \node [above =of dots] (Xr) {$X_r$};
+          %\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
+          \draw[->] (X1) to node [below] {$2$} node {} (X0);
+          \draw[->] (X2) to node [left] {$2$} node {} (X1);
+          \draw[->, bend left] (X2) to node [below, left] {} node {} (X0);
+          \draw[->] (dots) to node [left] {$2$} node {} (X2);
+          \draw[->] (Xr) to node [left] {$2$} node {} (dots);
+          \draw[->, bend left] (Xr) to node [below, left] {} node {} (X0);
+          \node at (6,0) (KX0) {$K(X_0) = K(\PP^1)$};
+          \node [above left=of KX0] (KX1) {$K(X_1)$};
+          \node [above =of KX1] (KX2) {$K(X_2)$};
+          \node [above =of KX2] (dots) {$\vdots$};
+          \node [above =of dots] (KXr) {$K(X_r)$};
+          %\draw[<->] (X1) to node [above,rotate=-35] {$\sim$} node {} (X0);
+          \draw[-] (KX1) to node [below] {$2$} node {} (KX0);
+          \draw[-] (KX2) to node [left] {$2$} node {} (KX1);
+          \draw[-, bend left] (KX2) to node [below, left] {} node {} (KX0);
+          \draw[-] (dots) to node [left] {$2$} node {} (KX2);
+          \draw[-] (KXr) to node [left] {$2$} node {} (dots);
+          \draw[-, bend left] (KXr) to node [below, left] {} node {} (KX0);
+        \end{tikzpicture}
+      \end{center}
     \end{frame}
   }
   \section{Computing permutation triples}{
@@ -692,7 +703,12 @@
       of $\wt{\sigma}_0$ on blocks is
       $\left(\boxed{1\,3},\boxed{2\,4}\right)$
       which is the same as the
-      permutation $\sigma_0 = (1\,2)$
+      permutation $\sigma_0 = (1\,2)$.
+      \pause\par
+      Similarly,
+      $\wt{\sigma}_1$ acts as $\id$ on blocks
+      and $\wt{\sigma}_\infty$ acts
+      as $(1\,2)$ on blocks.
       \pause\par
       Choosing
       \[
@@ -1862,6 +1878,68 @@
     \end{itemize}
   \end{frame}
   \appendix
-  \begin{frame}{Backup slides}
+  % BACKUP SLIDES
+  \begin{frame}{Galois representations}
+    Let $X$ be an irreducible, smooth
+    projective algebraic curve of genus $g\geq 1$
+    over a number field $K$.
+    Let $G_K\colonequals\Gal(\Kal\,|\,K)$ be
+    the absolute Galois group of $K$ and
+    let $\ell\in\ZZ$ be prime.
+    % \pause\newline
+    \newline
+    Let $J\colonequals\Jac(X)$ be the
+    \textbf{Jacobian variety} of $X$.
+    $J$ is an abelian variety of dimension $g$.
+    % \pause\newline
+    \newline
+    $G_K$ acts on the $\ell$-torsion points
+    $J[\ell](\Kal)\cong(\ZZ/\ell\ZZ)^{2g}$ of $X$.
+    % \pause\newline
+    \newline
+    This action determines a
+    \textbf{mod-$\ell$ Galois representation}
+    \[
+      \rho\colon G_K\to\Aut(J[\ell])\cong\GL_{2g}(\ZZ/\ell\ZZ).
+    \]
+    % \pause
+    The geometry of $X$ and the arithmetic of
+    $\rho$ are inimately related.
+    % \pause
+    For example,
+    if $X$ has good reduction at a prime
+    $\mathfrak{p}$ above
+    $p\neq\ell$,
+    then $\mathfrak{p}$
+    will be unramified in the
+    \textbf{$\ell$-torsion field}
+    $K(J[\ell])$.
+  \end{frame}
+  \begin{frame}[fragile]{Isomorphism of Belyi maps}
+    Let $\phi\colon X\to\PP^1$
+    and
+    $\phi'\colon X\,'\to\PP^1$
+    be Belyi maps of degree $d$.
+    % \pause\newline
+    \newline
+    $\phi$ and $\phi'$ are
+    \textbf{isomorphic}
+    (respectively \textbf{lax isomorphic})
+    if the diagrams
+    \[
+      \begin{tikzcd}
+        X\arrow{rr}{\sim}\arrow{dr}[swap]{\phi}
+        &
+        &X\,'\arrow{dl}{\phi'}\\
+        &\PP^1
+      \end{tikzcd},
+      \text{ respectively }
+      \begin{tikzcd}
+        X\arrow{r}{\sim}\arrow{d}[swap]{\phi}&X\,'\arrow{d}{\phi'}\\
+        \PP^1\arrow{r}{\sim}[swap]{\beta}&\PP^1
+      \end{tikzcd}
+    \]
+    commute
+    where $\beta(\{0,1,\infty\}) = \{0,1,\infty\}$.
   \end{frame}
 \end{document}
