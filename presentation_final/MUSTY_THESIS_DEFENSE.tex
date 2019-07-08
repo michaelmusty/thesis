@@ -1,0 +1,23 @@
+% arara: pdflatex
+% arara: pdflatex
+
+\documentclass{beamer}
+\usepackage{pdfpages}
+\setbeamertemplate{navigation symbols}{}
+\begin{document}
+  \setbeamercolor{background canvas}{bg=}
+  \includepdf[pages=1]{thesis_defense_owl.pdf}
+  \includepdf[pages=2]{thesis_defense.pdf}
+  \includepdf[pages=3]{thesis_defense_owl.pdf}
+  \includepdf[pages=4-17]{thesis_defense.pdf}
+  \includepdf[pages=18]{thesis_defense_owl.pdf}
+  \includepdf[pages=19-52]{thesis_defense.pdf}
+  \includepdf[pages=53]{thesis_defense_owl.pdf}
+  \includepdf[pages=54-71]{thesis_defense.pdf}
+  \includepdf[pages=72]{thesis_defense_owl.pdf}
+  \includepdf[pages=73-82]{thesis_defense.pdf}
+  \includepdf[pages=83]{thesis_defense_owl.pdf}
+  \includepdf[pages=84-144]{thesis_defense.pdf}
+  % \includepdf[pages=]{thesis_defense.pdf}
+  % \includepdf[pages=]{thesis_defense_owl.pdf}
+\end{document}
