@@ -335,30 +335,31 @@ $X$.
   \section{Motivation}{\label{sec:motivation}{
     A broad goal of arithmetic geometry is
     to use tools from algebraic geometry
-    to study arithmetic questions that arise
+    to study questions that arise
     in number theory.
-    One example of this connection is
-    the theorem of
-    Faltings,
-    which bounds
-    the number of rational points
-    (an arithmetic quantity)
-    according to
-    the genus $g \geq 2$
-    of a nonsingular algebraic curve
-    (a geometric quantity).
-    Another example of this connection
-    is a theorem due to Belyi
-    which states that an algebraic curve
+    % One example of this connection is
+    % the theorem of
+    % Faltings,
+    % which bounds
+    % the number of rational points
+    % (an arithmetic quantity)
+    % according to
+    % the genus $g \geq 2$
+    % of a nonsingular algebraic curve
+    % (a geometric quantity).
+    An example of this connection
+    is a theorem due to Belyi,
+    which states that a nice algebraic curve
     $X$
     over the complex numbers
     % (equivalently a compact Riemann surface)
     can be defined by equations with
     coefficients in a number field
     if and only if
-    $X$ admits a \defi{Belyi map}
+    $X$ admits a \defi{Belyi map},
     a finite cover $\phi\colon X\to\PP^1$
-    unramified outside three points.
+    unramified outside
+    $\{0,1,\infty\}$.
     The way in which Belyi maps
     capture precisely when a transcendental
     object is also an algebraic object
@@ -390,7 +391,7 @@ $X$.
     \end{equation}
     The kernel of this
     representation fixes the field
-    $\QQ(E[\ell])$
+    $\QQ(E[\ell])$,
     the
     $\ell$-torsion field of $E$
     obtained by adjoining the coordinates
@@ -402,7 +403,7 @@ $X$.
     then $p$ will be unramified in
     the field $\QQ(E[\ell])$
     by the criterion of
-    N\'{e}ron-Ogg-Shafarevich.
+    N\'{e}ron--Ogg-Shafarevich.
     \par
     This relationship between curves and Galois
     representations extends to higher genus
@@ -428,12 +429,13 @@ $X$.
     $K(J[\ell])$.
     \par
     The application of Belyi maps to this
-    situation comes from Beckmann's theorem
-    \ref{thm:beckmann}.
+    situation comes from Beckmann's theorem.
+    % \ref{thm:beckmann}.
     To state Beckmann's theorem requires
     a bit more terminology.
     Associated to every Belyi map
     $\phi\colon X\to\PP^1$
+    over $\CC$, or $\QQal$
     is the \defi{monodromy group}
     of the covering
     obtained by lifting paths around
@@ -454,14 +456,12 @@ $X$.
       with the following properties:
       \begin{itemize}
         \item
-          $p$ is unramified in $M$
+          $p$ is unramified in $M$;
         \item
-          the Belyi map $\phi$ is defined over $M$
+          the Belyi map $\phi$ is defined over $M$; and
         \item
-          the Belyi curve $X$ is defined over $M$
-        \item
-          $X$ has good reduction at all primes $\mathfrak{p}$
-          of $M$ above $p$
+          $\phi$ and $X$ have good reduction at all primes $\mathfrak{p}$
+          of $M$ above $p$.
       \end{itemize}
     \end{theorem}
     If we insist that $G$ is a $2$-group
@@ -479,17 +479,33 @@ $X$.
       number field
       ramified only at $p$.
     \end{conj}
-    Although Gross's conjecture is now resolved,
-    the only explicit example of such
-    a field for $p<11$ is given
-    in \cite{roberts5} for $p=5$.
+    For $p\geq 11$, the existence of such
+    fields is attributed to Serre in
+    \cite{serre32,serre33}
+    and explicit examples are given
+    in \cite{mascot}.
+    For $p=3,5$, the existence of such fields
+    is proved in \cite{DGV}
+    and an explicit example for $p=5$
+    is given in \cite{roberts5}.
+    Existence of such a field in the $p=7$ case
+    is attributed to
+    \cite{die} using techniques from
+    \cite{DGV} and some corrections by
+    David P. Roberts.
+    For $p=2$, the existence of such a field
+    is proven in \cite{lassina}.
+    % Although Gross's conjecture is now resolved,
+    % the only explicit example of such
+    % a field for $p<11$ is given
+    % in \cite{roberts5} for $p=5$.
     A long-term application of the work
     in this thesis is to
     find an explicit nonsolvable number field
     ramified only at $2$.
-    The existence of such a field was proved
-    in \cite{lassina} using techniques
-    unrelated to Belyi maps.
+    % The existence of such a field was proved
+    % in \cite{lassina} using techniques
+    % unrelated to Belyi maps.
     \par
     But first, to use Beckmann's theorem
     to construct interesting number fields,
