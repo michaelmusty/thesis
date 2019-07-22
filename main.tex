@@ -530,10 +530,10 @@ $X$.
     main parts:
     \begin{itemize}
       \item
-        enumerating isomorphism classes
+        enumerating isomorphism classes,
       \item
         computing explicit equations
-        for each isomorphism class
+        for each isomorphism class.
     \end{itemize}
     \par
     Let $d\in\ZZ_{\geq 1}$.
@@ -574,8 +574,11 @@ $X$.
     maps up to a given degree.
     We use this algorithm (implemented in
     \textsf{Magma} \cite{magma})
-    all such permutation triples up to
-    degree $256$.
+    to enumerate
+    all such permutation triples
+    up to conjugation
+    for $2$-power degree
+    up to $256$.
     The algorithms in Section
     \ref{sec:triplesalgorithm}
     are used to prove results such as
@@ -603,30 +606,37 @@ $X$.
     Having explicit permutation triples
     allows us to apply techniques from
     \cite{belyidb}
-    to prove the following theorem.
+    to obtain information about the possible
+    number fields that $2$-group Belyi
+    maps can be defined over.
+    In particular,
+    in Section \ref{sec:computerefined},
+    we prove the
+    following theorem.
     \begin{theorem}
-      \label{thm:conj_up_to_256_results}
+      \label{thm:256_results}
       Every $2$-group Belyi map
       of degree $d\leq 256$ is defined over
-      an abelian number field.
+      a quadratic extension of an abelian number field
+      ramified only at $2$.
     \end{theorem}
-    The beginning of
-    Section \ref{sec:conjecture}
-    explains the above theorem and then
-    pivots to the following conjecture.
-    \begin{conj}
-      \label{conj:conjecture_results}
-      Every $2$-group Belyi map
-      is defined over an abelian number field.
-    \end{conj}
-    In addition to verifying this conjecture
-    for $d\leq 256$,
-    we were able to prove this conjecture
-    for $2$-group Belyi maps
-    with monodromy group abelian
-    (Lemma \ref{lem:conjectureabelian})
-    or dihedral
-    (Theorem \ref{thm:conjecturedihedral}).
+    % The beginning of
+    % Section \ref{sec:computerefined}
+    % explains the above theorem and then
+    % pivots to the following conjecture.
+    % \begin{conj}
+    %   \label{conj:conjecture_results}
+    %   Every $2$-group Belyi map
+    %   is defined over an abelian number field.
+    % \end{conj}
+    % In addition to verifying this conjecture
+    % for $d\leq 256$,
+    % we were able to prove this conjecture
+    % for $2$-group Belyi maps
+    % with monodromy group abelian
+    % (Lemma \ref{lem:conjectureabelian})
+    % or dihedral
+    % (Theorem \ref{thm:conjecturedihedral}).
     \par
     The rest of the results of this thesis
     pertain to computing equations
@@ -653,10 +663,10 @@ $X$.
     \ref{sec:characteristiczero}).
     Although the characteristic zero
     implementation does not succeed in all cases,
-    it does work well in practice.
+    it often works well in practice.
     In particular,
     the \textsf{Magma} implementation succeeded
-    to compute hundreds of $2$-group Belyi maps
+    in computing hundreds of $2$-group Belyi maps
     over $\QQal$ up to degree $256$.
     \par
     The rest of Chapter \ref{chapter:equations}
@@ -6006,7 +6016,7 @@ end for;
     % \end{theorem}
   }
   \section{Computing refined passports}{
-    \label{sec:conjecture}
+    \label{sec:computerefined}
     Let $\sigma$ be a $2$-group permutation triple.
     Let $\mathcal{P}$ and $\mathscr{P}$ denote the
     passport and refined passport of $\sigma$
