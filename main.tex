@@ -6042,7 +6042,7 @@ end for;
       if and only if there exists $\alpha\in\Aut(G)$ with
       $\alpha(\sigma_s) = \sigma_s'$ for $s\in\{0,1,\infty\}$.
       \par
-      Let $\sigma$ be a $2$-group
+      Let $\sigma$ be a
       permutation triple
       and let $c_s$ denote the conjugacy
       class of $\langle\sigma\rangle$
@@ -6220,6 +6220,116 @@ end for;
       This is done in the last step of the algorithm
       and completes the proof.
     \end{proof}
+    Applying
+    Algorithm \ref{alg:computerefinedpassport}
+    to the $2$-group permutation triples
+    computed from Section \ref{sec:triplesalgorithm}
+    yields the following result about the
+    sizes of refined passports.
+    \begin{theorem}
+      \label{thm:refinedpassportsizes}
+      Every
+      $2$-group permutation triple
+      of degree $d$ with $d\leq 64$
+      has refined passport size $1$.
+      There are $48$ $2$-group permutation triples
+      (up to simultaneous conjugation)
+      of degree $128$ with refined passport size $2$
+      and the rest have refined passport size $1$.
+      There are $288$ $2$-group permutation triples
+      (up to simultaneous conjugation)
+      of degree $256$ with refined passport size $2$
+      and the rest have refined passport size $1$.
+    \end{theorem}
+    Theorem \ref{thm:refinedpassportsizes},
+    together with refined field of definition equal to
+    field of moduli for Galois Belyi maps
+    and a strong version of Beckmann's theorem
+    imply the following.
+    \begin{theorem}
+      \label{thm:rerefined}
+      Every $2$-group Belyi map
+      of degree $d$ with $d\leq 256$
+      is defined over a quadratic
+      extension of an abelian extension of $\QQ$
+      ramified only at $2$.
+    \end{theorem}
+    For a visual representation of Theorem
+    \ref{thm:refinedpassportsizes} see
+    Figure \ref{fig:refinedpassportsizes}.
+    The refined passport sizes
+    in Figure
+    \ref{fig:refinedpassportsizes}
+    appear small compared to the
+    passport sizes in
+    Figure
+    \ref{fig:passportsizes}.
+    \begin{figure}[ht]
+      \centering
+      \begin{tikzpicture}[scale=1]
+        \begin{axis}[
+          ybar stacked,
+          % scale only axis=true,
+          height=0.95\textheight,
+          width=0.95\textwidth,
+          enlarge x limits=0.1,
+          enlarge y limits=0.05,
+          legend style={
+            % at={(0.5,-0.30)},
+            % at={(0.1,0.9)},
+            at={(0,1)},
+            anchor=north west,
+            % legend columns=-1
+          },
+          ylabel={\# triples},
+          xlabel={degree},
+          symbolic x coords={
+            $1$,$2$,$4$,
+            $8$,$16$,$32$,
+            $64$,$128$,$256$
+          },
+          xtick=data,
+          % ytick={100, 500, 1000},
+          x tick label style={
+            rotate=45,
+            anchor=east
+          }
+        ]
+        % size1
+        \addplot+[ybar] plot coordinates {
+          ($1$,1)
+          ($2$,3)
+          ($4$,7)
+          ($8$,19)
+          ($16$,55)
+          ($32$,151)
+          ($64$,503)
+          ($128$,1751)
+          ($256$,6887)
+        };
+        % size2
+        \addplot+[ybar] plot coordinates {
+          ($1$,0)
+          ($2$,0)
+          ($4$,0)
+          ($8$,0)
+          ($16$,0)
+          ($32$,0)
+          ($64$,0)
+          ($128$,48)
+          ($256$,288)
+        };
+        \legend{
+          size $1$,
+          size $2$
+        }
+        \end{axis}
+      \end{tikzpicture}
+      \label{fig:refinedpassportsizes}
+      \caption{
+        \# permutation triples with refined passports of various sizes by degree
+      }
+    \end{figure}
     % Using techniques from
     % Musty, Schiavone, Sijsling, and Voight
     % in \cite{belyidb},
