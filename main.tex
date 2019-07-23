@@ -3909,8 +3909,8 @@ end for;
   }
   \section{An iterative algorithm to produce generating triples}{\label{sec:triplesalgorithm}
     The aim of this section is to use
-    techniques to compute group
-    extensions from Section \ref{sec:modcoho}
+    the group cohomology algorithms,
+    discussed in Section \ref{sec:modcoho},
     to iteratively
     compute \emph{$p$-group permutation triples}
     which we define below.
@@ -4042,21 +4042,22 @@ end for;
     \end{notation}
     \begin{definition}
       \label{def:lift}
-      We say that a
+      Let $\sigma$ be a $p$-group permutation
+      triple of degree $d$
+      with monodromy group $G$.
+      We say that another
       $p$-group permutation
       triple $\wt{\sigma}$
-      is a \defi{degree $p$ lift}
+      is a \defi{$p$-lift}
       (or simply a \defi{lift})
-      of a $p$-group permutation triple $\sigma$
-      of degree $d$
+      of $\sigma$
       if $\wt{\sigma}$ is
       a $p$-group permutation triple of degree $pd$
       with monodromy group $\wt{G}$
       sitting in the exact sequence
       in
       \eqref{eqn:motivateliftdefinition}
-      where $G$ is the monodromy group of $\sigma$
-      and $A\cong\ZZ/p\ZZ$.
+      with $A\cong\ZZ/p\ZZ$.
       % equipped with a
       % $G$-module structure.
     \end{definition}
