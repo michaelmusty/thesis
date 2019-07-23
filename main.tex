@@ -2405,11 +2405,14 @@ $X$.
     \begin{lemma}
       \label{lem:normalsubgroupsofallorders}
       Let $H$ be a normal subgroup of a $p$-group $G$.
-      Let $\#G=p^\alpha$.
-      Then $H$ contains a subgroup $H_\beta$ of order $p^\beta$
-      for every divisor $p^\beta$ of $\#H$
-      with the property that
-      $H_\beta$ is normal in $G$ for every $\beta$.
+      % Let $\#G=p^\alpha$.
+      Then for every divisor $p^\beta$ of $\# H$,
+      $H$ contains a subgroup $H_\beta$,
+      normal in $G$, of order $p^\beta$.
+      % Then $H$ contains a subgroup $H_\beta$ of order $p^\beta$
+      % for every divisor $p^\beta$ of $\#H$
+      % with the property that
+      % $H_\beta$ is normal in $G$ for every $\beta$.
     \end{lemma}
     \begin{lemma}
       \label{lem:maximalsubgroup}
@@ -2497,274 +2500,274 @@ $X$.
     % \end{definition}
     % frattini quotient and generators
   }
-  \section{Examples of $2$-groups}{\label{sec:twogroupexamples}
-    % examples, families:
-    % gen dihedral, gen quats, etc
-    % In this section we discuss some
-    % special families of $2$-groups.
-    % maybe these show up later in the
-    % "proof of the conjecture"
-    In this section we define
-    some families of
-    nonabelian $2$-groups
-    that we refer to later in
-    the partial proof of
-    Conjecture \ref{conj:refinedpassportsizeone}.
-    These examples are all $2$-groups
-    with an index $2$ cyclic subgroup.
-    According to
-    Berkovich and Janko
-    (\cite[Theorem 1.2]{berkovich1}),
-    these groups all have order $2$ center,
-    order $4$ abelianization,
-    and highest possible nilpotency class.
-    % \begin{example}
-      % \label{exm:cyclic}
-      % For $n\geq 1$ define
-      % $C_{2^n}$ to be the \defi{cyclic group of order $2^n$}
-      % with presentation
-      % \[
-      %   \left\langle
-      %     a\mid
-      %     a^{2^n}=1
-      %   \right\rangle.
-      % \]
-      % % \begin{itemize}
-      % %   \item
-      % % \end{itemize}
+  % \section{Examples of $2$-groups}{\label{sec:twogroupexamples}
+    % % examples, families:
+    % % gen dihedral, gen quats, etc
+    % % In this section we discuss some
+    % % special families of $2$-groups.
+    % % maybe these show up later in the
+    % % "proof of the conjecture"
+    % In this section we define
+    % some families of
+    % nonabelian $2$-groups
+    % that we refer to later in
+    % the partial proof of
+    % Conjecture \ref{conj:refinedpassportsizeone}.
+    % These examples are all $2$-groups
+    % with an index $2$ cyclic subgroup.
+    % According to
+    % Berkovich and Janko
+    % (\cite[Theorem 1.2]{berkovich1}),
+    % these groups all have order $2$ center,
+    % order $4$ abelianization,
+    % and highest possible nilpotency class.
+    % % \begin{example}
+    %   % \label{exm:cyclic}
+    %   % For $n\geq 1$ define
+    %   % $C_{2^n}$ to be the \defi{cyclic group of order $2^n$}
+    %   % with presentation
+    %   % \[
+    %   %   \left\langle
+    %   %     a\mid
+    %   %     a^{2^n}=1
+    %   %   \right\rangle.
+    %   % \]
+    %   % % \begin{itemize}
+    %   % %   \item
+    %   % % \end{itemize}
+    % % \end{example}
+    % % \begin{example}
+    %   % \label{exm:abeliannoncyclic}
+    %   % For $n\geq 2$ define
+    %   % $A_{2^n}$ to be the
+    %   % abelian group
+    %   % with presentation
+    %   % \[
+    %   %   \left\langle
+    %   %     a, b\mid
+    %   %     a^{2^{n-1}}=b^2=1,
+    %   %     ab=ba
+    %   %   \right\rangle.
+    %   % \]
+    %   % \begin{itemize}
+    %   %   \item
+    %   %     $A_{2^n}$ is the unique noncyclic abelian group
+    %   %     with a cyclic subgroup of index $2$.
+    %   % \end{itemize}
+    % % \end{example}
+    % % \begin{example}
+    %   % \label{exm:randomtwogroups}
+    %   % For $n\geq 4$ define
+    %   % the following $2$-groups by their presentations.
+    %   % \begin{itemize}
+    %   %   \item
+    %   %     \[
+    %   %       \left\langle
+    %   %         a,b\mid
+    %   %         a^{2^{n-1}}=b^2=1,
+    %   %         ba=a^{1+2^{n-2}}b
+    %   %       \right\rangle.
+    %   %     \]
+    %   %   \item
+    %   %     \[
+    %   %       \left\langle
+    %   %         a,b\mid
+    %   %         a^{2^{n-1}}=b^2=1,
+    %   %         ba=a^{-1+2^{n-2}}b
+    %   %       \right\rangle.
+    %   %     \]
+    %   % \end{itemize}
+    % % \end{example}
+    % % some more examples in pgroups.pdf
+    % \begin{example}[Dihedral]
+    %   \label{exm:dihedral}
+    %   For $n\geq 2$ define
+    %   \begin{equation}
+    %     \label{eqn:dihedral}
+    %     D_{2^{n+1}}\colonequals
+    %     \left\langle
+    %       a,b\mid
+    %       a^{2^{n}}=
+    %       b^2=1,
+    %       \,
+    %       bab=a^{-1}
+    %     \right\rangle.
+    %   \end{equation}
+    %   We summarize some properties of
+    %   $D_{2^{n+1}}$:
+    %   \begin{itemize}
+    %     \item
+    %       $D_{2^{n+1}}$ has $2^{n+1}$ elements which can be written as
+    %       \begin{equation}
+    %         \label{eqn:elementsofdihedral}
+    %         \{
+    %           1,a,a^2,\dots,a^{2^n-1},
+    %           b,ab,a^2b,\dots,a^{2^n-1}b
+    %         \}.
+    %       \end{equation}
+    %     \item
+    %       The center
+    %       $Z(D_{2^{n+1}}) = \{1,a^{2^{n-1}}\}$
+    %       is characteristic.
+    %     \item
+    %       $D_{2^{n+1}}$ is a split extension
+    %       of cyclic groups.
+    %       There exists an exact sequence
+    %       \begin{equation}
+    %         \label{eqn:dihedralses}
+    %         \begin{tikzcd}
+    %           1\arrow{r}
+    %           &Z(D_{2^{n+1}})\cong\ZZ/2\ZZ\arrow{r}
+    %           &D_{2^{n+1}}\arrow{r}
+    %           &\ZZ/2^{n}\ZZ\arrow{r}&1.
+    %         \end{tikzcd}
+    %       \end{equation}
+    %     \item
+    %       All elements in
+    %       $D_{2^{n+1}}\setminus\langle a\rangle$
+    %       are involutions.
+    %     \item
+    %       The conjugacy classes of
+    %       $D_{2^{n+1}}$ are as follows.
+    %       There are $2$ conjugacy classes
+    %       of size $1$,
+    %       namely $\{1\}$ and $\{a^{2^{n-1}}\}$.
+    %       There are $2^{n-1}-1$
+    %       conjugacy classes of
+    %       size $2$,
+    %       % $\{a,a^{-1}\}$,
+    %       % $\{a^2,a^{-2}\}$,
+    %       % \dots,
+    %       % $\{a^{2^{n-1}-2},a^{2-2^{n-1}}\}$,
+    %       % $\{a^{2^{n-1}-1},a^{1-2^{n-1}}\}$,
+    %       \begin{equation}
+    %         \label{eqn:conjclassesdihedral}
+    %         \left\{
+    %           \{a^i,a^{-i}\}
+    %         \right\}
+    %         _{i=1}^{2^{n-1}-1}.
+    %       \end{equation}
+    %       Finally, there are
+    %       $2$ conjugacy classes of
+    %       size $2^{n-1}$,
+    %       \begin{equation}
+    %         \label{eqn:conjclassesdihedralbiggest}
+    %         \{a^{2i}b : 0\leq i\leq 2^{n-1}-1\}
+    %         \text{ and }
+    %         \{a^{2i+1}b : 0\leq i\leq 2^{n-1}-1\}.
+    %       \end{equation}
+    %   \end{itemize}
     % \end{example}
-    % \begin{example}
-      % \label{exm:abeliannoncyclic}
-      % For $n\geq 2$ define
-      % $A_{2^n}$ to be the
-      % abelian group
-      % with presentation
-      % \[
-      %   \left\langle
-      %     a, b\mid
-      %     a^{2^{n-1}}=b^2=1,
-      %     ab=ba
-      %   \right\rangle.
-      % \]
-      % \begin{itemize}
-      %   \item
-      %     $A_{2^n}$ is the unique noncyclic abelian group
-      %     with a cyclic subgroup of index $2$.
-      % \end{itemize}
+    % \begin{example}[Generalized Quaternion]
+    %   \label{exm:generalizedquaternion}
+    %   For $n\geq 2$ define
+    %   \begin{equation}
+    %     \label{eqn:quaternionpresentation}
+    %     Q_{2^{n+1}}
+    %     \colonequals
+    %     \left\langle
+    %       % a,b\mid
+    %       % a^{2^{n-1}}=1,
+    %       % b^2=a^{2^{n-2}},
+    %       % ba=a^{-1}b
+    %       a,b\mid
+    %       a^{2^n}=1,\,
+    %       b^2=a^{2^{n-1}},\,
+    %       b^{-1}ab=a^{-1}
+    %     \right\rangle.
+    %   \end{equation}
+    %   % We summarize some properties of
+    %   % $Q_{2^{n+1}}$:
+    %   % \begin{itemize}
+    %   %   \item
+    %   %     $Q_{2^{n+1}}$ has $2^{n+1}$ elements
+    %   %     which can be written as
+    %   %     \mm{todo}
+    %   %   \item
+    %   %     $Q_{2^{n+1}}$ is a nonsplit extension
+    %   %     of cyclic groups.
+    %   %   \item
+    %   %     All elements in
+    %   %     $Q_{2^{n+1}}\setminus\langle a\rangle$
+    %   %     have order $4$.
+    %   %   \item
+    %   %     $Q_{2^{n+1}}$ has a unique involution
+    %   %     \mm{todo}
+    %   %   \item
+    %   %     $Q_{2^{n+1}}/Z(Q_{2^{n+1}})$ is dihedral
+    %   %     for $n\geq 3$.
+    %   %   \item
+    %   %     The conjugacy classes of
+    %   %     $Q_{2^{n+1}}$ are as follows.
+    %   %     \mm{todo}
+    %   % \end{itemize}
     % \end{example}
-    % \begin{example}
-      % \label{exm:randomtwogroups}
-      % For $n\geq 4$ define
-      % the following $2$-groups by their presentations.
-      % \begin{itemize}
-      %   \item
-      %     \[
-      %       \left\langle
-      %         a,b\mid
-      %         a^{2^{n-1}}=b^2=1,
-      %         ba=a^{1+2^{n-2}}b
-      %       \right\rangle.
-      %     \]
-      %   \item
-      %     \[
-      %       \left\langle
-      %         a,b\mid
-      %         a^{2^{n-1}}=b^2=1,
-      %         ba=a^{-1+2^{n-2}}b
-      %       \right\rangle.
-      %     \]
-      % \end{itemize}
+    % \begin{example}[Semi-dihedral]
+    %   \label{exm:semidihedral}
+    %   For $n\geq 3$ define
+    %   \begin{equation}
+    %     \label{eqn:semidehedralpresentation}
+    %     SD_{2^{n+1}}
+    %     \colonequals
+    %     \left\langle
+    %       a,b\mid
+    %       a^{2^{n}}=b^2=1,\;
+    %       bab=a^{-1+2^{n-1}}
+    %     \right\rangle.
+    %   \end{equation}
+    %   % We summarize some properties of
+    %   % $SD_{2^{n+1}}$:
+    %   % \begin{itemize}
+    %   %   \item
+    %   %     $SD_{2^{n+1}}$ has $2^{n+1}$ elements
+    %   %     which can be written as
+    %   %     \mm{todo}
+    %   %   \item
+    %   %     $SD_{2^{n+1}}$ is a split extension
+    %   %     of cyclic groups.
+    %   %   \item
+    %   %     \mm{involutions?}
+    %   %   \item
+    %   %     $Q_{2^{n+1}}/Z(Q_{2^{n+1}})$ is dihedral.
+    %   %   \item
+    %   %     Maximal subgroups in $SD_{2^{n+1}}$ are characteristic:
+    %   %     \begin{align}
+    %   %       \label{eqn:maximalsubgroupssemidihedral}
+    %   %       \begin{split}
+    %   %         \langle a^2,b\rangle=\Omega_1(SD_{2^{n+1}})&\cong D_{2^n}\\
+    %   %         \langle a^2,ab\rangle&\cong Q_{2^n}
+    %   %       \end{split}
+    %   %     \end{align}
+    %   %   \item
+    %   %     The conjugacy classes of
+    %   %     $SD_{2^{n+1}}$ are as follows.
+    %   %     \mm{todo}
+    %   % \end{itemize}
     % \end{example}
-    % some more examples in pgroups.pdf
-    \begin{example}[Dihedral]
-      \label{exm:dihedral}
-      For $n\geq 2$ define
-      \begin{equation}
-        \label{eqn:dihedral}
-        D_{2^{n+1}}\colonequals
-        \left\langle
-          a,b\mid
-          a^{2^{n}}=
-          b^2=1,
-          \,
-          bab=a^{-1}
-        \right\rangle.
-      \end{equation}
-      We summarize some properties of
-      $D_{2^{n+1}}$:
-      \begin{itemize}
-        \item
-          $D_{2^{n+1}}$ has $2^{n+1}$ elements which can be written as
-          \begin{equation}
-            \label{eqn:elementsofdihedral}
-            \{
-              1,a,a^2,\dots,a^{2^n-1},
-              b,ab,a^2b,\dots,a^{2^n-1}b
-            \}.
-          \end{equation}
-        \item
-          The center
-          $Z(D_{2^{n+1}}) = \{1,a^{2^{n-1}}\}$
-          is characteristic.
-        \item
-          $D_{2^{n+1}}$ is a split extension
-          of cyclic groups.
-          There exists an exact sequence
-          \begin{equation}
-            \label{eqn:dihedralses}
-            \begin{tikzcd}
-              1\arrow{r}
-              &Z(D_{2^{n+1}})\cong\ZZ/2\ZZ\arrow{r}
-              &D_{2^{n+1}}\arrow{r}
-              &\ZZ/2^{n}\ZZ\arrow{r}&1.
-            \end{tikzcd}
-          \end{equation}
-        \item
-          All elements in
-          $D_{2^{n+1}}\setminus\langle a\rangle$
-          are involutions.
-        \item
-          The conjugacy classes of
-          $D_{2^{n+1}}$ are as follows.
-          There are $2$ conjugacy classes
-          of size $1$,
-          namely $\{1\}$ and $\{a^{2^{n-1}}\}$.
-          There are $2^{n-1}-1$
-          conjugacy classes of
-          size $2$,
-          % $\{a,a^{-1}\}$,
-          % $\{a^2,a^{-2}\}$,
-          % \dots,
-          % $\{a^{2^{n-1}-2},a^{2-2^{n-1}}\}$,
-          % $\{a^{2^{n-1}-1},a^{1-2^{n-1}}\}$,
-          \begin{equation}
-            \label{eqn:conjclassesdihedral}
-            \left\{
-              \{a^i,a^{-i}\}
-            \right\}
-            _{i=1}^{2^{n-1}-1}.
-          \end{equation}
-          Finally, there are
-          $2$ conjugacy classes of
-          size $2^{n-1}$,
-          \begin{equation}
-            \label{eqn:conjclassesdihedralbiggest}
-            \{a^{2i}b : 0\leq i\leq 2^{n-1}-1\}
-            \text{ and }
-            \{a^{2i+1}b : 0\leq i\leq 2^{n-1}-1\}.
-          \end{equation}
-      \end{itemize}
-    \end{example}
-    \begin{example}[Generalized Quaternion]
-      \label{exm:generalizedquaternion}
-      For $n\geq 2$ define
-      \begin{equation}
-        \label{eqn:quaternionpresentation}
-        Q_{2^{n+1}}
-        \colonequals
-        \left\langle
-          % a,b\mid
-          % a^{2^{n-1}}=1,
-          % b^2=a^{2^{n-2}},
-          % ba=a^{-1}b
-          a,b\mid
-          a^{2^n}=1,\,
-          b^2=a^{2^{n-1}},\,
-          b^{-1}ab=a^{-1}
-        \right\rangle.
-      \end{equation}
-      % We summarize some properties of
-      % $Q_{2^{n+1}}$:
-      % \begin{itemize}
-      %   \item
-      %     $Q_{2^{n+1}}$ has $2^{n+1}$ elements
-      %     which can be written as
-      %     \mm{todo}
-      %   \item
-      %     $Q_{2^{n+1}}$ is a nonsplit extension
-      %     of cyclic groups.
-      %   \item
-      %     All elements in
-      %     $Q_{2^{n+1}}\setminus\langle a\rangle$
-      %     have order $4$.
-      %   \item
-      %     $Q_{2^{n+1}}$ has a unique involution
-      %     \mm{todo}
-      %   \item
-      %     $Q_{2^{n+1}}/Z(Q_{2^{n+1}})$ is dihedral
-      %     for $n\geq 3$.
-      %   \item
-      %     The conjugacy classes of
-      %     $Q_{2^{n+1}}$ are as follows.
-      %     \mm{todo}
-      % \end{itemize}
-    \end{example}
-    \begin{example}[Semi-dihedral]
-      \label{exm:semidihedral}
-      For $n\geq 3$ define
-      \begin{equation}
-        \label{eqn:semidehedralpresentation}
-        SD_{2^{n+1}}
-        \colonequals
-        \left\langle
-          a,b\mid
-          a^{2^{n}}=b^2=1,\;
-          bab=a^{-1+2^{n-1}}
-        \right\rangle.
-      \end{equation}
-      % We summarize some properties of
-      % $SD_{2^{n+1}}$:
-      % \begin{itemize}
-      %   \item
-      %     $SD_{2^{n+1}}$ has $2^{n+1}$ elements
-      %     which can be written as
-      %     \mm{todo}
-      %   \item
-      %     $SD_{2^{n+1}}$ is a split extension
-      %     of cyclic groups.
-      %   \item
-      %     \mm{involutions?}
-      %   \item
-      %     $Q_{2^{n+1}}/Z(Q_{2^{n+1}})$ is dihedral.
-      %   \item
-      %     Maximal subgroups in $SD_{2^{n+1}}$ are characteristic:
-      %     \begin{align}
-      %       \label{eqn:maximalsubgroupssemidihedral}
-      %       \begin{split}
-      %         \langle a^2,b\rangle=\Omega_1(SD_{2^{n+1}})&\cong D_{2^n}\\
-      %         \langle a^2,ab\rangle&\cong Q_{2^n}
-      %       \end{split}
-      %     \end{align}
-      %   \item
-      %     The conjugacy classes of
-      %     $SD_{2^{n+1}}$ are as follows.
-      %     \mm{todo}
-      % \end{itemize}
-    \end{example}
-    \begin{lemma}
-      \label{lem:dihedralquotient}
-      Let $G$ be one of the groups
-      $D_{2^{n+1}}$, $Q_{2^{n+1}}$, $SD_{2^{n+1}}$
-      discussed in the previous examples
-      with center $Z(G)$.
-      Then $\#Z(G) = 2$
-      and $G/Z(G)$ is a dihedral group.
-    \end{lemma}
-    \begin{proof}
-      % % Conrad has elementary proof for dihedral
-      % \mm{todo}
-      This is proved in
-      Berkovich and Janko
-      \cite[Theorem 1.2]{berkovich1}
-      where they attribute a stronger result
-      to Burnside.
-    \end{proof}
-    % \mm{
-    %   In fact, these groups are the $p$-groups
-    %   of maximal nilpotency class and carry
-    %   many properties\ldots
-    % }
-  }
+    % \begin{lemma}
+    %   \label{lem:dihedralquotient}
+    %   Let $G$ be one of the groups
+    %   $D_{2^{n+1}}$, $Q_{2^{n+1}}$, $SD_{2^{n+1}}$
+    %   discussed in the previous examples
+    %   with center $Z(G)$.
+    %   Then $\#Z(G) = 2$
+    %   and $G/Z(G)$ is a dihedral group.
+    % \end{lemma}
+    % \begin{proof}
+    %   % % Conrad has elementary proof for dihedral
+    %   % \mm{todo}
+    %   This is proved in
+    %   Berkovich and Janko
+    %   \cite[Theorem 1.2]{berkovich1}
+    %   where they attribute a stronger result
+    %   to Burnside.
+    % \end{proof}
+    % % \mm{
+    % %   In fact, these groups are the $p$-groups
+    % %   of maximal nilpotency class and carry
+    % %   many properties\ldots
+    % % }
+  % }
   \section{Computing group extensions}{\label{sec:modcoho}
     % trivial G-Module ->
     % Cohomology module -> Holt's algorithm
