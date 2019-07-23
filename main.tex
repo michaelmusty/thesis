@@ -2076,7 +2076,7 @@ $X$.
     \begin{definition}
       \label{def:geometrytype}
       Let $(a,b,c)\in\ZZ_{\geq 1}^3$.
-      If $1\in(a,b,c)$, then we say the triple is \defi{degenerate}.
+      If $1\in\{a,b,c\}$, then we say the triple is \defi{degenerate}.
       Otherwise, we call the triple
       \defi{spherical},
       \defi{Euclidean},
@@ -2095,9 +2095,9 @@ $X$.
         \label{eqn:geometrytype}
         H=
         \begin{cases}
-          \PP^1&\chi(a,b,c)>0\\
-          \CC&\chi(a,b,c)=0\\
-          \mathfrak{H}&\chi(a,b,c)<0
+          \PP^1,&\text{if }\chi(a,b,c)>0\\
+          \CC,&\text{if }\chi(a,b,c)=0\\
+          \mathfrak{H},&\text{if }\chi(a,b,c)<0
         \end{cases}
       \end{equation}
       where $\mathfrak{H}$ denotes the complex upper half-plane.
@@ -2137,7 +2137,7 @@ $X$.
     \ref{lem:belyimapsandtrianglegroups}.
     \begin{lemma}
       \label{lem:belyimapsandtrianglegroups}
-      The set of isomorphism classes of of degree $d$
+      The set of isomorphism classes of degree-$d$
       Belyi maps with ramification type $(a,b,c)$
       is in bijection with the set of
       index $d$ subgroups
