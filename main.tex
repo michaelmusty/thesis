@@ -1972,7 +1972,7 @@ $X$.
         (g(\sigma),\langle \sigma \rangle,
         \lambda(\sigma))
       \end{equation}
-      where (by Riemann--Hurwitz)
+      where (following Riemann--Hurwitz)
       \begin{equation}
         \label{eqn:riemannhurwitzfortriples}
         g(\sigma) \colonequals
@@ -2015,16 +2015,29 @@ $X$.
     \begin{lemma}\label{lem:regular}
       Let $\sigma$ be a degree $d$
       permutation triple corresponding to
-      $\phi\colon X\to\PP^1$ a
-      Galois Belyi map with monodromy group $G$
-      and
-      $m_s$ be the order of
-      $\sigma_s$ for $s\in\{0,1,\infty\}$.
-      Then $\sigma_s$ consists of
-      $d/m_s$ many $m_s$-cycles.
+      $\phi\colon X\to\PP^1$,
+      a Galois Belyi map with monodromy group $G$,
+      and let
+      $a,b,c$ be the orders of
+      $\sigma_0,\sigma_1,\sigma_\infty$
+      respectively.
+      Then
+      $\sigma_0$
+      consists of
+      $d/a$
+      many $a$-cycles,
+      $\sigma_1$ consists of
+      $d/b$ many $b$-cycles,
+      and $\sigma_\infty$
+      consists of $d/c$
+      many $c$-cycles.
+      % $m_s$ be the order of
+      % $\sigma_s$ for $s\in\{0,1,\infty\}$.
+      % Then $\sigma_s$ consists of
+      % $d/m_s$ many $m_s$-cycles.
       In particular,
       for a $2$-group Belyi map,
-      $m_s$ and $\#G$ are powers of $2$.
+      $a,b,c,$ and $\#G$ are powers of $2$.
     \end{lemma}
     \begin{proof}
       This follows from the condition that
@@ -2045,7 +2058,7 @@ $X$.
       \label{thm:riemannhurwitzgalois}
       Let $\sigma$ be a degree $d$
       permutation triple corresponding to
-      $\phi\colon X\to\PP^1$ a
+      $\phi\colon X\to\PP^1$, a
       Galois Belyi map with monodromy group $G$.
       Let $a,b,c$ be the orders of
       $\sigma_0,\sigma_1,\sigma_\infty$
