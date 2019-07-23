@@ -2179,32 +2179,33 @@ $X$.
     \begin{definition}
       \label{def:fieldofmoduli}
       Let $X$ be an algebraic curve over $\CC$.
-      The \defi{field of moduli} of
-      $X$ is the fixed field of the
-      field automorphisms
+      The \defi{field of moduli} of $X$,
+      denoted $M(X)$,
+      is the fixed field of $\CC$ under
+      the subgroup of field automorphisms
       \begin{equation}
         \label{eqn:fixedfield}
         \{\tau\in\Aut(\CC) : \tau(X)\simeq X\}
       \end{equation}
       where $\tau\in\Aut(\CC)$ acts on
-      the defining equations of $X$.
-      Denote this field as $M(X)$.
+      a set of defining equations of $X$.
     \end{definition}
     \begin{definition}
       \label{def:fieldofmodulibelyimap}
       Let $\phi\colon X\to\PP^1$ be a Belyi map.
-      The \defi{field of moduli} of $\phi$
-      is the fixed field of the
+      The \defi{field of moduli} of $\phi$,
+      denoted $M(\phi)$,
+      is the fixed field of $\CC$ under
+      the subgroup of
       field automorphisms
       \begin{equation}
         \label{eqn:fixedfieldphi}
-        \{\tau\in\Aut(\CC) : \tau(\phi)\cong \phi\}
+        \{\tau\in\Aut(\CC) : \tau(\phi)\simeq\phi\}
       \end{equation}
-      where $\tau\in\Aut(\CC)$ acts on the
-      defining equations of $\phi$
+      where $\tau\in\Aut(\CC)$ acts on
+      a set of defining equations of $\phi$
       and isomorphism is determined by
       Definition \ref{def:belyiiso}.
-      Denote this field as $M(\phi)$.
     \end{definition}
     % \begin{definition}
     %   \label{def:fieldofmoduliGbelyimap}
@@ -2264,13 +2265,17 @@ $X$.
     However,
     in the setting we are concerned with
     this is always possible.
-    For a proof of the following theorem see
-    \cite[Proposition 2.5]{coombes_harbater}.
     \begin{theorem}
       \label{thm:galoisbelyimapoverfieldofmoduli}
       A Galois Belyi map can always be defined over
       its field of moduli.
     \end{theorem}
+    \begin{proof}
+      See 
+      \cite[Proposition 2.5]{coombes_harbater}
+      and
+      \cite[Theorem 2.2]{kock}.
+    \end{proof}
   }
 }
 \chapter{Group theory}{\label{chapter:grouptheory}
