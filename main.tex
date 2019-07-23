@@ -5141,7 +5141,7 @@ end for;
     of $2$-group permutation triples
     up to degree $256$.
     This computation took roughly
-    $50$ CPU hours on a standart desktop.
+    $50$ CPU hours on a standard desktop.
     The majority
     of this time is spent
     checking conjugacy of degree $256$
@@ -5284,6 +5284,18 @@ end for;
         $(128,256,256)$ & $192$ \\ \hline
       \end{longtable}
     \end{theorem}
+    \begin{remark}
+      \label{rmk:extrasymmetry}
+      The above table in Theorem \ref{thm:abc}
+      has a pattern.
+      The table entries corresponding to
+      $(8,8,16)$ and $(8,16,16)$ are equal
+      and the table entries corresponding to
+      $(16,16,32)$ and $(16,32,32)$ are equal.
+      This appears to be more than just a coincidence,
+      but at this point we do not have an
+      explanation of this phenomenon.
+    \end{remark}
     % \begin{proof}
       % Apply Algorithm \ref{alg:alltriples}.
       % \mm{maybe go up to 512 or 1024 and include source code link to implementation}
