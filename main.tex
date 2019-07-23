@@ -1673,6 +1673,11 @@ $X$.
       \{0,1,\infty\}$,
       then we say that $\phi$ and $\phi'$
       are \defi{lax isomorphic}.
+      Note that a lax isomorphism
+      between $\phi$ and $\phi'$ is an
+      isomorphism if and only if
+      $\beta$ fixes the three points
+      $\{0,1,\infty\}$.
     \end{definition}
     \begin{definition}\label{def:ramificationtype}
       The triple of partitions
@@ -1697,7 +1702,7 @@ $X$.
     branch points of $\phi$.
     \begin{definition}\label{def:monodromy}
       The image of $h$ in \eqref{eqn:monodromy}
-      is the \defi{monodromy group} of $\phi$
+      is the \defi{monodromy group} of $\phi$,
       denoted $\Mon(\phi)$.
     \end{definition}
     \begin{definition}
@@ -1709,7 +1714,7 @@ $X$.
       if the defining equations
       of $\phi$ and $X$
       can be described by
-      polynomials expressions
+      polynomial expressions
       with coefficients in $K$.
       We say that $K$ is a
       \defi{field of definition}
@@ -1732,19 +1737,20 @@ $X$.
     Since maps of curves
     correspond to function field
     extensions,
-    we can again rephrase a Belyi map
+    we can consider a Belyi map
     $\phi\colon X\to\PP^1$
     (defined over $K$)
-    by an extension of function fields
+    as equivalently given by
+    an extension of function fields
     $K(X)\supseteq K(\PP^1)$.
+    Note that
     $K(\PP^1)$ is isomorphic the field of
     rational functions
     (referred to as the
     \defi{rational function field} of $K$)
     in one variable,
     say $K(x)$,
-    and for $K$ perfect
-    $K(X)$
+    and $K(X)$
     can be written as $K(x)(\alpha)$
     for some primitive element $\alpha$.
     \par
@@ -1776,7 +1782,8 @@ $X$.
     \end{definition}
     When $\phi$ is Galois,
     the ramification type of
-    $\phi$ can more simply be encoded by
+    $\phi$ can be
+    more simply encoded by
     a triple of integers
     $(a,b,c)\in\ZZ_{\geq 1}^3$.
     When $\phi$ is a Galois Belyi map,
@@ -1798,10 +1805,11 @@ $X$.
       of degree $d$
       with monodromy group a
       $2$-group of order $d$.
-      Necessarily,
-      $\Mon(\phi)=\Gal(\phi)\subseteq S_d$
-      is the regular representation.
     \end{definition}
+    % Necessarily,
+    For a Galois Belyi map
+    $\Mon(\phi)=\Gal(\phi)\subseteq S_d$
+    is the regular representation.
     % \begin{prop}\label{prop:galoiscover}
       %   Let $\phi\colon X\to\PP^1$ be a Galois Belyi map
       %   and let $\CC(X)$ be the function field of $X$.
