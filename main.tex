@@ -7804,7 +7804,7 @@ end for;
     Let $S\subset\Pl(F)\setminus S_\infty$
     be a finite set of nonarchimedean places,
     and further suppose that each place of $S$
-    has odd residue field.
+    has odd order residue field.
     We aim to answer the following question.
     \begin{question}
       \label{ques:construct}
@@ -7839,7 +7839,7 @@ end for;
         ramified exactly at each $\mathfrak{p}_v$,
         and the generator $d$ is unique
         up to multiplication
-        by a unit in $\ZZ_F^\times$.
+        by a unit in $\ZZ_F^{\times 2}$.
       \item
         If $\mathfrak{a}$ is not principal,
         it is possible there
@@ -7871,7 +7871,7 @@ end for;
       \label{eqn:twotorsionintheclassgroup}
       [\mathfrak{a}\mathfrak{b}^2]
       % =[\mathfrak{a}\mathfrak{b}^2][(1)]
-      =[\mathfrak{a}\mathfrak{b}^2]
+      % =[\mathfrak{a}\mathfrak{b}^2]
       =[\mathfrak{a}\mathfrak{b}^2][\mathfrak{c}^2]
       =[\mathfrak{a}(\mathfrak{bc})^2].
     \end{equation}
@@ -8118,7 +8118,7 @@ end for;
     \begin{definition}
       \label{def:constantfieldextension}
       An extension $F'$ (with constants $K'$)
-      of $F$ (with constatns $K$)
+      of $F$ (with constants $K$)
       is a \defi{constant field extension}
       if $F'= FK'$.
     \end{definition}
@@ -8446,47 +8446,59 @@ end for;
     Let $\FF_q(x)$ denote the rational
     function field in the variable $x$.
     \begin{definition}
+      \label{def:tamebelyimap}
+      A \defi{tame Belyi map}
+      over $\FF_q$ is a tame extension of function
+      fields
+      $\FF_q(x)\hookrightarrow F$
+      with $[F:\FF_q(x)]$ coprime to $p$
+      unramified outside of all
+      places above $\{0,1,\infty\}$.
+    \end{definition}
+    \begin{definition}
       \label{def:pgroupbelyimapmodq}
       A \defi{$2$-group Belyi map modulo $q$}
-      is a Galois extension of
-      function fields
-      $\FF_q(x)\hookrightarrow F$ with
-      $[F:\FF_q(x)]=2^m$
-      unramified outside of
-      all places above $\{0,1,\infty\}$.
+      is a tame Belyi map over $\FF_q$
+      with $[F:\FF_q(x)]$ a power of $2$.
+      % is a Galois extension of
+      % function fields
+      % $\FF_q(x)\hookrightarrow F$ with
+      % $[F:\FF_q(x)]=2^m$
+      % unramified outside of
+      % all places above $\{0,1,\infty\}$.
     \end{definition}
     \begin{remark}
       \label{rmk:tamebelyi}
-      A Belyi map
-      $\phi\colon X\to\PP^1$ over a
-      field of characteristic $p$
-      where $p\nmid\Mon(\phi)$
-      is called \defi{tame}.
+      % A Belyi map
+      % $\phi\colon X\to\PP^1$ over a
+      % field of characteristic $p$
+      % where $p\nmid\Mon(\phi)$
+      % is called \defi{tame}.
       The theory of tame Belyi maps is
-      the same as in characteristic zero.
+      similar to the theory in characteristic zero.
     \end{remark}
-    \begin{definition}\label{def:belyiisomodq}
-      Two Belyi maps
-      $\FF_q(x)\hookrightarrow F_1$ and
-      $\FF_q(x)\hookrightarrow F_2$,
-      are \defi{isomorphic}
-      if there exists an isomorphism
-      $\varphi\colon F_1\to F_2$
-      of function fields over
-      $\FF_q(x)$
-      such that the diagram
-      \begin{equation}
-        \label{eqn:belyiisomodq}
-        \begin{tikzcd}
-          F_1\arrow{rr}{\varphi}
-          \arrow[-]{dr}[swap]{}
-          &
-          &F_2\arrow[-]{dl}{}\\
-          &\FF_q(x)
-        \end{tikzcd}
-      \end{equation}
-      commutes.
-    \end{definition}
+    % \begin{definition}\label{def:belyiisomodq}
+      % Two Belyi maps
+      % $\FF_q(x)\hookrightarrow F_1$ and
+      % $\FF_q(x)\hookrightarrow F_2$,
+      % are \defi{isomorphic}
+      % if there exists an isomorphism
+      % $\varphi\colon F_1\to F_2$
+      % of function fields over
+      % $\FF_q(x)$
+      % such that the diagram
+      % \begin{equation}
+      %   \label{eqn:belyiisomodq}
+      %   \begin{tikzcd}
+      %     F_1\arrow{rr}{\varphi}
+      %     \arrow[-]{dr}[swap]{}
+      %     &
+      %     &F_2\arrow[-]{dl}{}\\
+      %     &\FF_q(x)
+      %   \end{tikzcd}
+      % \end{equation}
+      % commutes.
+    % \end{definition}
     % \mm{
     %   Theorem that establishes precisely
     %   the connection between
@@ -8526,7 +8538,7 @@ end for;
       % \mm{degree 2 Belyi maps mod q up to iso}
       The three degree $2$ Belyi maps
       modulo $q$ up to isomorphism
-      are a
+      are
       \begin{equation}
         \label{eqn:degree2FF}
         F_{(1,2,2)} =
@@ -8556,6 +8568,13 @@ end for;
       with no two isomorphic,
       this is an exhaustive list.
     \end{proof}
+    \begin{remark}
+      \label{rmk:degree2FFlax}
+      All three $2$-group Belyi maps
+      in Lemma
+      \ref{lem:degree2FF}
+      are lax isomorphic.
+    \end{remark}
     Next, we discuss the algorithms
     to test when a quadratic extension
     is Galois (over the rational function field).
@@ -8589,9 +8608,9 @@ end for;
           For each generator
           $\sigma$ of $\Gal(F\,|\,\FF_q(x))$
           test if $\sigma(f)/f$ is a square
-          in $F$.
+          in $F^\times$.
         \item
-          If $\sigma(f)/f$ is a square in $F$
+          If $\sigma(f)/f\in F^{\times 2}$
           for all generators $\sigma$,
           then return \textsf{True}
           otherwise return \textsf{False}.
@@ -8778,16 +8797,21 @@ end for;
           $\Pic(F)=T\oplus\ZZ$
           (with $T$ a finite abelian group)
           along with a map
-          $\psi\colon\Pic(F)\to\Div(F)$.
+          % $\psi\colon\Pic(F)\to\Div(F)$.
+          $\psi\colon\Div(F)\to\Pic(F)$.
         \item\label{alg:getcandidates_PicR}
           Compute
-          $[R]\colonequals\psi^{-1}(R)$.
+          $[R]\colonequals\psi(R)$.
+        \item
+          Check that $[R]\in 2\Pic(F)$.
+          If not, then return the empty set,
+          otherwise continue.
         \item\label{alg:getcandidates_Pic2}
           For each $a\in\Pic(F)[2]$ compute the
           following:
           \begin{enumerate}
             \item\label{alg:getcandidates_Da}
-              Let $D_a\colonequals\psi(a+[R]/2)
+              Let $D_a\colonequals\psi^{-1}(a+[R]/2)
               \in\Div(F)$.
             \item\label{alg:getcandidates_LDa}
               Compute $\mathscr{L}(R-2D_a)$.
@@ -9567,7 +9591,7 @@ ComputeBelyiMaps(s : optimized := false);
               then save $f_D$.
               and go to the next $D\in M$.
               If $F(\sqrt{f_D})$ is not Galois,
-              then go to the next Step
+              then go to the next Step.
             \item\label{alg:charzero_isgalext}
               Let $F'$ be the function field
               $F$ after extending the field of
