@@ -13123,6 +13123,120 @@ end for;
 % }
 
 \chapter{Future work}{\label{chapter:future}
+  As is typically the case with any work of mathematics,
+  there is more to investigate about
+  $2$-group Belyi maps.
+  \section{Implementation}{\label{sec:futureimplementation}
+    One task is to compute more examples
+    and optimize the implementations to
+    aid in computing permutation triples
+    and equations.
+    In particular, there are two possible improvements
+    to the implementations used here
+    that could aid in this process.
+    \begin{enumerate}
+      \item
+        Implement a way to lift Belyi maps
+        over $\FF_q$ to characteristic zero.
+      \item
+        Take advantage of the iterative structure
+        of these Belyi maps in the computation
+        of Picard groups.
+    \end{enumerate}
+    Another task is to extend these
+    techniques to deal with $p$-group Belyi maps
+    for $p\geq 3$
+    and non-Galois Belyi maps.
+  }
+  \section{Applications}{\label{sec:futureapplications}
+    Besides pushing the computations and generalizing
+    the implementations,
+    there is the more interesting question of
+    how to apply these computations.
+    Chapter \ref{chapter:fieldsofdefinition},
+    for example,
+    provides evidence that
+    $2$-group Belyi maps appear
+    to have small refined passports.
+    This might suggest that the moduli fields
+    of $2$-group Belyi maps
+    are
+    \emph{close to being abelian}.
+    With Gross's conjecture in mind,
+    we pose the following question.
+    \begin{question}
+      \label{ques:solvable}
+      Are the moduli fields of
+      $2$-group Belyi maps always solvable?
+    \end{question}
+    More work is needed to conjecture on this question,
+    but either answer is intersting.
+    Since the moduli field of a $2$-group
+    Belyi map is ramified only at $2$,
+    a nonsolvable moduli field would be
+    an example of a nonsolvable number field
+    ramified only at $2$.
+    To illustrate the type of computation that
+    would be helpful in answering
+    Question
+    \ref{ques:solvable},
+    consider the permutation
+    triple in
+    \eqref{eqn:bigrefined}
+    provided by
+    David P. Roberts.
+    \begin{align}
+      \label{eqn:bigrefined}
+      \begin{split}
+        \sigma_0^a &= (1, 20, 16, 28, 7, 21, 11, 32, 4, 17, 14, 26, 5, 24, 9, 29)\\
+        \sigma_0^b &= (2, 19, 15, 27, 8, 22, 12, 31, 3, 18, 13, 25, 6, 23, 10, 30)\\
+        \sigma_1^a &= (1, 11, 3, 10)(2, 12, 4, 9)(5, 14, 8, 15, 6, 13, 7, 16)\\
+        \sigma_1^b &= (17, 27, 23, 29, 19, 26, 21, 31, 18, 28, 24, 30, 20, 25, 22, 32)\\
+        \sigma_0 &= \sigma_0^a\sigma_0^b\\
+        \sigma_1 &= \sigma_1^a\sigma_1^b\\
+        \sigma_\infty &= (\sigma_1\sigma_0)^{-1}
+      \end{split}
+    \end{align}
+    The triple defined in
+    \eqref{eqn:bigrefined}
+    is a non-Galois permutation triple
+    corresponding to a
+    $2$-group Belyi map of degree
+    $2^{20}$
+    with refined passport size $16$.
+    Modifying our implementations to compute equations
+    for these non-Galois triples could potentially
+    shed light on an answer to
+    Question \ref{ques:solvable}.
+    \par
+    Another interesting application of these computations would be
+    to use the iterative structure of
+    $2$-group Belyi maps to explain
+    the splitting of passports.
+    \par
+    Lastly,
+    even if all moduli fields
+    of $2$-group Belyi maps end up being
+    solvable,
+    there is still the possibility of
+    finding a nonsolvable field by
+    computing $2$-torsion fields
+    as described in
+    Section \ref{sec:motivation}.
+    Torsion fields could be computed
+    using techniques in
+    \cite{edgar, mascot}.
+    Torsion fields could also be computed
+    using Christian Neurohr's implementation
+    of Riemann surfaces in \cite{magma}
+    which will be available in a future release.
+  }
+  % higher degree over FF3
+  % non-Galois setting
+  % char 0 algorithm
+  % p-Group Belyi for p odd
+  % compute torsion fields
+  %
 }
 
 
