@@ -189,6 +189,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \numberwithin{equation}{section}
 \renewcommand{\thefigure}{\arabic{chapter}.\arabic{section}.\arabic{equation}}
+% \numberwithin{equation}{section}
 % \numberwithin{figure}{section}
 % \numberwithin{table}{section}
 % \counterwithin{equation}{section}
@@ -196,9 +197,9 @@
 % \counterwithin{table}{section}
 % \renewcommand{\thefigure}{\arabic{figure}}
 %%%%%%%%%
-% \makeatletter
-% \let\c@equation\c@figure
-% \makeatother
+\makeatletter
+\let\c@equation\c@figure
+\makeatother
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Theorem Declarations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -447,7 +448,7 @@ to provide answers to these questions.
     of the cover equals the size
     of the monodromy group).
     We can now state Beckmann's theorem.
-    \begin{theorem}[Beckmann \cite{beckmann}]
+    \begin{theorem}[Beckmann]
       \label{thm:beckmann}
       Let $\phi\colon X\to\PP^1$
       be a Galois Belyi map with
@@ -465,6 +466,9 @@ to provide answers to these questions.
           of $M$ above $p$.
       \end{itemize}
     \end{theorem}
+    \begin{proof}
+      See \cite{beckmann} and \cite[Proposition 2.9]{beckmannref}.
+    \end{proof}
     If we insist that $G$ is a $2$-group
     in Beckmann's theorem,
     then we can hope to find
@@ -2183,7 +2187,7 @@ to provide answers to these questions.
   \section{Fields of moduli and fields of definition}{\label{sec:fieldsofmodulifieldsofdefinition}
     We now discuss the background
     material necessary to describe
-    the conjecture in
+    the results in
     Chapter \ref{chapter:fieldsofdefinition}.
     This section aims
     to define a canonical number field
@@ -2225,6 +2229,22 @@ to provide answers to these questions.
       and isomorphism is determined by
       Definition \ref{def:belyiiso}.
     \end{definition}
+    Recall from Definition \ref{def:definedover}
+    that a Belyi map
+    $\phi\colon X\to\PP^1$
+    is defined over a number field $K$
+    if $\phi$ and $X$ can be defined with
+    equations over $K$.
+    We say that $K$
+    is a \defi{field of definition}
+    for $\phi$.
+    \begin{remark}
+      Intuitively, one should think of the moduli
+      field as the intersection of all fields of definition.
+      For more on fields of moduli and fields of definition
+      see
+      \cite{huggins}.
+    \end{remark}
     % \begin{definition}
     %   \label{def:fieldofmoduliGbelyimap}
     %   Let $\phi\colon X\to\PP^1$ be a
@@ -2268,15 +2288,6 @@ to provide answers to these questions.
       and this index is bounded by
       the size of $\mathcal{P}(\phi)$.
     \end{proof}
-    Recall from Definition \ref{def:definedover}
-    that a Belyi map
-    $\phi\colon X\to\PP^1$
-    is defined over a number field $K$
-    if $\phi$ and $X$ can be defined with
-    equations over $K$.
-    We say that $K$
-    is a \defi{field of definition}
-    for $\phi$.
     For a general Belyi map it may not be possible
     to define the Belyi map over its field
     of moduli.
@@ -5375,7 +5386,7 @@ end for;
       \end{tikzpicture}
       \label{fig:tikzplot}
       \caption{Distribution of genera
-      up to degree $256$}
+      up to degree $256$.}
     \end{figure}
     \begin{figure}[ht]
       \centering
@@ -5924,7 +5935,7 @@ end for;
       \end{tikzpicture}
       \label{fig:passportsizes}
       \caption{
-        \# passports of various sizes by degree
+        \# passports of various sizes by degree.
       }
     \end{figure}
   }
@@ -6277,17 +6288,47 @@ end for;
       ramified only at $2$.
     \end{theorem}
     \begin{proof}
+      Let $\phi\colon X\to\PP^1$ be a
+      $2$-group Belyi map of degree $d\leq 256$.
+      Let $M$ denote the field of moduli of $\phi$.
+      Theorem \ref{thm:beckmann} (Beckmann's theorem)
+      implies that
+      for every odd prime $p$
+      there exists a number field
+      $M_p$ that is a field of definition for $\phi$
+      that is unramified at $p$.
+      Since $M\subseteq M_p$ for all $p$
+      we have that $M$ is unramified away from $2$.
+      Moreover, by Theorem \ref{thm:galoisbelyimapoverfieldofmoduli},
+      $\phi$ is defined over $M$.
+      So $\phi$ is defined over $M$
+      which is
+      unramified away from $2$.
+      \par
+      Let $\mathscr{P}$ denote the refined passport of $\phi$.
+      Since $\Gal(\QQal\,|\,\QQab)$ acts on $\mathscr{P}$,
+      see \cite[Proposition 7.6]{SV},
+      the size of $\mathscr{P}$ bounds the
+      degree of $M$ over $\QQab$.
+      The calculation in Theorem
+      \ref{thm:refinedpassportsizes}
+      shows that the size of $\mathscr{P}$ is at
+      most $2$ and completes the proof.
     \end{proof}
     For a visual representation of Theorem
     \ref{thm:refinedpassportsizes} see
-    Figure \ref{fig:refinedpassportsizes}.
-    The refined passport sizes
-    in Figure
-    \ref{fig:refinedpassportsizes}
-    appear small compared to the
-    passport sizes in
-    Figure
-    \ref{fig:passportsizes}.
+    the figure below.
+    % Figure \ref{fig:refinedpassportsizes}.
+    Note how small the refined passport sizes
+    % in Figure
+    % \ref{fig:refinedpassportsizes}
+    are in comparison
+    to the passport sizes
+    from Section \ref{sec:grouptheorycomputations}.
+    % computed in
+    % Section \ref{sec:grouptheorycomputations}.
+    % Figure
+    % \ref{fig:passportsizes}.
     \begin{figure}[ht]
       \centering
       \begin{tikzpicture}[scale=1]
@@ -6351,7 +6392,7 @@ end for;
       \end{tikzpicture}
       \label{fig:refinedpassportsizes}
       \caption{
-        \# permutation triples with refined passports of various sizes by degree
+        \# permutation triples with refined passports of various sizes by degree.
       }
     \end{figure}
     % Using techniques from
